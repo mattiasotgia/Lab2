@@ -1,0 +1,26 @@
+%% BULLET_POINT
+\def\@sect#1#2#3#4#5#6[#7]#8{\ifnum #2>\c@secnumdepth
+  \let\@svsec\@empty\else
+  \refstepcounter{#1}\edef\@svsec{\csname the#1\endcsname. }\fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa>\z@
+  \begingroup #6\relax
+  \noindent{\hskip #3\relax\@svsec}{\interlinepenalty \@M #8\par}%
+  \endgroup
+  \csname #1mark\endcsname{#7}\addcontentsline
+          {toc}{#1}{\ifnum #2>\c@secnumdepth \else
+            \protect\numberline{\csname the#1\endcsname}\fi
+            #7}\else
+          \def\@svsechd{#6\hskip #3\relax  %% \relax added 2 May 90
+            \@svsec #8\csname #1mark\endcsname
+                    {#7}\addcontentsline
+                    {toc}{#1}{\ifnum #2>\c@secnumdepth \else
+                      \protect\numberline{\csname the#1\endcsname}\fi
+                      #7}}\fi
+          \@xsect{#5}}
+%
+\def\@ssect#1#2#3#4#5{\@tempskipa #3\relax
+  \ifdim \@tempskipa>\z@
+  \begingroup #4\noindent{\hskip #1}{\interlinepenalty \@M #5\par}\endgroup
+  \else \def\@svsechd{#4\hskip #1\relax #5}\fi
+  \@xsect{#3}}

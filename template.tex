@@ -1,0 +1,134 @@
+\documentclass[
+    % rmp,
+    % preprint,
+    % linenumbers,
+    % tightlines,
+    reprint, 
+    superscriptaddress, 
+    altaffilletter, 
+    amsmath, 
+    amssymb, 
+    % nobalancelastpage, 
+    a4paper]{revtex4-2}
+\usepackage[top=1.75cm,bottom=2.5cm,left=1.5cm,right=1.5cm]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[italian]{babel}
+
+\def\andname{e}
+
+%% revtex4-2 bug-fix
+\makeatletter
+\let\it@comma@def\active@comma
+\makeatother
+
+\usepackage{txfonts}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+% \usepackage[
+%     % bookmarksopen=true, 
+%     % citebordercolor={0 1 0}, 
+%     % linkbordercolor={1 0 0}, 
+%     % urlbordercolor={0 1 1}
+% ]{hyperref}% add hypertext capabilities
+% \usepackage[numbered]{bookmark}
+
+\usepackage{physics}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+\fancyfoot[C]{\the\year\twodigits\month\twodigits\day-\thepage}
+\fancyhead[C]{\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+    N. %%NN%%
+    } (\the\year)
+}
+
+\graphicspath{{../fig/}}
+
+\usepackage{lipsum}
+
+\usepackage[american resistors]{circuitikz}
+
+%% Define ref types
+\newcommand{\reftab}[1]{Tabella {\ref{#1}}}%
+\newcommand{\reffig}[1]{Figura {\ref{#1}}}%
+\newcommand{\refeqn}[1]{({\ref{#1}})}%
+\newcommand{\ChiSqr}{$\chi^2$\space}
+\newcommand{\ChiNdf}{$\chi^2/\text{ndf}$}
+\newcommand{\cernroot}{\texttt{root}}
+\newcommand{\treSigma}{$3\sigma$}
+\newcommand{\stdErr}[1]{$\varepsilon_{#1}$}
+\newcommand{\mstdErr}[1]{\varepsilon_{#1}}
+\newcommand{\gLab}{$g_t~=~(~9.8056~\pm~0.0001~\text{ stat}~)~\text{ m/s}^2$}
+%% PAPER ONLY custom Macros
+
+\begin{document}
+
+\title{
+    %%TITLE_HERE%%
+}
+\thanks{
+    Esperinza n. %%NN%%
+}
+
+\author{Mattia Sotgia}
+\email{s4942225@studenti.unige.it}
+\altaffiliation{In presenza in laboratorio per la presa dati}
+\collaboration{Gruppo C03}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\date{Presa dati
+    %%DATE_HERE%%, 15:00– 18:00; Analisi dati 
+    \today
+}
+
+\begin{abstract}
+    \textit{Obiettivo-- }
+    
+    \textit{Metodi-- }
+    
+    \textit{Risultati-- }
+        
+    \textit{Conclusione-- }
+        
+\end{abstract}
+\maketitle
+\thispagestyle{fancy}
+
+%%%% CORPO DEL TESTO
+%%%% CORPO DEL TESTO
+
+\section{Introduzione}
+\label{section:introduction}
+
+% \label{section:strument}
+% \section{Strumentazione}
+
+\section{Metodi}
+\label{section:methods}
+
+% \section{Analisi dati}
+% \label{section:analysis}
+
+\section{Risultati}
+\label{section:results}
+
+\section{Conclusione}
+\label{section:conclusion}
+% \subsection{Controlli}
+% \subsection{Possibili errori sistematici}
+
+\appendix
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A-\Roman{table}}
+
+\section{Dati estesi}
+
+\end{document}
+    

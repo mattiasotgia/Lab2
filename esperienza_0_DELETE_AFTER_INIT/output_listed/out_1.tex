@@ -1,0 +1,135 @@
+{\fontsize{6}{6}
+\begin{verbatim}
+**********
+   METODO VOLT-AMPEROMETRICO PER RICAVARE R1 E R2
+**********
+
+FCN=0.148025 FROM MIGRAD    STATUS=CONVERGED      45 CALLS          46 TOTAL
+                    EDM=2.74849e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0          -3.48275e-04   4.12547e-03   1.66617e-06  -9.84148e-03
+  2  p1           9.91087e-03   3.26730e-05   1.31958e-08  -7.90133e+00
+
+** CHI2 / NDF ( PROB. ) 0.148025 / 5 ( 0.999575 )
+
+** COMPATIBILITA' DI ZERO PER R0 => COMPATIBILE
+
+FCN=0.0638172 FROM MIGRAD    STATUS=CONVERGED      50 CALLS          51 TOTAL
+                    EDM=3.03492e-14    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0          -6.86019e-04   7.62488e-03   2.47655e-06  -3.44546e-05
+  2  p1           3.26516e-02   1.27408e-04   4.13820e-08  -1.71995e-04
+
+** CHI2 / NDF ( PROB. ) 0.0638172 / 5 ( 0.999947 )
+
+** COMPATIBILITA' DI ZERO PER R1 => COMPATIBILE
+
+
+**********
+   CONTROLLO COMPATIBILITA' R1 E R2
+**********
+
+** R1 => COMPATIBILE
+R1 (misurata) 9.9371 +/- 0.00149385 kOhm
+R1 (ricavata) 9.91087 +/- 0.032673 kOhm
+
+** R2 => COMPATIBILE
+R2 (misurata) 32.77 +/- 0.00724806 kOhm
+R2 (ricavata) 32.6516 +/- 0.127408 kOhm
+
+
+**********
+   STUDIO CIRCUITO RC
+**********
+
+** READING FROM FILE ../dati/circuito_RC/dati_azzerati/caricaR1_2.dat
+
+FCN=66680.1 FROM MINOS     STATUS=SUCCESSFUL     16 CALLS         169 TOTAL
+                    EDM=2.88727e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0           9.99259e-01   2.00376e-05   0.00000e+00   1.72605e+01
+  2  p1           1.00453e+01   1.24891e-03   0.00000e+00  -6.13545e-01
+  3  p2           1.13656e-01   8.78720e-04   8.78720e-04  -1.95730e-01
+
+** CHI2 / NDF ( PROB. ) 66680.1 / 113 ( 0 )
+
+V_0/V_I 0.999259 +/- 2.00376e-05 V
+tau     10.0453 +/- 0.00124891 s
+
+** COMPATIBILITA' DI ZERO =>NON-COMPATIBILE
+t_0     0.113656 +/- 0.00087872 s
+
+** READING FROM FILE ../dati/circuito_RC/dati_azzerati/scaricaR1_2.dat
+
+FCN=14884.1 FROM MINOS     STATUS=SUCCESSFUL     12 CALLS          89 TOTAL
+                    EDM=2.22382e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0           9.54209e-01   4.12175e-04   6.75828e-08  -4.98710e-03
+  2  p1           1.05437e+01   1.84963e-03   1.84963e-03  -1.25465e-03
+
+** CHI2 / NDF ( PROB. ) 14884.1 / 88 ( 0 )
+
+V_0/V_I 0.954209 +/- 0.000412175 V
+tau     10.5437 +/- 0.00184963 s
+
+** READING FROM FILE ../dati/circuito_RC/dati_azzerati/caricaR2_2.dat
+
+FCN=3856.21 FROM MINOS     STATUS=SUCCESSFUL     40 CALLS         254 TOTAL
+                    EDM=6.04053e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0           9.96983e-01   7.52169e-05  -2.48891e-07  -2.63551e-01
+  2  p1           3.33239e+01   9.48424e-03  -4.19678e-05   2.62352e-03
+  3  p2           3.44903e-02   4.95656e-03   4.95656e-03  -1.48931e-02
+
+** CHI2 / NDF ( PROB. ) 3856.21 / 87 ( 0 )
+
+V_0/V_I 0.996983 +/- 7.52169e-05 V
+tau     33.3239 +/- 0.00948424 s
+
+** COMPATIBILITA' DI ZERO =>NON-COMPATIBILE
+t_0     0.0344903 +/- 0.00495656 s
+
+** READING FROM FILE ../dati/circuito_RC/dati_azzerati/scaricaR2_2.dat
+
+FCN=5181.59 FROM MINOS     STATUS=SUCCESSFUL     12 CALLS          97 TOTAL
+                    EDM=8.39373e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ EXT PARAMETER                                   STEP         FIRST   
+ NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+  1  p0           9.80445e-01   1.74132e-04   3.07311e-08  -4.63678e-03
+  2  p1           3.39966e+01   4.02596e-03   4.02596e-03  -3.38165e-04
+
+** CHI2 / NDF ( PROB. ) 5181.59 / 87 ( 0 )
+
+V_0/V_I 0.980445 +/- 0.000174132 V
+tau     33.9966 +/- 0.00402596 s
+
+
+**********
+   STIMA DELLA CAPACITA' C 
+**********
+
+C (da carica R1)  1.01357 +/- 0.00334379 mF
+C (da scarica R1) 1.06385 +/- 0.00351215 mF
+C (da carica R2)  1.02059 +/- 0.00399299 mF
+C (da scarica R2) 1.04119 +/- 0.00406466 mF
+
+** COMPATIBILITA' TRA C[0] E C[1] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[0] E C[2] => COMPATIBILE
+** COMPATIBILITA' TRA C[0] E C[3] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[1] E C[0] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[1] E C[2] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[1] E C[3] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[2] E C[0] => COMPATIBILE
+** COMPATIBILITA' TRA C[2] E C[1] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[2] E C[3] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[3] E C[0] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[3] E C[1] => NON-COMPATIBILE
+** COMPATIBILITA' TRA C[3] E C[2] => NON-COMPATIBILE
+
+\end{verbatim}
+}

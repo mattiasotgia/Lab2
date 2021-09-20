@@ -1,0 +1,54 @@
+# ignore invisible file
+
+**/.vscode
+**/.DS_Store
+
+#ignore swap files emacs
+
+**/*~
+**/\#*
+**/*.swp
+
+
+#ignore setup.py log file
+
+setup.log
+
+# latex files
+
+**/*.aux
+**/*.fdb_latexmk
+**/*.fls
+
+**/*.synctex.gz
+
+# jupyter/notebook
+
+.ipynb_checkpoints
+
+# python cache
+**/__pycache__
+**/*.pyc
+
+# test ipynb
+
+test.ipynb
+
+.idea
+lab_c03.code-workspace
+
+# excel files and swp
+**/*.xlsx
+
+# word files and swp
+**/*.docx
+
+# ignore ai masters
+**/*.ai
+
+#ignore psd masters
+
+**/*.psd
+
+#not imported in github
+**/_misc_IMG

@@ -1,0 +1,121 @@
+\documentclass[italian, a4paper, 10pt, twocolumn]{../../style/lab_unige}
+\usepackage[a4paper, margin=1.75cm, footskip=0.25in]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[italian]{babel}
+
+% \usepackage{biblatex}
+
+\usepackage[bookmarksopen=true, citebordercolor={0 1 0}, linkbordercolor={1 0 0}, urlbordercolor={0 1 1}]{hyperref}
+\usepackage[numbered]{bookmark}
+
+\usepackage{graphicx}
+\graphicspath{{../fig/}}
+\usepackage{array}
+\usepackage{tabulary}
+\usepackage{booktabs}
+
+% FOUNDAMENTAL
+\usepackage{../../style/custom}
+
+\usepackage{physics}
+
+\usepackage{breqn}
+\usepackage{cuted}
+\usepackage{txfonts}
+
+\usepackage{lipsum}
+
+\usepackage[american resistors]{circuitikz}
+
+%% Define ref types
+\newcommand{\reftab}[1]{Tabella {\ref{#1}}}%
+\newcommand{\reffig}[1]{Figura {\ref{#1}}}%
+\newcommand{\refeqn}[1]{({\ref{#1}})}%
+\newcommand{\ChiSqr}{$\chi^2$\space}
+\newcommand{\ChiNdf}{$\chi^2/\text{ndf}$}
+\newcommand{\cernroot}{\texttt{root}}
+\newcommand{\treSigma}{$3\sigma$}
+\newcommand{\stdErr}[1]{$\varepsilon_{#1}$}
+\newcommand{\mstdErr}[1]{\varepsilon_{#1}}
+\newcommand{\gLab}{$g_t~=~(~9.8056~\pm~0.0001~\text{ stat}~)~\text{ m/s}^2$}
+%% PAPER ONLY custom Macros
+
+
+%%
+\setlength{\columnsep}{6mm}
+
+\begin{document}
+\title{
+    %%TITLE_HERE%%
+}
+\author{
+%% altri autori qui %%
+Mattia Sotgia\textsuperscript{1}
+}
+
+\date{
+    \textit{
+    \textsuperscript{1}Gruppo A00, Esperienza di laboratorio n. %%NN%% \\
+    %\textsuperscript{2}In presenza in laboratorio per la presa dati\\
+    Università degli Studi di Genova, Dipartimento di Fisica.\\
+    }
+    \vspace{2ex}
+    (Presa dati
+    %%DATE_HERE%%, 15:00– 18:00; Analisi dati 
+    <end-date here>)
+}
+    \twocolumn[
+    \begin{@twocolumnfalse}
+        \maketitle
+        
+        \begin{abstract}
+            \textit{Obiettivo-- }
+        
+            \textit{Metodi-- }
+        
+            \textit{Risultati-- }
+        
+            \textit{Conclusione-- }
+        
+        
+        \end{abstract}
+        \vspace{2em}
+    \end{@twocolumnfalse}
+    ]
+
+    %%%% CORPO DEL TESTO
+    %%%% CORPO DEL TESTO
+
+    \section{Introduzione}
+    \label{section:introduction}
+
+    % \section{Strumentazione}
+    % \label{section:strument}
+
+    \section{Metodi}
+    \label{section:methods}
+
+    % \section{Analisi dati}
+    % \label{section:analysis}
+
+    \section{Risultati}
+    \label{section:results}
+
+    \section{Conclusione}
+    \label{section:conclusion}
+    % \subsection{Controlli}
+    % \subsection{Possibili errori sistematici}
+
+    \appendix
+
+    \setcounter{table}{0}
+    \renewcommand{\thetable}{A\arabic{table}}
+
+    \section{Dati estesi}
+    
+
+\end{document}
+    
