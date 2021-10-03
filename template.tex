@@ -8,73 +8,17 @@
     altaffilletter, 
     amsmath, 
     amssymb, 
-    % nobalancelastpage, 
     a4paper]{revtex4-2}
-\usepackage[top=1.75cm,bottom=2.5cm,left=1.5cm,right=1.5cm]{geometry}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\input{../../style/preamble.tex}
 
-\usepackage[italian]{babel}
-
-%% revtex4-2 bug-fix
-\def\andname{e}
-%--------------------
-\makeatletter
-\let\it@comma@def\active@comma
-\makeatother
-
-\usepackage{txfonts}
-\usepackage{graphicx}% Include figure files
-\usepackage{dcolumn}% Align table columns on decimal point
-\usepackage{bm}% bold math
-% \usepackage[
-%     % bookmarksopen=true, 
-%     % citebordercolor={0 1 0}, 
-%     % linkbordercolor={1 0 0}, 
-%     % urlbordercolor={0 1 1}
-% ]{hyperref}% add hypertext capabilities
-% \usepackage[numbered]{bookmark}
-
-\usepackage{physics}
-
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
 \fancyfoot[C]{
-    \the\year\twodigits\month\twodigits\day
-    /%%NN%%
-    -
-    \thepage
+    \the\year\twodigits\month\twodigits\day/%%NN%%-\thepage
 }
 \fancyhead[C]{\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
     N. 00%%NN%% % ! <== CAMBIARE (Nessuna rel.-> 00)
     } (\the\year)
 }
-
-\graphicspath{{../fig/}}
-
-\usepackage{lipsum}
-\usepackage{background}
-\SetBgColor{gray}
-\SetBgAngle{90}
-\SetBgScale{2}
-\SetBgVshift{0.27\textwidth}
-
-\usepackage[american resistors]{circuitikz}
-
-%% Define ref types
-\newcommand{\reftab}[1]{Tabella {\ref{#1}}}%
-\newcommand{\reffig}[1]{Figura {\ref{#1}}}%
-\newcommand{\refeqn}[1]{({\ref{#1}})}%
-\newcommand{\ChiSqr}{$\chi^2$\space}
-\newcommand{\ChiNdf}{$\chi^2/\text{ndf}$}
-\newcommand{\cernroot}{\texttt{root}}
-\newcommand{\treSigma}{$3\sigma$}
-\newcommand{\stdErr}[1]{$\varepsilon_{#1}$}
-\newcommand{\mstdErr}[1]{\varepsilon_{#1}}
-%% PAPER ONLY custom Macros
 
 \begin{document}
 
@@ -88,8 +32,8 @@
 \author{Francesco Polleri}
 \email{s5025011@studenti.unige.it}
 \author{Mattia Sotgia}
-\altaffiliation{In presenza in laboratorio per la presa dati}
 \email{s4942225@studenti.unige.it}
+\altaffiliation{In presenza in laboratorio per la presa dati}
 
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
