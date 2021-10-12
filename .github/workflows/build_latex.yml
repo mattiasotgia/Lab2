@@ -9,15 +9,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
-    - name: Compile e2 Latex document
+    - name: Compile e1 Latex document
       uses: dante-ev/latex-action@master
       with:
-        root_file: esperienza_2_2021_08_18.tex
-        working_directory: esperienza_2__test_2/relazione/
+        root_file: esperienza_1_2021_10_12.tex
+        working_directory: esperienza_1__filtro_primo_ordine/relazione/
     - env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: startsWith(github.ref, 'refs/tags/')
       name: Relase latests papers
       uses: softprops/action-gh-release@v1
       with:
-        files: esperienza_2__test_2/relazione/esperienza_2_2021_08_18.pdf
+        files: esperienza_1__filtro_primo_ordine/relazione/esperienza_1_2021_10_12.pdf
