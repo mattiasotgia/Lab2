@@ -12,12 +12,12 @@
 
 using namespace std;
 
-double incertezza_1(double fsin){
-  double e_Vin=8*0.035*sqrt(3)*fsin;
+double incertezza_1(double fsin){  //funzione calcolo incertezza a partire da fondo scala
+  double e_Vin=8*0.035*fsin/sqrt(3);
   return e_Vin;
 }
 
-double incertezza_2(double vin,double vout,double evin, double evout){
+double incertezza_2(double vin,double vout,double evin, double evout){  //funzione calcolo propagazione errore statistici
   double eh=sqrt(pow(evin/vin,2)+pow(evout/vout,2));
   return eh;
 }
@@ -36,12 +36,17 @@ int main(){
     return 1;
   }
 
-  const double R=50;
+  const double R=50;              //fisso i valori di R e C
   const double C=0.00000000001;
+  
   double Vin,Vout,fsVin,fsVout,T,fsT,dt,fsdt;
+  
   int i=0;
+  
   TGraphErrors g;
   TGraphErrors x;
+
+  vector<double> vH,veH,vw,vew,vphi,vephi;
   
   while(file>>Vin>>fsVin>>Vout>>fsVout>>T>>fsT>>dt>>fsdt){
    double eVin=incertezza_1(fsVin);
@@ -57,35 +62,58 @@ int main(){
    double ew=2*M_PI*eT;
    double ephi=incertezza_2(dt,T,edt,T)*2*M_PI;
 
+   vH.push_back(H);
+   veH.push_back(eH);
+   vw.push_back(w);
+   vew.push_back(ew);
+   vphi.push_back(phi);
+   vephi.push_back(ephi);
+
    g.SetPoint(i,w,H);
    g.SetPointError(i,ew,eH);
 
    x.SetPoint(i,w,phi);
    x.SetPointError(i,ew,ephi);
 
-   
+   ofstream ofile;  //parte per la scrittura file con i dati ottenuti
+   ofile.open("dati.dat");
+   for(int n=0;n<vH.size();n++){
+     ofile<<vH[n]<<" "<<veH[n]<<" "<<vw[n]<<" "<<vew[n]<<" "<<vphi[n]<<" "<<vephi[n]<<endl;;
+   }
+  
    i++;
   }
+  
   TCanvas can1("can1","titolo1",800,500);
   can1.cd();
-  TF1 f("f","1/sqrt(1+pow([0]/[1],2))");
-  f.FixParameter(1,R*C);
-  
+  TF1 f("f","1/sqrt(1+pow(x/[0],2))");
+  f.SetParameter(0,R*C);
   g.Fit("f");
   g.Draw("ap");
+  
   TCanvas can2("can2","titolo2",800,500);
   can2.cd();
+  TF1 y("y","-atan(x/[0])");
+  y.SetParameter(0,R*C);
+  x.Fit("y");
   x.Draw("ap");
 
+  double Chi2_1=f.GetChisquare();
+  double Chi2_2=y.GetChisquare();
+
+  double prob1=f.GetProb();
+  double prob2=y.GetProb();
+
+  double w0_1=f.GetParameter(0);
+  double w0_2=y.GetParameter(0);
+
+  cout<<"chi2_2="<<Chi2_2<<endl;
+
+  cout<<"prob_2="<<prob2<<endl;
+
+  cout<<"w0_2="<<w0_2<<endl;
+
  
-
-  /*  TF1 f("f","1/sqrt(1+pow([0]/[1],2))");
-   f.FixParameter(1,R*C);
-  
-    g.Fit("f");
-  */
-
-   
     
  app.Run();
    return 0;
