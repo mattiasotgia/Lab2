@@ -107,11 +107,15 @@ int main(){
   double w0_1=f.GetParameter(0);
   double w0_2=y.GetParameter(0);
 
-  cout<<"chi2_2="<<Chi2_2<<endl;
+  double ew0_1=f.GetParError(0);
+  double ew0_2=y.GetParError(0);
 
-  cout<<"prob_2="<<prob2<<endl;
+  cout<<"Il valore di chi^2 del fit della funzione di traferimento="<<Chi2_1<<" e la sua probabilità è:"<<prob1<<endl;
 
-  cout<<"w0_2="<<w0_2<<endl;
+ cout<<"Il valore di chi^2 del fit della fase="<<Chi2_2<<" e la sua probabilità è:"<<prob2<<endl;
+
+ cout<<"Il valore di w0 ottenuto dal primo fit= "<<w0_1<<" +/- "<<ew0_1<<endl;
+ cout<<"Il valore di w0 ottenuto dal secondo fit= "<<w0_2<<" +/- "<<ew0_2<<endl;
 
  
     
