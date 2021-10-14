@@ -97,6 +97,8 @@ int main()
   f.SetParameter(0, R * C);
   g.Fit("f");
   g.Draw("ap");
+  gPad->SetLogx();
+  gPad->SetLogy();
 
   TCanvas can2("can2", "titolo2", 800, 500);
   can2.cd();
@@ -104,6 +106,8 @@ int main()
   y.SetParameter(0, R * C);
   x.Fit("y");
   x.Draw("ap");
+  xPad->SetLogx();
+  xPad->SetLogy();
 
   double Chi2_1 = f.GetChisquare();
   double Chi2_2 = y.GetChisquare();
