@@ -117,6 +117,12 @@ int main(){
  cout<<"Il valore di w0 ottenuto dal primo fit= "<<w0_1<<" +/- "<<ew0_1<<endl;
  cout<<"Il valore di w0 ottenuto dal secondo fit= "<<w0_2<<" +/- "<<ew0_2<<endl;
 
+ if{|w0_1-w0_2|<3*sqrt(pow(ew0_1/w0_1,2)+pow(ew0_2/w0_2,2))}
+  cout<<"I due valori di w0 ricavati dai fit sono compatibili"<<endl;
+}
+else{
+  cout<<"I due valori di w0 ricavati dai fit NON sono compatibili"<<endl;
+}
  
     
  app.Run();
