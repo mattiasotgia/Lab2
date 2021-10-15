@@ -23,15 +23,20 @@ double incertezza_2(double vin, double vout, double evin, double evout)
   double eh = sqrt(pow(evin / vin, 2) + pow(evout / vout, 2));
   return eh;
 }
-
-int main()
+ 
+int main(int argc, char** argv)
 {
 
   TApplication app("app", 0, 0);
-
+  
   string nomefile;
-  cout << "digita nome file input" << endl;
-  cin >> nomefile;
+
+  if(argc<2){
+    cout << "digita nome file input" << endl;
+    cin >> nomefile;
+  }else{
+    nomefile = argv[2];
+  }
 
   ifstream file(nomefile);
   if (!file.good())
@@ -126,7 +131,7 @@ int main()
  cout<<"Il valore di w0 ottenuto dal primo fit= "<<w0_1<<" +/- "<<ew0_1<<endl;
  cout<<"Il valore di w0 ottenuto dal secondo fit= "<<w0_2<<" +/- "<<ew0_2<<endl;
 
- if(|w0_1-w0_2|<3*sqrt(pow(ew0_1/w0_1,2)+pow(ew0_2/w0_2,2))){
+ if(abs(w0_1-w0_2)<3*sqrt(pow(ew0_1/w0_1,2)+pow(ew0_2/w0_2,2))){
   cout<<"I due valori di w0 ricavati dai fit sono compatibili"<<endl;
 }   
 else{
