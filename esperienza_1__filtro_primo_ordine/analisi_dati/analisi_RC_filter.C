@@ -15,6 +15,12 @@
 
 const double title_size = 21;
 
+std::string rawdata="../dati/test_dati.txt";
+
+// fisso i valori di R e C ???
+const double R = 50;
+const double C = 0.00000000001;
+
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
         << " **********" << std::endl
@@ -97,10 +103,6 @@ double get_Err2(double G1, double G2, double eG1, double eG2){
   return std::sqrt(std::pow(max_to_stat(eG1) / G1, 2) + std::pow(max_to_stat(eG2) / G2, 2));
 }
 
-// fisso i valori di R e C ???
-const double R = 50;
-const double C = 0.00000000001;
-
 void analisi_RC_filter(){
 
     // todo:
@@ -119,7 +121,6 @@ void analisi_RC_filter(){
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
-    std::string rawdata="../dati/presadati1.txt";
     std::ifstream data(rawdata.c_str());
 
     std::ofstream out_rawdata("../misc/rawdata.txt"); // carbon copy of original data
@@ -141,39 +142,100 @@ void analisi_RC_filter(){
     H_fit->SetParameter(0, 10e4);
 
     TGraphErrors* H_resd = new TGraphErrors();
-    TF1* H_res_f = new TF1("rf", "0", 0, 1100);
+    TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
     H_res_f->SetLineStyle(2);
+
+    TLatex* header = new TLatex();
+    header->SetTextFont(43);
+    header->SetTextSize(15);
 
     TPad* Hp1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
     TPad* Hp2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
     Hp1->SetMargin(0.14, 0.06, 0.0, 0.06);
     Hp1->SetFillStyle(4000);
+    Hp1->SetLogx();
+    Hp1->SetLogy();
     Hp1->Draw();
     Hp2->SetMargin(0.14, 0.06, 0.4, 1.0);
     Hp2->SetFillStyle(4000);
+    Hp2->SetLogx();
     Hp2->Draw();
+
+    set_TGraphAxis(H_plot, "Funzione di trasferimento |H(#nu)| [Db]");
+    set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
+
+
+
+    // Analisi 2do diagramma di BODE, phi su w
+    c1->cd(2);
+
+    TGraphErrors* phi_plot = new TGraphErrors();
+    TF1* phi_fit = new TF1("phi_f", "-atan(x/[0])");
+    phi_fit->SetParameter(0, 10e4);
+
+    TGraphErrors* phi_resd = new TGraphErrors();
+    TF1* phi_res_f = new TF1("phi_rf", "0", 10, 10e6);
+    phi_res_f->SetLineStyle(2);
+
+    TLatex* phi_header = new TLatex();
+    phi_header->SetTextFont(43);
+    phi_header->SetTextSize(15);
+
+    TPad* phi_p1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
+    TPad* phi_p2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
+    phi_p1->SetMargin(0.14, 0.06, 0.0, 0.06);
+    phi_p1->SetFillStyle(4000);
+    phi_p1->SetLogx();
+    phi_p1->Draw();
+    phi_p2->SetMargin(0.14, 0.06, 0.4, 1.0);
+    phi_p2->SetFillStyle(4000);
+    phi_p2->SetLogx();
+    phi_p2->Draw();
+
+    set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
+    set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
-        double eVin = max_to_stat(get_RangeErr(0.035, 8, fsVin));
-        double eVout = max_to_stat(get_RangeErr(0.035, 8, fsVout));
-        double eT = max_to_stat(get_RangeErr(0.035, 8, fsT));
-        double edt = max_to_stat(get_RangeErr(0.035, 8, fsdt));
+        double eVin = max_to_stat(get_RangeErr(0.035, 8, fsVin)); // ! RIVEDERE calcolo errore
+        double eVout = max_to_stat(get_RangeErr(0.035, 8, fsVout)); // ! RIVEDERE calcolo errore
+        double eT = max_to_stat(get_RangeErr(0.035, 8, fsT)); // ! RIVEDERE calcolo errore
+        double edt = max_to_stat(get_RangeErr(0.035, 8, fsdt)); // ! RIVEDERE calcolo errore
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
-        H_plot->SetPoint(i, Vout / Vin, 1 / T);
-        H_plot->SetPointError(i, get_Err2(Vin, Vout, eVin, eVout), eT);
+        H_plot->SetPoint(i, 1 / T, Vout / Vin);
+        H_plot->SetPointError(i, eT/pow(T, 2), get_Err2(Vin, Vout, eVin, eVout)); // ! RIVEDERE calcolo errore
+
+        phi_plot->SetPoint(i, 1 / T, 2 * M_PI * dt / T);
+        phi_plot->SetPointError(i, eT/pow(T, 2), 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2))); // ! RIVEDERE calcolo errore
+
+
+        out_computeddata << Vout / Vin << " " << get_Err2(Vin, Vout, eVin, eVout) << " "
+                         << 2 * M_PI * dt / T << " " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << " "
+                         << 1 / T << " " << eT/pow(T, 2) << std::endl;
     }
     out_rawdata << "EOF" << std::endl;
     out_cleandata << "EOF" << std::endl;
+    out_computeddata << "EOF" << std::endl;
 
 
-
+    // Grafico 1 Bode
+    print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
     H_plot->Fit("Hf");
 
+    std::string H_stat="#chi^{2}/ndf (prob.) = "
+            +std::to_string(H_fit->GetChisquare())+"/"
+            +std::to_string(H_fit->GetNDF())
+            +" ("+std::to_string(H_fit->GetProb())+")";
+
+    header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{B} 1 #circ diagramma di Bode}{" + H_stat + "}").c_str());
+
+    print_stat(H_fit);
+
+    // RESIDUI
     Hp2->cd();
 
     for(int i=0; i<H_plot->GetN(); i++){
@@ -183,20 +245,38 @@ void analisi_RC_filter(){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    set_TGraphAxis(H_plot, "|H(#omega)| [Db]");
-    set_ResidualsAxis(H_resd, "#omega [2#pi Hz]");
+    double frequenza_taglio_amp = H_fit->GetParameter(0);
+    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " Hz" << std::endl;
 
-    // todo: salvare il file come pdf, aggiungere statistiche analisi dati
+    // Grafico 2 Bode
+    print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
+    phi_p1->cd();
+    phi_plot->Draw("ap");
+    phi_plot->Fit("phi_f");
 
-    // Analisi 2do diagramma di BODE, phi su w
-    c1->cd(2);
+    std::string phi_stat="#chi^{2}/ndf (prob.) = "
+            +std::to_string(phi_fit->GetChisquare())+"/"
+            +std::to_string(phi_fit->GetNDF())
+            +" ("+std::to_string(phi_fit->GetProb())+")";
 
+    phi_header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{A} 2 #circ diagramma di Bode}{" + phi_stat + "}").c_str());
 
+    print_stat(phi_fit);
 
+    // RESIDUI
+    phi_p2->cd();
 
+    for(int i=0; i<phi_plot->GetN(); i++){
+            phi_resd->SetPoint(i, phi_plot->GetX()[i], (phi_plot->GetY()[i] - phi_fit->Eval(phi_plot->GetX()[i]))/phi_plot->GetEY()[i]);
+            phi_resd->SetPointError(i, 0, 1);
+    }
+    phi_resd->Draw("ap");
+    phi_res_f->Draw("same");
 
+    double frequenza_taglio_fase = phi_fit->GetParameter(0);
+    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " Hz" << std::endl;
 
-    
+    // todo: salvare il file come pdf
 
     return;
 }
