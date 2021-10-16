@@ -102,6 +102,9 @@ int main(int argc, char** argv)
   f.SetParameter(0, R * C);
   g.Fit("f");
   g.Draw("ap");
+  g.SetTitle("Funzione di trasferimento vs w;w[rad/s];|H(w)|");
+  can1.SetLogx();
+  can1.SetLogy();
  
 
   TCanvas can2("can2", "titolo2", 800, 500);
@@ -110,6 +113,8 @@ int main(int argc, char** argv)
   y.SetParameter(0, R * C);
   x.Fit("y");
   x.Draw("ap");
+  x.SetTitle("Fase phi vs w;w[rad/s];phi[rad]")
+  can2.SetLogx();
  
 
   double Chi2_1 = f.GetChisquare();
