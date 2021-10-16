@@ -118,7 +118,7 @@ int main(int argc, char** argv)
   y.SetParameter(0, R * C);
   x.Fit("y");
   x.Draw("ap");
-  x.SetTitle("Fase phi vs w;w[rad/s];phi[rad]")
+  x.SetTitle("Fase phi vs w;w[rad/s];phi[rad]");
   can2.SetLogx();
  
 
