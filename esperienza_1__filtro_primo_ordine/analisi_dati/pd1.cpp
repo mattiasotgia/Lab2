@@ -1,16 +1,23 @@
-#include <TApplication.h>
-#include <TGraphErrors.h>
-#include <TGraph.h>
-#include <TF1.h>
-#include <TAxis.h>
-#include <TCanvas.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cmath>
+#include<vector>
+#include<cmath>
+#include<iostream>
+#include<fstream>
+#include<string>
+
+#include<TApplication.h>
+#include<TCanvas.h>
+#include<TGraphErrors.h>
+#include<TF1.h>
+#include<TStyle.h>
+#include<TAxis.h>
+#include<TMath.h>
+#include<TLatex.h>
+#include<TLegend.h>
 
 using namespace std;
+
+const double R = 50; //fisso i valori di R e C
+const double C = 0.00000000001;
 
 double incertezza_1(double fsin)
 { //funzione calcolo incertezza a partire da fondo scala
@@ -45,8 +52,6 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  const double R = 50; //fisso i valori di R e C
-  const double C = 0.00000000001;
 
   double Vin, Vout, fsVin, fsVout, T, fsT, dt, fsdt;
 
@@ -124,21 +129,22 @@ int main(int argc, char** argv)
   double ew0_1=f.GetParError(0);
   double ew0_2=y.GetParError(0);
 
-  cout<<"Il valore di chi^2 del fit della funzione di traferimento="<<Chi2_1<<" e la sua probabilità è:"<<prob1<<endl;
+  cout << "Il valore di chi^2 del fit della funzione di traferimento=" << Chi2_1 << " e la sua probabilità è:" << prob1 << endl;
 
- cout<<"Il valore di chi^2 del fit della fase="<<Chi2_2<<" e la sua probabilità è:"<<prob2<<endl;
+  cout << "Il valore di chi^2 del fit della fase=" << Chi2_2 << " e la sua probabilità è:" << prob2 << endl;
 
- cout<<"Il valore di w0 ottenuto dal primo fit= "<<w0_1<<" +/- "<<ew0_1<<endl;
- cout<<"Il valore di w0 ottenuto dal secondo fit= "<<w0_2<<" +/- "<<ew0_2<<endl;
+  cout << "Il valore di w0 ottenuto dal primo fit= " << w0_1 << " +/- " << ew0_1 << endl;
+  cout << "Il valore di w0 ottenuto dal secondo fit= " << w0_2 << " +/- " << ew0_2 << endl;
 
- if(abs(w0_1-w0_2)<3*sqrt(pow(ew0_1/w0_1,2)+pow(ew0_2/w0_2,2))){
-  cout<<"I due valori di w0 ricavati dai fit sono compatibili"<<endl;
-}   
-else{
-  cout<<"I due valori di w0 ricavati dai fit NON sono compatibili"<<endl;
-}
- 
-    
- app.Run();
-   return 0;
+  if (abs(w0_1 - w0_2) < 3 * sqrt(pow(ew0_1 / w0_1, 2) + pow(ew0_2 / w0_2, 2)))
+  {
+    cout << "I due valori di w0 ricavati dai fit sono compatibili" << endl;
+  }
+  else
+  {
+    cout << "I due valori di w0 ricavati dai fit NON sono compatibili" << endl;
+  }
+
+  app.Run();
+  return 0;
 }
