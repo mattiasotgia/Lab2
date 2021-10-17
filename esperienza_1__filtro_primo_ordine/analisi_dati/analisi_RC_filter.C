@@ -49,7 +49,7 @@ std::string compatible(double G1, double errG1,
 void set_TGraphAxis(TGraphErrors* g, std::string ytitle){
     g->SetTitle("");
     g->GetYaxis()->SetTitle(ytitle.c_str());
-    g->GetYaxis()->SetTitleOffset(2);
+    g->GetYaxis()->SetTitleOffset(2.5);
     g->GetYaxis()->SetTitleFont(43);
     g->GetYaxis()->SetTitleSize(title_size);
     g->GetYaxis()->SetLabelFont(43);
@@ -66,7 +66,7 @@ void set_ResidualsAxis(TGraphErrors* rg, std::string xtitle, std::string ytitle=
     rg->GetXaxis()->SetTitleSize(title_size);
 
     rg->GetYaxis()->SetTitle(ytitle.c_str());
-    rg->GetYaxis()->SetTitleOffset(2);
+    rg->GetYaxis()->SetTitleOffset(2.5);
     rg->GetYaxis()->SetTitleFont(43);
     rg->GetYaxis()->SetTitleSize(title_size);
     rg->GetYaxis()->CenterTitle();
@@ -278,7 +278,7 @@ void analisi_RC_filter(){
     std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " Hz" << std::endl;
 
 
-    set_TGraphAxis(H_plot, "Funzione di trasferimento |H(#nu)| [Db]");
+    set_TGraphAxis(H_plot, "Gain #left|H(#nu)#right| [Db]");
     set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
 
 
