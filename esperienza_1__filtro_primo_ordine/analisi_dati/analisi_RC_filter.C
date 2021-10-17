@@ -55,6 +55,8 @@ void set_TGraphAxis(TGraphErrors* g, std::string ytitle){
     g->GetYaxis()->SetLabelFont(43);
     g->GetYaxis()->SetLabelSize(12);
     g->GetYaxis()->CenterTitle();
+
+    g->GetXaxis()->SetTickLength(0.05);
 }
 
 void set_ResidualsAxis(TGraphErrors* rg, std::string xtitle, std::string ytitle="Residui [#sigma]"){
@@ -75,6 +77,8 @@ void set_ResidualsAxis(TGraphErrors* rg, std::string xtitle, std::string ytitle=
     rg->GetXaxis()->SetLabelFont(43);
     rg->GetXaxis()->SetLabelSize(12);
     rg->GetXaxis()->CenterTitle();
+
+    rg->GetXaxis()->SetTickLength(0.08);
 }
 
 double max_to_stat(double value){
@@ -87,7 +91,7 @@ double max_to_stat(double value){
 //              | T (periodi)        | ?.?%       | ?          | variabile
 
 double get_RangeErr(double errPercent, int partitions, double range1){ 
-  return errPercent * partitions *  range1;
+  return errPercent * partitions *  range1; // TODO: controllare calcolo errori
 }
 
 double getH(double vin, double vout){
@@ -161,10 +165,6 @@ void analisi_RC_filter(){
     Hp2->SetLogx();
     Hp2->Draw();
 
-    set_TGraphAxis(H_plot, "Funzione di trasferimento |H(#nu)| [Db]");
-    set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
-
-
 
     // Analisi 2do diagramma di BODE, phi su w
     c1->cd(2);
@@ -192,8 +192,6 @@ void analisi_RC_filter(){
     phi_p2->SetLogx();
     phi_p2->Draw();
 
-    set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
-    set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
@@ -276,7 +274,15 @@ void analisi_RC_filter(){
     double frequenza_taglio_fase = phi_fit->GetParameter(0);
     std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " Hz" << std::endl;
 
-    // todo: salvare il file come pdf
+
+    set_TGraphAxis(H_plot, "Funzione di trasferimento |H(#nu)| [Db]");
+    set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
+
+
+    set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
+    set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
+
+    // TODO: salvare il file come pdf
 
     return;
 }
