@@ -98,13 +98,16 @@ double getH(double vin, double vout){
     return vout / vin;
 }
 
+double get_HErr(double Vin, double Vout, double eVin, double eVout){ 
+  return sqrt(pow(eVout / Vin, 2) + pow(eVin * Vout / pow(Vin, 2), 2));
+}
+
 double get_phi(double T, double dt){
     return 2 * M_PI * dt / T;
 }
 
-// funzione calcolo propagazione errore statistici
-double get_Err2(double G1, double G2, double eG1, double eG2){ 
-  return std::sqrt(std::pow(max_to_stat(eG1) / G1, 2) + std::pow(max_to_stat(eG2) / G2, 2));
+double get_phiErr(double T, double dt, double eT, double edt){
+    return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
 }
 
 void analisi_RC_filter(){
@@ -203,13 +206,13 @@ void analisi_RC_filter(){
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
         H_plot->SetPoint(i, 1 / T, Vout / Vin);
-        H_plot->SetPointError(i, eT/pow(T, 2), get_Err2(Vin, Vout, eVin, eVout)); // ! RIVEDERE calcolo errore
+        H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout)); // // ! RIVEDERE calcolo errore
 
         phi_plot->SetPoint(i, 1 / T, 2 * M_PI * dt / T);
-        phi_plot->SetPointError(i, eT/pow(T, 2), 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2))); // ! RIVEDERE calcolo errore
+        phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt)); // // ! RIVEDERE calcolo errore
 
 
-        out_computeddata << Vout / Vin << " " << get_Err2(Vin, Vout, eVin, eVout) << " "
+        out_computeddata << Vout / Vin << " " << get_HErr(Vin, Vout, eVin, eVout) << " "
                          << 2 * M_PI * dt / T << " " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << " "
                          << 1 / T << " " << eT/pow(T, 2) << std::endl;
     }
@@ -229,7 +232,7 @@ void analisi_RC_filter(){
             +std::to_string(H_fit->GetNDF())
             +" ("+std::to_string(H_fit->GetProb())+")";
 
-    header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{B} 1 #circ diagramma di Bode}{" + H_stat + "}").c_str());
+    header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}").c_str());
 
     print_stat(H_fit);
 
@@ -257,7 +260,7 @@ void analisi_RC_filter(){
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{A} 2 #circ diagramma di Bode}{" + phi_stat + "}").c_str());
+    phi_header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
 
     print_stat(phi_fit);
 
