@@ -90,8 +90,11 @@ double max_to_stat(double value){
 //              | V (tensione)       | 3.5%       | 8          | variabile
 //              | T (periodi)        | ?.?%       | ?          | variabile
 
-double get_RangeErr(double errPercent, int partitions, double range1){ 
+double get_VRangeErr(double errPercent, int partitions, double range1){ 
   return errPercent * partitions *  range1; // TODO: controllare calcolo errori
+}
+double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){
+    return range1 * errPercent * partition;
 }
 
 double getH(double vin, double vout){
@@ -198,10 +201,19 @@ void analisi_RC_filter(){
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
-        double eVin = max_to_stat(get_RangeErr(0.035, 8, fsVin)); // ! RIVEDERE calcolo errore
-        double eVout = max_to_stat(get_RangeErr(0.035, 8, fsVout)); // ! RIVEDERE calcolo errore
-        double eT = max_to_stat(get_RangeErr(0.035, 8, fsT)); // ! RIVEDERE calcolo errore
-        double edt = max_to_stat(get_RangeErr(0.035, 8, fsdt)); // ! RIVEDERE calcolo errore
+        double eVin, eVout;
+        if(fsVin<=0.01){
+            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin)); // ! RIVEDERE calcolo errore
+        }else{
+            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin)); // ! RIVEDERE calcolo errore
+        }
+        if(fsVout<=0.01){
+            eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout)); // ! RIVEDERE calcolo errore
+        }else{
+            eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout)); // ! RIVEDERE calcolo errore
+        }
+        double eT = max_to_stat(get_TRangeErr(fsT)); // ! RIVEDERE calcolo errore
+        double edt = max_to_stat(get_TRangeErr(fsdt)); // ! RIVEDERE calcolo errore
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
