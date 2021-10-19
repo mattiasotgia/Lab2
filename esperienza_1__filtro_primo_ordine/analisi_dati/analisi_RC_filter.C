@@ -16,6 +16,13 @@
 const double title_size = 21;
 
 std::string rawdata="../dati/test_dati.txt";
+// I dati sono stati ricavati dal file dati.dat forniti su aulaweb, svolgendo i seguenti calcoli per rendere il file come 
+// previsto per l'esperienza nel formato: Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
+// * Vin è fissato al valore di 5V, Vout è quindi ricavato come ampiezza * 5
+// * scalaVin e scalaVout sono state impostate a 10mV, ovvero 0.01V
+// * dal valore di v, la frequenza, è ottenuto il valore di T, come T=1/v, e la scalaT è scelta come 1/100 del valore
+// * il valore di dt è ricavato dal valore della fase: se la fase vale phi = 2 * M_PI * dt / T, allora posso ricavare
+//   dt come dt = phi * T /( 2 * M_PI ), e la scaladt è scelta come 1/100 del valore di dt
 
 // fisso i valori di R e C ???
 const double R = 50;
