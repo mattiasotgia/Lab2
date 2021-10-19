@@ -13,7 +13,7 @@
 %                                       
 %                                       
 \documentclass[
-    % rmp,
+    rmp,
     % preprint,
     % linenumbers,
     % tightlines,
@@ -29,7 +29,7 @@
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/1-\thepage
 }
-\fancyhead[C]{\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+\fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
     N. 00 % ! <== CAMBIARE (Nessuna rel.-> 00)
     } (\the\year)
 }
@@ -37,7 +37,7 @@
 \begin{document}
 
 \title{
-    Studio Di Filtri Del Primo Ordine 
+    Introduzione ai circuiti e Studio Di Filtri Del Primo Ordine
 }
 \thanks{
     Esperinza n. 1
@@ -45,9 +45,9 @@
 
 \author{Francesco Polleri}
 \email{s5025011@studenti.unige.it}
+\altaffiliation{In presenza in laboratorio per la presa dati}
 \author{Mattia Sotgia}
 \email{s4942225@studenti.unige.it}
-\altaffiliation{In presenza in laboratorio per la presa dati}
 
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
@@ -58,13 +58,7 @@
 }
 
 \begin{abstract}
-    \textit{Obiettivo-- }
-    
-    \textit{Metodi-- }
-    
-    \textit{Risultati-- }
-        
-    \textit{Conclusione-- }
+
         
 \end{abstract}
 \maketitle
@@ -76,9 +70,12 @@
 
 %%%% CORPO DEL TESTO
 %%%% CORPO DEL TESTO
+\section*{Note sulla strumentazione}
+
 
 \section{Introduzione}
 \label{section:introduction}
+Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}). Realizziamo quindi a partire da un circuito schemattizzato in (figura) il prototipo sulla basetta in laboratorio, e quindi colleghiamo poi 
 
 % \label{section:strument}
 % \section{Strumentazione}
