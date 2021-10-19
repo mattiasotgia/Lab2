@@ -15,7 +15,8 @@
 
 const double title_size = 21;
 
-std::string rawdata="../dati/test_dati.txt";
+std::string rawdata = "../dati/presa_dati_2021_10_19_seconda_versione.txt";
+std::string old_rawdata = "../dati/test_dati.txt";
 // I dati sono stati ricavati dal file dati.dat forniti su aulaweb, svolgendo i seguenti calcoli per rendere il file come 
 // previsto per l'esperienza nel formato: Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
 // * Vin è fissato al valore di 5V, Vout è quindi ricavato come ampiezza * 5
@@ -156,8 +157,8 @@ void analisi_RC_filter(){
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
-    TF1* H_fit = new TF1("Hf", "1/sqrt(1+(pow(x/[0], 2)))");
-    H_fit->SetParameter(0, 1e4);
+    TF1* H_fit = new TF1("Hf", "1/sqrt(1+(pow([0]/x, 2)))");
+    H_fit->SetParameter(0, 3e3);
 
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
@@ -185,12 +186,12 @@ void analisi_RC_filter(){
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
-    TF1* phi_fit = new TF1("phi_f", "-atan(x/[0])");
-    phi_fit->SetParameter(0, 1e4);
-    phi_fit->SetParLimits(0, 1e4, 2*1e4);
+    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)", 100, 1e5);
+    phi_fit->SetParameter(0, 3e3);
+    phi_fit->SetParLimits(0, 1e3, 1e4);
 
     TGraphErrors* phi_resd = new TGraphErrors();
-    TF1* phi_res_f = new TF1("phi_rf", "0", 10, 10e6);
+    TF1* phi_res_f = new TF1("phi_rf", "0", 100, 1e5);
     phi_res_f->SetLineStyle(2);
 
     TLatex* phi_header = new TLatex();
@@ -247,14 +248,14 @@ void analisi_RC_filter(){
     print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf");
+    H_plot->Fit("Hf", "", "", 100, 1e5);
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
             +std::to_string(H_fit->GetNDF())
             +" ("+std::to_string(H_fit->GetProb())+")";
 
-    header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}").c_str());
+    header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}").c_str());
 
     print_stat(H_fit);
 
@@ -269,20 +270,21 @@ void analisi_RC_filter(){
     H_res_f->Draw("same");
 
     double frequenza_taglio_amp = H_fit->GetParameter(0);
-    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " Hz" << std::endl;
+    double err_frequeza_taglio_amp = H_fit->GetParError(0);
+    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << "+/-" << err_frequeza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f", "V");
+    phi_plot->Fit("phi_f", "", "", 100, 1e5);
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.20, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
+    phi_header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
 
     print_stat(phi_fit);
 
@@ -297,7 +299,10 @@ void analisi_RC_filter(){
     phi_res_f->Draw("same");
 
     double frequenza_taglio_fase = phi_fit->GetParameter(0);
-    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " Hz" << std::endl;
+    double err_frequeza_taglio_fase = phi_fit->GetParError(0);
+    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << "+/-" << err_frequeza_taglio_fase << " Hz" << std::endl;
+
+    std::cout << "** Verifica compatibilità => " << compatible(frequenza_taglio_amp, err_frequeza_taglio_amp, frequenza_taglio_fase, err_frequeza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
