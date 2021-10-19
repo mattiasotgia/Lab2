@@ -148,8 +148,9 @@ void analisi_RC_filter(){
     c1->cd(1);
 
     TGraphErrors* H_plot = new TGraphErrors();
+    H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt(1+(pow(x/[0], 2)))");
-    H_fit->SetParameter(0, 10e4);
+    H_fit->SetParameter(0, 1e4);
 
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
@@ -176,8 +177,10 @@ void analisi_RC_filter(){
     c1->cd(2);
 
     TGraphErrors* phi_plot = new TGraphErrors();
+    phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan(x/[0])");
-    phi_fit->SetParameter(0, 10e4);
+    phi_fit->SetParameter(0, 1e4);
+    phi_fit->SetParLimits(0, 1e4, 2*1e4);
 
     TGraphErrors* phi_resd = new TGraphErrors();
     TF1* phi_res_f = new TF1("phi_rf", "0", 10, 10e6);
@@ -265,7 +268,7 @@ void analisi_RC_filter(){
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f");
+    phi_plot->Fit("phi_f", "V");
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
@@ -290,7 +293,7 @@ void analisi_RC_filter(){
     std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " Hz" << std::endl;
 
 
-    set_TGraphAxis(H_plot, "Gain #left|H(#nu)#right| [Db]");
+    set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
     set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
 
 
