@@ -83,6 +83,31 @@ Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\text
 \section{Metodi}
 \label{section:methods}
 
+\begin{figure}
+    \begin{circuitikz}
+        \ctikzset{bipoles/oscope/width=1.0}
+        \draw (4,2)
+        node[oscopeshape, fill=gray!20!white](O1){};
+        \draw (O1.in 2) to [short, *-] (5,1.2) node[ground]{} node[below left]{GND};
+        \draw (0,0)
+        node[left]{$V_{in}\approx991$ mV} node[below left=4pt]{(BNC in)} 
+        to [short, o-] (0.5,0)
+        to [C=$54$ nF] (2.5,0)
+        to [R=$0.98$ k$\Omega$] (2.5,-2) 
+        to [short] (0,-2)
+        node[ground]{} node[left=4pt]{GND}
+        (2.5,0) to [short, -o] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (3,0)
+        to [short, -] (3,1.2)
+        to [short, -*] (O1.in 1);
+        \draw [red, dashed] 
+        (-2.5,1.8) 
+        node[align=left, below right=4pt]{Generatore di\\tensione alternata\\(Oscilloscopio)} 
+        rectangle (0.5, -3);
+    \end{circuitikz}
+    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza}
+    \label{fig:circuit}
+\end{figure}
+
 % \section{Analisi dati}
 % \label{section:analysis}
 
