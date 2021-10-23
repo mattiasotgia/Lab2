@@ -75,7 +75,7 @@
 
 \section{Introduzione}
 \label{section:introduction}
-Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}). Realizziamo quindi a partire da un circuito schemattizzato in (figura) il prototipo sulla basetta in laboratorio, e quindi colleghiamo poi 
+Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}). Realizziamo quindi a partire da un circuito schemattizzato in \reffig{fig:circuit} il prototipo sulla basetta in laboratorio, e quindi colleghiamo poi 
 
 % \label{section:strument}
 % \section{Strumentazione}
@@ -92,8 +92,8 @@ Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\text
         \draw (0,0)
         node[left]{$V_{in}\approx991$ mV} node[below left=4pt]{(BNC in)} 
         to [short, o-] (0.5,0)
-        to [C=$54$ nF] (2.5,0)
-        to [R=$0.98$ k$\Omega$] (2.5,-2) 
+        to [C=$47$ nF] (2.5,0)
+        to [R=$1$ k$\Omega$] (2.5,-2) 
         to [short] (0,-2)
         node[ground]{} node[left=4pt]{GND}
         (2.5,0) to [short, -o] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (3,0)
@@ -104,7 +104,7 @@ Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\text
         node[align=left, below right=4pt]{Generatore di\\tensione alternata\\(Oscilloscopio)} 
         rectangle (0.5, -3);
     \end{circuitikz}
-    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza}
+    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza, i valori di R e C sono i valori nominali riportati sul componente.}
     \label{fig:circuit}
 \end{figure}
 
