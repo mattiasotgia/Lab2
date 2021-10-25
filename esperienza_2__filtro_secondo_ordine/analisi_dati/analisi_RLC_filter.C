@@ -140,7 +140,7 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale più pratico
+    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
     c1->SetMargin(0.16, 0.06, 0.12, 0.06);
     c1->SetFillStyle(4000);
     c1->Divide(1, 2);
@@ -152,7 +152,7 @@ void analisi_RLC_filter(){
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
     // [0] = A = (1 + R_L / R)^2
-    // [1] = Q = fattore di qualità
+    // [1] = Q = fattore di qualita
     // [2] = w_0
 
     H_fit->SetParameters(0, 0, 0);
@@ -267,8 +267,8 @@ void analisi_RLC_filter(){
     H_res_f->Draw("same");
 
     double frequenza_taglio_amp = H_fit->GetParameter(0);
-    double err_frequeza_taglio_amp = H_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << "+/-" << err_frequeza_taglio_amp << " Hz" << std::endl;
+    double err_frequenza_taglio_amp = H_fit->GetParError(0);
+    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << "+/-" << err_frequenza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
@@ -296,10 +296,10 @@ void analisi_RLC_filter(){
     phi_res_f->Draw("same");
 
     double frequenza_taglio_fase = phi_fit->GetParameter(0);
-    double err_frequeza_taglio_fase = phi_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << "+/-" << err_frequeza_taglio_fase << " Hz" << std::endl;
+    double err_frequenza_taglio_fase = phi_fit->GetParError(0);
+    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << "+/-" << err_frequenza_taglio_fase << " Hz" << std::endl;
 
-    std::cout << "** Verifica compatibilità => " << compatible(frequenza_taglio_amp, err_frequeza_taglio_amp, frequenza_taglio_fase, err_frequeza_taglio_fase) << std::endl;
+    std::cout << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
@@ -316,7 +316,7 @@ void analisi_RLC_filter(){
 
 #ifndef __CINT__
 int main(){
-    analisi_RC_filter();
+    analisi_RLC_filter();
     return 0;
 }
 #endif
