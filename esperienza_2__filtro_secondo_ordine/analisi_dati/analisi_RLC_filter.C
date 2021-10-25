@@ -15,19 +15,12 @@
 
 const double title_size = 21;
 
-// std::string rawdata = "../dati/presa_dati_2021_10_19_seconda_versione.txt";
-// std::string old_rawdata = "../dati/test_dati.txt";
-// I dati sono stati ricavati dal file dati.dat forniti su aulaweb, svolgendo i seguenti calcoli per rendere il file come 
-// previsto per l'esperienza nel formato: Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
-// * Vin è fissato al valore di 5V, Vout è quindi ricavato come ampiezza * 5
-// * scalaVin e scalaVout sono state impostate a 10mV, ovvero 0.01V
-// * dal valore di v, la frequenza, è ottenuto il valore di T, come T=1/v, e la scalaT è scelta come 1/100 del valore
-// * il valore di dt è ricavato dal valore della fase: se la fase vale phi = 2 * M_PI * dt / T, allora posso ricavare
-//   dt come dt = phi * T /( 2 * M_PI ), e la scaladt è scelta come 1/100 del valore di dt
+// std::string rawdata = "../dati/??.txt";
 
-// fisso i valori di R e C ???
-const double R = 50;
-const double C = 0.00000000001;
+// fisso i valori di R e C e L ???
+const double R;
+const double C;
+const double L;
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
@@ -157,8 +150,12 @@ void analisi_RLC_filter(){
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
-    TF1* H_fit = new TF1("Hf", "1/sqrt(1+(pow([0]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameter(0, 3e3);
+    TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
+    // [0] = A = (1 + R_L / R)^2
+    // [1] = Q = fattore di qualità
+    // [2] = w_0
+
+    H_fit->SetParameters(0, 0, 0);
 
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
@@ -186,12 +183,12 @@ void analisi_RLC_filter(){
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
-    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)", 100, 1e5); // ! Controllare formule
+    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)"); // ! Controllare formule
     phi_fit->SetParameter(0, 3e3);
     phi_fit->SetParLimits(0, 1e3, 1e4);
 
     TGraphErrors* phi_resd = new TGraphErrors();
-    TF1* phi_res_f = new TF1("phi_rf", "0", 100, 1e5);
+    TF1* phi_res_f = new TF1("phi_rf", "0");
     phi_res_f->SetLineStyle(2);
 
     TLatex* phi_header = new TLatex();
