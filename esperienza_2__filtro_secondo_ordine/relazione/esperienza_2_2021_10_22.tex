@@ -37,7 +37,7 @@
 \begin{document}
 
 \title{
-    Studio Di Filtri Del Secondo Ordine E Circuito RLC 
+    Realizzazione e caratterizzazione di un circuito filtro passa banda RLC
 }
 \thanks{
     Esperinza n. 2
@@ -73,6 +73,33 @@
 
 \section{Introduzione}
 \label{section:introduction}
+
+\begin{figure}
+    \begin{circuitikz}
+        \ctikzset{bipoles/oscope/width=1.0}
+        \draw (4.5,2)
+        node[oscopeshape, fill=gray!20!white](O1){};
+        \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
+        \draw (0,0)
+        node[left]{$V_{in}\approx???$ mV} node[below left=4pt]{(BNC in)} 
+        to [short, o-] (0.5,0)
+        to [L=$??$ mH, i_=$i$] (2,0)
+        to [R=$R_L$, resistors/scale=0.4] (2.75,0)
+        to [C=$??$ nF] (4,0)
+        to [R=$??$ k$\Omega$] (4,-2) 
+        to [short] (0,-2)
+        node[ground]{} node[left=4pt]{GND}
+        (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+        to [short, -] (4.5,1.2)
+        to [short, -*] (O1.in 1);
+        \draw [red, dashed] 
+        (-2,2) 
+        node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
+        rectangle (0.5, -3);
+    \end{circuitikz}
+    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza, i valori di R e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+    \label{fig:circuit}
+\end{figure}
 
 % \label{section:strument}
 % \section{Strumentazione}
