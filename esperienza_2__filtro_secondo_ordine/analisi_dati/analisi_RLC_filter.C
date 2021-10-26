@@ -15,7 +15,7 @@
 
 const double title_size = 21;
 
-std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
+std::string rawdata = "../dati/presa_dati_2021_10_26_1_8k.txt";
 
 const double R = 175.7; // indicativo valore nominale 200 ohm?
 const double C = 100; // indicativo valore nominale 100 nF
