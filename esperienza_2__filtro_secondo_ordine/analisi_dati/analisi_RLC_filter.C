@@ -18,10 +18,14 @@ const double title_size = 21;
 // std::string rawdata = "../dati/test.txt";
 
 // fisso i valori di R e C e L ???
-const double R = 0; // indicativo valore nominale 50 ohm?
-const double C = 0; // indicativo valore nominale 10 mH
-const double L = 0; // indicativo valore nominale 1.6 nF
+const double R = 0; // indicativo valore nominale 200 ohm?
+const double C = 0; // indicativo valore nominale 100 mH
+const double L = 0; // indicativo valore nominale 100 nF
 const double R_L = 0;
+
+// Con i valori scelti otteniamo che circa v = 1.6 kHz
+// Q circa = 5
+// A = 1 (che va bene finchè R_L << R)
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
