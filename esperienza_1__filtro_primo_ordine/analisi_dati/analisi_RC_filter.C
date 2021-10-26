@@ -19,11 +19,11 @@ std::string rawdata = "../dati/presa_dati_2021_10_19_seconda_versione.txt";
 std::string old_rawdata = "../dati/test_dati.txt";
 // I dati sono stati ricavati dal file dati.dat forniti su aulaweb, svolgendo i seguenti calcoli per rendere il file come 
 // previsto per l'esperienza nel formato: Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
-// * Vin è fissato al valore di 5V, Vout è quindi ricavato come ampiezza * 5
+// * Vin e' fissato al valore di 5V, Vout e' quindi ricavato come ampiezza * 5
 // * scalaVin e scalaVout sono state impostate a 10mV, ovvero 0.01V
-// * dal valore di v, la frequenza, è ottenuto il valore di T, come T=1/v, e la scalaT è scelta come 1/100 del valore
-// * il valore di dt è ricavato dal valore della fase: se la fase vale phi = 2 * M_PI * dt / T, allora posso ricavare
-//   dt come dt = phi * T /( 2 * M_PI ), e la scaladt è scelta come 1/100 del valore di dt
+// * dal valore di v, la frequenza, e' ottenuto il valore di T, come T=1/v, e la scalaT e' scelta come 1/100 del valore
+// * il valore di dt e' ricavato dal valore della fase: se la fase vale phi = 2 * M_PI * dt / T, allora posso ricavare
+//   dt come dt = phi * T /( 2 * M_PI ), e la scaladt e' scelta come 1/100 del valore di dt
 
 // fisso i valori di R e C ???
 const double R = 50;
@@ -270,8 +270,9 @@ void analisi_RC_filter(){
     H_res_f->Draw("same");
 
     double frequenza_taglio_amp = H_fit->GetParameter(0);
-    double err_frequeza_taglio_amp = H_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << "+/-" << err_frequeza_taglio_amp << " Hz" << std::endl;
+    double err_frequenza_taglio_amp = H_fit->GetParError(0);
+
+    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " +/- " << err_frequenza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
@@ -299,10 +300,11 @@ void analisi_RC_filter(){
     phi_res_f->Draw("same");
 
     double frequenza_taglio_fase = phi_fit->GetParameter(0);
-    double err_frequeza_taglio_fase = phi_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << "+/-" << err_frequeza_taglio_fase << " Hz" << std::endl;
+    double err_frequenza_taglio_fase = phi_fit->GetParError(0);
 
-    std::cout << "** Verifica compatibilità => " << compatible(frequenza_taglio_amp, err_frequeza_taglio_amp, frequenza_taglio_fase, err_frequeza_taglio_fase) << std::endl;
+    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
+
+    std::cout << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
@@ -312,6 +314,7 @@ void analisi_RC_filter(){
     set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
     set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
 
+    c1->SaveAs("../fig/RC_bode.pdf");
     // TODO: salvare il file come pdf
 
     return;
