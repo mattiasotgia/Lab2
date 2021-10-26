@@ -17,10 +17,12 @@ const double title_size = 21;
 
 std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
 
-const double R = 0; // indicativo valore nominale 200 ohm?
-const double C = 0; // indicativo valore nominale 100 mH
-const double L = 0; // indicativo valore nominale 100 nF
-const double R_L = 0;
+const double R = 175.7; // indicativo valore nominale 200 ohm?
+const double C = 100; // indicativo valore nominale 100 nF
+const double L = 97.6; // indicativo valore nominale 100 mH
+const double R_L = 79.1;
+
+const double R_Hi = 1.785; // kohm
 
 // Con i valori scelti otteniamo che circa v = 1.6 kHz
 // Q circa = 5
