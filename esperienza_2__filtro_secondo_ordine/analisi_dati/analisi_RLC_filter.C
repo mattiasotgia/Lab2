@@ -18,9 +18,10 @@ const double title_size = 21;
 // std::string rawdata = "../dati/test.txt";
 
 // fisso i valori di R e C e L ???
-const double R = 0;
-const double C = 0;
-const double L = 0;
+const double R = 0; // indicativo valore nominale 50 ohm?
+const double C = 0; // indicativo valore nominale 10 mH
+const double L = 0; // indicativo valore nominale 1.6 nF
+const double R_L = 0;
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
@@ -140,10 +141,10 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
+    TCanvas* c1 = new TCanvas("c1", "", 1000, 500); // ! Modificare per avere grafico orizzontale piu pratico
     c1->SetMargin(0.16, 0.06, 0.12, 0.06);
     c1->SetFillStyle(4000);
-    c1->Divide(1, 2);
+    c1->Divide(2, 1);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
