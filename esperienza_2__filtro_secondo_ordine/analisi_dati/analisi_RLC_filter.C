@@ -24,7 +24,7 @@ const double R_L = 0;
 
 // Con i valori scelti otteniamo che circa v = 1.6 kHz
 // Q circa = 5
-// A = 1 (che va bene finchè R_L << R)
+// A = 1 (che va bene finche' R_L << R)
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
@@ -280,7 +280,7 @@ void analisi_RLC_filter(){
     double err_frequenza_taglio_amp = H_fit->GetParError(2);
 
     std::cout << "A da |H(w)| = (1 + R_L / R)^2 = " << A_amp << " +/- " << err_A_amp << std::endl
-            << "Fattore di Qualità da |H(w)|, Q = " << Q_amp << " +/- " << err_Q_amp << std::endl
+            << "Fattore di Qualita' da |H(w)|, Q = " << Q_amp << " +/- " << err_Q_amp << std::endl
             << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " +/- " << err_frequenza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
@@ -316,7 +316,7 @@ void analisi_RLC_filter(){
     double err_frequenza_taglio_fase = H_fit->GetParError(2);
 
     std::cout << "A da phi(w) = (1 + R_L / R)^2 = " << A_fase << " +/- " << err_A_fase << std::endl
-            << "Fattore di Qualità da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
+            << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
             << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
 
     std::cout << std::endl << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;

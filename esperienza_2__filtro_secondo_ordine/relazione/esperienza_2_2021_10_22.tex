@@ -25,7 +25,6 @@
     a4paper]{revtex4-2}
 
 \input{../../style/preamble.tex}
-\usepackage{listings}
 
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/2-\thepage
@@ -119,13 +118,14 @@
 % \subsection{Controlli}
 % \subsection{Possibili errori sistematici}
 
-% \onecolumngrid
+\onecolumngrid
 \appendix
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
 
-\section{Dati estesi}
+\section{Programma per analisi dati}
+\lstinputlisting[language=C]{../analisi_dati/analisi_RLC_filter.C}
 
 \end{document}
     
