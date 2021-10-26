@@ -251,7 +251,7 @@ void analisi_RLC_filter(){
     print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf", "", "", 100, 1e5);
+    H_plot->Fit("Hf");
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
@@ -287,7 +287,7 @@ void analisi_RLC_filter(){
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f", "", "", 100, 1e5);
+    phi_plot->Fit("phi_f");
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
