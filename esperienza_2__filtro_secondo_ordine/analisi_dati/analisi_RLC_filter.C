@@ -15,9 +15,8 @@
 
 const double title_size = 21;
 
-// std::string rawdata = "../dati/test.txt";
+std::string rawdata = "../dati/test.txt";
 
-// fisso i valori di R e C e L ???
 const double R = 0; // indicativo valore nominale 200 ohm?
 const double C = 0; // indicativo valore nominale 100 mH
 const double L = 0; // indicativo valore nominale 100 nF
