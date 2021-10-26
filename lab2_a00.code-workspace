@@ -71,7 +71,9 @@
 			"typeinfo": "cpp",
 			"analisi_dettaglio_preliminare.C": "cpp",
 			"condition_variable": "cpp",
-			"mutex": "cpp"
+			"mutex": "cpp",
+			"numbers": "cpp",
+			"semaphore": "cpp"
 		},
 		"gitlens.outputLevel": "errors"
 	}

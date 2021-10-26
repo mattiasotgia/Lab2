@@ -1,0 +1,131 @@
+%% Document created 22 October 2021 automatically 
+%% from /Users/massimosotgia/Desktop/uni_at_DIFI/Lab2/setup.py 
+
+%% Copyright (C) Mattia Sotgia et al. 2022
+%% Using class revtex4-2.cls
+%                                       
+%                                       
+%██       █████  ██████         ██████  
+%██      ██   ██ ██   ██             ██ 
+%██      ███████ ██████          █████  
+%██      ██   ██ ██   ██        ██      
+%███████ ██   ██ ██████  ██     ███████ 
+%                                       
+%                                       
+\documentclass[
+    rmp,
+    % preprint,
+    % linenumbers,
+    % tightlines,
+    reprint, 
+    superscriptaddress, 
+    altaffilletter, 
+    amsmath, 
+    amssymb, 
+    a4paper]{revtex4-2}
+
+\input{../../style/preamble.tex}
+
+\fancyfoot[C]{
+    \the\year\twodigits\month\twodigits\day/2-\thepage
+}
+\fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+    N. 00 % ! <== CAMBIARE (Nessuna rel.-> 00)
+    } (\the\year)
+}
+
+\begin{document}
+
+\title{
+    Realizzazione e caratterizzazione di un circuito filtro passa banda RLC
+}
+\thanks{
+    Esperinza n. 2
+}
+
+\author{Francesco Polleri}
+\email{s5025011@studenti.unige.it}
+\author{Mattia Sotgia}
+\email{s4942225@studenti.unige.it}
+\altaffiliation{In presenza in laboratorio per la presa dati}
+
+\collaboration{Gruppo A1}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\date{presa dati
+    26 ottobre 2021, analisi dati <date>, relazione in data 
+    \today
+}
+
+\begin{abstract}
+
+        
+\end{abstract}
+\maketitle
+\thispagestyle{fancy}
+% Rimuovere per consegna
+\SetBgContents{
+    laboratorio2: e2 (non per la consegna) \today % ! Note di versione
+}
+
+%%%% CORPO DEL TESTO
+%%%% CORPO DEL TESTO
+
+\section{Introduzione}
+\label{section:introduction}
+
+\begin{figure}
+    \begin{circuitikz}
+        \ctikzset{bipoles/oscope/width=1.0}
+        \draw (4.5,2)
+        node[oscopeshape, fill=gray!20!white](O1){};
+        \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
+        \draw (0,0)
+        node[left]{$V_{in}\approx???$ mV} node[below left=4pt]{(BNC in)} 
+        to [short, o-] (0.5,0)
+        to [L=$??$ mH, i_=$i$] (2,0)
+        to [R=$R_L$, resistors/scale=0.4] (2.75,0)
+        to [C=$??$ nF] (4,0)
+        to [R=$??$ k$\Omega$] (4,-2) 
+        to [short] (0,-2)
+        node[ground]{} node[left=4pt]{GND}
+        (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+        to [short, -] (4.5,1.2)
+        to [short, -*] (O1.in 1);
+        \draw [red, dashed] 
+        (-2,2) 
+        node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
+        rectangle (0.5, -3);
+    \end{circuitikz}
+    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza, i valori di R e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+    \label{fig:circuit}
+\end{figure}
+
+% \label{section:strument}
+% \section{Strumentazione}
+
+\section{Metodi}
+\label{section:methods}
+
+% \section{Analisi dati}
+% \label{section:analysis}
+
+\section{Risultati}
+\label{section:results}
+
+\section{Conclusione}
+\label{section:conclusion}
+% \subsection{Controlli}
+% \subsection{Possibili errori sistematici}
+
+\onecolumngrid
+\appendix
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A-\Roman{table}}
+
+\section{Programma per analisi dati}
+\lstinputlisting[language=C]{../analisi_dati/analisi_RLC_filter.C}
+
+\end{document}
+    

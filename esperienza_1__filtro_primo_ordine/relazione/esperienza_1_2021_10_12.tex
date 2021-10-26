@@ -1,0 +1,134 @@
+%% Document created 12 October 2021 automatically 
+%% from /Users/massimosotgia/Desktop/uni_at_DIFI/Lab2/setup.py 
+
+%% Copyright (C) Mattia Sotgia et al. 2022
+%% Using class revtex4-2.cls
+%                                       
+%                                       
+%██       █████  ██████         ██████  
+%██      ██   ██ ██   ██             ██ 
+%██      ███████ ██████          █████  
+%██      ██   ██ ██   ██        ██      
+%███████ ██   ██ ██████  ██     ███████ 
+%                                       
+%                                       
+\documentclass[
+    rmp,
+    % preprint,
+    % linenumbers,
+    % tightlines,
+    reprint, 
+    superscriptaddress, 
+    altaffilletter, 
+    amsmath, 
+    amssymb, 
+    a4paper]{revtex4-2}
+
+\input{../../style/preamble.tex}
+
+\fancyfoot[C]{
+    \the\year\twodigits\month\twodigits\day/1-\thepage
+}
+\fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+    N. 00 % ! <== CAMBIARE (Nessuna rel.-> 00)
+    } (\the\year)
+}
+
+\begin{document}
+
+\title{
+    Introduzione ai circuiti e studio di filtri del primo ordine
+}
+\thanks{
+    Esperinza n. 1
+}
+
+\author{Francesco Polleri}
+\email{s5025011@studenti.unige.it}
+\altaffiliation{In presenza in laboratorio per la presa dati}
+\author{Mattia Sotgia}
+\email{s4942225@studenti.unige.it}
+
+\collaboration{Gruppo A1}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\date{presa dati
+    19 ottobre 2021, analisi dati e relazione in data 
+    \today
+}
+
+\begin{abstract}
+
+        
+\end{abstract}
+\maketitle
+\thispagestyle{fancy}
+% Rimuovere per consegna
+\SetBgContents{
+    laboratorio2: e1 (non per la consegna) \today % ! Note di versione
+}
+
+%%%% CORPO DEL TESTO
+%%%% CORPO DEL TESTO
+\section*{Note sulla strumentazione}
+
+
+\section{Introduzione}
+\label{section:introduction}
+Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}). Realizziamo quindi a partire da un circuito schemattizzato in \reffig{fig:circuit} il prototipo sulla basetta in laboratorio, e quindi colleghiamo poi 
+
+% \label{section:strument}
+% \section{Strumentazione}
+
+\section{Metodi}
+\label{section:methods}
+
+\begin{figure}
+    \begin{circuitikz}
+        \ctikzset{bipoles/oscope/width=1.0}
+        \draw (4,2)
+        node[oscopeshape, fill=gray!20!white](O1){};
+        \draw (O1.in 2) to [short, *-] (5,1.2) node[ground]{} node[below left]{GND};
+        \draw (0,0)
+        node[left]{$V_{in}\approx991$ mV} node[below left=4pt]{(BNC in)} 
+        to [short, o-] (0.5,0)
+        to [C=$47$ nF] (2.5,0)
+        to [R=$1$ k$\Omega$] (2.5,-2) 
+        to [short] (0,-2)
+        node[ground]{} node[left=4pt]{GND}
+        (2.5,0) to [short, -o] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (3,0)
+        to [short, -] (3,1.2)
+        to [short, -*] (O1.in 1);
+        \draw [red, dashed] 
+        (-2.5,1.8) 
+        node[align=left, below right=4pt]{Generatore di\\tensione alternata\\(Oscilloscopio)} 
+        rectangle (0.5, -3);
+    \end{circuitikz}
+    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza, i valori di R e C sono i valori nominali riportati sul componente.}
+    \label{fig:circuit}
+\end{figure}
+
+% \section{Analisi dati}
+% \label{section:analysis}
+
+\section{Risultati}
+\label{section:results}
+
+\section{Conclusione}
+\label{section:conclusion}
+% \subsection{Controlli}
+% \subsection{Possibili errori sistematici}
+
+\onecolumngrid
+\appendix
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A-\Roman{table}}
+
+\section{Output analisi dati}
+\lstinputlisting[]{../misc/results_first_analisys_2021_10_26.log}
+\section{Programma di analisi dati}
+\lstinputlisting[language=C]{../analisi_dati/analisi_RC_filter.C}
+
+\end{document}
+    
