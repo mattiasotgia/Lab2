@@ -321,7 +321,7 @@ void analisi_RLC_filter(){
             << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
             << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
 
-    std::cout << std::endl << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
+    std::cout << std::endl << "** Verifica compatibilita => (w0)" << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");

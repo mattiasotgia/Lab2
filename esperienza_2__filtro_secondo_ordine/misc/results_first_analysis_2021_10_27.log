@@ -37,4 +37,4 @@ A da phi(w) = (1 + R_L / R)^2 = 2.58061 +/- 0.127018
 Fattore di Qualita' da phi(w), Q = 2.57726 +/- 0.0333215
 Frequenza di Taglio da phi(w), v = 1566.66 +/- 12.777 Hz
 
-** Verifica compatibilita => COMPATIBILE
+** Verifica compatibilita => (w0)COMPATIBILE
