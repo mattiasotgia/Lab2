@@ -52,8 +52,8 @@
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
-\date{Presa dati
-    26 ottobre 2021, Analisi dati <date>, Relazione in data 
+\date{presa dati
+    26 ottobre 2021, analisi dati <date>, relazione in data 
     \today
 }
 
@@ -81,12 +81,12 @@
         node[oscopeshape, fill=gray!20!white](O1){};
         \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
         \draw (0,0)
-        node[left]{$V_{in}\approx???$ mV} node[below left=4pt]{(BNC in)} 
+        node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
         to [short, o-] (0.5,0)
-        to [L=$??$ mH, i_=$i$] (2,0)
+        to [L=$100$ mH, i_=$i$] (2,0)
         to [R=$R_L$, resistors/scale=0.4] (2.75,0)
-        to [C=$??$ nF] (4,0)
-        to [R=$??$ k$\Omega$] (4,-2) 
+        to [C=$100$ nF] (4,0)
+        to [R=$180$ $\Omega$] (4,-2) 
         to [short] (0,-2)
         node[ground]{} node[left=4pt]{GND}
         (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
@@ -97,7 +97,7 @@
         node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
         rectangle (0.5, -3);
     \end{circuitikz}
-    \caption{Circuito utilizzato per il filtro passa-alto progettato nell'esperienza, i valori di R e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+    \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
     \label{fig:circuit}
 \end{figure}
 
@@ -118,12 +118,14 @@
 % \subsection{Controlli}
 % \subsection{Possibili errori sistematici}
 
+\onecolumngrid
 \appendix
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
 
-\section{Dati estesi}
+\section{Programma per analisi dati}
+\lstinputlisting[language=C]{../analisi_dati/analisi_RLC_filter.C}
 
 \end{document}
     

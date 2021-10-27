@@ -15,12 +15,18 @@
 
 const double title_size = 21;
 
-// std::string rawdata = "../dati/??.txt";
+std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
 
-// fisso i valori di R e C e L ???
-const double R;
-const double C;
-const double L;
+const double R = 175.7; // indicativo valore nominale 200 ohm?
+const double C = 100; // indicativo valore nominale 100 nF
+const double L = 97.6; // indicativo valore nominale 100 mH
+const double R_L = 79.1;
+
+const double R_Hi = 1.785; // kohm
+
+// Con i valori scelti otteniamo che circa v = 1.6 kHz
+// Q circa = 5
+// A = 1 (che va bene finche' R_L << R)
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
@@ -140,10 +146,10 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale più pratico
+    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
     c1->SetMargin(0.16, 0.06, 0.12, 0.06);
     c1->SetFillStyle(4000);
-    c1->Divide(1, 2);
+    c1->Divide(1,2);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
@@ -151,11 +157,11 @@ void analisi_RLC_filter(){
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
+    H_fit->SetParameters(1, 5, 2000);
     // [0] = A = (1 + R_L / R)^2
-    // [1] = Q = fattore di qualità
+    // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
 
-    H_fit->SetParameters(0, 0, 0);
 
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
@@ -183,9 +189,11 @@ void analisi_RLC_filter(){
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
-    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)"); // ! Controllare formule
-    phi_fit->SetParameter(0, 3e3);
-    phi_fit->SetParLimits(0, 1e3, 1e4);
+    TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
+    phi_fit->SetParameters(1, 5, 2000);
+    // [0] = A = (1 + R_L / R)^2
+    // [1] = Q = fattore di qualita = 1/(R C w_0)
+    // [2] = w_0
 
     TGraphErrors* phi_resd = new TGraphErrors();
     TF1* phi_res_f = new TF1("phi_rf", "0");
@@ -211,25 +219,25 @@ void analisi_RLC_filter(){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
         double eVin, eVout;
         if(fsVin<=0.01){
-            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin)); // ! RIVEDERE calcolo errore
+            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin));
         }else{
-            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin)); // ! RIVEDERE calcolo errore
+            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin));
         }
         if(fsVout<=0.01){
-            eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout)); // ! RIVEDERE calcolo errore
+            eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout));
         }else{
-            eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout)); // ! RIVEDERE calcolo errore
+            eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
-        double eT = max_to_stat(get_TRangeErr(fsT)); // ! RIVEDERE calcolo errore
-        double edt = max_to_stat(get_TRangeErr(fsdt)); // ! RIVEDERE calcolo errore
+        double eT = max_to_stat(get_TRangeErr(fsT));
+        double edt = max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
         H_plot->SetPoint(i, 1 / T, Vout / Vin);
-        H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout)); // // ! RIVEDERE calcolo errore
+        H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout));
 
         phi_plot->SetPoint(i, 1 / T, 2 * M_PI * dt / T);
-        phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt)); // // ! RIVEDERE calcolo errore
+        phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt));
 
 
         out_computeddata << Vout / Vin << " " << get_HErr(Vin, Vout, eVin, eVout) << " "
@@ -245,7 +253,7 @@ void analisi_RLC_filter(){
     print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf", "", "", 100, 1e5);
+    H_plot->Fit("Hf");
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
@@ -266,15 +274,22 @@ void analisi_RLC_filter(){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    double frequenza_taglio_amp = H_fit->GetParameter(0);
-    double err_frequeza_taglio_amp = H_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << "+/-" << err_frequeza_taglio_amp << " Hz" << std::endl;
+    double A_amp= H_fit->GetParameter(0);
+    double err_A_amp = H_fit->GetParError(0);
+    double Q_amp = H_fit->GetParameter(1);
+    double err_Q_amp = H_fit->GetParError(1);
+    double frequenza_taglio_amp = H_fit->GetParameter(2);
+    double err_frequenza_taglio_amp = H_fit->GetParError(2);
+
+    std::cout << "A da |H(w)| = (1 + R_L / R)^2 = " << A_amp << " +/- " << err_A_amp << std::endl
+            << "Fattore di Qualita' da |H(w)|, Q = " << Q_amp << " +/- " << err_Q_amp << std::endl
+            << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " +/- " << err_frequenza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f", "", "", 100, 1e5);
+    phi_plot->Fit("phi_f");
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
@@ -295,11 +310,18 @@ void analisi_RLC_filter(){
     phi_resd->Draw("ap");
     phi_res_f->Draw("same");
 
-    double frequenza_taglio_fase = phi_fit->GetParameter(0);
-    double err_frequeza_taglio_fase = phi_fit->GetParError(0);
-    std::cout << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << "+/-" << err_frequeza_taglio_fase << " Hz" << std::endl;
+    double A_fase = H_fit->GetParameter(0);
+    double err_A_fase = H_fit->GetParError(0);
+    double Q_fase = H_fit->GetParameter(1);
+    double err_Q_fase = H_fit->GetParError(1);
+    double frequenza_taglio_fase = H_fit->GetParameter(2);
+    double err_frequenza_taglio_fase = H_fit->GetParError(2);
 
-    std::cout << "** Verifica compatibilità => " << compatible(frequenza_taglio_amp, err_frequeza_taglio_amp, frequenza_taglio_fase, err_frequeza_taglio_fase) << std::endl;
+    std::cout << "A da phi(w) = (1 + R_L / R)^2 = " << A_fase << " +/- " << err_A_fase << std::endl
+            << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
+            << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
+
+    std::cout << std::endl << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
@@ -316,7 +338,7 @@ void analisi_RLC_filter(){
 
 #ifndef __CINT__
 int main(){
-    analisi_RC_filter();
+    analisi_RLC_filter();
     return 0;
 }
 #endif

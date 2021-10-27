@@ -1,0 +1,5 @@
+0.991 0.14 senza resistenza
+0.660 con resistenza 
+R=56Ohm
+
+R_gen=(V_in/V_out)*R-R=28Ohm
