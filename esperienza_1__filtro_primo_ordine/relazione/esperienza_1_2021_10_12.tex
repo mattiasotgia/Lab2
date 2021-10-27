@@ -58,7 +58,7 @@
 }
 
 \begin{abstract}
-
+    Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}) sfruttando i principi fisici che sono dietro al comportamento di un circuito RC posto in tensione alternata.
         
 \end{abstract}
 \maketitle
@@ -67,25 +67,21 @@
 \SetBgContents{
     laboratorio2: e1 (non per la consegna) \today % ! Note di versione
 }
+\section{Misurazione di $R$}
+Con il multimetro da banco impostato per misure di resistenza in corrente continua colleghiamo i capi dei connettori a "banana" al multimetro e alla base di lavoro, quello nero sul GND, quello rosso sul capo +Vcc. 
+Mettiamo in serie ai pin corrispondenti al GND e a +Vcc la nostra resistenza ed effettuiamo così la misura del suo valore reale. 
 
-%%%% CORPO DEL TESTO
-%%%% CORPO DEL TESTO
-\section*{Note sulla strumentazione}
-
-
-\section{Introduzione}
+\section{Descrizione apparato sperimentale}
 \label{section:introduction}
-Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\textit{low-pass filter}) o passa-alto (\textit{high-pass filter}). Realizziamo quindi a partire da un circuito schemattizzato in \reffig{fig:circuit} il prototipo sulla basetta in laboratorio, e quindi colleghiamo poi 
 
-
-\begin{figure}
+\begin{figure}[b]
     \begin{circuitikz}
         \ctikzset{bipoles/oscope/width=1.0}
         \draw (4,2)
         node[oscopeshape, fill=gray!20!white](O1){};
         \draw (O1.in 2) to [short, *-] (5,1.2) node[ground]{} node[below left]{GND};
         \draw (0,0)
-        node[left]{$V_{in}\approx991$ mV} node[below left=4pt]{(BNC in)} 
+        node[left]{$V_{in}~1$ V} node[below left=4pt]{(BNC in)} 
         to [short, o-] (0.5,0)
         to [C=$47$ nF] (2.5,0)
         to [R=$1$ k$\Omega$] (2.5,-2) 
@@ -103,6 +99,53 @@ Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\text
     \label{fig:circuit}
 \end{figure}
 
+Realizziamo un circuito come quello presente in \reffig{fig:circuit}. Utilizziamo l'oscilloscopio sia come generatore di segnale sinusoidale che come rivelatore. Utilizzando uno sdoppiatore BNC a T possiamo dividere il segnale in uscita, e portare così uno dei due impulsi all'ingresso 1 dello strumento, per poter visualizzare e misurare la tensione in entrata ($v_{in}$) e il suo periodo ($T$). Il secondo cavo BNC lo portiamo ad uno degli ingressi della base di lavoro. In questo modo abbiamo che tutta la base di lavoro viene messa a massa (\hl{\textit{o a terra?}}) e che un pin è posto alla tensione $v_{in}$ alternata.
+
+Mettiamo quindi in serie a quest'ultimo il condensatore ($C$) e la resistenza ($R$). Il capo libero della resistenza lo poniamo a massa (\hl{\textit{o a terra?}}).
+
+Colleghiamo infine un pin che sia equipotenziale ad un connettore BNC libero con il nodo di collegamento tra C ed R. Colleghiamo il BNC al secondo input presente sull'oscilloscopio per visualizzare il valore di tensione in uscita ($v_{out}$).
+
+Per fornire la tensione di input al sistema con il tasto \verb|Wave Gen| visualizziamo l'interfaccia di generazione del segnale, che impostiamo poi su 1V di ampiezza e lasciamo la frequenza libera di essere variata nel corso della presa dati.
+
+Per effettuare le misure di ampiezza dei segnali che leggiamo con l'oscilloscopio, con il tasto \verb|Meas| accedo all'interfaccia per effettuare misure sul segnale in input. Con i tasti sul basso prima imposto la sorgente del segnale che voglio misurare (1 o 2) che tipo di misura voglio effettuare (ampiezza, periodo, ritardo) e poi imposto con il tasto \verb|Settings| i parametri della misura. 
+
+Impostiamo quattro misure:
+\begin{itemize}
+    \item Misura della tensione che noi forniano al circuito, che leggiamo con la sorgente 1 dell'oscilloscopio. Impostiamo una misura di ampiezza sulla sorgente 1.
+    \item Misura della tensione $v_{out}$, che leggiamo dal secondo ingresso. Impostiamo quindi una misura di ampiezza sulla sorgente 2.
+    \item Misura del periodo del segnale, che effettuiamo sul segnale $v_{in}$ poichè osserivamo che ha maggiore stabilità rispetto al segnale in uscita al circuito. Impostiamo una misura di Periodo sulla sorgente 1.
+    \item Misura del ritardo del segnale $v_{out}$ rispetto a $v_{in}$. Impostiamo una misura che legga la differenza temporale tra la salita della sorgente 1 e la salita adiacente del segnale 2. 
+\end{itemize}
+
+Lo strumento permette di variare l'intervalli orizzontali e verticali in cui misuriamo il segnale per adattarne al meglio la visualizzazione e fornisce i valori di fondo scala relativi per le tensioni e per i tempi, necessari per ricavare l'errore.
+
+\section{Metodi sperimentali}
+\input{tables/tab1.tex}
+Dato lo strumento sopra descritto, variando il valore della frequenza del segnale generato, partendo da 10Hz e arrivando a 100kHz rilevando tre valori (1-2-5) per ogni decade, annotiamo i valori di $v_{in}$, $v_{out}$, $T$ e $dt$, con i relativi fondo scala. 
+
+Riportiamo in \reftab{table:rawdata} i valori misurati. 
+
+\section{Calcoli e fit dati}
+\input{tables/tab2.tex}
+Vogliamo ottenere il valore della funzione di trasferimento $\left|H[\nu]\right|$, ma poichè si tratta di una funzione complessa preferiamo scriverla in termini del suo modulo e della sua fase. Otteniamo che \[\left|H[\nu]\right|=\frac{v_{in}}{v_{out}}\] e inoltre \[\left|H[\nu]\right|=\frac{1}{\sqrt{1+\frac{1}{R^2 C^2 \omega^2}}}\] che con $\omega_0={1\over{RC}}$ diventa \begin{equation}\left|H[\nu]\right|=\frac{1}{\sqrt{1+\left(\frac{\nu_0}{\nu}\right)^2}} \label{eqn:H}\end{equation} con ${\omega_0\over\omega} = {\nu_0\over\nu}$.
+
+Allo stesso modo per la fase che ottemiamo come \[\varphi[\nu]=2\pi\frac{dt}{T}\] lo possiamo vedere anche come \[\varphi[\nu]=\arctan\left(\frac{1}{RC\omega}\right)\] che diventa \begin{equation} \varphi[\nu]=\arctan\left(\frac{\nu_0}{\nu}\right) \label{eqn:phi}\end{equation} con ${\omega_0\over\omega} = {\nu_0\over\nu}$.
+
+Dal data sheet dello strumeto ricaviamo come calcolare gli errori massimi sui dati misurati che con la regola del \treSigma~ rendiamo statistici. Quindi propaghiamo per ottenere gli errori su $\left|H[\nu]\right|$ e $\varphi[\nu]$.
+
+I valori sono riportati in \reftab{table:cleandata}.
+
+Dalle tabelle ricaviamo un grafico in scala bilogaritmica della funzione di trasferimento rispetto alla frequenza ($\nu$) e un grafico in scala semilogaritmica sulle frequenze di $\varphi[\nu]$ rispetto a $\nu$. Riportiamo in \reffig{fig:plot} il grafico prodotto.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{RC_bode_scorretto.pdf}
+    \caption{Diagrammi di Bode, grafico preliminare precedente ad una considerazione sui punti a $\nu<100$Hz.}
+    \label{fig:plot}
+\end{figure}
+
+Eseguiano un fit dei dati sulla base delle funzioni \refeqn{eqn:H} e \refeqn{eqn:phi}, e otteniamo quindi il valore di $\nu_0$ che abbiamo impostato come parametro nella funzione di fit dal I e dal II diagramma di Bode.
+
+Analizziamo i valori di \ChiNdf e di prob(\ChiSqr) e osserviamo la compatibilità dei valori trovati. Riportiamo il risultato delle operazioni di calcolo nell'appendice \ref{appendix:output}.
 
 \onecolumngrid
 \appendix
@@ -110,8 +153,12 @@ Vogliamo costruire e verificare il funzionamento di un filtro passa-basso (\text
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
 
-\section{Output analisi dati}
-\lstinputlisting[]{../misc/results_first_analisys_2021_10_26.log}
+\section{Output analisi dati prima della correzione}
+\label{appendix:output}
+\lstinputlisting[]{../misc/results_2021_10_27.log}
+\section{Output analisi dati dopo la correzione}
+\label{appendix:out_correct}
+\lstinputlisting[]{../misc/results_error_correction_2021_10_27.log}
 \section{Programma di analisi dati}
 \lstinputlisting[language=C]{../analisi_dati/analisi_RC_filter.C}
 
