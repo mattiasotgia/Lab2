@@ -16,18 +16,6 @@
 const double title_size = 21;
 
 std::string rawdata = "../dati/presa_dati_2021_10_19_seconda_versione.txt";
-std::string old_rawdata = "../dati/test_dati.txt";
-// I dati sono stati ricavati dal file dati.dat forniti su aulaweb, svolgendo i seguenti calcoli per rendere il file come 
-// previsto per l'esperienza nel formato: Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
-// * Vin e' fissato al valore di 5V, Vout e' quindi ricavato come ampiezza * 5
-// * scalaVin e scalaVout sono state impostate a 10mV, ovvero 0.01V
-// * dal valore di v, la frequenza, e' ottenuto il valore di T, come T=1/v, e la scalaT e' scelta come 1/100 del valore
-// * il valore di dt e' ricavato dal valore della fase: se la fase vale phi = 2 * M_PI * dt / T, allora posso ricavare
-//   dt come dt = phi * T /( 2 * M_PI ), e la scaladt e' scelta come 1/100 del valore di dt
-
-// fisso i valori di R e C ???
-const double R = 50;
-const double C = 0.00000000001;
 
 void print_mmsg(std::string mmsg){
     std::cout << std::endl 
@@ -99,7 +87,7 @@ double max_to_stat(double value){
 //              | T (periodi)        | ?.?%       | ?          | variabile
 
 double get_VRangeErr(double errPercent, int partitions, double range1){ 
-  return errPercent * partitions *  range1; // TODO: controllare calcolo errori
+  return errPercent * partitions *  range1;
 }
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){
     return range1 * errPercent * partition;
@@ -123,27 +111,15 @@ double get_phiErr(double T, double dt, double eT, double edt){
 
 void analisi_RC_filter(){
 
-    // todo:
-    // * leggere file formato: 
-    // Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
-    // * trascrivere i file con gli errori:
-    // Vin | eVin | Vout | eVout | T | eT | dt | edt 
-    // * calcolare i valori H, eH, phi, ephi, w, ew
-    // H | eH | phi | ephi | w | ew
-    // H = Vin/Vout
-    // phi = 2 * pi * dt / T
-    // w = 2 * pi / T -> meglio forse usare v = 1 / T [Hz]?
-
-
     gStyle->SetFrameLineWidth(0);
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
     std::ifstream data(rawdata.c_str());
 
-    std::ofstream out_rawdata("../misc/rawdata.txt"); // carbon copy of original data
-    std::ofstream out_cleandata("../misc/cleandata.txt"); // values from rawdata with error
-    std::ofstream out_computeddata("../misc/computeddata.txt"); // computed data for final graph
+    std::ofstream out_rawdata("../misc/rawdata_correct.txt"); // carbon copy of original data
+    std::ofstream out_cleandata("../misc/cleandata_correct.txt"); // values from rawdata with error
+    std::ofstream out_computeddata("../misc/computeddata_correct.txt"); // computed data for final graph
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
@@ -161,7 +137,7 @@ void analisi_RC_filter(){
     H_fit->SetParameter(0, 3e3);
 
     TGraphErrors* H_resd = new TGraphErrors();
-    TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
+    TF1* H_res_f = new TF1("H_rf", "0", 10, 1e6);
     H_res_f->SetLineStyle(2);
 
     TLatex* header = new TLatex();
@@ -186,12 +162,12 @@ void analisi_RC_filter(){
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
-    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)", 100, 1e5);
+    TF1* phi_fit = new TF1("phi_f", "atan([0]/x)");
     phi_fit->SetParameter(0, 3e3);
     phi_fit->SetParLimits(0, 1e3, 1e4);
 
     TGraphErrors* phi_resd = new TGraphErrors();
-    TF1* phi_res_f = new TF1("phi_rf", "0", 100, 1e5);
+    TF1* phi_res_f = new TF1("phi_rf", "0", 10, 1e6);
     phi_res_f->SetLineStyle(2);
 
     TLatex* phi_header = new TLatex();
@@ -214,25 +190,30 @@ void analisi_RC_filter(){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
         double eVin, eVout;
         if(fsVin<=0.01){
-            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin)); // ! RIVEDERE calcolo errore
+            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin));
         }else{
-            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin)); // ! RIVEDERE calcolo errore
+            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin));
         }
-        if(fsVout<=0.01){
-            eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout)); // ! RIVEDERE calcolo errore
+        if(1/T<=100){
+            // Correzione per punti sotto i 100Hz
+            eVout = max_to_stat(get_VRangeErr(0.15, 8, fsVout));
         }else{
-            eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout)); // ! RIVEDERE calcolo errore
+            if(fsVout<=0.01){
+                eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout));
+            }else{
+                eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout));
+            }
         }
-        double eT = max_to_stat(get_TRangeErr(fsT)); // ! RIVEDERE calcolo errore
-        double edt = max_to_stat(get_TRangeErr(fsdt)); // ! RIVEDERE calcolo errore
+        double eT = max_to_stat(get_TRangeErr(fsT));
+        double edt = max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
         H_plot->SetPoint(i, 1 / T, Vout / Vin);
-        H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout)); // // ! RIVEDERE calcolo errore
+        H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout));
 
         phi_plot->SetPoint(i, 1 / T, 2 * M_PI * dt / T);
-        phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt)); // // ! RIVEDERE calcolo errore
+        phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt));
 
 
         out_computeddata << Vout / Vin << " " << get_HErr(Vin, Vout, eVin, eVout) << " "
@@ -248,7 +229,7 @@ void analisi_RC_filter(){
     print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf", "", "", 100, 1e5);
+    H_plot->Fit("Hf", "", "");
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
@@ -278,7 +259,7 @@ void analisi_RC_filter(){
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f", "", "", 100, 1e5);
+    phi_plot->Fit("phi_f", "", "", 100, 1e6);
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
@@ -314,9 +295,8 @@ void analisi_RC_filter(){
     set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
     set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
 
-    c1->SaveAs("../fig/RC_bode.pdf");
-    // TODO: salvare il file come pdf
-
+    c1->SaveAs("../fig/RC_bode_corretto.pdf");
+    
     return;
 }
 
