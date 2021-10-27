@@ -5,15 +5,15 @@ Processing analisi_RC_filter.C...
     PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
  **********
 
- FCN=13.9009 FROM MIGRAD    STATUS=CONVERGED      22 CALLS          23 TOTAL
-                     EDM=3.35366e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=9.72567 FROM MIGRAD    STATUS=CONVERGED      22 CALLS          23 TOTAL
+                     EDM=5.57532e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  p0           3.83196e+03   6.15629e+01   1.16000e-01  -4.20683e-06
+   1  p0           3.88205e+03   6.75748e+01   1.08018e-01  -4.94157e-06
 
-** CHI2 / NDF ( PROB. ) 13.9009 / 12 ( 0.307079 )
+** CHI2 / NDF ( PROB. ) 9.72567 / 12 ( 0.640013 )
 
-Frequenza di Taglio da |H(w)|, v = 3831.96 +/- 61.5629 Hz
+Frequenza di Taglio da |H(w)|, v = 3882.05 +/- 67.5748 Hz
 
  **********
     SECONDO DIAGRAMMA DI BODE (FASE)

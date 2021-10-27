@@ -194,7 +194,7 @@ void analisi_RC_filter(){
         }else{
             eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin));
         }
-        if(1/T<100){
+        if(1/T<=100){
             // Correzione per punti sotto i 100Hz
             eVout = max_to_stat(get_VRangeErr(0.15, 8, fsVout));
         }else{
