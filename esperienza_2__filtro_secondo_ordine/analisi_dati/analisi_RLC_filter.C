@@ -15,7 +15,7 @@
 
 const double title_size = 21;
 
-std::string rawdata = "../dati/presa_dati_2021_10_26_1_8k.txt";
+std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
 
 const double R = 175.7; // indicativo valore nominale 200 ohm?
 const double C = 100; // indicativo valore nominale 100 nF
@@ -146,10 +146,10 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 1000, 500); // ! Modificare per avere grafico orizzontale piu pratico
+    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
     c1->SetMargin(0.16, 0.06, 0.12, 0.06);
     c1->SetFillStyle(4000);
-    c1->Divide(2, 1);
+    c1->Divide(1,2);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
