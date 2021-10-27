@@ -142,20 +142,30 @@ Dalle tabelle ricaviamo un grafico in scala bilogaritmica della funzione di tras
     \caption{Diagrammi di Bode, grafico preliminare precedente ad una considerazione sui punti a $\nu<100$Hz.}
     \label{fig:plot}
 \end{figure}
+\begin{figure}[t]
+    \includegraphics[width=\linewidth]{RC_bode_corretto.pdf}
+    \caption{Diagrammi di Bode realizzzati successivamente alle considerazione effettuate sui punti a $\nu<100$Hz, come riportato in sezione \ref{sec:correction}.}
+    \label{fig:plot_correct}
+\end{figure}
 
 Eseguiano un fit dei dati sulla base delle funzioni \refeqn{eqn:H} e \refeqn{eqn:phi}, e otteniamo quindi il valore di $\nu_0$ che abbiamo impostato come parametro nella funzione di fit dal I e dal II diagramma di Bode.
 
 Analizziamo i valori di \ChiNdf e di prob(\ChiSqr) e osserviamo la compatibilità dei valori trovati. Riportiamo il risultato delle operazioni di calcolo nell'appendice \ref{appendix:output}.
 
 \section{Considerazioni su rumore a basse frequenze}
-Nell'analisi dei dati attraverso i fit dei due diagrammi di Bode abbiamo escluso i primi tre punti, cioè quelli a frequenze minori di 100Hz. Il motivo di questa esclusione è legato alla presenza di un "rumore" che appunto si manifesta in particolar modo a basse frequenze in quanto la sua ampiezza diventa confrontabile con quella di $v_{out}$.
+\label{sec:correction}
+\input{tables/tab2_correct.tex}
+Analizzando il risultato ottenuto dal fit del primo diagramma di Bode, osserviamo che i punti corrispondenti a frequenze minori di 100Hz si discostano in modo evidente dalla curva di fit (lo si vede bene osservando il grafico dei residui). Questo fatto è legato alla presenza di un "rumore" che appunto si manifesta in modo più significativo a basse frequenze perchè la sua ampiezza diventa confrontabile con quella di $v_{out}$. Di conseguenza l'errore da noi impostato, che deriva solamente dal data sheet dello strumento, ci porta a sottostimare molto l'errore su questa misura. Per compensare questa sottostima osserviamo ad occhio, servendoci delle tacche del fondoscala riportate sullo schermo dello strumento, lo spessore della curva del segnale di $v_{out}$. Facendo ciò osserviamo che l'errore vero su questa misura risulta essere circa il 10\% del valore di fondoscala. Impostiamo quindi che tutti i punti a frequenza minore di 100Hz abbiano come errore massimo il 10\% del fondo scala. In tal modo osserviamo che tali punti, attraverso le bande d'errore rientrano nella curva di fit senza modificarla. Riportiamo i valori così calcolati in \reftab{table:cleandata_correct}.
+
+Anche nel secondo diagramma notiamo un comportamento simile dei dati. Tuttavia, poichè la fase è direttamente legata al valore del ritardo, la situazione è più complicata da sistemare. Infatti il ritardo viene misurato dall'oscilloscopio come distanza temporale tra due successive salite del segnale 1 rispetto al segnale 2 però la presenza del rumore può portare lo strumento a confondere la salite del segnale $v_{out}$ con la salita del rumore e non è quindi in grado di dare una lettura corretta di tale intervallo temporale. Inoltre questo errore non è neppure correggibile ad occhio quindi abbiamo preferito impostare come limite per il fit dei dati i punti a frequenza maggiore di 100Hz.
+
 
 \onecolumngrid
 \appendix
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
-
+\newpage
 \section{Output analisi dati prima della correzione}
 \label{appendix:output}
 \lstinputlisting[]{../misc/results_2021_10_27.log}
