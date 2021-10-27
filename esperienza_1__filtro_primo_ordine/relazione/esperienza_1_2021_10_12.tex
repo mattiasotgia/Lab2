@@ -144,7 +144,7 @@ Dalle tabelle ricaviamo un grafico in scala bilogaritmica della funzione di tras
 \end{figure}
 \begin{figure}[t]
     \includegraphics[width=\linewidth]{RC_bode_corretto.pdf}
-    \caption{Diagrammi di Bode realizzzati successivamente alle considerazione effettuate sui punti a $\nu<100$Hz, come riportato nelle considerazioni in sezione \ref{sec:correction}.}
+    \caption{Diagrammi di Bode corretti sui punti a $\nu<100$Hz.}
     \label{fig:plot_correct}
 \end{figure}
 
@@ -161,7 +161,6 @@ Analizzando il risultato ottenuto dal fit del primo diagramma di Bode, osserviam
 Anche nel secondo diagramma notiamo un comportamento simile dei dati. Tuttavia, poichè la fase è direttamente legata al valore del ritardo, la situazione è più complicata da sistemare. Infatti il ritardo viene misurato dall'oscilloscopio come distanza temporale tra due successive salite del segnale 1 rispetto al segnale 2 però la presenza del rumore può portare lo strumento a confondere la salite del segnale $v_{out}$ con la salita del rumore e non è quindi in grado di dare una lettura corretta di tale intervallo temporale. Inoltre questo errore non è neppure correggibile ad occhio quindi abbiamo preferito impostare come limite per il fit dei dati i punti a frequenza maggiore di 100Hz.
 
 
-\onecolumngrid
 \appendix
 
 \setcounter{table}{0}
@@ -173,6 +172,8 @@ Anche nel secondo diagramma notiamo un comportamento simile dei dati. Tuttavia, 
 \section{Output analisi dati dopo la correzione}
 \label{appendix:out_correct}
 \lstinputlisting[]{../misc/results_error_correction_2021_10_27.log}
+
+\onecolumngrid
 \section{Programma di analisi dati}
 \lstinputlisting[language=C]{../analisi_dati/analisi_RC_filter.C}
 

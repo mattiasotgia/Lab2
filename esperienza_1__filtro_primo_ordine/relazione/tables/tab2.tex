@@ -3,12 +3,13 @@
         \caption{Valori calcolati (sbagliati/pre-correzione)}
         \label{table:cleandata}
         \begin{tabular}{dddddd}
-            \multicolumn{2}{c}{Funzione di trasferimento $\left|H[\nu]\right|$ [a. u. ]} & \multicolumn{2}{c}{Fase $\varphi[\nu]$ [rad]} & \multicolumn{2}{c}{Frequenza $\nu$ [Hz]} \\
+            \multicolumn{2}{c}{Funzione di trasferimento [a. u. ]} & \multicolumn{2}{c}{Fase [rad]} & \multicolumn{2}{c}{Frequenza [Hz]} \\
+            \left|H[ \nu ]\right| & \varepsilon_H & \varphi[\nu] & \varepsilon_{\varphi} & \nu & \varepsilon_{\nu} \\
             \colrule
-            0.00464178 & 0.000432655 & 1.25664   & 0.0118382 & 10     & 0.0184752 \\
-            0.00766902 & 0.000454563 & 1.3823    & 0.0118859 & 20     & 0.0369504 \\
-            0.015338   & 0.000720135 & 1.44513   & 0.0148892 & 50     & 0.11547   \\
-            0.0282543  & 0.00105838  & 1.50796   & 0.011938  & 100    & 0.184752  \\
+            0.00464178 & 0.000432655\footnote[1]{Valori sottostimati, vedere successive considerazioni sui valori a basse frequenze.} & 1.25664   & 0.0118382 & 10     & 0.0184752 \\
+            0.00766902 & 0.000454563\footnotemark[1] & 1.3823    & 0.0118859 & 20     & 0.0369504 \\
+            0.015338   & 0.000720135\footnotemark[1] & 1.44513   & 0.0148892 & 50     & 0.11547   \\
+            0.0282543  & 0.00105838 \footnotemark[1] & 1.50796   & 0.011938  & 100    & 0.184752  \\
             0.0533736  & 0.00206972  & 1.50796   & 0.011938  & 200    & 0.369504  \\
             0.126135   & 0.00411336  & 1.41372   & 0.0148732 & 500    & 1.1547    \\
             0.245207   & 0.00788168  & 1.3069    & 0.0118568 & 1000   & 1.84752   \\
