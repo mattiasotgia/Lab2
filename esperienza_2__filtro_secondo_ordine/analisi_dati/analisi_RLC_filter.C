@@ -17,10 +17,12 @@ const double title_size = 21;
 
 std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
 
-const double R = 0; // indicativo valore nominale 200 ohm?
-const double C = 0; // indicativo valore nominale 100 mH
-const double L = 0; // indicativo valore nominale 100 nF
-const double R_L = 0;
+const double R = 175.7; // indicativo valore nominale 200 ohm?
+const double C = 100; // indicativo valore nominale 100 nF
+const double L = 97.6; // indicativo valore nominale 100 mH
+const double R_L = 79.1;
+
+const double R_Hi = 1.785; // kohm
 
 // Con i valori scelti otteniamo che circa v = 1.6 kHz
 // Q circa = 5
@@ -144,10 +146,10 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 1000, 500); // ! Modificare per avere grafico orizzontale piu pratico
+    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
     c1->SetMargin(0.16, 0.06, 0.12, 0.06);
     c1->SetFillStyle(4000);
-    c1->Divide(2, 1);
+    c1->Divide(1,2);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
@@ -155,7 +157,7 @@ void analisi_RLC_filter(){
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameters(1, 0, 0);
+    H_fit->SetParameters(1, 5, 2000);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -188,7 +190,7 @@ void analisi_RLC_filter(){
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
-    phi_fit->SetParameters(1, 0, 0);
+    phi_fit->SetParameters(1, 5, 2000);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -251,7 +253,7 @@ void analisi_RLC_filter(){
     print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf", "", "", 100, 1e5);
+    H_plot->Fit("Hf");
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
@@ -287,7 +289,7 @@ void analisi_RLC_filter(){
     print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f", "", "", 100, 1e5);
+    phi_plot->Fit("phi_f");
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
@@ -319,7 +321,7 @@ void analisi_RLC_filter(){
             << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
             << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
 
-    std::cout << std::endl << "** Verifica compatibilita => " << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
+    std::cout << std::endl << "** Verifica compatibilita => (w0)" << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");

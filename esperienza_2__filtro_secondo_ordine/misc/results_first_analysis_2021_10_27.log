@@ -1,0 +1,40 @@
+
+Processing analisi_RLC_filter.C...
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=9.46289 FROM MIGRAD    STATUS=CONVERGED     110 CALLS         111 TOTAL
+                     EDM=9.22553e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   3.7 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.58061e+00   1.27018e-01   1.09771e-03   7.06127e-03
+   2  p1           2.57726e+00   3.33215e-02   1.25494e-05  -2.88905e-02
+   3  p2           1.56666e+03   1.27770e+01  -7.56259e-02   9.84292e-05
+
+** CHI2 / NDF ( PROB. ) 9.46289 / 9 ( 0.395687 )
+
+A da |H(w)| = (1 + R_L / R)^2 = 2.58061 +/- 0.127018
+Fattore di Qualita' da |H(w)|, Q = 2.57726 +/- 0.0333215
+Frequenza di Taglio da |H(w)|, v = 1566.66 +/- 12.777 Hz
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=105.363 FROM MIGRAD    STATUS=CONVERGED     122 CALLS         123 TOTAL
+                     EDM=3.41226e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.50827e-01   2.59922e-01   1.70351e-05  -6.72688e-03
+   2  p1           6.10263e-01   5.25838e-01   3.44626e-05   3.32006e-03
+   3  p2           1.61740e+03   3.80538e+00   1.88003e-02   6.95658e-05
+
+** CHI2 / NDF ( PROB. ) 105.363 / 9 ( 1.28861e-18 )
+
+A da phi(w) = (1 + R_L / R)^2 = 2.58061 +/- 0.127018
+Fattore di Qualita' da phi(w), Q = 2.57726 +/- 0.0333215
+Frequenza di Taglio da phi(w), v = 1566.66 +/- 12.777 Hz
+
+** Verifica compatibilita => (w0)COMPATIBILE
