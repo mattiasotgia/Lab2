@@ -266,7 +266,7 @@ void analisi_RC_filter(){
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
+    phi_header->DrawLatexNDC(0.25, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
 
     print_stat(phi_fit);
 
