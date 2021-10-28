@@ -99,10 +99,8 @@ Mettiamo in serie ai pin corrispondenti al GND e a +Vcc la nostra resistenza ed 
     \label{fig:circuit}
 \end{figure}
 
-Realizziamo un circuito come quello presente in \reffig{fig:circuit}. Utilizziamo l'oscilloscopio sia come generatore di segnale sinusoidale che come rivelatore. Utilizzando uno sdoppiatore BNC a T possiamo dividere il segnale in uscita, e portare così uno dei due impulsi all'ingresso 1 dello strumento, per poter visualizzare e misurare la tensione in entrata ($v_{in}$) e il suo periodo ($T$). Il secondo cavo BNC lo portiamo ad uno degli ingressi della base di lavoro. In questo modo abbiamo che tutta la base di lavoro viene messa a massa (\hl{\textit{o a terra?}}) e che un pin è posto alla tensione $v_{in}$ alternata.
-
-Mettiamo quindi in serie a quest'ultimo il condensatore ($C$) e la resistenza ($R$). Il capo libero della resistenza lo poniamo a massa (\hl{\textit{o a terra?}}).
-
+Realizziamo un circuito come quello presente in \reffig{fig:circuit}. Utilizziamo l'oscilloscopio sia come generatore di segnale sinusoidale che come rivelatore. Utilizzando uno sdoppiatore BNC a T possiamo dividere il segnale in uscita, e portare così uno dei due impulsi all'ingresso 1 dello strumento, per poter visualizzare e misurare la tensione in entrata ($v_{in}$) e il suo periodo ($T$). Il secondo cavo BNC lo portiamo ad uno degli ingressi della base di lavoro. In questo modo abbiamo che tutta la base di lavoro viene messa a massa (\hl{\textit{o a terra?}}) e che un pin è posto alla tensione $v_{in}$ alternata.\\
+Mettiamo quindi in serie a quest'ultimo il condensatore ($C$) e la resistenza ($R$). Il capo libero della resistenza lo poniamo a massa (\hl{\textit{o a terra?}}).\\
 Colleghiamo infine un pin che sia equipotenziale ad un connettore BNC libero con il nodo di collegamento tra C ed R. Colleghiamo il BNC al secondo input presente sull'oscilloscopio per visualizzare il valore di tensione in uscita ($v_{out}$).
 
 Per fornire la tensione di input al sistema con il tasto \verb|Wave Gen| visualizziamo l'interfaccia di generazione del segnale, che impostiamo poi su 1V di ampiezza e lasciamo la frequenza libera di essere variata nel corso della presa dati.
@@ -144,7 +142,7 @@ Dalle tabelle ricaviamo un grafico in scala bilogaritmica della funzione di tras
 \end{figure}
 \begin{figure}[t]
     \includegraphics[width=\linewidth]{RC_bode_corretto.pdf}
-    \caption{Diagrammi di Bode realizzzati successivamente alle considerazione effettuate sui punti a $\nu<100$Hz, come riportato nelle considerazioni in sezione \ref{sec:correction}.}
+    \caption{Diagrammi di Bode corretti sui punti a $\nu<100$Hz.}
     \label{fig:plot_correct}
 \end{figure}
 
@@ -161,7 +159,6 @@ Analizzando il risultato ottenuto dal fit del primo diagramma di Bode, osserviam
 Anche nel secondo diagramma notiamo un comportamento simile dei dati. Tuttavia, poichè la fase è direttamente legata al valore del ritardo, la situazione è più complicata da sistemare. Infatti il ritardo viene misurato dall'oscilloscopio come distanza temporale tra due successive salite del segnale 1 rispetto al segnale 2 però la presenza del rumore può portare lo strumento a confondere la salite del segnale $v_{out}$ con la salita del rumore e non è quindi in grado di dare una lettura corretta di tale intervallo temporale. Inoltre questo errore non è neppure correggibile ad occhio quindi abbiamo preferito impostare come limite per il fit dei dati i punti a frequenza maggiore di 100Hz.
 
 
-\onecolumngrid
 \appendix
 
 \setcounter{table}{0}
@@ -173,6 +170,8 @@ Anche nel secondo diagramma notiamo un comportamento simile dei dati. Tuttavia, 
 \section{Output analisi dati dopo la correzione}
 \label{appendix:out_correct}
 \lstinputlisting[]{../misc/results_error_correction_2021_10_27.log}
+
+\onecolumngrid
 \section{Programma di analisi dati}
 \lstinputlisting[language=C]{../analisi_dati/analisi_RC_filter.C}
 
