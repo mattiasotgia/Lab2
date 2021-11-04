@@ -1,3 +1,6 @@
+#ifndef _TOOLS_H
+#define _TOOLS_H
+
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -12,6 +15,8 @@
 #include<TMath.h>
 #include<TLatex.h>
 #include<TLegend.h>
+
+const double title_size = 21;
 
 namespace log
 {
@@ -33,7 +38,7 @@ namespace log
     }
 } // namespace log
 
-namespace stat
+namespace stattools
 {
     double max_to_stat(double value){
         return value / (std::sqrt(3));
@@ -52,7 +57,6 @@ namespace stat
 
 namespace graphset
 {   
-    double title_size = 21;
     void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
@@ -88,3 +92,5 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 }
+
+#endif
