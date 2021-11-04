@@ -126,7 +126,7 @@ void analisi_RLC_filter(){
     // [2] = w_0
 
     TGraphErrors* phi_resd = new TGraphErrors();
-    TF1* phi_res_f = new TF1("phi_rf", "0");
+    TF1* phi_res_f = new TF1("phi_rf", "0", 10, 10e6);
     phi_res_f->SetLineStyle(2);
 
     TLatex* phi_header = new TLatex();
