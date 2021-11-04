@@ -108,17 +108,10 @@ void analisi_RLC_filter(){
     header->SetTextFont(43);
     header->SetTextSize(15);
 
-    TPad* Hp1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
-    TPad* Hp2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
-    Hp1->SetMargin(0.14, 0.06, 0.0, 0.06);
-    Hp1->SetFillStyle(4000);
-    Hp1->SetLogx();
-    Hp1->SetLogy();
-    Hp1->Draw();
-    Hp2->SetMargin(0.14, 0.06, 0.4, 1.0);
-    Hp2->SetFillStyle(4000);
-    Hp2->SetLogx();
-    Hp2->Draw();
+    graphset::graphtypes H;
+    TPad* Hp1 = H.Graph;
+    TPad* Hp2 = H.Residuals;
+    graphset::setgraphsize(H, true, true);
 
 
     // Analisi 2do diagramma di BODE, phi su w
@@ -140,16 +133,10 @@ void analisi_RLC_filter(){
     phi_header->SetTextFont(43);
     phi_header->SetTextSize(15);
 
-    TPad* phi_p1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
-    TPad* phi_p2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
-    phi_p1->SetMargin(0.14, 0.06, 0.0, 0.06);
-    phi_p1->SetFillStyle(4000);
-    phi_p1->SetLogx();
-    phi_p1->Draw();
-    phi_p2->SetMargin(0.14, 0.06, 0.4, 1.0);
-    phi_p2->SetFillStyle(4000);
-    phi_p2->SetLogx();
-    phi_p2->Draw();
+    graphset::graphtypes phi;
+    TPad* phi_p1 = phi.Graph;
+    TPad* phi_p2 = phi.Residuals;
+    graphset::setgraphsize(phi, 1, 0);
 
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
