@@ -25,6 +25,7 @@ Software needed to use this repo is listed below:
 
 - [`root`](https://github.com/root-project/root), An open-source data analysis framework used by high energy physics and others, developed by CERN (currently using [`v6.24/02`](https://github.com/root-project/root/tree/v6-24-02) or [`v6.22/06`](https://github.com/root-project/root/tree/v6-22-06) to run code);
 - `stat` custom library (Currently `v1.0`). Run as `g++ -o <exe_name> <program.cpp> stat.cpp`.
+- `tools.h` is a C++ file only used for general purpouse C++ classes and namespaces for easier graph manipulation and statistical computation.
 - various python libraries are used: `numpy`, `matplotlib`, `scipy`, `pandas`, mainly for data analisys on-the-go, alongside with `jupiter-notebook`.
 - [LTSpice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) is a software used for schematics simulation, needed to read `.asc` files.
 - [`PyLTSpice v1.5`](https://pypi.org/project/PyLTSpice/)(also on [Github](https://github.com/nunobrum/PyLTSpice)) and [`ltspice 1.0.4`](https://pypi.org/project/ltspice/) are used for LTSpice simulation automation in Python and for data visualization.

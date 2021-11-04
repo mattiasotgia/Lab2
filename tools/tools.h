@@ -1,3 +1,7 @@
+// "stat.h" -*- C++ -*- 
+
+// Copyrights (C) 2021 Mattia Sotgia
+
 #ifndef _TOOLS_H
 #define _TOOLS_H
 
