@@ -75,7 +75,7 @@ namespace graphset
         g->GetXaxis()->SetTickLength(0.05);
     }
 
-    void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, std::string ytitle = "Residui [#sigma]", float offset = 2){
+    void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
         rg->GetXaxis()->SetTitleOffset(5);
         rg->GetXaxis()->SetTitleFont(43);
