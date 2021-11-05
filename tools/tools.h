@@ -1,4 +1,5 @@
 // "tools.h" -*- C++ -*- 
+// v0.0.1 alpha
 
 // Copyrights (C) 2021 Mattia Sotgia
 
@@ -96,12 +97,12 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 
-    struct graphtypes{
+    struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
         TPad* Residuals = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
     };
 
-    void setgraphsize(graphset::graphtypes g, bool logx=false, bool logy=false){
+    void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false){
         g.Graph->SetMargin(0.14, 0.06, 0.0, 0.06);
         g.Residuals->SetMargin(0.14, 0.06, 0.4, 1.0);
         if(logx){
@@ -115,5 +116,8 @@ namespace graphset
         g.Residuals->Draw();
     }
 }
+
+// * todo: fare in modo da avere che riempendo il grafico in 
+// *       automatico se io genero i residui sono già riempiti
 
 #endif

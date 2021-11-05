@@ -108,7 +108,7 @@ void analisi_RLC_filter(){
     header->SetTextFont(43);
     header->SetTextSize(15);
 
-    graphset::graphtypes H;
+    graphset::padtypes H;
     TPad* Hp1 = H.Graph;
     TPad* Hp2 = H.Residuals;
     graphset::setgraphsize(H, true, true);
@@ -133,7 +133,7 @@ void analisi_RLC_filter(){
     phi_header->SetTextFont(43);
     phi_header->SetTextSize(15);
 
-    graphset::graphtypes phi;
+    graphset::padtypes phi;
     TPad* phi_p1 = phi.Graph;
     TPad* phi_p2 = phi.Residuals;
     graphset::setgraphsize(phi, 1, 0);
