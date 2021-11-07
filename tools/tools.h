@@ -1,7 +1,6 @@
-// "tools.h" -*- C++ -*- 
+// Lab Analysis Toolset "tools.h" -*- C++ -*- 
+// Author M. Sotgia 05/11/21
 // v0.0.1 alpha
-
-// Copyrights (C) 2021 Mattia Sotgia
 
 #ifndef _TOOLS_H
 #define _TOOLS_H
