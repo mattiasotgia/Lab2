@@ -13,7 +13,8 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-const double title_size = 21;
+#include"../../tools/tools.h"
+
 
 std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
 
@@ -27,70 +28,6 @@ const double R_Hi = 1.785; // kohm
 // Con i valori scelti otteniamo che circa v = 1.6 kHz
 // Q circa = 5
 // A = 1 (che va bene finche' R_L << R)
-
-void print_mmsg(std::string mmsg){
-    std::cout << std::endl 
-        << " **********" << std::endl
-        << "    " << mmsg << std::endl
-        << " **********" << std::endl
-        << std::endl;
-}
-
-void print_stat(TF1* _f){
-    std::cout << std::endl
-        << "** " << "CHI2 / NDF ( PROB. ) " 
-        << _f->GetChisquare() << " / " << _f->GetNDF() << " ( " << _f->GetProb() << " )"
-        << std::endl << std::endl;
-}
-
-std::string compatible(double G1, double errG1,
-                       double G2, double errG2){
-    double abs_values = abs(G2-G1);
-    double err_abs_val = 3*sqrt(pow(errG1, 2) + pow(errG2, 2));
-    if(abs_values<err_abs_val){
-        return "COMPATIBILE";
-    }
-    return "NON-COMPATIBILE";
-}
-
-void set_TGraphAxis(TGraphErrors* g, std::string ytitle){
-    g->SetTitle("");
-    g->GetYaxis()->SetTitle(ytitle.c_str());
-    g->GetYaxis()->SetTitleOffset(2);
-    g->GetYaxis()->SetTitleFont(43);
-    g->GetYaxis()->SetTitleSize(title_size);
-    g->GetYaxis()->SetLabelFont(43);
-    g->GetYaxis()->SetLabelSize(12);
-    g->GetYaxis()->CenterTitle();
-
-    g->GetXaxis()->SetTickLength(0.05);
-}
-
-void set_ResidualsAxis(TGraphErrors* rg, std::string xtitle, std::string ytitle="Residui [#sigma]"){
-    rg->GetXaxis()->SetTitle(xtitle.c_str());
-    rg->GetXaxis()->SetTitleOffset(5);
-    rg->GetXaxis()->SetTitleFont(43);
-    rg->GetXaxis()->SetTitleSize(title_size);
-
-    rg->GetYaxis()->SetTitle(ytitle.c_str());
-    rg->GetYaxis()->SetTitleOffset(2);
-    rg->GetYaxis()->SetTitleFont(43);
-    rg->GetYaxis()->SetTitleSize(title_size);
-    rg->GetYaxis()->CenterTitle();
-
-    rg->GetYaxis()->SetLabelFont(43);
-    rg->GetYaxis()->SetLabelSize(12);
-    rg->GetYaxis()->SetNdivisions(5, 5, 0);
-    rg->GetXaxis()->SetLabelFont(43);
-    rg->GetXaxis()->SetLabelSize(12);
-    rg->GetXaxis()->CenterTitle();
-
-    rg->GetXaxis()->SetTickLength(0.08);
-}
-
-double max_to_stat(double value){
-    return value/(std::sqrt(3));
-}
 
 // funzione calcolo incertezza a partire da fondo scala (per Qualsiasi grandezza)
 // tab. VALORI  | Grandezza misurata | errPercent | partitions | fondoscala (range1) 
@@ -171,17 +108,10 @@ void analisi_RLC_filter(){
     header->SetTextFont(43);
     header->SetTextSize(15);
 
-    TPad* Hp1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
-    TPad* Hp2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
-    Hp1->SetMargin(0.14, 0.06, 0.0, 0.06);
-    Hp1->SetFillStyle(4000);
-    Hp1->SetLogx();
-    Hp1->SetLogy();
-    Hp1->Draw();
-    Hp2->SetMargin(0.14, 0.06, 0.4, 1.0);
-    Hp2->SetFillStyle(4000);
-    Hp2->SetLogx();
-    Hp2->Draw();
+    graphset::padtypes H;
+    TPad* Hp1 = H.Graph;
+    TPad* Hp2 = H.Residuals;
+    graphset::setgraphsize(H, true, true);
 
 
     // Analisi 2do diagramma di BODE, phi su w
@@ -203,33 +133,27 @@ void analisi_RLC_filter(){
     phi_header->SetTextFont(43);
     phi_header->SetTextSize(15);
 
-    TPad* phi_p1 = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
-    TPad* phi_p2 = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
-    phi_p1->SetMargin(0.14, 0.06, 0.0, 0.06);
-    phi_p1->SetFillStyle(4000);
-    phi_p1->SetLogx();
-    phi_p1->Draw();
-    phi_p2->SetMargin(0.14, 0.06, 0.4, 1.0);
-    phi_p2->SetFillStyle(4000);
-    phi_p2->SetLogx();
-    phi_p2->Draw();
+    graphset::padtypes phi;
+    TPad* phi_p1 = phi.Graph;
+    TPad* phi_p2 = phi.Residuals;
+    graphset::setgraphsize(phi, 1, 0);
 
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
         out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
         double eVin, eVout;
         if(fsVin<=0.01){
-            eVin = max_to_stat(get_VRangeErr(0.045, 8, fsVin));
+            eVin = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin));
         }else{
-            eVin = max_to_stat(get_VRangeErr(0.035, 8, fsVin));
+            eVin = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVin));
         }
         if(fsVout<=0.01){
-            eVout = max_to_stat(get_VRangeErr(0.045, 8, fsVout));
+            eVout = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVout));
         }else{
-            eVout = max_to_stat(get_VRangeErr(0.035, 8, fsVout));
+            eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
-        double eT = max_to_stat(get_TRangeErr(fsT));
-        double edt = max_to_stat(get_TRangeErr(fsdt));
+        double eT = stattools::max_to_stat(get_TRangeErr(fsT));
+        double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
@@ -250,7 +174,7 @@ void analisi_RLC_filter(){
 
 
     // Grafico 1 Bode
-    print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
     H_plot->Fit("Hf");
@@ -262,7 +186,7 @@ void analisi_RLC_filter(){
 
     header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}").c_str());
 
-    print_stat(H_fit);
+    log::print_stat(H_fit);
 
     // RESIDUI
     Hp2->cd();
@@ -286,7 +210,7 @@ void analisi_RLC_filter(){
             << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " +/- " << err_frequenza_taglio_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
-    print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
+    log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
     phi_plot->Fit("phi_f");
@@ -298,7 +222,7 @@ void analisi_RLC_filter(){
 
     phi_header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
 
-    print_stat(phi_fit);
+    log::print_stat(phi_fit);
 
     // RESIDUI
     phi_p2->cd();
@@ -321,15 +245,14 @@ void analisi_RLC_filter(){
             << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
             << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
 
-    std::cout << std::endl << "** Verifica compatibilita => (w0)" << compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
+    std::cout << std::endl << "** Verifica compatibilita => (w0)" << stattools::compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
-    set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
-    set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
+    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
+    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
 
-
-    set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
-    set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
+    graphset::set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
+    graphset::set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
 
     // TODO: salvare il file come pdf
 
