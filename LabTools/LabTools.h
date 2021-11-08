@@ -106,23 +106,26 @@ namespace graphset
     private:
 
         bool _has_fitted = false;
+        bool _show_res = true;
+        bool _logx = false;
+        bool _logy = false;
 
         TPad* _full_pad = new TPad();
-        TGraphErrors* _g_graph = new TGraphErrors();
-        TF1* _g_fit;
         TPad* _g_pad;
         TPad* _r_pad;
+        TGraphErrors* _g_graph = new TGraphErrors();
         TGraphErrors* _r_graph = new TGraphErrors();
+        TF1* _g_fit;
         TF1* _r_fit = new TF1("_r_fit", "0");
 
         const double _title_size = 21;
-        bool _logx = false;
-        bool _logy = false;
-        bool _show_res;
 
         Double_t xmin, xmax;
 
         void _fillresiduals();
+        void _drawresiduals();
+        void _drawgraph();
+        void _fitgraph();
 
     public:
         graph(bool showresiduals = true);
@@ -163,7 +166,7 @@ namespace graphset
         if(!showresiduals){
             _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
             _r_pad = new TPad("", "", 0.0, 0.0, 0.0, 0.0);
-            _has_fitted = false;
+            _show_res = false;
             _r_pad->Delete();
         }
         _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);  
