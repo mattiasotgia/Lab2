@@ -98,7 +98,8 @@ namespace graphset
 
     class graph{
     private:
-        /* data */
+        const double _title_size = 21;
+        
     public:
         graph(/* args */);
         ~graph();
