@@ -1,9 +1,9 @@
-// Lab Analysis Toolset "tools.h" -*- C++ -*- 
+// Lab Analysis Toolset "LabTools.h" -*- C++ -*- 
 // Author M. Sotgia 05/11/21
-// v0.0.1 alpha
+// v0.0.2 alpha
 
-#ifndef _TOOLS_H
-#define _TOOLS_H
+#ifndef _LABTOOLS_H
+#define _LABTOOLS_H
 
 #include <vector>
 #include <cmath>
@@ -96,19 +96,19 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 
-    // class graph{
-    // private:
-    //     /* data */
-    // public:
-    //     graph(/* args */);
-    //     ~graph();
-    // };
+    class graph{
+    private:
+        /* data */
+    public:
+        graph(/* args */);
+        ~graph();
+    };
     
-    // graph::graph(/* args */){
-    // }
+    graph::graph(/* args */){
+    }
     
-    // graph::~graph(){
-    // }
+    graph::~graph(){
+    }
     
 
     struct padtypes{
