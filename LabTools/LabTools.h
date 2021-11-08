@@ -96,20 +96,20 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 
-    class graph{
-    private:
-        const double _title_size = 21;
+    // class graph{
+    // private:
+    //     const double _title_size = 21;
         
-    public:
-        graph(/* args */);
-        ~graph();
-    };
+    // public:
+    //     graph(/* args */);
+    //     ~graph();
+    // };
     
-    graph::graph(/* args */){
-    }
+    // graph::graph(/* args */){
+    // }
     
-    graph::~graph(){
-    }
+    // graph::~graph(){
+    // }
     
     /////////////////////////////////////////////////////////////////////////////
     //                                                                         //
