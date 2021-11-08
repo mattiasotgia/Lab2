@@ -35,7 +35,7 @@ const double R_Hi = 1.785; // kohm
 //              | T (periodi)        | ?.?%       | ?          | variabile
 
 double get_VRangeErr(double errPercent, int partitions, double range1){ 
-  return errPercent * partitions *  range1; // TODO: controllare calcolo errori
+  return errPercent * partitions *  range1;
 }
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){
     return range1 * errPercent * partition;
@@ -84,9 +84,7 @@ void analisi_RLC_filter(){
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
     TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
-    c1->SetMargin(0.16, 0.06, 0.12, 0.06);
-    c1->SetFillStyle(4000);
-    c1->Divide(1,2);
+    graphset::setcanvas(c1,1,2);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);

@@ -111,6 +111,11 @@ namespace graphset
     graph::~graph(){
     }
     
+    /////////////////////////////////////////////////////////////////////////////
+    //                                                                         //
+    //                    FUNZIONI STABILI SENZA CLASSE                        //
+    //                                                                         //
+    /////////////////////////////////////////////////////////////////////////////
 
     struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
@@ -129,6 +134,14 @@ namespace graphset
         }
         g.Graph->Draw();
         g.Residuals->Draw();
+    }
+
+    void setcanvas(TCanvas* c1, int nx, int ny, 
+                float m_left = 0.16, float m_right = 0.06, 
+                float m_bottom = 0.12, float m_top = 0.06){
+        c1->SetMargin(m_left, m_right, m_bottom, m_top);
+        c1->SetFillStyle(4000);
+        c1->Divide(nx, ny);
     }
 }
 
