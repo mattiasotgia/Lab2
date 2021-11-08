@@ -97,20 +97,85 @@ namespace graphset
     }
 
     class graph{
+
+        // cosa serve che si possa fare:
+        // * creato un elemento della classe voglio che questa mi dia accesso a:
+        //   1 grafico dei dati, 1 grafico dei residui, 1 pad con grafico e residui.
+        // * voglio poter decidere se avere il grafico dei residui oppure no
+
     private:
+
+        bool _has_fitted = false;
+
+        TPad* _full_pad = new TPad();
+        TGraphErrors* _g_graph = new TGraphErrors();
+        TF1* _g_fit;
+        TPad* _g_pad;
+        TPad* _r_pad;
+        TGraphErrors* _r_graph = new TGraphErrors();
+        TF1* _r_fit = new TF1("_r_fit", "0");
+
         const double _title_size = 21;
-        
+        bool _logx = false;
+        bool _logy = false;
+        bool _show_res;
+
+        Double_t xmin, xmax;
+
+        void _fillresiduals();
+
     public:
-        graph(/* args */);
+        graph(bool showresiduals = true);
+        TPad* GetPad(){return _full_pad;};
+        TGraphErrors* GetGraph(){return _g_graph;};
+        TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
+        void SetFitFormula(std::string formula);
+        void SetFitLimits(Double_t min = (0.0), Double_t max = (1.0));
+
+        void SetLogX(){_logx = true;}
+        void SetLogY(){_logx = true;}
         ~graph();
     };
-    
-    graph::graph(/* args */){
+
+    void graph::_fillresiduals(){
+
+        if(!_show_res){
+            return;
+        }
+        if(_has_fitted){
+            for (int i = 0; i < _g_graph->GetN(); i++){
+                _r_graph->SetPoint(i, _g_graph->GetX()[i], (_g_graph->GetY()[i] - _g_fit->Eval(_g_graph->GetX()[i])) / _g_graph->GetEY()[i]);
+                _r_graph->SetPointError(i, 0, 1);
+            }
+        }
+    }
+
+    void graph::SetFitFormula(std::string formula){
+        _g_fit = new TF1("_g_fit", formula.c_str());
+    }
+
+    void graph::SetFitLimits(Double_t min = (0.0), Double_t max = (1.0)){
+        xmin = min;
+        xmax = max;
+        _r_fit->SetRange(min, max);
+    }
+    graph::graph(bool showresiduals = true){
+        if(!showresiduals){
+            _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
+            _r_pad = new TPad("", "", 0.0, 0.0, 0.0, 0.0);
+            _has_fitted = false;
+            _r_pad->Delete();
+        }
+        _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);  
+        _r_pad = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
     }
     
-    graph::~graph(){
-    }
-    
+    // graph::~graph(){
+    // }
+
+
+
+
     /////////////////////////////////////////////////////////////////////////////
     //                                                                         //
     //                    FUNZIONI STABILI SENZA CLASSE                        //
