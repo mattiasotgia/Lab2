@@ -1,9 +1,9 @@
-// Lab Analysis Toolset "tools.h" -*- C++ -*- 
+// Lab Analysis Toolset "LabTools.h" -*- C++ -*- 
 // Author M. Sotgia 05/11/21
-// v0.0.1 alpha
+// v0.0.2 alpha
 
-#ifndef _TOOLS_H
-#define _TOOLS_H
+#ifndef _LABTOOLS_H
+#define _LABTOOLS_H
 
 #include <vector>
 #include <cmath>
@@ -96,20 +96,26 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 
-    // class graph{
-    // private:
-    //     /* data */
-    // public:
-    //     graph(/* args */);
-    //     ~graph();
-    // };
+    class graph{
+    private:
+        const double _title_size = 21;
+        
+    public:
+        graph(/* args */);
+        ~graph();
+    };
     
-    // graph::graph(/* args */){
-    // }
+    graph::graph(/* args */){
+    }
     
-    // graph::~graph(){
-    // }
+    graph::~graph(){
+    }
     
+    /////////////////////////////////////////////////////////////////////////////
+    //                                                                         //
+    //                    FUNZIONI STABILI SENZA CLASSE                        //
+    //                                                                         //
+    /////////////////////////////////////////////////////////////////////////////
 
     struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
@@ -128,6 +134,14 @@ namespace graphset
         }
         g.Graph->Draw();
         g.Residuals->Draw();
+    }
+
+    void setcanvas(TCanvas* c1, int nx, int ny, 
+                float m_left = 0.16, float m_right = 0.06, 
+                float m_bottom = 0.12, float m_top = 0.06){
+        c1->SetMargin(m_left, m_right, m_bottom, m_top);
+        c1->SetFillStyle(4000);
+        c1->Divide(nx, ny);
     }
 }
 
