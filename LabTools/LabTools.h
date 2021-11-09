@@ -62,21 +62,89 @@ namespace stattools
 namespace graphset
 {   
 
-    // class graph{
-    // private:
-    //     const double _title_size = 21;
-        
-    // public:
-    //     graph(/* args */);
-    //     ~graph();
-    // };
-    
-    // graph::graph(/* args */){
-    // }
+    class graph{
+
+        // cosa serve che si possa fare:
+        // * creato un elemento della classe voglio che questa mi dia accesso a:
+        //   1 grafico dei dati, 1 grafico dei residui, 1 pad con grafico e residui.
+        // * voglio poter decidere se avere il grafico dei residui oppure no
+
+    private:
+
+        bool _has_fitted = false;
+        bool _show_res = true;
+        bool _logx = false;
+        bool _logy = false;
+
+        TPad* _full_pad = new TPad();
+        TPad* _g_pad;
+        TPad* _r_pad;
+        TGraphErrors* _g_graph = new TGraphErrors();
+        TGraphErrors* _r_graph = new TGraphErrors();
+        TF1* _g_fit;
+        TF1* _r_fit = new TF1("_r_fit", "0");
+
+        const double _title_size = 21;
+
+        Double_t xmin, xmax;
+
+        void _fillresiduals();
+        void _drawresiduals();
+        void _drawgraph();
+        void _fitgraph();
+
+    public:
+        graph(bool showresiduals = true);
+        TPad* GetPad(){return _full_pad;};
+        TGraphErrors* GetGraph(){return _g_graph;};
+        TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
+        void SetFitFormula(std::string formula);
+        void SetFitLimits(Double_t min = (0.0), Double_t max = (1.0));
+
+        void SetLogX(){_logx = true;}
+        void SetLogY(){_logx = true;}
+        ~graph();
+    };
+
+    void graph::_fillresiduals(){
+
+        if(!_show_res){
+            return;
+        }
+        if(_has_fitted){
+            for (int i = 0; i < _g_graph->GetN(); i++){
+                _r_graph->SetPoint(i, _g_graph->GetX()[i], (_g_graph->GetY()[i] - _g_fit->Eval(_g_graph->GetX()[i])) / _g_graph->GetEY()[i]);
+                _r_graph->SetPointError(i, 0, 1);
+            }
+        }
+    }
+
+    void graph::SetFitFormula(std::string formula){
+        _g_fit = new TF1("_g_fit", formula.c_str());
+    }
+
+    void graph::SetFitLimits(Double_t min = (0.0), Double_t max = (1.0)){
+        xmin = min;
+        xmax = max;
+        _r_fit->SetRange(min, max);
+    }
+    graph::graph(bool showresiduals = true){
+        if(!showresiduals){
+            _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
+            _r_pad = new TPad("", "", 0.0, 0.0, 0.0, 0.0);
+            _show_res = false;
+            _r_pad->Delete();
+        }
+        _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);  
+        _r_pad = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
+    }
     
     // graph::~graph(){
     // }
-    
+
+
+
+
     /////////////////////////////////////////////////////////////////////////////
     //                                                                         //
     //                    FUNZIONI STABILI SENZA CLASSE                        //
@@ -117,6 +185,7 @@ namespace graphset
 
         rg->GetXaxis()->SetTickLength(0.08);
     }
+    
     struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
         TPad* Residuals = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
