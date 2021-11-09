@@ -59,7 +59,9 @@ double get_phiErr(double T, double dt, double eT, double edt){
 void analisi_RLC_filter(std::string file);
 
 void analisi_permeabilita(){
-    analisi_RLC_filter("presa_dati_libero.txt");
+    // analisi_RLC_filter("presa_dati_libero.txt");
+    // analisi_RLC_filter("presa_dati_materiale1.txt");
+    analisi_RLC_filter("presa_dati_materiale2.txt");
 }
 
 void analisi_RLC_filter(std::string file){
@@ -90,8 +92,8 @@ void analisi_RLC_filter(std::string file){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000);
-    graphset::setcanvas(c1,1,2);
+    TCanvas* c1 = new TCanvas("c1", "", 1000, 500);
+    graphset::setcanvas(c1,2,1);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
