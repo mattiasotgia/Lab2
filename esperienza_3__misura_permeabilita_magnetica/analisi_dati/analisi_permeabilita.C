@@ -16,8 +16,8 @@
 #include"../../LabTools/LabTools.h"
 
 
-const double R = 38;        // Ohm (valore ideale )
-const double C 220e-9;      // Farad (valore ideale 470nF)
+const double R = 38;        // Ohm   (valore ideale 38 ohm)
+const double C 220e-9;      // Farad (valore ideale 220nF)
 const double L = 0.01003;   // Henry (valore ideale 10 mH)
 const double R_L = 3.7;     // Ohm
 
