@@ -16,8 +16,6 @@
 #include"../../LabTools/LabTools.h"
 
 
-std::string rawdata = "../dati/<update>";
-
 const double R; // indicativo valore nominale 200 ohm?
 const double C; // indicativo valore nominale 100 nF
 const double L; // indicativo valore nominale 100 mH
@@ -57,7 +55,11 @@ double get_phiErr(double T, double dt, double eT, double edt){
     return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
 }
 
-void analisi_RLC_filter(){
+void analisi_permeabilita(){
+    analisi_RLC_filter();
+}
+
+void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
     // todo:
     // * leggere file formato: 
