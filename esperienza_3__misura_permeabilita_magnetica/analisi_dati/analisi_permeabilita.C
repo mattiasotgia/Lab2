@@ -16,14 +16,12 @@
 #include"../../LabTools/LabTools.h"
 
 
-std::string rawdata = "../dati/presa_dati_2021_10_26.txt";
+const double R; // indicativo valore nominale 200 ohm?
+const double C; // indicativo valore nominale 100 nF
+const double L; // indicativo valore nominale 100 mH
+const double R_L;
 
-const double R = 175.7; // indicativo valore nominale 200 ohm?
-const double C = 100; // indicativo valore nominale 100 nF
-const double L = 97.6; // indicativo valore nominale 100 mH
-const double R_L = 79.1;
-
-const double R_Hi = 1.785; // kohm
+const double R_Hi; // kohm
 
 // Con i valori scelti otteniamo che circa v = 1.6 kHz
 // Q circa = 5
@@ -57,7 +55,11 @@ double get_phiErr(double T, double dt, double eT, double edt){
     return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
 }
 
-void analisi_RLC_filter(){
+void analisi_permeabilita(){
+    analisi_RLC_filter();
+}
+
+void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
     // todo:
     // * leggere file formato: 
@@ -83,7 +85,7 @@ void analisi_RLC_filter(){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000); // ! Modificare per avere grafico orizzontale piu pratico
+    TCanvas* c1 = new TCanvas("c1", "", 600, 1000);
     graphset::setcanvas(c1,1,2);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
