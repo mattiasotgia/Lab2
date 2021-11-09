@@ -61,6 +61,28 @@ namespace stattools
 
 namespace graphset
 {   
+
+    // class graph{
+    // private:
+    //     const double _title_size = 21;
+        
+    // public:
+    //     graph(/* args */);
+    //     ~graph();
+    // };
+    
+    // graph::graph(/* args */){
+    // }
+    
+    // graph::~graph(){
+    // }
+    
+    /////////////////////////////////////////////////////////////////////////////
+    //                                                                         //
+    //                    FUNZIONI STABILI SENZA CLASSE                        //
+    //                                                                         //
+    /////////////////////////////////////////////////////////////////////////////
+
     void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
@@ -95,28 +117,6 @@ namespace graphset
 
         rg->GetXaxis()->SetTickLength(0.08);
     }
-
-    // class graph{
-    // private:
-    //     const double _title_size = 21;
-        
-    // public:
-    //     graph(/* args */);
-    //     ~graph();
-    // };
-    
-    // graph::graph(/* args */){
-    // }
-    
-    // graph::~graph(){
-    // }
-    
-    /////////////////////////////////////////////////////////////////////////////
-    //                                                                         //
-    //                    FUNZIONI STABILI SENZA CLASSE                        //
-    //                                                                         //
-    /////////////////////////////////////////////////////////////////////////////
-
     struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
         TPad* Residuals = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
