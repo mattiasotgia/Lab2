@@ -89,15 +89,17 @@ namespace graphset
         Double_t xmin, xmax;
 
         void _fillresiduals();
-        void _drawresiduals();
-        void _drawgraph();
         void _fitgraph();
+        void _drawgraph();
+        void _drawresiduals();
 
     public:
         graph(bool showresiduals = true);
+
         TPad* GetPad(){return _full_pad;};
         TGraphErrors* GetGraph(){return _g_graph;};
         TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
+
         void SetFitFormula(std::string formula);
         void SetFitLimits(Double_t min = (0.0), Double_t max = (1.0));
 
@@ -211,6 +213,13 @@ namespace graphset
         c1->SetMargin(m_left, m_right, m_bottom, m_top);
         c1->SetFillStyle(4000);
         c1->Divide(nx, ny);
+    }
+
+    void fillresiduals(TGraphErrors* g, TF1* g_fit, TGraphErrors* r){
+            for(int i=0; i<g->GetN(); i++){
+                r->SetPoint(i, g->GetX()[i], (g->GetY()[i] - g_fit->Eval(g->GetX()[i])) / g->GetEY()[i]);
+                r->SetPointError(i, 0, 1);
+            }
     }
 }
 
