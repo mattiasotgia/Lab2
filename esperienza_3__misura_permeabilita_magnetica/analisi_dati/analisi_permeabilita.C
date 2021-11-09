@@ -21,6 +21,9 @@ const double C 220e-9;      // Farad (valore ideale 220nF)
 const double L = 0.01003;   // Henry (valore ideale 10 mH)
 const double R_L = 3.7;     // Ohm
 
+const double N_spire = 200;
+
+
 // Con i valori scelti otteniamo che circa v = 2.3 kHz
 // Q circa = 5
 // A = 1 (che va bene finche' R_L << R)
