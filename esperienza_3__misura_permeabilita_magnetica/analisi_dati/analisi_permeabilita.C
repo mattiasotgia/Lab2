@@ -16,14 +16,12 @@
 #include"../../LabTools/LabTools.h"
 
 
-const double R; // indicativo valore nominale 200 ohm?
-const double C; // indicativo valore nominale 100 nF
-const double L; // indicativo valore nominale 100 mH
-const double R_L;
+const double R = 38;        // Ohm (valore ideale )
+const double C 220e-9;      // Farad (valore ideale 470nF)
+const double L = 0.01003;   // Henry (valore ideale 10 mH)
+const double R_L = 3.7;     // Ohm
 
-const double R_Hi; // kohm
-
-// Con i valori scelti otteniamo che circa v = 1.6 kHz
+// Con i valori scelti otteniamo che circa v = 2.3 kHz
 // Q circa = 5
 // A = 1 (che va bene finche' R_L << R)
 
