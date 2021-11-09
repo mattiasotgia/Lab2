@@ -100,6 +100,10 @@ namespace graphset
         TGraphErrors* GetGraph(){return _g_graph;};
         TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
 
+        void SetGraph(TGraphErrors* clonegraph);
+        void SetFitTF1(TF1* clonefit);
+
+
         void SetFitFormula(std::string formula);
         void SetFitLimits(Double_t min = (0.0), Double_t max = (1.0));
 
@@ -107,6 +111,15 @@ namespace graphset
         void SetLogY(){_logx = true;}
         ~graph();
     };
+
+    graph::graph(bool showresiduals = true){
+
+        _show_res=showresiduals;
+
+        // Alcuni accortezze da impostare inizializzando la classe
+        _r_fit->SetLineStyle(2);
+        
+    }
 
     void graph::_fillresiduals(){
 
