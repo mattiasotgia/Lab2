@@ -61,40 +61,6 @@ namespace stattools
 
 namespace graphset
 {   
-    void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
-        g->SetTitle("");
-        g->GetYaxis()->SetTitle(ytitle.c_str());
-        g->GetYaxis()->SetTitleOffset(offset);
-        g->GetYaxis()->SetTitleFont(43);
-        g->GetYaxis()->SetTitleSize(title_size);
-        g->GetYaxis()->SetLabelFont(43);
-        g->GetYaxis()->SetLabelSize(12);
-        g->GetYaxis()->CenterTitle();
-
-        g->GetXaxis()->SetTickLength(0.05);
-    }
-
-    void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
-        rg->GetXaxis()->SetTitle(xtitle.c_str());
-        rg->GetXaxis()->SetTitleOffset(5);
-        rg->GetXaxis()->SetTitleFont(43);
-        rg->GetXaxis()->SetTitleSize(title_size);
-
-        rg->GetYaxis()->SetTitle(ytitle.c_str());
-        rg->GetYaxis()->SetTitleOffset(offset);
-        rg->GetYaxis()->SetTitleFont(43);
-        rg->GetYaxis()->SetTitleSize(title_size);
-        rg->GetYaxis()->CenterTitle();
-
-        rg->GetYaxis()->SetLabelFont(43);
-        rg->GetYaxis()->SetLabelSize(12);
-        rg->GetYaxis()->SetNdivisions(5, 5, 0);
-        rg->GetXaxis()->SetLabelFont(43);
-        rg->GetXaxis()->SetLabelSize(12);
-        rg->GetXaxis()->CenterTitle();
-
-        rg->GetXaxis()->SetTickLength(0.08);
-    }
 
     class graph{
 
@@ -185,6 +151,41 @@ namespace graphset
     //                                                                         //
     /////////////////////////////////////////////////////////////////////////////
 
+    void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
+        g->SetTitle("");
+        g->GetYaxis()->SetTitle(ytitle.c_str());
+        g->GetYaxis()->SetTitleOffset(offset);
+        g->GetYaxis()->SetTitleFont(43);
+        g->GetYaxis()->SetTitleSize(title_size);
+        g->GetYaxis()->SetLabelFont(43);
+        g->GetYaxis()->SetLabelSize(12);
+        g->GetYaxis()->CenterTitle();
+
+        g->GetXaxis()->SetTickLength(0.05);
+    }
+
+    void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
+        rg->GetXaxis()->SetTitle(xtitle.c_str());
+        rg->GetXaxis()->SetTitleOffset(5);
+        rg->GetXaxis()->SetTitleFont(43);
+        rg->GetXaxis()->SetTitleSize(title_size);
+
+        rg->GetYaxis()->SetTitle(ytitle.c_str());
+        rg->GetYaxis()->SetTitleOffset(offset);
+        rg->GetYaxis()->SetTitleFont(43);
+        rg->GetYaxis()->SetTitleSize(title_size);
+        rg->GetYaxis()->CenterTitle();
+
+        rg->GetYaxis()->SetLabelFont(43);
+        rg->GetYaxis()->SetLabelSize(12);
+        rg->GetYaxis()->SetNdivisions(5, 5, 0);
+        rg->GetXaxis()->SetLabelFont(43);
+        rg->GetXaxis()->SetLabelSize(12);
+        rg->GetXaxis()->CenterTitle();
+
+        rg->GetXaxis()->SetTickLength(0.08);
+    }
+    
     struct padtypes{
         TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
         TPad* Residuals = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
