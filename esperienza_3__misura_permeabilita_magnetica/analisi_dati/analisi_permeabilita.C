@@ -101,7 +101,7 @@ void analisi_RLC_filter(std::string file){
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameters(1, 6, 2000);
+    H_fit->SetParameters(1, 6, 3562);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -127,7 +127,7 @@ void analisi_RLC_filter(std::string file){
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
-    phi_fit->SetParameters(1, 6, 3500);
+    phi_fit->SetParameters(1, 6, 3562);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -160,7 +160,7 @@ void analisi_RLC_filter(std::string file){
             eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
-        double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
+        double edt = 2*stattools::max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
