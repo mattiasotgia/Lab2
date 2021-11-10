@@ -30,13 +30,13 @@
     \the\year\twodigits\month\twodigits\day/3-\thepage
 }
 \fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
-    N. 1 % ! <== CAMBIARE (Nessuna rel.-> 00)
+    N. 1 % ! <== CAMBIARE (Nessuna rel. -> 00)
     } (\the\year)
 }
 
 \begin{document}
 
-\title{Misura Della Permeabilità Magnetica 
+\title{Misura della permeabilità magnetica relativa con circuito RLC risonante
 }
 \thanks{Esperinza n. 3
 }
@@ -45,7 +45,6 @@
 \email{s5025011@studenti.unige.it}
 \author{Mattia Sotgia}
 \email{s4942225@studenti.unige.it}
-\altaffiliation{In presenza in laboratorio per la presa dati}
 
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
@@ -68,6 +67,39 @@
 %%%% CORPO DEL TESTO
 %%%% CORPO DEL TESTO
 
+\section{Introduzione}
+Si vuole misurare il valore della permeabilità magnetica di alcuni materiali dati, di cui non conosciamo esatta composizione chimico-fisica ma che possiamo ipotizzare omogenei, lineari ed isotropi fino al primo grado di approssimazione, avendo a disposizione un rocchetto plastico su cui sono avvolte $N$ spire di rame, nel quale può essere inserito il volume di materiale creato in modo da riempire quasi completamente il rocchetto. Variando il materiale ci aspettiamo di poter misurare i differenti valori della permeabilità magnetica $\mu_R$. 
+
+Poichè i tipi di misure più precisi che siamo capaci ad effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Cambiando il nucleo all'interno del solenoide modifichiamo il valore di $L$ e di conseguenza troveremo un valore differente di $\nu_0$. Dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
+
+% \begin{figure}
+%     \begin{circuitikz}
+%         \ctikzset{bipoles/oscope/width=1.0}
+%         \draw (4.5,2)
+%         node[oscopeshape, fill=gray!20!white](O1){};
+%         \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
+%         \draw (0,0)
+%         node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
+%         to [short, o-] (0.5,0)
+%         to [L=$100$ mH, i_=$i$] (2,0)
+%         to [R=$R_L$, resistors/scale=0.4] (2.75,0)
+%         to [C=$100$ nF] (4,0)
+%         to [R=$180$ $\Omega$] (4,-2) 
+%         to [short] (0,-2)
+%         node[ground]{} node[left=4pt]{GND}
+%         (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+%         to [short, -] (4.5,1.2)
+%         to [short, -*] (O1.in 1);
+%         \draw [red, dashed] 
+%         (-2,2) 
+%         node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
+%         rectangle (0.5, -3);
+%     \end{circuitikz}
+%     \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+%     \label{fig:circuit}
+% \end{figure}
+
+
 %\onecolumngrid
 \appendix
 
@@ -75,4 +107,3 @@
 \renewcommand{\thetable}{A-\Roman{table}}
 
 \end{document}
-    
