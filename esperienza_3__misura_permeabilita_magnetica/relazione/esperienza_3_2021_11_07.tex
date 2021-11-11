@@ -72,32 +72,37 @@ Si vuole misurare il valore della permeabilità magnetica di alcuni materiali da
 
 Poichè i tipi di misure più precisi che siamo capaci ad effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Cambiando il nucleo all'interno del solenoide modifichiamo il valore di $L$ e di conseguenza troveremo un valore differente di $\nu_0$. Dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
 
-% \begin{figure}
-%     \begin{circuitikz}
-%         \ctikzset{bipoles/oscope/width=1.0}
-%         \draw (4.5,2)
-%         node[oscopeshape, fill=gray!20!white](O1){};
-%         \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
-%         \draw (0,0)
-%         node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
-%         to [short, o-] (0.5,0)
-%         to [L=$100$ mH, i_=$i$] (2,0)
-%         to [R=$R_L$, resistors/scale=0.4] (2.75,0)
-%         to [C=$100$ nF] (4,0)
-%         to [R=$180$ $\Omega$] (4,-2) 
-%         to [short] (0,-2)
-%         node[ground]{} node[left=4pt]{GND}
-%         (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
-%         to [short, -] (4.5,1.2)
-%         to [short, -*] (O1.in 1);
-%         \draw [red, dashed] 
-%         (-2,2) 
-%         node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
-%         rectangle (0.5, -3);
-%     \end{circuitikz}
-%     \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
-%     \label{fig:circuit}
-% \end{figure}
+
+\begin{methods}{Metodi}
+    \textit{Caratterizzazione del circuto RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. 
+    
+    % \begin{figure}
+    %     \begin{circuitikz}
+    %         \ctikzset{bipoles/oscope/width=1.0}
+    %         \draw (4.5,2)
+    %         node[oscopeshape, fill=gray!20!white](O1){};
+    %         \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
+    %         \draw (0,0)
+    %         node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
+    %         to [short, o-] (0.5,0)
+    %         to [L=$100$ mH, i_=$i$] (2,0)
+    %         to [R=$R_L$, resistors/scale=0.4] (2.75,0)
+    %         to [C=$100$ nF] (4,0)
+    %         to [R=$180$ $\Omega$] (4,-2) 
+    %         to [short] (0,-2)
+    %         node[ground]{} node[left=4pt]{GND}
+    %         (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+    %         to [short, -] (4.5,1.2)
+    %         to [short, -*] (O1.in 1);
+    %         \draw [red, dashed] 
+    %         (-2,2) 
+    %         node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
+    %         rectangle (0.5, -3);
+    %     \end{circuitikz}
+    %     \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+    %     \label{fig:circuit}
+    % \end{figure}
+\end{methods}
 
 
 %\onecolumngrid
