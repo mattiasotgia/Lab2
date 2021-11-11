@@ -74,36 +74,36 @@ Poichè i tipi di misure più precisi che siamo capaci ad effettuare sono misure
 
 
 \begin{methods}{Metodi}
-    \textit{Caratterizzazione del circuto RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da "equazione", per cui osserviamo che il suo valore massimo cioè 1, si ottenga per "equazione omegazero" che è il valore di quella che abbiamo chiamato frequenza di taglio. Per valori più bassi è più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione delle funzione di traferimento può essere riscritta come "equazione con Q" dove Q uguale "equazione Q" per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro A uguale "equazione A" da cui "equazione con A". 
+    \textit{Caratterizzazione del circuto RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da \[\big|H[\nu]\big|=\frac{1}{\sqrt{R+\left(\omega L - \frac{1}{\omega C}\right)^2}},\] per cui osserviamo che il suo valore massimo (cioè 1), si ottenga per $\omega=\omega_0$ che è il valore di quella che abbiamo chiamato frequenza di taglio ($\omega_0$ oppure $\nu_0$). Per valori più bassi e più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione delle funzione di traferimento può essere riscritta come \[\big|H[\nu]\big|=\frac{1}{\sqrt{R+Q_{id}^2\left({\nu\over\nu_0}+{\nu_0\over\nu}\right)^2}}\] dove Q è $Q_{id}=\frac{1}{R}\sqrt{\frac{L}{C}}$ (e abbiamo sostituito $\omega$ con $\nu = {\omega\over 2\pi}$ dove $\nu={1\over T}$), per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro A uguale \[A=\left(1+{R_L\over R}\right)^2\] da cui \[\big|H[\nu]\big|=\frac{1}{\sqrt{A+Q_{id}^2\left({\nu\over\nu_0}+{\nu_0\over\nu}\right)}}.\] 
     
-    Perciò in base ai valori di resistenza, capacità e induttanza che inseriamo all'interno del circuito possiamo modificare i valori di tali parametri. Vogliamo costruire un circuito la cui frequenza di taglio sia circa 3000Hz in modo che intorno a questo valore di frequenza il segnale all'interno del circuito non sia disturbato da possibili rumori presenti a frequenze nell'ordine dei 100Hz o da altre interferenze presenti invece quando arriviamo a oltre 20KHz. Un'altra condizione che imponiamo è che il fattore di qualità sia almeno maggiore di 4 in modo che la banda che filtriamo attraverso il circuito sia sufficientemente stretta, ma nello stesso momento vogliamo che questo fattore non sia troppo elevato perchè ciò renderebbe la banda troppo piccola.
+    Perciò in base ai valori di resistenza, capacità e induttanza che inseriamo all'interno del circuito possiamo modificare i valori di tali parametri. Vogliamo costruire un circuito la cui frequenza di taglio sia circa 3kHz in modo che intorno a questo valore di frequenza il segnale all'interno del circuito non sia disturbato da possibili rumori presenti a frequenze nell'ordine dei 100Hz o da altre interferenze presenti invece quando arriviamo a oltre 20KHz. Un'altra condizione che imponiamo è che il fattore di qualità sia almeno maggiore di 4 in modo che la banda che filtriamo attraverso il circuito sia sufficientemente stretta, \hl{ma nello stesso momento vogliamo che questo fattore non sia troppo elevato perch\`e ci\`o renderebbe la banda troppo piccola.\footnote{Non so quest'ultimo punto quanto sia una roba che aveva detto, piuttosto mi pare sensato dire che Q non può essere più grande perchè limitato dal valore di R, L e C.}}
     
-    % \begin{figure}
-    %     \begin{circuitikz}
-    %         \ctikzset{bipoles/oscope/width=1.0}
-    %         \draw (4.5,2)
-    %         node[oscopeshape, fill=gray!20!white](O1){};
-    %         \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
-    %         \draw (0,0)
-    %         node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
-    %         to [short, o-] (0.5,0)
-    %         to [L=$100$ mH, i_=$i$] (2,0)
-    %         to [R=$R_L$, resistors/scale=0.4] (2.75,0)
-    %         to [C=$100$ nF] (4,0)
-    %         to [R=$180$ $\Omega$] (4,-2) 
-    %         to [short] (0,-2)
-    %         node[ground]{} node[left=4pt]{GND}
-    %         (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
-    %         to [short, -] (4.5,1.2)
-    %         to [short, -*] (O1.in 1);
-    %         \draw [red, dashed] 
-    %         (-2,2) 
-    %         node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
-    %         rectangle (0.5, -3);
-    %     \end{circuitikz}
-    %     \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
-    %     \label{fig:circuit}
-    % \end{figure}
+    \begin{figure}[b]
+        \begin{circuitikz}
+            \ctikzset{bipoles/oscope/width=1.0}
+            \draw (4.5,2)
+            node[oscopeshape, fill=gray!20!white](O1){};
+            \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
+            \draw (0,0)
+            node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
+            to [short, o-] (0.5,0)
+            to [L=$10$ mH, i_=$i$] (2,0)
+            to [R=$R_L$, resistors/scale=0.4] (2.75,0)
+            to [C=$220$ nF] (4,0)
+            to [R=$38$ $\Omega$] (4,-2) 
+            to [short] (0,-2)
+            node[ground]{} node[left=4pt]{GND}
+            (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+            to [short, -] (4.5,1.2)
+            to [short, -*] (O1.in 1);
+            \draw [red, dashed] 
+            (-2,2) 
+            node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
+            rectangle (0.5, -3);
+        \end{circuitikz}
+        \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+        \label{fig:circuit}
+    \end{figure}
 \end{methods}
 
 
