@@ -21,7 +21,7 @@ const double C = 220e-9;    // Farad (valore ideale 220nF)
 const double L = 0.01003;   // Henry (valore ideale 10 mH)
 const double R_L = 3.7;     // Ohm
 
-const double N_spire = 200;
+const double N_spire = 900;
 
 
 // Con i valori scelti otteniamo che circa v = 2.3 kHz
