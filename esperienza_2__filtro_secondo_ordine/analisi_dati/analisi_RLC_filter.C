@@ -188,11 +188,7 @@ void analisi_RLC_filter(){
 
     // RESIDUI
     Hp2->cd();
-
-    for(int i=0; i<H_plot->GetN(); i++){
-            H_resd->SetPoint(i, H_plot->GetX()[i], (H_plot->GetY()[i] - H_fit->Eval(H_plot->GetX()[i]))/H_plot->GetEY()[i]);
-            H_resd->SetPointError(i, 0, 1);
-    }
+    graphset::fillresiduals(H_plot, H_fit, H_resd);
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
@@ -224,11 +220,7 @@ void analisi_RLC_filter(){
 
     // RESIDUI
     phi_p2->cd();
-
-    for(int i=0; i<phi_plot->GetN(); i++){
-            phi_resd->SetPoint(i, phi_plot->GetX()[i], (phi_plot->GetY()[i] - phi_fit->Eval(phi_plot->GetX()[i]))/phi_plot->GetEY()[i]);
-            phi_resd->SetPointError(i, 0, 1);
-    }
+    graphset::fillresiduals(phi_plot, phi_fit, phi_resd);
     phi_resd->Draw("ap");
     phi_res_f->Draw("same");
 

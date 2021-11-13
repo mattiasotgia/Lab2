@@ -16,14 +16,15 @@
 #include"../../LabTools/LabTools.h"
 
 
-const double R; // indicativo valore nominale 200 ohm?
-const double C; // indicativo valore nominale 100 nF
-const double L; // indicativo valore nominale 100 mH
-const double R_L;
+const double R = 38;        // Ohm   (valore ideale 38 ohm)
+const double C = 220e-9;    // Farad (valore ideale 220nF)
+const double L = 0.01003;   // Henry (valore ideale 10 mH)
+const double R_L = 3.7;     // Ohm
 
-const double R_Hi; // kohm
+const double N_spire = 900;
 
-// Con i valori scelti otteniamo che circa v = 1.6 kHz
+
+// Con i valori scelti otteniamo che circa v = 2.3 kHz
 // Q circa = 5
 // A = 1 (che va bene finche' R_L << R)
 
@@ -55,11 +56,17 @@ double get_phiErr(double T, double dt, double eT, double edt){
     return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
 }
 
+void analisi_RLC_filter(std::string file);
+
 void analisi_permeabilita(){
-    analisi_RLC_filter();
+    // analisi_RLC_filter("presa_dati_libero.txt");
+    // analisi_RLC_filter("presa_dati_materiale1.txt");
+    analisi_RLC_filter("presa_dati_materiale2.txt");
 }
 
-void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
+void analisi_RLC_filter(std::string file){
+
+    std::string rawdata = "../dati/" + file;
 
     // todo:
     // * leggere file formato: 
@@ -85,8 +92,8 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 1000);
-    graphset::setcanvas(c1,1,2);
+    TCanvas* c1 = new TCanvas("c1", "", 1000, 500);
+    graphset::setcanvas(c1,2,1);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
     c1->cd(1);
@@ -94,7 +101,7 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameters(1, 5, 2000);
+    H_fit->SetParameters(1, 6, 3562);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -120,7 +127,7 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
-    phi_fit->SetParameters(1, 5, 2000);
+    phi_fit->SetParameters(1, 6, 3562);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -153,7 +160,7 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
             eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
-        double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
+        double edt = 2*stattools::max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
@@ -190,11 +197,7 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
     // RESIDUI
     Hp2->cd();
-
-    for(int i=0; i<H_plot->GetN(); i++){
-            H_resd->SetPoint(i, H_plot->GetX()[i], (H_plot->GetY()[i] - H_fit->Eval(H_plot->GetX()[i]))/H_plot->GetEY()[i]);
-            H_resd->SetPointError(i, 0, 1);
-    }
+    graphset::fillresiduals(H_plot, H_fit, H_resd);
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
@@ -226,20 +229,16 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
     // RESIDUI
     phi_p2->cd();
-
-    for(int i=0; i<phi_plot->GetN(); i++){
-            phi_resd->SetPoint(i, phi_plot->GetX()[i], (phi_plot->GetY()[i] - phi_fit->Eval(phi_plot->GetX()[i]))/phi_plot->GetEY()[i]);
-            phi_resd->SetPointError(i, 0, 1);
-    }
+    graphset::fillresiduals(phi_plot, phi_fit, phi_resd);
     phi_resd->Draw("ap");
     phi_res_f->Draw("same");
 
-    double A_fase = H_fit->GetParameter(0);
-    double err_A_fase = H_fit->GetParError(0);
-    double Q_fase = H_fit->GetParameter(1);
-    double err_Q_fase = H_fit->GetParError(1);
-    double frequenza_taglio_fase = H_fit->GetParameter(2);
-    double err_frequenza_taglio_fase = H_fit->GetParError(2);
+    double A_fase = phi_fit->GetParameter(0);
+    double err_A_fase = phi_fit->GetParError(0);
+    double Q_fase = phi_fit->GetParameter(1);
+    double err_Q_fase = phi_fit->GetParError(1);
+    double frequenza_taglio_fase = phi_fit->GetParameter(2);
+    double err_frequenza_taglio_fase = phi_fit->GetParError(2);
 
     std::cout << "A da phi(w) = (1 + R_L / R)^2 = " << A_fase << " +/- " << err_A_fase << std::endl
             << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
@@ -261,7 +260,7 @@ void analisi_RLC_filter(std::string rawdata = "../dati/<update>"){
 
 #ifndef __CINT__
 int main(){
-    analisi_RLC_filter();
+    analisi_permeabilita();
     return 0;
 }
 #endif

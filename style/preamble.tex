@@ -70,6 +70,7 @@
 }
 \usepackage{soul}
 
+
 %% Define ref types
 \newcommand{\reftab}[1]{Tabella {\ref{#1}}}%
 \newcommand{\reffig}[1]{Figura {\ref{#1}}}%
@@ -81,3 +82,7 @@
 \newcommand{\stdErr}[1]{$\varepsilon_{#1}$}
 \newcommand{\mstdErr}[1]{\varepsilon_{#1}}
 %% PAPER ONLY custom Macros
+
+\newenvironment{methods}[1]{\section*{#1}
+%\fontfamily{phv}
+\fontsize{7.5}{9}\selectfont\label{section:methods}\noindent}{\par\noindent}
