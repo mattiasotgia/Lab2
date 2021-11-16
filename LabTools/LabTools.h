@@ -20,7 +20,7 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-const double title_size = 21;
+const double title_size = 14;
 
 namespace log
 {
@@ -168,7 +168,7 @@ namespace graphset
 
     void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
-        rg->GetXaxis()->SetTitleOffset(5);
+        rg->GetXaxis()->SetTitleOffset(10);
         rg->GetXaxis()->SetTitleFont(43);
         rg->GetXaxis()->SetTitleSize(title_size);
 
@@ -213,6 +213,14 @@ namespace graphset
         c1->SetMargin(m_left, m_right, m_bottom, m_top);
         c1->SetFillStyle(4000);
         c1->Divide(nx, ny);
+    }
+
+    void setpad(TPad* p1, int nx, int ny, 
+            float m_left = 0.16, float m_right = 0.06, 
+            float m_bottom = 0.12, float m_top = 0.06){
+        // p1->SetMargin(m_left, m_right, m_bottom, m_top);
+        p1->SetFillStyle(4000);
+        p1->Divide(nx, ny);
     }
 
     void fillresiduals(TGraphErrors* g, TF1* g_fit, TGraphErrors* r){

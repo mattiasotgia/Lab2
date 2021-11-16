@@ -56,52 +56,65 @@ double get_phiErr(double T, double dt, double eT, double edt){
     return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
 }
 
-void analisi_RLC_filter(std::string file);
+struct parameter{
+    double val[2];
+    double err[2];
+};
+
+struct result
+{
+    parameter A, Q, v0;
+    
+};
+
+result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position);
 
 void analisi_permeabilita(){
-    // analisi_RLC_filter("presa_dati_libero.txt");
-    // analisi_RLC_filter("presa_dati_materiale1.txt");
-    analisi_RLC_filter("presa_dati_materiale2.txt");
-}
-
-void analisi_RLC_filter(std::string file){
-
-    std::string rawdata = "../dati/" + file;
-
-    // todo:
-    // * leggere file formato: 
-    // Vin | scalaVin | Vout | scalaVout | T | scalaT | dt | scaladt
-    // * trascrivere i file con gli errori:
-    // Vin | eVin | Vout | eVout | T | eT | dt | edt 
-    // * calcolare i valori H, eH, phi, ephi, w, ew
-    // H | eH | phi | ephi | w | ew
-    // H = Vin/Vout
-    // phi = 2 * pi * dt / T
-    // w = 2 * pi / T -> meglio forse usare v = 1 / T [Hz]?
-
 
     gStyle->SetFrameLineWidth(0);
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
+    TCanvas* c1 = new TCanvas("c1", "", 800, 1000);
+    graphset::setcanvas(c1, 2, 3);
+
+    double A_1 = 1.2;
+    double Q_1 = 6;
+
+    double lib0[3] = {A_1, Q_1, 3400};
+    double mat1[3] = {A_1, Q_1, 2300};
+    double mat2[3] = {A_1, Q_1, 3562};
+
+    result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0);
+    result materiale1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2);
+    result materiale2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
+    c1->SaveAs("../fig/plot.pdf");
+    return;
+}
+
+result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position){
+
+    std::string rawdata = "../dati/" + file;
+    std::string output = file.substr(file.find_last_of("_"), file.find("."));
+
+    log::print_mmsg("Analisi di " + rawdata);
+
     std::ifstream data(rawdata.c_str());
 
-    std::ofstream out_rawdata("../misc/rawdata.txt"); // carbon copy of original data
-    std::ofstream out_cleandata("../misc/cleandata.txt"); // values from rawdata with error
-    std::ofstream out_computeddata("../misc/computeddata.txt"); // computed data for final graph
+    std::ofstream out_rawdata(("../misc/rawdata_" + output + ".txt").c_str()); // carbon copy of original data
+    std::ofstream out_cleandata(("../misc/cleandata_" + output + ".txt").c_str()); // values from rawdata with error
+    std::ofstream out_computeddata(("../misc/computeddata_" + output + ".txt").c_str()); // computed data for final graph
 
     double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
 
-    TCanvas* c1 = new TCanvas("c1", "", 1000, 500);
-    graphset::setcanvas(c1,2,1);
 
     // Analisi 1mo diagramma di BODE, |H(w)| su w
-    c1->cd(1);
+    canvas->cd(position+1);
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameters(1, 6, 3562);
+    H_fit->SetParameters(params);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -113,21 +126,21 @@ void analisi_RLC_filter(std::string file){
 
     TLatex* header = new TLatex();
     header->SetTextFont(43);
-    header->SetTextSize(15);
+    header->SetTextSize(7);
 
-    graphset::padtypes H;
-    TPad* Hp1 = H.Graph;
-    TPad* Hp2 = H.Residuals;
-    graphset::setgraphsize(H, true, true);
+    graphset::padtypes H_pad;
+    TPad* Hp1 = H_pad.Graph;
+    TPad* Hp2 = H_pad.Residuals;
+    graphset::setgraphsize(H_pad, true, true);
 
 
     // Analisi 2do diagramma di BODE, phi su w
-    c1->cd(2);
+    canvas->cd(position+2);
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
-    phi_fit->SetParameters(1, 6, 3562);
+    phi_fit->SetParameters(params);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -138,12 +151,12 @@ void analisi_RLC_filter(std::string file){
 
     TLatex* phi_header = new TLatex();
     phi_header->SetTextFont(43);
-    phi_header->SetTextSize(15);
+    phi_header->SetTextSize(7);
 
-    graphset::padtypes phi;
-    TPad* phi_p1 = phi.Graph;
-    TPad* phi_p2 = phi.Residuals;
-    graphset::setgraphsize(phi, 1, 0);
+    graphset::padtypes phi_pad;
+    TPad* phi_p1 = phi_pad.Graph;
+    TPad* phi_p2 = phi_pad.Residuals;
+    graphset::setgraphsize(phi_pad, 1, 0);
 
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
@@ -247,16 +260,22 @@ void analisi_RLC_filter(std::string file){
     std::cout << std::endl << "** Verifica compatibilita => (w0)" << stattools::compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
-    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
-    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
+    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 4);
+    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 4);
 
-    graphset::set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]");
-    graphset::set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]");
+    graphset::set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]", 4);
+    graphset::set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]", 4);
 
-    // TODO: salvare il file come pdf
-
-    return;
+    return {
+        {
+            {H_fit->GetParameter(0), phi_fit->GetParameter(0)}, {H_fit->GetParError(0), phi_fit->GetParError(0)}},
+        {
+            {H_fit->GetParameter(1), phi_fit->GetParameter(1)}, {H_fit->GetParError(1), phi_fit->GetParError(1)}},
+        {
+            {H_fit->GetParameter(2), phi_fit->GetParameter(2)}, {H_fit->GetParError(2), phi_fit->GetParError(2)}}
+    };
 }
+
 
 #ifndef __CINT__
 int main(){
