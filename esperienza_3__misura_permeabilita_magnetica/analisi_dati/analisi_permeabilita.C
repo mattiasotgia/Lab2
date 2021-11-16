@@ -82,13 +82,26 @@ void analisi_permeabilita(){
     double Q_1 = 6;
 
     double lib0[3] = {A_1, Q_1, 3400};
-    double mat1[3] = {A_1, Q_1, 2300};
+    double mat1[3] = {A_1, Q_1, 2311};
     double mat2[3] = {A_1, Q_1, 3562};
 
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0);
     result materiale1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2);
     result materiale2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
     c1->SaveAs("../fig/plot.pdf");
+    std::ofstream output("../misc/output.csv");
+    output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
+    output << "libero, " << libero.A.val[0]  << ", " << libero.A.err[0]  << ", " << libero.A.val[1]  << ", " << libero.A.err[1]  << ", "
+                         << libero.Q.val[0]  << ", " << libero.Q.err[0]  << ", " << libero.Q.val[1]  << ", " << libero.Q.err[1]  << ", "
+                         << libero.v0.val[0] << ", " << libero.v0.err[0] << ", " << libero.v0.val[1] << ", " << libero.v0.err[1] << std::endl;
+    
+    output << "materiale1, " << materiale1.A.val[0]  << ", " << materiale1.A.err[0]  << ", " << materiale1.A.val[1]  << ", " << materiale1.A.err[1]  << ", "
+                             << materiale1.Q.val[0]  << ", " << materiale1.Q.err[0]  << ", " << materiale1.Q.val[1]  << ", " << materiale1.Q.err[1]  << ", "
+                             << materiale1.v0.val[0] << ", " << materiale1.v0.err[0] << ", " << materiale1.v0.val[1] << ", " << materiale1.v0.err[1] << std::endl;
+    
+    output << "materiale2, " << materiale2.A.val[0]  << ", " << materiale2.A.err[0]  << ", " << materiale2.A.val[1]  << ", " << materiale2.A.err[1]  << ", "
+                             << materiale2.Q.val[0]  << ", " << materiale2.Q.err[0]  << ", " << materiale2.Q.val[1]  << ", " << materiale2.Q.err[1]  << ", "
+                             << materiale2.v0.val[0] << ", " << materiale2.v0.err[0] << ", " << materiale2.v0.val[1] << ", " << materiale2.v0.err[1] << std::endl;
     return;
 }
 
@@ -115,6 +128,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
     H_fit->SetParameters(params);
+    H_fit->SetParLimits(0, 0, 4);
+    H_fit->SetParLimits(1, 2, 10);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -141,6 +156,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     phi_plot->SetName("phi_plot");
     TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
     phi_fit->SetParameters(params);
+    phi_fit->SetParLimits(0, 0, 4);
+    phi_fit->SetParLimits(1, 2, 10);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
@@ -266,14 +283,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     graphset::set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]", 4);
     graphset::set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]", 4);
 
-    return {
-        {
-            {H_fit->GetParameter(0), phi_fit->GetParameter(0)}, {H_fit->GetParError(0), phi_fit->GetParError(0)}},
-        {
-            {H_fit->GetParameter(1), phi_fit->GetParameter(1)}, {H_fit->GetParError(1), phi_fit->GetParError(1)}},
-        {
-            {H_fit->GetParameter(2), phi_fit->GetParameter(2)}, {H_fit->GetParError(2), phi_fit->GetParError(2)}}
-    };
+    return {{{A_amp, A_fase}, {err_A_amp, err_A_fase}}, {{Q_amp, Q_fase}, {err_Q_amp, err_Q_fase}}, {{frequenza_taglio_amp, frequenza_taglio_fase}, {err_frequenza_taglio_amp, err_frequenza_taglio_fase}}};
 }
 
 
