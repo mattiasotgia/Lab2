@@ -75,7 +75,7 @@ void analisi_permeabilita(){
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
-    TCanvas* c1 = new TCanvas("c1", "", 1200, 1500);
+    TCanvas* c1 = new TCanvas("c1", "", 1300, 1500);
     graphset::setcanvas(c1, 2, 3);
 
     double A_1 = 1.2;
