@@ -75,7 +75,7 @@ void analisi_permeabilita(){
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
-    TCanvas* c1 = new TCanvas("c1", "", 800, 1000);
+    TCanvas* c1 = new TCanvas("c1", "", 1200, 1500);
     graphset::setcanvas(c1, 2, 3);
 
     double A_1 = 1.2;
@@ -126,7 +126,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     TLatex* header = new TLatex();
     header->SetTextFont(43);
-    header->SetTextSize(7);
+    header->SetTextSize(15);
 
     graphset::padtypes H_pad;
     TPad* Hp1 = H_pad.Graph;
@@ -151,7 +151,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     TLatex* phi_header = new TLatex();
     phi_header->SetTextFont(43);
-    phi_header->SetTextSize(7);
+    phi_header->SetTextSize(15);
 
     graphset::padtypes phi_pad;
     TPad* phi_p1 = phi_pad.Graph;

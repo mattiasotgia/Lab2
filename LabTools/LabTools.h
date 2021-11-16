@@ -20,7 +20,9 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-const double title_size = 14;
+const double title_size = 21;
+const double label_size = 15;
+const double offsetx = 10;
 
 namespace log
 {
@@ -160,7 +162,7 @@ namespace graphset
         g->GetYaxis()->SetTitleFont(43);
         g->GetYaxis()->SetTitleSize(title_size);
         g->GetYaxis()->SetLabelFont(43);
-        g->GetYaxis()->SetLabelSize(12);
+        g->GetYaxis()->SetLabelSize(label_size);
         g->GetYaxis()->CenterTitle();
 
         g->GetXaxis()->SetTickLength(0.05);
@@ -168,7 +170,7 @@ namespace graphset
 
     void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
-        rg->GetXaxis()->SetTitleOffset(10);
+        rg->GetXaxis()->SetTitleOffset(offsetx);
         rg->GetXaxis()->SetTitleFont(43);
         rg->GetXaxis()->SetTitleSize(title_size);
 
@@ -179,10 +181,10 @@ namespace graphset
         rg->GetYaxis()->CenterTitle();
 
         rg->GetYaxis()->SetLabelFont(43);
-        rg->GetYaxis()->SetLabelSize(12);
+        rg->GetYaxis()->SetLabelSize(label_size);
         rg->GetYaxis()->SetNdivisions(5, 5, 0);
         rg->GetXaxis()->SetLabelFont(43);
-        rg->GetXaxis()->SetLabelSize(12);
+        rg->GetXaxis()->SetLabelSize(label_size);
         rg->GetXaxis()->CenterTitle();
 
         rg->GetXaxis()->SetTickLength(0.08);
