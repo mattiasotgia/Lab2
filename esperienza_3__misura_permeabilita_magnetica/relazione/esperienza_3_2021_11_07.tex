@@ -51,7 +51,7 @@
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
 \date{presa dati
-    9 novembre 2021, analisi dati e relazione in data 17 novembre 2021, consegnata in data
+    9 novembre 2021, consegnata in data
     \today
 }
 
@@ -96,7 +96,7 @@ Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H
 \section*{Considerazioni su errori a basse e alte frequenze}
 Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di questi punti. Scegliamo di procedere con questa seconda opzione in quanto la prima opzione non fornisce un risultato quantitativamente preciso, dove la seconda non è una forma di alterazione dei dati. 
 
-Una considerazione analoga viene effettuata per valori ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Questo fattore viene 
+Una considerazione analoga viene effettuata per valori ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Il circuito viene realizzato su una base di lavoro (\textit{breadboard}) che presenta tante superfici conduttrici (necessarie per connettere i pin delle diverse componenti) che si possono comportare come capacità. Quando operiamo a basse frequenze il filtro, che si comporta come un passa alto, non risente dell'effetto di questi condensatori (che possiamo definire \textit{virtuali} all'opposto del condensatore \textit{reale}), mentre ad alte frequenze l'effetto può essere influente. 
 
 \input{tables/tables_data.tex}
 
