@@ -77,17 +77,29 @@ struct result_circ{
 
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position);
 
+double getbestvalue(double G1, double G2, double errG1, double errG2){
+    return (G1/pow(errG1, 2)+G2/pow(errG2, 2))/(1/pow(errG1, 2)+1/pow(errG2, 2));
+}
+
+double getbestvalueerr(double errG1, double errG2){
+    return 1/(1/pow(errG1, 2)+1/pow(errG2, 2));
+}
+
 result_fit getresult(result_fit r){
 
     double R, err_R, R_L, err_R_L, L, err_L, C, err_C;
 
     R_L = _R_L;
 
-    R = R_L/(sqrt(r.A.val))
+    R = R_L/(sqrt(r.A.val)+1);
+    L = R * r.Q.val / (2*M_PI*r.v0.val);
+    C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
 
+    err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err/(4*r.A.val*pow((sqrt(r.A.val)+1,2))), 2));
+    // err_L = 
+    // err_C = 
 
-
-    return {}
+    return {{R, err_R}, {R_L, err_R_L}, {L, err_L}, {C, err_C}};
 }
 
 void analisi_permeabilita(){
