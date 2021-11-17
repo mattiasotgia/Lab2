@@ -135,7 +135,13 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
     \end{methods}
 
 \section*{Analisi dati}
-Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $V_{in}$ e $V_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{V_{out}}}{V_{in}}\right)^2+\left(\frac{\mstdErr{V_{in}}V_{out}}{V_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\frac{1}{1}}\]. Gli errori statistici di $V_{in}$, $V_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi poi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi $\mstdErr{V_{in}}=\frac{8\cdot 0.035\cdot (fondo-scala V_{in})}{\sqrt{3}}$, $\mstdErr{V_{out}}=\frac{8\cdot 0.035 \cdot (fondo-scala V_{out})}{\sqrt{3}}$, $\mstdErr{T}=\frac{10\cdot 0.0016 \cdot (fondo-scala T)}{\sqrt{3}}$ e $\mstdErr{dt}=\frac{10\cdot 0.0016 \cdot (fondo-scala dt)}{\sqrt{3}}$. 
+Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $V_{in}$ e $V_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{V_{out}}}{V_{in}}\right)^2+\left(\frac{\mstdErr{V_{in}}V_{out}}{V_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\frac{1}{1}}\]. Gli errori statistici di $V_{in}$, $V_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi $\mstdErr{V_{in}}=\frac{8\cdot 0.035\cdot (fondo-scala V_{in})}{\sqrt{3}}$, $\mstdErr{V_{out}}=\frac{8\cdot 0.035 \cdot (fondo-scala V_{out})}{\sqrt{3}}$, $\mstdErr{T}=\frac{10\cdot 0.0016 \cdot (fondo-scala T)}{\sqrt{3}}$ e $\mstdErr{dt}=\frac{10\cdot 0.0016 \cdot (fondo-scala dt)}{\sqrt{3}}$. 
+
+
+
+Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
+
+Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione [1a] impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione [1b] impostando gli stessi parametri.  
 
 
 
