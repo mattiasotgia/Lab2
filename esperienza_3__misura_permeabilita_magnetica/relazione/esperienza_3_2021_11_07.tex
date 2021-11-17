@@ -17,6 +17,7 @@
     % preprint,
     % linenumbers,
     % tightlines,
+    floatfix,
     reprint, 
     superscriptaddress, 
     altaffilletter, 
@@ -73,6 +74,32 @@ Si vuole misurare il valore della permeabilità magnetica di alcuni materiali da
 Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Cambiando il nucleo all'interno del solenoide modifichiamo il valore di $L$ e di conseguenza troveremo un valore differente di $\nu_0$. Dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
 
 
+
+\section*{Analisi dati}
+Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $v_{in}$ e $v_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\frac{1}{1}}\] 
+
+Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi otteniamo
+\begin{subequations}
+    \begin{align}
+        \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
+        \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
+        \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
+        \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
+    \end{align}
+\end{subequations}
+
+
+Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
+
+Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando gli stessi parametri.  
+
+\section*{Considerazioni su errori a basse e alte frequenze}
+Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di questi punti. Scegliamo di procedere con questa seconda opzione in quanto la prima opzione non fornisce un risultato quantitativamente preciso, dove la seconda non è una forma di alterazione dei dati. 
+
+Una considerazione analoga viene effettuata per valori ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Questo fattore viene 
+
+\input{tables/tables_data.tex}
+
 \begin{methods}{Metodi}
     \textit{Caratterizzazione del circuito RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+\left(\frac{\omega L}{R} - \frac{1}{\omega RC}\right)^2}},\] per cui osserviamo che il suo valore massimo (cioè 1), si ottenga per $\omega=\omega_0=\frac{1}{\sqrt{LC}}$ che è il valore di quella che abbiamo chiamato frequenza di taglio ($\omega_0$ oppure $\nu_0$). Per valori più bassi e più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione della funzione di trasferimento può essere riscritta come \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+Q_{id}^2\left({\nu\over\nu_0}+{\nu_0\over\nu}\right)^2}}\] dove Q è $Q_{id}=\frac{1}{R}\sqrt{\frac{L}{C}}$ (e abbiamo sostituito $\omega$ con $\nu = \omega / 2\pi$ dove $\nu=1 / T$), per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro A uguale $A=\left(1+{R_L\over R}\right)^2$ da cui \begin{subequations}\begin{equation}\big|H[\nu]\big|=\frac{1}{\sqrt{A+Q_{id}^2\left({\nu\over\nu_0}+{\nu_0\over\nu}\right)^2}}.\label{eq:H(A, Q, v0)}\end{equation}
     
@@ -87,7 +114,7 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
             node[oscopeshape, fill=gray!20!white](O1){};
             \draw (O1.in 2) to [short, *-] (5.5,1.2) node[ground]{} node[below left]{GND};
             \draw (0,0)
-            node[left]{$V_{in}=1$ V} node[below left=4pt]{(BNC in)} 
+            node[left]{$v_{in}=1$ V} node[below left=4pt]{(BNC in)} 
             to [short, o-] (0.5,0)
             to [L=$10$ mH, i_=$i$] (2,0)
             to [R=$R_L$, resistors/scale=0.4] (2.75,0)
@@ -95,7 +122,7 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
             to [R=$38$ $\Omega$] (4,-2) 
             to [short] (0,-2)
             node[ground]{} node[left=4pt]{GND}
-            (3.5,0) to [short, -] node[right]{$V_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
+            (3.5,0) to [short, -] node[right]{$v_{out}$} node[below right=4pt]{(BNC out)} (4.5,0)
             to [short, -] (4.5,1.2)
             to [short, -*] (O1.in 1);
             \draw [red, dashed] 
@@ -109,9 +136,12 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
     
     
     \noindent\textit{Caratterizzazione dell'induttanza---}\label{par:L} La bobina su cui andiamo a eseguire le misure di $L$ è composta da un rocchetto cilindrico di plastica dura cavo, attorno al quale viene avvolto un filo di rame smaltato, a comporre 900 spire. L'apparato così creato si comporta come un solenoide caratterizzato da \begin{equation}\label{eq:inductance}L=\frac{\Phi_B}{I}=\mu_0\frac{N^2}{\ell}S\end{equation} con $\Phi_B=B\cdot NS$ il flusso del campo magnetico di un solenoide in cui scorre corrente $I$, dove consideriamo $n=N/\ell$ ottenendo che il solenoide è caratterizzato da \begin{equation}L=\mu_0 n^2 \ell S.\end{equation}
-    Consideriamo, in primo ordine di approssimazione che il rocchetto di plastica abbia permeabilità magnetica pari a 1, valore che non si discosta molto dalla realtà sperimentale.  
+    Consideriamo, in primo ordine di approssimazione che il rocchetto di plastica abbia permeabilità magnetica pari a 1, valore che non si discosta molto dalla realtà sperimentale. 
+
     
-    Inserendo un materiale all'interno del rocchetto ci aspettiamo una variazione del valore di $L$, dal quale vogliamo ricavare il valore di $\mu_R$ corrispondente al materiale. I materiali risultano avere dimensioni ($a\times a\times h$) uguali a $11.90\times11.90\times68.00$ mm (dimensioni del materiale A) e $12.10\times12.10\times68.00$ mm (secondo materiale, B). Una volta inseriti nella cavità del solenoide non riescono però a riempirne completamente la superficie. Coprono invece tutta la lunghezza del solenoide, eccedendo rispetto al rocchetto, lungo 60.00 mm, di pochi millimetri, per cui ci riserviamo di non considerare effetti di bordo che richiederebbero calcoli non eseguibili sulla base dei dati raccolti.
+    Inserendo un materiale all'interno del rocchetto ci aspettiamo una variazione del valore di $L$, dal quale vogliamo ricavare il valore di $\mu_R$ corrispondente al materiale. I materiali risultano avere dimensioni ($a\times a\times h$) uguali a $11.90\times11.90\times68.00$ mm (dimensioni del materiale A) e $12.10\times12.10\times68.00$ mm (secondo materiale, B). (Le misure sono riportate in Tab. \ref{tab:L_caratt}) Una volta inseriti nella cavità del solenoide non riescono però a riempirne completamente la superficie. Coprono invece tutta la lunghezza del solenoide, eccedendo rispetto al rocchetto, lungo 60.00 mm, di pochi millimetri, per cui ci riserviamo di non considerare effetti di bordo che richiederebbero calcoli non eseguibili sulla base dei dati raccolti.
+    
+    \input{tables/parametri_induttanza.tex}
     
     Dall'equazione \refeqn{eq:inductance} abbiamo che $L\cdot I=\Phi_B$. Quando inseriamo il materiale il flusso $\Phi_B$ si può ottenere come somma del flusso interno al materiale ed esterno (nello spazio tra il materiale e la bobina). Otteniamo quindi che  \begin{subequations}\begin{equation}L_{eq}\cdot I = \Phi_B^\text{int}+\Phi_B^\text{ext}= \mu_0 n^2\ell\left(a^2\mu_R+\left(S-a^2\right)\right)=\mu_0n^2\ell\left(S+a^2\left(\mu_R-1\right)\right)\end{equation} dove $a^2$ indica la superficie di base del materiale considerato, con il fattore
     \begin{equation}\Phi_B^\text{int}=\mu_0\mu_Rn^2\ell a^2\end{equation} che tiene conto della permeabilità magnetica relativa del materiale e il fattore \begin{equation}\Phi_B^\text{ext}=\mu_0n^2 \ell\left(S-a^2\right)\end{equation}\end{subequations} che invece è il flusso fuori dal materiale.
@@ -124,40 +154,25 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
 
     \noindent\textit{Presa dati---}Utilizziamo l'oscilloscopio come generatore di segnale in alternata che forniamo come input al nostro circuito. \hl{La frequenza di tale segnale \`e modificabile e il segnale di output del filtro cambia in base a tale frequenza.}
     
-    Per individuare la frequenza di taglio del circuito misuriamo, sempre utilizzando l'oscilloscopio, la tensione in ingresso $V_{in}$, la tensione in uscita $V_{out}$, il periodo del segnale $T$ (uguale per entrambi i segnali in quanto sono isofrequenziali) e il ritardo tra i due segnali $dt$, con i rispettivi fondo-scala necessari per ricavare l'errore. 
+    Per individuare la frequenza di taglio del circuito misuriamo, sempre utilizzando l'oscilloscopio, la tensione in ingresso $v_{in}$, la tensione in uscita $v_{out}$, il periodo del segnale $T$ (uguale per entrambi i segnali in quanto sono isofrequenziali) e il ritardo tra i due segnali $dt$, con i rispettivi fondo-scala necessari per ricavare l'errore. 
 
-    La prima cosa che facciamo è far variare la frequenza di $V_{in}$ per individuare il punto in cui il ritardo tra i due segnali è nullo, trovando quindi quella che dovrebbe essere $\nu_{0}$. A questo punto consideriamo un range di frequenze compreso tra una decade prima e una decade dopo il valore della frequenza di taglio e per ogni decade prendiamo tre misure di $V_{in}$, $V_{out}$, $T$ e $dt$ (ad esempio a 1kHz, 2kHz, 5kHz). Insieme a questi valori ne raccogliamo di ulteriori intorno a $\nu_{0}$.
+    La prima cosa che facciamo è far variare la frequenza di $v_{in}$ per individuare il punto in cui il ritardo tra i due segnali è nullo, trovando quindi quella che dovrebbe essere $\nu_{0}$. A questo punto consideriamo un range di frequenze compreso tra una decade prima e una decade dopo il valore della frequenza di taglio e per ogni decade prendiamo tre misure di $v_{in}$, $v_{out}$, $T$ e $dt$ (ad esempio a 1kHz, 2kHz, 5kHz). Insieme a questi valori ne raccogliamo di ulteriori intorno a $\nu_{0}$.
 
     Ripetiamo questo procedimento tre volte, prima senza inserire alcun materiale all'interno dell'induttanza e poi aggiungendo uno per volta i due materiali che abbiamo a disposizione.
     
     I valori che abbiamo acquisito sono riportati nelle tabelle \ref{tab:rawdata_free}, \ref{tab:rawdata_m1} e \ref{tab:rawdata_m2}.
         
-    \end{methods}
+\end{methods}
 
-\section*{Analisi dati}
-Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $V_{in}$ e $V_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{V_{out}}}{V_{in}}\right)^2+\left(\frac{\mstdErr{V_{in}}V_{out}}{V_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\frac{1}{1}}\]. Gli errori statistici di $V_{in}$, $V_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi $\mstdErr{V_{in}}=\frac{8\cdot 0.035\cdot (fondo-scala V_{in})}{\sqrt{3}}$, $\mstdErr{V_{out}}=\frac{8\cdot 0.035 \cdot (fondo-scala V_{out})}{\sqrt{3}}$, $\mstdErr{T}=\frac{10\cdot 0.0016 \cdot (fondo-scala T)}{\sqrt{3}}$ e $\mstdErr{dt}=\frac{10\cdot 0.0016 \cdot (fondo-scala dt)}{\sqrt{3}}$. 
-
-
-
-Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
-
-Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione [1a] impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione [1b] impostando gli stessi parametri.  
-
-
-
-
-
-
-
-    \begin{methods}{D\lowercase{ati completi e codice sorgente}}
-        Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
-    \end{methods}
+\begin{methods}{D\lowercase{ati completi e codice sorgente}}
+    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
+\end{methods}
 
 
 %\onecolumngrid
 \appendix
 
-\setcounter{table}{0}
+% \setcounter{table}{0}
 \renewcommand{\thetable}{S-\arabic{table}}
 \input{tables/supplementar_tables.tex}
 
