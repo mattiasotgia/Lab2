@@ -16,17 +16,13 @@
 #include"../../LabTools/LabTools.h"
 
 
-const double R = 38;        // Ohm   (valore ideale 38 ohm)
-const double C = 220e-9;    // Farad (valore ideale 220nF)
-const double L = 0.01003;   // Henry (valore ideale 10 mH)
-const double R_L = 3.7;     // Ohm
+const double _R = 38;        // Ohm   (valore ideale 38 ohm)
+const double _C = 220e-9;    // Farad (valore ideale 220nF)
+const double _L = 0.01003;   // Henry (valore ideale 10 mH)
+const double _R_L = 3.7;     // Ohm
 
 const double N_spire = 900;
 
-
-// Con i valori scelti otteniamo che circa v = 2.3 kHz
-// Q circa = 5
-// A = 1 (che va bene finche' R_L << R)
 
 // funzione calcolo incertezza a partire da fondo scala (per Qualsiasi grandezza)
 // tab. VALORI  | Grandezza misurata | errPercent | partitions | fondoscala (range1) 
@@ -67,7 +63,32 @@ struct result
     
 };
 
+struct parameter_fit{
+    double val, err;
+};
+
+struct result_fit{
+    parameter_fit A, Q, v0;
+};
+
+struct result_circ{
+    parameter_fit R, R_L, L, C;
+};
+
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position);
+
+result_fit getresult(result_fit r){
+
+    double R, err_R, R_L, err_R_L, L, err_L, C, err_C;
+
+    R_L = _R_L;
+
+    R = R_L/(sqrt(r.A.val))
+
+
+
+    return {}
+}
 
 void analisi_permeabilita(){
 
@@ -81,8 +102,8 @@ void analisi_permeabilita(){
     double A_1 = 1.2;
     double Q_1 = 6;
 
-    double lib0[3] = {A_1, Q_1, 3400};
-    double mat1[3] = {A_1, Q_1, 2311};
+    double lib0[3] = {A_1, 3, 3400};
+    double mat1[3] = {A_1, Q_1*1.5, 2311};
     double mat2[3] = {A_1, Q_1, 3562};
 
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0);
@@ -126,12 +147,15 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
-    TF1* H_fit = new TF1("Hf", "1/sqrt([0]+pow([1],2)*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    H_fit->SetParameters(params);
-    H_fit->SetParLimits(0, 0, 4);
-    H_fit->SetParLimits(1, 2, 10);
+    TF1* H_fit = new TF1("Hf", "1/sqrt([0]+[1]*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
+    H_fit->SetParameters(params[0], params[1]*params[1], params[2]);
+    // H_fit->SetParameter(1, params[1]*params[1]);
+    // H_fit->SetParameter(2, params[2]);
+    // H_fit->FixParameter(0, params[0]);
+    // H_fit->SetParLimits(0, 0, 4);
+    H_fit->SetParLimits(1, 0, 100);
     // [0] = A = (1 + R_L / R)^2
-    // [1] = Q = fattore di qualita = 1/(R C w_0)
+    // [1] = Q^2 = fattore di qualita = (1/(R C w_0))^2
     // [2] = w_0
 
 
@@ -154,11 +178,14 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     TGraphErrors* phi_plot = new TGraphErrors();
     phi_plot->SetName("phi_plot");
-    TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/sqrt([0]))"); // ! Controllare formule
-    phi_fit->SetParameters(params);
-    phi_fit->SetParLimits(0, 0, 4);
-    phi_fit->SetParLimits(1, 2, 10);
-    // [0] = A = (1 + R_L / R)^2
+    TF1* phi_fit = new TF1("phi_f", "-atan([1]*(x/[2]-[2]/x)/[0])"); // ! Controllare formule
+    phi_fit->SetParameters(sqrt(params[0]),params[1], params[2]);
+    // phi_fit->SetParameter(1, params[1]);
+    // phi_fit->SetParameter(2, params[2]);
+    // phi_fit->FixParameter(0, sqrt(params[0]));
+    // phi_fit->SetParLimits(0, 0, 4);
+    phi_fit->SetParLimits(1, 0, 10);
+    // [0] = sqrt(A) = (1 + R_L / R)
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
 
@@ -190,7 +217,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
-        double edt = 2*stattools::max_to_stat(get_TRangeErr(fsdt));
+        double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
 
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
@@ -221,7 +248,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(H_fit->GetNDF())
             +" ("+std::to_string(H_fit->GetProb())+")";
 
-    header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}").c_str());
+    header->DrawLatexNDC(0.45, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}}").c_str());
 
     log::print_stat(H_fit);
 
@@ -233,8 +260,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     double A_amp= H_fit->GetParameter(0);
     double err_A_amp = H_fit->GetParError(0);
-    double Q_amp = H_fit->GetParameter(1);
-    double err_Q_amp = H_fit->GetParError(1);
+    double Q_amp = sqrt(H_fit->GetParameter(1));
+    double err_Q_amp = 1/(2*Q_amp)*H_fit->GetParError(1);
     double frequenza_taglio_amp = H_fit->GetParameter(2);
     double err_frequenza_taglio_amp = H_fit->GetParError(2);
 
@@ -253,7 +280,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.35, 0.15, ("#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}").c_str());
+    phi_header->DrawLatexNDC(0.18, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}}").c_str());
 
     log::print_stat(phi_fit);
 
@@ -263,8 +290,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     phi_resd->Draw("ap");
     phi_res_f->Draw("same");
 
-    double A_fase = phi_fit->GetParameter(0);
-    double err_A_fase = phi_fit->GetParError(0);
+    double A_fase = pow(phi_fit->GetParameter(0), 2);
+    double err_A_fase = 2*phi_fit->GetParameter(0)*phi_fit->GetParError(0);
     double Q_fase = phi_fit->GetParameter(1);
     double err_Q_fase = phi_fit->GetParError(1);
     double frequenza_taglio_fase = phi_fit->GetParameter(2);
@@ -274,7 +301,9 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             << "Fattore di Qualita' da phi(w), Q = " << Q_fase << " +/- " << err_Q_fase << std::endl
             << "Frequenza di Taglio da phi(w), v = " << frequenza_taglio_fase << " +/- " << err_frequenza_taglio_fase << " Hz" << std::endl;
 
-    std::cout << std::endl << "** Verifica compatibilita => (w0)" << stattools::compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
+    std::cout << std::endl << "** Verifica compatibilita =>  (A)" << stattools::compatible(A_amp, err_A_amp, A_fase, err_A_fase) << std::endl;
+    std::cout              << "** Verifica compatibilita =>  (Q)" << stattools::compatible(Q_amp, err_Q_amp, Q_fase, err_Q_fase) << std::endl;
+    std::cout              << "** Verifica compatibilita => (v0)" << stattools::compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
 
     graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 4);

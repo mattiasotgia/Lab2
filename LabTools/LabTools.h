@@ -197,6 +197,8 @@ namespace graphset
 
     void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false){
         g.Graph->SetMargin(0.14, 0.06, 0.0, 0.06);
+        // g.Graph->SetTickx();
+        // g.Graph->SetTicky();
         g.Residuals->SetMargin(0.14, 0.06, 0.4, 1.0);
         if(logx){
             g.Graph->SetLogx();
