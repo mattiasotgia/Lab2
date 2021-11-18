@@ -20,6 +20,7 @@ const double _R = 38;        // Ohm   (valore ideale 38 ohm)
 const double _C = 220e-9;    // Farad (valore ideale 220nF)
 const double _L = 0.01003;   // Henry (valore ideale 10 mH)
 const double _R_L = 3.7;     // Ohm
+const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4;);
 
 const double N_spire = 900;
 
@@ -77,27 +78,20 @@ struct result_circ{
 
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = "");
 
-double getbestvalue(double G1, double G2, double errG1, double errG2){
-    return (G1/pow(errG1, 2)+G2/pow(errG2, 2))/(1/pow(errG1, 2)+1/pow(errG2, 2));
-}
-
-double getbestvalueerr(double errG1, double errG2){
-    return 1/(1/pow(errG1, 2)+1/pow(errG2, 2));
-}
-
 result_circ getresult(result_fit r){
 
     double R, err_R, R_L, err_R_L, L, err_L, C, err_C;
 
     R_L = _R_L;
+    err_R_L = _err_R_L;
 
     R = R_L/(sqrt(r.A.val)+1);
     L = R * r.Q.val / (2*M_PI*r.v0.val);
     C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
 
     err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err / (4*r.A.val*pow((sqrt(r.A.val)+1,2), 2)), 2));
-    // err_L = 
-    // err_C = 
+    err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2)))/2*M_PI*r.v0.val;
+    err_C = sqrt(pow(R*r.Q.val*r.v0.err, 2) + pow(r.Q.val*r.v0.val*err_R, 2) + pow(, 2));
 
     return {{R, err_R}, {R_L, err_R_L}, {L, err_L}, {C, err_C}};
 }
@@ -135,6 +129,9 @@ void analisi_permeabilita(){
     output << "materiale2, " << materiale2.A.val[0]  << ", " << materiale2.A.err[0]  << ", " << materiale2.A.val[1]  << ", " << materiale2.A.err[1]  << ", "
                              << materiale2.Q.val[0]  << ", " << materiale2.Q.err[0]  << ", " << materiale2.Q.val[1]  << ", " << materiale2.Q.err[1]  << ", "
                              << materiale2.v0.val[0] << ", " << materiale2.v0.err[0] << ", " << materiale2.v0.val[1] << ", " << materiale2.v0.err[1] << std::endl;
+    
+    // Calcoli successivi
+    
     return;
 }
 

@@ -59,6 +59,14 @@ namespace stattools
         }
         return "NON-COMPATIBILE";
     }
+
+    double getbestvalue(double G1, double G2, double errG1, double errG2){
+        return (G1 / pow(errG1, 2) + G2 / pow(errG2, 2)) / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
+    }
+
+    double getbestvalueerr(double errG1, double errG2){
+        return 1 / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
+    }
 } // namespace stat
 
 namespace graphset
