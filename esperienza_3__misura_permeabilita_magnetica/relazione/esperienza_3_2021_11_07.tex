@@ -52,7 +52,7 @@
 
 \date{presa dati
     9 novembre 2021, consegnata in data
-    \today
+    19 novembre 2021
 }
 
 \begin{abstract}
@@ -97,6 +97,13 @@ Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H
 Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di tali punti. Scegliamo di procedere con quest'ultima opzione in quanto la prima non fornisce un risultato quantitativamente preciso e ci porta a fare un'alterazione dei dati raccolti, mentre la seconda lasca inalterati i valori numerici dei dati ed è in grado di fornirci un risultato più preciso. 
 
 Un problema analogo si verifica quando i segnali oscillano ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Il circuito viene realizzato su una base di lavoro (\textit{breadboard}) che presenta tante superfici conduttrici (necessarie per connettere i pin delle diverse componenti) che si possono comportare come capacità. Quando operiamo a basse frequenze il filtro, che si comporta come un passa alto, non risente dell'effetto di questi condensatori (che possiamo definire \textit{virtuali} all'opposto del condensatore \textit{reale}), mentre ad alte frequenze l'effetto può essere influente. 
+
+Nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, eliminando quindi due punti alle code. Nel caso del materiale A (nucleo di Fe) le problematiche descritte sopra sono evidenziabili sotto i 700Hz e sopra i 10kHz, per cui utilizziamo un range più ristretto per eseguire il fit. Nel caso del terzo materiale non riscontriamo gli stessi effetti e quindi consideriamo tutti i punti raccolti. 
+
+\section*{Considerazioni sulla misura del ritardo $dt$}
+
+% per materiale libero e Al si pu parlare della questione dell'errore di dt alla frequenza di risonanza, in qunato fissato lo zero il modello arctan() non può variare
+% per il ferro discutere il problema della simmetria del modello, e della non simmetria dei dati rispetto allo zero. 
 
 \input{tables/tables_data.tex}
 
@@ -143,8 +150,8 @@ Un problema analogo si verifica quando i segnali oscillano ad alte frequenze (su
     
     \input{tables/parametri_induttanza.tex}
     
-    Dall'equazione \refeqn{eq:inductance} abbiamo che $L\cdot I=\Phi_B$. Quando inseriamo il materiale il flusso $\Phi_B$ si può ottenere come somma del flusso interno al materiale ed esterno (nello spazio tra il materiale e la bobina). Otteniamo quindi che  \begin{subequations}\begin{equation}L_{eq}\cdot I = \Phi_B^\text{int}+\Phi_B^\text{ext}= \mu_0 n^2\ell\left(a^2\mu_R+\left(S-a^2\right)\right)=\mu_0n^2\ell\left(S+a^2\left(\mu_R-1\right)\right)\end{equation} dove $a^2$ indica la superficie di base del materiale considerato, con il fattore
-    \begin{equation}\Phi_B^\text{int}=\mu_0\mu_Rn^2\ell a^2\end{equation} che tiene conto della permeabilità magnetica relativa del materiale e il fattore \begin{equation}\Phi_B^\text{ext}=\mu_0n^2 \ell\left(S-a^2\right)\end{equation}\end{subequations} che invece è il flusso fuori dal materiale.
+    Dall'equazione \refeqn{eq:inductance} abbiamo che $L\cdot I=\Phi_B$. Quando inseriamo il materiale il flusso $\Phi_B$ si può ottenere come somma del flusso interno al materiale ed esterno (nello spazio tra il materiale e la bobina). Otteniamo quindi che  \begin{subequations}\begin{equation}L_{eq}= \frac{\Phi_B^\text{int}+\Phi_B^\text{ext}}{I}= \mu_0 n^2\ell\left(a^2\mu_R+\left(S-a^2\right)\right)=\mu_0n^2\ell\left(S+a^2\left(\mu_R-1\right)\right)\end{equation} dove $a^2$ indica la superficie di base del materiale considerato, con il fattore
+    \begin{equation}\frac{\Phi_B^\text{int}}{I}=\mu_0\mu_Rn^2\ell a^2\end{equation} che tiene conto della permeabilità magnetica relativa del materiale e il fattore \begin{equation}\frac{\Phi_B^\text{ext}}{I}=\mu_0n^2 \ell\left(S-a^2\right)\end{equation}\end{subequations} che invece è il flusso fuori dal materiale.
         
     Da queste considerazioni otteniamo che quindi possiamo ricavare il valore della permeabilità magnetica $\mu_R$ come \begin{equation}\mu_R=\frac{L_{eq}-\mu_0 n^2 \ell S}{\mu_0 n^2\ell a^2} + 1\end{equation}
         
