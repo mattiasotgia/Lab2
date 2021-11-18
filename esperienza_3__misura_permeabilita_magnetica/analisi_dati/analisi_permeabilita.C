@@ -25,6 +25,14 @@ const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4);
 const double N_spire = 900;
 
 
+const double mu0=4*M_PI*pow(10, -7);
+const double l = 60.0e-3;
+const double n = N_spire/l;
+const double a_Fe = 12.1e-3;
+const double a_Al = 11.9e-3;
+const double diam = 24e-3;
+
+
 // funzione calcolo incertezza a partire da fondo scala (per Qualsiasi grandezza)
 // tab. VALORI  | Grandezza misurata | errPercent | partitions | fondoscala (range1) 
 //              | V (tensione)       | 3.5%       | 8          | variabile
@@ -85,12 +93,12 @@ result_circ getresult(result_fit r){
     R_L = _R_L;
     err_R_L = _err_R_L;
 
-    R = R_L/(sqrt(r.A.val)+1);
+    R = R_L/(sqrt(r.A.val)-1);
     L = R * r.Q.val / (2*M_PI*r.v0.val);
     C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
 
-    err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err / (4*r.A.val*pow((sqrt(r.A.val)+1,2), 2)), 2));
-    err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2))/2*M_PI*r.v0.val;
+    err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)-1)), 2) + pow(R_L*r.A.err / (2*sqrt(r.A.val)*pow((sqrt(r.A.val)-1, 2), 2)), 2));
+    err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2))/(2*M_PI*r.v0.val);
     err_C = sqrt(pow(R*r.Q.val*r.v0.err, 2) + pow(r.Q.val*r.v0.val*err_R, 2) + pow(R*r.v0.val*r.Q.err, 2))/(2*M_PI*pow(r.v0.val*r.Q.val*R, 2));
 
     return {{R, err_R}, {R_L, err_R_L}, {L, err_L}, {C, err_C}};
@@ -113,8 +121,8 @@ void analisi_permeabilita(){
     double mat2[3] = {A_1, Q_1, 3562};
 
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
-    result materiale1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
-    result materiale2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
+    result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
+    result m2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
     c1->SaveAs("../fig/plot.pdf");
     std::ofstream output("../misc/output.csv");
     output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
@@ -122,15 +130,66 @@ void analisi_permeabilita(){
                          << libero.Q.val[0]  << ", " << libero.Q.err[0]  << ", " << libero.Q.val[1]  << ", " << libero.Q.err[1]  << ", "
                          << libero.v0.val[0] << ", " << libero.v0.err[0] << ", " << libero.v0.val[1] << ", " << libero.v0.err[1] << std::endl;
     
-    output << "materiale1, " << materiale1.A.val[0]  << ", " << materiale1.A.err[0]  << ", " << materiale1.A.val[1]  << ", " << materiale1.A.err[1]  << ", "
-                             << materiale1.Q.val[0]  << ", " << materiale1.Q.err[0]  << ", " << materiale1.Q.val[1]  << ", " << materiale1.Q.err[1]  << ", "
-                             << materiale1.v0.val[0] << ", " << materiale1.v0.err[0] << ", " << materiale1.v0.val[1] << ", " << materiale1.v0.err[1] << std::endl;
+    output << "materiale1, " << m1.A.val[0]  << ", " << m1.A.err[0]  << ", " << m1.A.val[1]  << ", " << m1.A.err[1]  << ", "
+                             << m1.Q.val[0]  << ", " << m1.Q.err[0]  << ", " << m1.Q.val[1]  << ", " << m1.Q.err[1]  << ", "
+                             << m1.v0.val[0] << ", " << m1.v0.err[0] << ", " << m1.v0.val[1] << ", " << m1.v0.err[1] << std::endl;
     
-    output << "materiale2, " << materiale2.A.val[0]  << ", " << materiale2.A.err[0]  << ", " << materiale2.A.val[1]  << ", " << materiale2.A.err[1]  << ", "
-                             << materiale2.Q.val[0]  << ", " << materiale2.Q.err[0]  << ", " << materiale2.Q.val[1]  << ", " << materiale2.Q.err[1]  << ", "
-                             << materiale2.v0.val[0] << ", " << materiale2.v0.err[0] << ", " << materiale2.v0.val[1] << ", " << materiale2.v0.err[1] << std::endl;
+    output << "materiale2, " << m2.A.val[0]  << ", " << m2.A.err[0]  << ", " << m2.A.val[1]  << ", " << m2.A.err[1]  << ", "
+                             << m2.Q.val[0]  << ", " << m2.Q.err[0]  << ", " << m2.Q.val[1]  << ", " << m2.Q.err[1]  << ", "
+                             << m2.v0.val[0] << ", " << m2.v0.err[0] << ", " << m2.v0.val[1] << ", " << m2.v0.err[1] << std::endl;
     
     // Calcoli successivi
+    // Calcoli per libero
+    result_fit libero_best;
+    libero_best.A.val = stattools::getbestvalue(libero.A.val[0], libero.A.val[1], libero.A.err[0], libero.A.err[1]);
+    libero_best.A.err = stattools::getbestvalueerr(libero.A.err[0], libero.A.err[1]);
+    libero_best.Q.val = stattools::getbestvalue(libero.Q.val[0], libero.Q.val[1], libero.Q.err[0], libero.Q.err[1]);
+    libero_best.Q.err = stattools::getbestvalueerr(libero.Q.err[0], libero.Q.err[1]);
+    libero_best.v0.val = stattools::getbestvalue(libero.v0.val[0], libero.v0.val[1], libero.v0.err[0], libero.v0.err[1]);
+    libero_best.v0.err = stattools::getbestvalueerr(libero.v0.err[0], libero.v0.err[1]);
+    std::cout << libero_best.v0.err << std::endl << std::endl;
+    result_circ libero_circ = getresult(libero_best);
+    log::print_mmsg("Valore da libero");
+    std::cout << "R = " << libero_circ.R.val << " +/- " << libero_circ.R.err << " Ohm" << std::endl
+              << "L = " << libero_circ.L.val << " +/- " << libero_circ.L.err << " H" << std::endl
+              << "C = " << libero_circ.C.val << " +/- " << libero_circ.C.err << " F" << std::endl;
+
+    // calcoli per m1
+    result_fit m1_amp;
+    m1_amp.A.val = m1.A.val[0];
+    m1_amp.A.err = m1.A.err[0];
+    m1_amp.Q.val = m1.Q.val[0];
+    m1_amp.Q.err = m1.Q.err[0];
+    m1_amp.v0.val = m1.v0.val[0];
+    m1_amp.v0.err = m1.v0.err[0];
+    log::print_mmsg("Valore da m1");
+    result_circ m1_circ_amp = getresult(m1_amp);
+    std::cout << "R = " << m1_circ_amp.R.val << " +/- " << m1_circ_amp.R.err << " Ohm" << std::endl
+              << "L = " << m1_circ_amp.L.val << " +/- " << m1_circ_amp.L.err << " H" << std::endl
+              << "C = " << m1_circ_amp.C.val << " +/- " << m1_circ_amp.C.err << " F" << std::endl;
+    
+    double mu_R_m1 = (m1_circ_amp.L.val-(mu0*n*n*l*diam*diam*M_PI/4))/(mu0*n*n*l*a_Al*a_Al)+1;
+
+    std::cout << "mu_R per Fe => " << mu_R_m1 << std::endl;
+
+    // Calcoli per m2
+    result_fit m2_best;
+    m2_best.A.val = stattools::getbestvalue(m2.A.val[0], m2.A.val[1], m2.A.err[0], m2.A.err[1]);
+    m2_best.A.err = stattools::getbestvalueerr(m2.A.err[0], m2.A.err[1]);
+    m2_best.Q.val = stattools::getbestvalue(m2.Q.val[0], m2.Q.val[1], m2.Q.err[0], m2.Q.err[1]);
+    m2_best.Q.err = stattools::getbestvalueerr(m2.Q.err[0], m2.Q.err[1]);
+    m2_best.v0.val = stattools::getbestvalue(m2.v0.val[0], m2.v0.val[1], m2.v0.err[0], m2.v0.err[1]);
+    m2_best.v0.err = stattools::getbestvalueerr(m2.v0.err[0], m2.v0.err[1]);
+    result_circ m2_circ = getresult(m2_best);
+    log::print_mmsg("Valore da m2");
+    std::cout << "R = " << m2_circ.R.val << " +/- " << m2_circ.R.err << " Ohm" << std::endl
+              << "L = " << m2_circ.L.val << " +/- " << m2_circ.L.err << " H" << std::endl
+              << "C = " << m2_circ.C.val << " +/- " << m2_circ.C.err << " F" << std::endl;
+    
+    double mu_R_m2 = (m2_circ.L.val-(mu0*n*n*l*diam*diam*M_PI/4))/(mu0*n*n*l*a_Al*a_Al)+1;
+
+    std::cout << "mu_R per Al => " << mu_R_m2 << std::endl;
+
     
     return;
 }
@@ -171,6 +230,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
     H_res_f->SetLineStyle(2);
+
 
     TLatex* header = new TLatex();
     header->SetTextFont(43);
@@ -250,6 +310,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // Grafico 1 Bode
     log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
+    H_plot->GetXaxis()->SetLimits(450, 55e3);
+    H_fit->GetXaxis()->SetLimits(450, 55e3);
     H_plot->Draw("ap");
     if(fitmin == -1){
         H_plot->Fit("H_f");
@@ -269,6 +331,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // RESIDUI
     Hp2->cd();
     graphset::fillresiduals(H_plot, H_fit, H_resd);
+    H_resd->GetXaxis()->SetLimits(450, 55e3);
+    H_res_f->GetXaxis()->SetLimits(450, 55e3);
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
@@ -286,6 +350,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // Grafico 2 Bode
     log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
+    phi_plot->GetXaxis()->SetLimits(450, 55e3);
+    phi_fit->GetXaxis()->SetLimits(450, 55e3);
     phi_plot->Draw("ap");
     if(fitmin == -1){
         phi_plot->Fit("phi_f");
@@ -305,6 +371,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // RESIDUI
     phi_p2->cd();
     graphset::fillresiduals(phi_plot, phi_fit, phi_resd);
+    phi_resd->GetXaxis()->SetLimits(450, 55e3);
+    phi_res_f->GetXaxis()->SetLimits(450, 55e3);
     phi_resd->Draw("ap");
     phi_res_f->Draw("same");
 

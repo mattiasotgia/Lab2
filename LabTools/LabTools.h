@@ -65,7 +65,7 @@ namespace stattools
     }
 
     double getbestvalueerr(double errG1, double errG2){
-        return 1 / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
+        return sqrt(1 / (1 / pow(errG1, 2) + 1 / pow(errG2, 2)));
     }
 } // namespace stat
 
