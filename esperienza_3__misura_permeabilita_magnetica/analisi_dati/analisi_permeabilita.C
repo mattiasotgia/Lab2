@@ -20,7 +20,7 @@ const double _R = 38;        // Ohm   (valore ideale 38 ohm)
 const double _C = 220e-9;    // Farad (valore ideale 220nF)
 const double _L = 0.01003;   // Henry (valore ideale 10 mH)
 const double _R_L = 3.7;     // Ohm
-const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4;);
+const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4);
 
 const double N_spire = 900;
 
@@ -90,8 +90,8 @@ result_circ getresult(result_fit r){
     C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
 
     err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err / (4*r.A.val*pow((sqrt(r.A.val)+1,2), 2)), 2));
-    err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2)))/2*M_PI*r.v0.val;
-    err_C = sqrt(pow(R*r.Q.val*r.v0.err, 2) + pow(r.Q.val*r.v0.val*err_R, 2) + pow(, 2));
+    err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2))/2*M_PI*r.v0.val;
+    err_C = sqrt(pow(R*r.Q.val*r.v0.err, 2) + pow(r.Q.val*r.v0.val*err_R, 2) + pow(R*r.v0.val*r.Q.err, 2))/(2*M_PI*pow(r.v0.val*r.Q.val*R, 2));
 
     return {{R, err_R}, {R_L, err_R_L}, {L, err_L}, {C, err_C}};
 }
@@ -262,7 +262,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(H_fit->GetNDF())
             +" ("+std::to_string(H_fit->GetProb())+")";
 
-    header->DrawLatexNDC(0.45, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#bf{A} #it{1#circ diagramma di Bode}}{" + H_stat + "}}").c_str());
+    header->DrawLatexNDC(0.45, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
     log::print_stat(H_fit);
 
@@ -298,7 +298,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.18, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#bf{B} #it{2#circ diagramma di Bode}}{" + phi_stat + "}}").c_str());
+    phi_header->DrawLatexNDC(0.18, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{2#circ diagramma di Bode} #bf{(B)}}{" + phi_stat + "}}").c_str());
 
     log::print_stat(phi_fit);
 
