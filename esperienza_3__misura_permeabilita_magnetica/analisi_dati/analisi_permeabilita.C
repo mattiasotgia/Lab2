@@ -75,7 +75,7 @@ struct result_circ{
     parameter_fit R, R_L, L, C;
 };
 
-result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position);
+result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = "");
 
 double getbestvalue(double G1, double G2, double errG1, double errG2){
     return (G1/pow(errG1, 2)+G2/pow(errG2, 2))/(1/pow(errG1, 2)+1/pow(errG2, 2));
@@ -85,7 +85,7 @@ double getbestvalueerr(double errG1, double errG2){
     return 1/(1/pow(errG1, 2)+1/pow(errG2, 2));
 }
 
-result_fit getresult(result_fit r){
+result_circ getresult(result_fit r){
 
     double R, err_R, R_L, err_R_L, L, err_L, C, err_C;
 
@@ -95,7 +95,7 @@ result_fit getresult(result_fit r){
     L = R * r.Q.val / (2*M_PI*r.v0.val);
     C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
 
-    err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err/(4*r.A.val*pow((sqrt(r.A.val)+1,2))), 2));
+    err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)+1)), 2) + pow(R_L*r.A.err / (4*r.A.val*pow((sqrt(r.A.val)+1,2), 2)), 2));
     // err_L = 
     // err_C = 
 
@@ -118,8 +118,8 @@ void analisi_permeabilita(){
     double mat1[3] = {A_1, Q_1*1.5, 2311};
     double mat2[3] = {A_1, Q_1, 3562};
 
-    result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0);
-    result materiale1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2);
+    result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
+    result materiale1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
     result materiale2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
     c1->SaveAs("../fig/plot.pdf");
     std::ofstream output("../misc/output.csv");
@@ -138,7 +138,7 @@ void analisi_permeabilita(){
     return;
 }
 
-result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position){
+result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = ""){
 
     std::string rawdata = "../dati/" + file;
     std::string output = file.substr(file.find_last_of("_"), file.find("."));
@@ -159,7 +159,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
-    TF1* H_fit = new TF1("Hf", "1/sqrt([0]+[1]*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
+    TF1* H_fit = new TF1("H_f", "1/sqrt([0]+[1]*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
     H_fit->SetParameters(params[0], params[1]*params[1], params[2]);
     // H_fit->SetParameter(1, params[1]*params[1]);
     // H_fit->SetParameter(2, params[2]);
@@ -231,6 +231,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
         double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
 
+
         out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
 
         H_plot->SetPoint(i, 1 / T, Vout / Vin);
@@ -253,7 +254,11 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->Draw("ap");
-    H_plot->Fit("Hf");
+    if(fitmin == -1){
+        H_plot->Fit("H_f");
+    }else{
+        H_plot->Fit("H_f", "", "same", fitmin, fitmax);
+    }
 
     std::string H_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(H_fit->GetChisquare())+"/"
@@ -285,7 +290,11 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->Draw("ap");
-    phi_plot->Fit("phi_f");
+    if(fitmin == -1){
+        phi_plot->Fit("phi_f");
+    }else{
+        phi_plot->Fit("phi_f", "", "same", fitmin, fitmax);
+    }
 
     std::string phi_stat="#chi^{2}/ndf (prob.) = "
             +std::to_string(phi_fit->GetChisquare())+"/"
