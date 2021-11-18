@@ -94,8 +94,8 @@ result_circ getresult(result_fit r){
     err_R_L = _err_R_L;
 
     R = R_L/(sqrt(r.A.val)-1);
-    L = R * r.Q.val / (2*M_PI*r.v0.val);
-    C = 1/(2*M_PI*r.v0.val*R*r.Q.val);
+    L = (R+R_L) * r.Q.val / (2*M_PI*r.v0.val);
+    C = 1/(2*M_PI*r.v0.val*(R+R_L)*r.Q.val);
 
     err_R = sqrt(pow(err_R_L/((sqrt(r.A.val)-1)), 2) + pow(R_L*r.A.err / (2*sqrt(r.A.val)*pow((sqrt(r.A.val)-1, 2), 2)), 2));
     err_L = sqrt(pow(r.Q.val*err_R, 2) + pow(R*r.Q.err, 2) + pow(R*r.Q.val*r.v0.err/r.v0.val, 2))/(2*M_PI*r.v0.val);
@@ -113,12 +113,11 @@ void analisi_permeabilita(){
     TCanvas* c1 = new TCanvas("c1", "", 1300, 1500);
     graphset::setcanvas(c1, 2, 3);
 
-    double A_1 = 1.2;
-    double Q_1 = 6;
+    double A_1 = 1;
 
-    double lib0[3] = {A_1, 3, 3400};
-    double mat1[3] = {A_1, Q_1*1.5, 2311};
-    double mat2[3] = {A_1, Q_1, 3562};
+    double lib0[3] = {A_1, 5, 3330};
+    double mat1[3] = {A_1, 7, 2311};
+    double mat2[3] = {A_1, 5, 3562};
 
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
     result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
@@ -220,8 +219,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // H_fit->SetParameter(1, params[1]*params[1]);
     // H_fit->SetParameter(2, params[2]);
     // H_fit->FixParameter(0, params[0]);
-    // H_fit->SetParLimits(0, 0, 4);
-    H_fit->SetParLimits(1, 0, 100);
+    // H_fit->SetParLimits(0, 0, 2);
+    H_fit->SetParLimits(1, 0, 1000);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q^2 = fattore di qualita = (1/(R C w_0))^2
     // [2] = w_0
@@ -252,8 +251,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // phi_fit->SetParameter(1, params[1]);
     // phi_fit->SetParameter(2, params[2]);
     // phi_fit->FixParameter(0, sqrt(params[0]));
-    // phi_fit->SetParLimits(0, 0, 4);
-    phi_fit->SetParLimits(1, 0, 10);
+    // phi_fit->SetParLimits(0, 0, sqrt(2));
+    phi_fit->SetParLimits(1, 0, 100);
     // [0] = sqrt(A) = (1 + R_L / R)
     // [1] = Q = fattore di qualita = 1/(R C w_0)
     // [2] = w_0
