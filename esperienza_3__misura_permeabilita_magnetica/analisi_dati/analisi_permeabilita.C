@@ -122,7 +122,6 @@ void analisi_permeabilita(){
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
     result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
     result m2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
-    c1->SaveAs("../fig/plot.pdf");
     std::ofstream output("../misc/output.csv");
     output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
     output << "libero, " << libero.A.val[0]  << ", " << libero.A.err[0]  << ", " << libero.A.val[1]  << ", " << libero.A.err[1]  << ", "
@@ -208,6 +207,7 @@ void analisi_permeabilita(){
     std::cout << "mu_R per Al => " << mu_R_m2 << " +/- " << err_mu_R_m2 << std::endl;
 
     
+    // c1->SaveAs("../fig/plot.pdf");
     return;
 }
 
@@ -237,7 +237,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // H_fit->SetParameter(1, params[1]*params[1]);
     // H_fit->SetParameter(2, params[2]);
     // H_fit->FixParameter(0, params[0]);
-    // H_fit->SetParLimits(0, 0, 2);
+    H_fit->SetParLimits(0, 0, 1000);
     H_fit->SetParLimits(1, 0, 1000);
     // [0] = A = (1 + R_L / R)^2
     // [1] = Q^2 = fattore di qualita = (1/(R C w_0))^2
@@ -269,7 +269,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     // phi_fit->SetParameter(1, params[1]);
     // phi_fit->SetParameter(2, params[2]);
     // phi_fit->FixParameter(0, sqrt(params[0]));
-    // phi_fit->SetParLimits(0, 0, sqrt(2));
+    phi_fit->SetParLimits(0, 0, 100);
     phi_fit->SetParLimits(1, 0, 100);
     // [0] = sqrt(A) = (1 + R_L / R)
     // [1] = Q = fattore di qualita = 1/(R C w_0)

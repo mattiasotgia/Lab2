@@ -360,10 +360,10 @@ void analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int p
     //         << "Fattore di Qualita' da |H(w)|, Q = " << Q_amp << " +/- " << err_Q_amp << std::endl
     //         << "Frequenza di Taglio da |H(w)|, v = " << frequenza_taglio_amp << " +/- " << err_frequenza_taglio_amp << " Hz" << std::endl;
 
-    std::cout << "R   = " << H_fit->GetParameter(0) << " +/- " << H_fit->GetParameter(0) << std::endl
-              << "R_L = " << H_fit->GetParameter(1) << " +/- " << H_fit->GetParameter(1) << std::endl
-              << "L   = " << H_fit->GetParameter(2) << " +/- " << H_fit->GetParameter(2) << std::endl
-              << "C   = " << H_fit->GetParameter(3) << " +/- " << H_fit->GetParameter(3) << std::endl;
+    std::cout << "R   = " << H_fit->GetParameter(0) << " +/- " << H_fit->GetParError(0) << std::endl
+              << "R_L = " << H_fit->GetParameter(1) << " +/- " << H_fit->GetParError(1) << std::endl
+              << "L   = " << H_fit->GetParameter(2) << " +/- " << H_fit->GetParError(2) << std::endl
+              << "C   = " << H_fit->GetParameter(3) << " +/- " << H_fit->GetParError(3) << std::endl;
 
     std::cout << "mu_R per " << file << "dalla ampiezza  => " << (H_fit->GetParameter(2)-(mu0*n*n*l*diam*diam*M_PI/4))/(mu0*n*n*l*a_Al*a_Al)+1 << std::endl;
 
@@ -412,10 +412,10 @@ void analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int p
     // std::cout              << "** Verifica compatibilita =>  (Q)" << stattools::compatible(Q_amp, err_Q_amp, Q_fase, err_Q_fase) << std::endl;
     // std::cout              << "** Verifica compatibilita => (v0)" << stattools::compatible(frequenza_taglio_amp, err_frequenza_taglio_amp, frequenza_taglio_fase, err_frequenza_taglio_fase) << std::endl;
 
-    std::cout << "R   = " << phi_fit->GetParameter(0) << " +/- " << phi_fit->GetParameter(0) << std::endl
-              << "R_L = " << phi_fit->GetParameter(1) << " +/- " << phi_fit->GetParameter(1) << std::endl
-              << "L   = " << phi_fit->GetParameter(2) << " +/- " << phi_fit->GetParameter(2) << std::endl
-              << "C   = " << phi_fit->GetParameter(3) << " +/- " << phi_fit->GetParameter(3) << std::endl;
+    std::cout << "R   = " << phi_fit->GetParameter(0) << " +/- " << phi_fit->GetParError(0) << std::endl
+              << "R_L = " << phi_fit->GetParameter(1) << " +/- " << phi_fit->GetParError(1) << std::endl
+              << "L   = " << phi_fit->GetParameter(2) << " +/- " << phi_fit->GetParError(2) << std::endl
+              << "C   = " << phi_fit->GetParameter(3) << " +/- " << phi_fit->GetParError(3) << std::endl;
 
         std::cout << "mu_R per " << file << "dalla fase  => " << (phi_fit->GetParameter(2)-(mu0*n*n*l*diam*diam*M_PI/4))/(mu0*n*n*l*a_Al*a_Al)+1 << std::endl;
 
