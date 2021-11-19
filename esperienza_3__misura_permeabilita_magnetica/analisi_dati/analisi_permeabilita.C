@@ -139,6 +139,7 @@ void analisi_permeabilita(){
     
     // Calcoli successivi
     // Calcoli per libero
+    log::print_mmsg("Valore da libero");
     result_fit libero_best;
     libero_best.A.val = stattools::getbestvalue(libero.A.val[0], libero.A.val[1], libero.A.err[0], libero.A.err[1]);
     libero_best.A.err = stattools::getbestvalueerr(libero.A.err[0], libero.A.err[1]);
@@ -146,14 +147,13 @@ void analisi_permeabilita(){
     libero_best.Q.err = stattools::getbestvalueerr(libero.Q.err[0], libero.Q.err[1]);
     libero_best.v0.val = stattools::getbestvalue(libero.v0.val[0], libero.v0.val[1], libero.v0.err[0], libero.v0.err[1]);
     libero_best.v0.err = stattools::getbestvalueerr(libero.v0.err[0], libero.v0.err[1]);
-    std::cout << libero_best.v0.err << std::endl << std::endl;
     result_circ libero_circ = getresult(libero_best);
-    log::print_mmsg("Valore da libero");
     std::cout << "R = " << libero_circ.R.val << " +/- " << libero_circ.R.err << " Ohm" << std::endl
               << "L = " << libero_circ.L.val << " +/- " << libero_circ.L.err << " H" << std::endl
               << "C = " << libero_circ.C.val << " +/- " << libero_circ.C.err << " F" << std::endl;
 
     // calcoli per m1
+    log::print_mmsg("Valore da m1");
     result_fit m1_amp;
     m1_amp.A.val = m1.A.val[0];
     m1_amp.A.err = m1.A.err[0];
@@ -161,7 +161,6 @@ void analisi_permeabilita(){
     m1_amp.Q.err = m1.Q.err[0];
     m1_amp.v0.val = m1.v0.val[0];
     m1_amp.v0.err = m1.v0.err[0];
-    log::print_mmsg("Valore da m1");
     result_circ m1_circ_amp = getresult(m1_amp);
     std::cout << "R = " << m1_circ_amp.R.val << " +/- " << m1_circ_amp.R.err << " Ohm" << std::endl
               << "L = " << m1_circ_amp.L.val << " +/- " << m1_circ_amp.L.err << " H" << std::endl
@@ -172,6 +171,7 @@ void analisi_permeabilita(){
     std::cout << "mu_R per Fe => " << mu_R_m1 << std::endl;
 
     // Calcoli per m2
+    log::print_mmsg("Valore da m2");
     result_fit m2_best;
     m2_best.A.val = stattools::getbestvalue(m2.A.val[0], m2.A.val[1], m2.A.err[0], m2.A.err[1]);
     m2_best.A.err = stattools::getbestvalueerr(m2.A.err[0], m2.A.err[1]);
@@ -180,7 +180,6 @@ void analisi_permeabilita(){
     m2_best.v0.val = stattools::getbestvalue(m2.v0.val[0], m2.v0.val[1], m2.v0.err[0], m2.v0.err[1]);
     m2_best.v0.err = stattools::getbestvalueerr(m2.v0.err[0], m2.v0.err[1]);
     result_circ m2_circ = getresult(m2_best);
-    log::print_mmsg("Valore da m2");
     std::cout << "R = " << m2_circ.R.val << " +/- " << m2_circ.R.err << " Ohm" << std::endl
               << "L = " << m2_circ.L.val << " +/- " << m2_circ.L.err << " H" << std::endl
               << "C = " << m2_circ.C.val << " +/- " << m2_circ.C.err << " F" << std::endl;
@@ -323,7 +322,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(H_fit->GetNDF())
             +" ("+std::to_string(H_fit->GetProb())+")";
 
-    header->DrawLatexNDC(0.45, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
+    header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
     log::print_stat(H_fit);
 
@@ -363,7 +362,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
             +std::to_string(phi_fit->GetNDF())
             +" ("+std::to_string(phi_fit->GetProb())+")";
 
-    phi_header->DrawLatexNDC(0.18, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{2#circ diagramma di Bode} #bf{(B)}}{" + phi_stat + "}}").c_str());
+    phi_header->DrawLatexNDC(0.5, 0.8, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{2#circ diagramma di Bode} #bf{(B)}}{" + phi_stat + "}}").c_str());
 
     log::print_stat(phi_fit);
 
