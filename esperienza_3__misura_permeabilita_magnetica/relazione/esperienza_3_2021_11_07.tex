@@ -157,9 +157,28 @@ Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $
 Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando gli stessi parametri.  
 \begin{figure*}
     \includegraphics[width=\textwidth]{plot.pdf}
-    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale 2, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramegnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
+    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale 1, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
     \label{fig:plot}
 \end{figure*}
+
+\section*{Modello di fit su parametri circuitali}
+Il modello prima usato sfruttava i parametri $A$, $Q^2$ e $\nu_0$ per la funzione di trasferimento e $\frac{Q}{\sqrt{A}}$ e $\nu_0$ per la fase, che sono però effettivamente derivati dai valori di $R$, $R_L$, $L$ e $C$, secondo le relazioni 
+\begin{align}
+    A &= \left(1\frac{R_L}{R}\right)^2 \\
+    Q^2 &= \frac{1}{R^2}\frac{L}{C} \\
+    \nu_0 &= \frac{1}{2\pi\sqrt{LC}} 
+\end{align}
+La funzione di trasferimento e la funzione della fase trovate in \refeqn{eq:H(A, Q, v0)} e \refeqn{eq:phi(Q, A, v0)} sono perciò effettivamente funzioni di $R$, $R_L$, $L$ e $C$ definite come
+\begin{subequations}
+    \begin{equation}
+        \big|H[\nu]\big| = \frac{1}{\sqrt{\left(1+\frac{R_L}{R}\right)^2 + \frac{1}{R^2}\left(2\pi\nu L - \frac{1}{2\pi\nu C}\right)^2}}
+    \end{equation}
+    la fase e 
+    \begin{equation}
+        \varphi[\nu] = -\arctan(\frac{2\pi\nu L - \frac{1}{2\pi\nu C}}{R + R_L})
+    \end{equation}
+\end{subequations}
+
 
 \section*{Considerazioni su errori a basse e alte frequenze}
 Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di tali punti. Scegliamo di procedere con quest'ultima opzione in quanto la prima non fornisce un risultato quantitativamente preciso e ci porta a fare un'alterazione dei dati raccolti, mentre la seconda lasca inalterati i valori numerici dei dati ed è in grado di fornirci un risultato più preciso. 
