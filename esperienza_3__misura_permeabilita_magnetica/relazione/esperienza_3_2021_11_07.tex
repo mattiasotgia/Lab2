@@ -74,6 +74,101 @@ Si vuole misurare il valore della permeabilità magnetica di alcuni materiali da
 Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Cambiando il nucleo all'interno del solenoide modifichiamo il valore di $L$ e di conseguenza troveremo un valore differente di $\nu_0$. Dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
 
 
+
+
+\section*{Analisi dati}
+Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $v_{in}$ e $v_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}\] 
+
+Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi otteniamo
+\begin{subequations}
+    \begin{align}
+        \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
+        \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
+        \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
+        \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
+    \end{align}
+\end{subequations}
+
+
+Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
+
+Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando gli stessi parametri.  
+\begin{figure*}
+    \includegraphics[width=\textwidth]{plot.pdf}
+    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale 2, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramegnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
+    \label{fig:plot}
+\end{figure*}
+
+\section*{Considerazioni su errori a basse e alte frequenze}
+Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di tali punti. Scegliamo di procedere con quest'ultima opzione in quanto la prima non fornisce un risultato quantitativamente preciso e ci porta a fare un'alterazione dei dati raccolti, mentre la seconda lasca inalterati i valori numerici dei dati ed è in grado di fornirci un risultato più preciso. 
+
+Un problema analogo si verifica quando i segnali oscillano ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Il circuito viene realizzato su una base di lavoro (\textit{breadboard}) che presenta tante superfici conduttrici (necessarie per connettere i pin delle diverse componenti) che si possono comportare come capacità. Quando operiamo a basse frequenze il filtro, che si comporta come un passa alto, non risente dell'effetto di questi condensatori (che possiamo definire \textit{virtuali} all'opposto del condensatore \textit{reale}), mentre ad alte frequenze l'effetto può essere influente. 
+
+Nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, eliminando quindi due punti alle code. Nel caso del materiale A (nucleo di Fe) le problematiche descritte sopra sono evidenziabili sotto i 700Hz e sopra i 10kHz, per cui utilizziamo un range più ristretto per eseguire il fit. Nel caso del terzo materiale (nucleo di Al) non riscontriamo gli stessi effetti e quindi consideriamo tutti i punti raccolti. 
+
+\section*{Considerazioni sull'errore legato al ritardo}
+Osseviamo che i grafici relativi alla fase presentano un errore associato molto piccolo. Potremmo procedere considerando diversi metodi per compensare questa sottostima, eseguendo un processo di \textit{error scaling} oppure procedendo a ragionamenti legati agli errori nei valori alle code e nella condizione di risonanza. 
+
+Per ottenere valori però sensati avremmo dovuto procedere già in sede di presa dati ad una considerazione di tipo statistico del ritardo e quindi ottenere relativamente ad ogni frequenza un valor medio di $dt$ e deviazione standard. Questo processo sarebbe dovuto però essere in qualche modo previsto già in fase di progettazione e attuato nella presa dati considerando di automatizzare la presa dati e ottenere un set di dati più strutturato. 
+
+Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche ad un ragionamento relativo allo \text{scaling} dell'errore, in quanto non
+
+
+\section*{Osservazioni sul comportamento del materiale A (nucleo di F\lowercase{e})}
+Dai grafici in \reffig{fig:plot} possiamo osservare che la fase del nucleo di Fe ha un comportamento differente dagli altri due casi. Infatti senza aver bisogno di analizzare il fit possiamo notare che i valori ad alte frequenze tendono ad una fase maggiore di $-\frac{\pi}{2}$, valore atteso dal modello utilizzato. Questo mostra come in realtà per questo caso il modello non sia corretto e giustifica il fatto che la funzione non riesca a eseguire il fit, e si ottenga un valore di \ChiNdf~ elevato. 
+
+Un'altra conseguenza è legata al fatto che i parametri dai due fit non vengano compatibili, ed entrambi non portano a un risultato corretto. Scegliamo però comunque di portare a termine i calcoli per ottenere un valore di $\mu_R$, su cui possiamo fare ulteriori osservazioni. 
+
+\input{tables/tables_data.tex}
+
+\section*{Conclusioni}
+% Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
+
+Dal fit eseguito otteniamo i valori dei parametri $A$, $Q$ e $\nu_0$ con i ralativi errori. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
+
+Per il caso del solenoide libero troviamo la compatibilità tra i valori dei parametri entro \treSigma, quindi, considerando i set di dati essenzialmente scorrelati tra di loro (l'unica correlazione è legata al tempo, che però presenta errori molto piccoli, trascurabili quasi rispetto agli errori legati agli altri fattori) possiamo procedere a ricavare la miglior stima dei parametri, ottenendo quindi dalle relazioni di definizione di $A$, $Q$ e $\nu_0$ i valori di $R$, $L$ e $C$. 
+Analizzando questi ultimi dati osserviamo, senza aver necessariamente bisogno di un calcolo rigoroso, che non risultano compatibili con quelli misurati in modo diretto usando il tester. Infatti i valori ottenuti sono \begin{align*}
+    R &= 21.8\pm1.5 \Omega\\
+    L &= 2.8 \pm 0.2 \text{mH}\\
+    C &= 0.80 \pm 0.07 \mu\text{F}
+\end{align*}
+Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di L e C che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo.
+
+Nel caso del materiale A, per i motivi descritti in precedenza, troviamo, come ci aspettavamo dei valori non compatibili tra i parametri trovati attraverso il fit della funzione di trasferimento e quello della fase. Quindi, non potendo fare la miglior stima, procediamo ricavando i valori di $R$, $L$ e $C$ in entrambi i casi e troviamo i valori riportati in \reftab{tab:rlc_m2}. Da questi valori troviamo due valori di $\mu_R$ che sono
+\begin{align*}
+    \mu_R^H &= -1.37 \pm 0.03 \\
+    \mu_R^\varphi &= 1.1 \pm 0.6 \\
+\end{align*}
+Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperienza, in aggiunta a osservare che il modello utilizzato non si adatta al comportamento del Fe. 
+
+\begin{table}[h]
+    \begin{ruledtabular}
+        \caption{Valori di R, L e C ottenuti per il materiale A (Fe).}
+        \label{tab:rlc_m2}
+        \begin{tabular}{lrrr}
+            Caso & Resistenza & Induttanza & Capacità \\
+            & $R\pm\mstdErr{R}$ ($\Omega$) & $L\pm\mstdErr{L}$ (mH) & $R\pm\mstdErr{R}$ (nF) \\
+            \colrule
+            Risultati da $\big|H\big|$ & $1.87 \pm 0.14$ & $1.99 \pm 0.05$ & $(2.4 \pm 0.6)\times 10^3$ \\
+            Risultati dalla fase  & $64 \pm 4$ & $8 \pm 4$ & $(6\pm4)\times10^2$ \\
+        \end{tabular}
+    \end{ruledtabular}
+\end{table}
+
+Nel caso del materiale B invece i valori dei paramatri risultano compatibili e dopo aver calcolato la miglior stima troviamo che i valori di $R$, $L$ e $C$ sono 
+\begin{align*}
+    R &= 11.2 \pm 0.8 \Omega\\
+    L &= 2.50 \pm 0.01 \text{mH}\\
+    C &= 0.79 \pm 0.07 \mu\text{F}
+\end{align*}
+In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$ dalla equazione \refeqn{eq:mu_R} e otteniamo che però \hl{$\mu_R=-1.15 \pm 0.05$} valore che non ha alcun senso fisico, in quanto per come è definita $\mu_R$, può assumere solamente valori positivi. Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta cha abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
+
+Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. \hl{Notiamo che in questo caso}
+
+
+% per materiale libero e Al si pu parlare della questione dell'errore di dt alla frequenza di risonanza, in qunato fissato lo zero il modello arctan() non può variare
+% per il ferro discutere il problema della simmetria del modello, e della non simmetria dei dati rispetto allo zero. 
+
 \begin{methods}{Metodi}
     \textit{Caratterizzazione del circuito RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+\left(\frac{\omega L}{R} - \frac{1}{\omega RC}\right)^2}},\] per cui osserviamo che il suo valore massimo (cioè 1), si ottenga per $\omega=\omega_0=\frac{1}{\sqrt{LC}}$ che è il valore di quella che abbiamo chiamato frequenza di taglio ($\omega_0$ oppure $\nu_0$). Per valori più bassi e più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione della funzione di trasferimento può essere riscritta come \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}\] dove Q è $Q_{id}=\frac{1}{R}\sqrt{\frac{L}{C}}$ (e abbiamo sostituito $\omega$ con $\nu = \omega / 2\pi$ dove $\nu=1 / T$), per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro A uguale $A=\left(1+{R_L\over R}\right)^2$ da cui \begin{subequations}\begin{equation}\big|H[\nu]\big|=\frac{1}{\sqrt{A+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}.\label{eq:H(A, Q, v0)}\end{equation}
     
@@ -137,96 +232,6 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
     I valori che abbiamo acquisito sono riportati nelle tabelle \ref{tab:rawdata_free}, \ref{tab:rawdata_m1} e \ref{tab:rawdata_m2}.
         
 \end{methods}
-
-\section*{Analisi dati}
-Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $v_{in}$ e $v_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}\] 
-
-Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi otteniamo
-\begin{subequations}
-    \begin{align}
-        \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
-        \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
-        \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
-        \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
-    \end{align}
-\end{subequations}
-
-
-Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
-
-Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando gli stessi parametri.  
-\begin{figure*}
-    \includegraphics[width=\textwidth]{plot.pdf}
-    \caption{}
-    \label{fig:plot}
-\end{figure*}
-
-\section*{Considerazioni su errori a basse e alte frequenze}
-Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di tali punti. Scegliamo di procedere con quest'ultima opzione in quanto la prima non fornisce un risultato quantitativamente preciso e ci porta a fare un'alterazione dei dati raccolti, mentre la seconda lasca inalterati i valori numerici dei dati ed è in grado di fornirci un risultato più preciso. 
-
-Un problema analogo si verifica quando i segnali oscillano ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz). Il circuito viene realizzato su una base di lavoro (\textit{breadboard}) che presenta tante superfici conduttrici (necessarie per connettere i pin delle diverse componenti) che si possono comportare come capacità. Quando operiamo a basse frequenze il filtro, che si comporta come un passa alto, non risente dell'effetto di questi condensatori (che possiamo definire \textit{virtuali} all'opposto del condensatore \textit{reale}), mentre ad alte frequenze l'effetto può essere influente. 
-
-Nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, eliminando quindi due punti alle code. Nel caso del materiale A (nucleo di Fe) le problematiche descritte sopra sono evidenziabili sotto i 700Hz e sopra i 10kHz, per cui utilizziamo un range più ristretto per eseguire il fit. Nel caso del terzo materiale (nucleo di Al) non riscontriamo gli stessi effetti e quindi consideriamo tutti i punti raccolti. 
-
-\section*{Considerazioni sull'errore legato al ritardo}
-Osseviamo che i grafici relativi alla fase presentano un errore associato molto piccolo. Potremmo procedere considerando diversi metodi per compensare questa sottostima, eseguendo un processo di \textit{error scaling} oppure procedendo a ragionamenti legati agli errori nei valori alle code e nella condizione di risonanza. 
-
-Per ottenere valori però sensati avremmo dovuto procedere già in sede di presa dati ad una considerazione di tipo statistico del ritardo e quindi ottenere relativamente ad ogni frequenza un valor medio di $dt$ e deviazione standard. Questo processo sarebbe dovuto però essere in qualche modo previsto già in fase di progettazione e attuato nella presa dati considerando di automatizzare la presa dati e ottenere un set di dati più strutturato. 
-
-Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche ad un ragionamento relativo allo \text{scaling} dell'errore, in quanto non
-
-
-\section*{Osservazioni sul comportamento del materiale A (nucleo di F\lowercase{e})}
-Dai grafici in \reffig{fig:plot} possiamo osservare che la fase del nucleo di Fe ha un comportamento differente dagli altri due casi. Infatti senza aver bisogno di analizzare il fit possiamo notare che i valori ad alte frequenze tendono ad una fase maggiore di $-\frac{\pi}{2}$, valore atteso dal modello utilizzato. Questo mostra come in realtà per questo caso il modello non sia corretto e giustifica il fatto che la funzione non riesca a eseguire il fit, e si ottenga un valore di \ChiNdf~ elevato. 
-
-Un'altra conseguenza è legata al fatto che i parametri dai due fit non vengano compatibili, ed entrambi non portano a un risultato corretto. Scegliamo però comunque di portare a termine i calcoli per ottenere un valore di $\mu_R$, su cui possiamo fare ulteriori osservazioni. 
-
-\input{tables/tables_data.tex}
-
-\section*{Conclusioni}
-% Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
-
-Dal fit eseguito otteniamo i valori dei parametri $A$, $Q$ e $\nu_0$ con i ralativi errori. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
-
-Per il caso del solenoide libero troviamo la compatibilità tra i valori dei parametri entro \treSigma, quindi, considerando i set di dati essenzialmente scorrelati tra di loro (l'unica correlazione è legata al tempo, che però presenta errori molto piccoli, trascurabili quasi rispetto agli errori legati agli altri fattori) possiamo procedere a ricavare la miglior stima dei parametri, ottenendo quindi dalle relazioni di definizione di $A$, $Q$ e $\nu_0$ i valori di $R$, $L$ e $C$. 
-Analizzando questi ultimi dati osserviamo, senza aver necessariamente bisogno di un calcolo rigoroso, che non risultano compatibili con quelli misurati in modo diretto usando il tester. Infatti i valori ottenuti sono \begin{align*}
-    R &= 21.8\pm1.5 \Omega\\
-    L &= 2.8 \pm 0.2 \text{mH}\\
-    C &= 0.80 \pm 0.07 \mu\text{F}
-\end{align*}
-Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di L e C che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo.
-
-Nel caso del materiale A, per i motivi descritti in precedenza, troviamo, come ci aspettavamo dei valori non compatibili tra i parametri trovati attraverso il fit della funzione di trasferimento e quello della fase. Quindi, non potendo fare la miglior stima, procediamo ricavando i valori di $R$, $L$ e $C$ in entrambi i casi e troviamo i valori riportati in \reftab{tab:rlc_m2}. Da questi valori troviamo due valori di $\mu_R$ che sono
-\begin{align*}
-    \mu_R^H &= -1.37 \pm 0.03 \\
-    \mu_R^\varphi &= 1.1 \pm 0.6 \\
-\end{align*}
-Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperienza, in aggiunta a osservare che il modello utilizzato non si adatta al comportamento del Fe. 
-
-\begin{table}[h]
-    \begin{ruledtabular}
-        \caption{Valori di R, L e C ottenuti per il materiale A (Fe).}
-        \label{tab:rlc_m2}
-        \begin{tabular}{lrrr}
-            Caso & Resistenza & Induttanza & Capacità \\
-            & $R\pm\mstdErr{R}$ ($\Omega$) & $L\pm\mstdErr{L}$ (mH) & $R\pm\mstdErr{R}$ (nF) \\
-            \colrule
-            Risultati da $\big|H\big|$ & $1.87 \pm 0.14$ & $1.99 \pm 0.05$ & $(2.4 \pm 0.6)\times 10^3$ \\
-            Risultati dalla fase  & $64 \pm 4$ & $8 \pm 4$ & $(6\pm4)\times10^2$ \\
-        \end{tabular}
-    \end{ruledtabular}
-\end{table}
-
-Nel caso del materiale B invece i valori dei paramatri risultano compatibili e dopo aver calcolato la miglior stima troviamo che i valori di $R$, $L$ e $C$ sono ???
-In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$ dalla equazione \refeqn{eq:mu_R} e otteniamo che però \hl{$\mu_R=-1.15 \pm 0.05$} valore che non ha alcun senso fisico, in quanto per come è definita $\mu_R$, può assumere solamente valori positivi. Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta cha abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
-
-Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. Notiamo che in questo caso 
-
-
-% per materiale libero e Al si pu parlare della questione dell'errore di dt alla frequenza di risonanza, in qunato fissato lo zero il modello arctan() non può variare
-% per il ferro discutere il problema della simmetria del modello, e della non simmetria dei dati rispetto allo zero. 
-
-
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
     Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
