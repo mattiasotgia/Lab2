@@ -166,8 +166,8 @@ void analisi_permeabilita(){
               << "L = " << m1_circ_amp.L.val << " +/- " << m1_circ_amp.L.err << " H" << std::endl
               << "C = " << m1_circ_amp.C.val << " +/- " << m1_circ_amp.C.err << " F" << std::endl;
     
-    double mu_R_m1_amp = (m1_circ_amp.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Al*a_Al)+1;
-    double err_mu_R_m1_amp = sqrt(pow(m1_circ_amp.L.err/m1_circ_amp.L.val, 2) + 2*pow(0.1e-3/(sqrt(3)*diam), 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
+    double mu_R_m1_amp = (m1_circ_amp.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Fe*a_Fe)+1;
+    double err_mu_R_m1_amp = sqrt(pow(m1_circ_amp.L.err/m1_circ_amp.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
 
     std::cout << "mu_R per Fe (da amp) => " << mu_R_m1_amp << " +/- " << err_mu_R_m1_amp << std::endl << std::endl;
 
@@ -183,8 +183,8 @@ void analisi_permeabilita(){
               << "L = " << m1_circ_fase.L.val << " +/- " << m1_circ_fase.L.err << " H" << std::endl
               << "C = " << m1_circ_fase.C.val << " +/- " << m1_circ_fase.C.err << " F" << std::endl;
     
-    double mu_R_m1_fase = (m1_circ_fase.L.val-(mu0*n*n*l*diam*diam*M_PI/4))/(mu0*n*n*l*a_Al*a_Al)+1;
-    double err_mu_R_m1_fase = sqrt(pow(m1_circ_fase.L.err/m1_circ_fase.L.val, 2) + 2*pow(0.1e-3/(sqrt(3)*diam), 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
+    double mu_R_m1_fase = (m1_circ_fase.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Fe*a_Fe)+1;
+    double err_mu_R_m1_fase = sqrt(pow(m1_circ_fase.L.err/m1_circ_fase.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
 
     std::cout << "mu_R per Fe (da fase) => " << mu_R_m1_fase << " +/- " << err_mu_R_m1_fase << std::endl;
 
@@ -203,7 +203,7 @@ void analisi_permeabilita(){
               << "C = " << m2_circ.C.val << " +/- " << m2_circ.C.err << " F" << std::endl;
     
     double mu_R_m2 = (m2_circ.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Al*a_Al)+1;
-    double err_mu_R_m2 = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + 2*pow(0.1e-3/(sqrt(3)*diam), 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
+    double err_mu_R_m2 = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
 
     std::cout << "mu_R per Al => " << mu_R_m2 << " +/- " << err_mu_R_m2 << std::endl;
 

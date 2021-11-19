@@ -136,8 +136,8 @@ Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di
 
 Nel caso del materiale A, per i motivi descritti in precedenza, troviamo, come ci aspettavamo dei valori non compatibili tra i parametri trovati attraverso il fit della funzione di trasferimento e quello della fase. Quindi, non potendo fare la miglior stima, procediamo ricavando i valori di $R$, $L$ e $C$ in entrambi i casi e troviamo i valori riportati in \reftab{tab:rlc_m2}. Da questi valori troviamo due valori di $\mu_R$ che sono
 \begin{align*}
-    \mu_R^H &= -1.37 \pm 0.03 \\
-    \mu_R^\varphi &= 1.1 \pm 0.6 \\
+    \mu_R^H &= 0.65 \pm 0.07 \\
+    \mu_R^\varphi &= 3.0 \pm 0.6 \\
 \end{align*}
 Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperienza, in aggiunta a osservare che il modello utilizzato non si adatta al comportamento del Fe. 
 
@@ -161,7 +161,7 @@ Nel caso del materiale B invece i valori dei paramatri risultano compatibili e d
     L &= 2.50 \pm 0.01 \text{mH}\\
     C &= 0.79 \pm 0.07 \mu\text{F}
 \end{align*}
-In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$ dalla equazione \refeqn{eq:mu_R} e otteniamo che però \hl{$\mu_R=-1.15 \pm 0.05$} valore che non ha alcun senso fisico, in quanto per come è definita $\mu_R$, può assumere solamente valori positivi. Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta cha abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
+In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$ dalla equazione \refeqn{eq:mu_R} e otteniamo che però \hl{$\mu_R=0.86 +/- 0.08$} \st{valore che non ha alcun senso fisico, in quanto per come \`e definita $\mu_R$, pu\`o assumere solamente valori positivi.} Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta cha abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
 
 Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. \hl{Notiamo che in questo caso}
 
