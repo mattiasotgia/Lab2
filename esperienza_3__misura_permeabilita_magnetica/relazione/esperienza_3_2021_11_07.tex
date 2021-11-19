@@ -141,20 +141,25 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
 \section*{Analisi dati}
 Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto tra $v_{in}$ e $v_{out}$ e la fase $\varphi$ come $2\pi\frac{dt}{T}$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}\] 
 
-Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$ e per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. Alla fine quindi otteniamo
-\begin{subequations}\label{eq:errors_ds}
-    \begin{align}
-        \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
-        \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
-        \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
-        \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
-    \end{align}
-\end{subequations}
+Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$. Per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli. % Alla fine quindi otteniamo
+%\begin{subequations}\label{eq:errors_ds}
+%   \begin{align}
+    %    \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
+   %     \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
+    %    \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
+     %   \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
+   % \end{align}
+%\end{subequations}
 
 
 Creiamo quindi delle tabelle in cui riportiamo i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase. 
 
-Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando gli stessi parametri.  
+
+Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q^2$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando come parametri $\frac{Q}{\sqrt{A}}$ e $\nu_0$. Quindi, in base a come abbiamo definito questi parametri, considerando noti i valori assunti da $C$ e da $R$, possiamo ricavare il valore di $L$. Questo procedimento lo ripetiamo sia per la funzione di trasferimento che per la fase. Di conseguenza, da ognuno dei tre casi che stiamo considerando, avremo due valori di L. Se questi si rivelano compatibili, nei due casi in cui abbiamo inserito i materiali, procediamo a calcolare la miglior stima e da quest'ultimo valore, in base all'equazione \refeqn{eq:mu_R} troviamo $\mu_R$ del relativo metallo.
+
+Nel primo caso(induttanza senza materiali al suo interno) il fit di $\big|H[\nu]\big|$ e quello di $\varphi$ ci restituiscono rispettivamente questi valori dei parametri: \hl{inserire valori}
+Inserendo invece il materiale A i valori dei parametri sono: \hl{inserire valori}
+Infine per il materiale B troviamo i valori ricavati sono: \hl{inserire valori}
 \begin{figure*}
     \includegraphics[width=\textwidth]{plot.pdf}
     \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale 2, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramegnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
