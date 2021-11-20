@@ -173,7 +173,7 @@ void analisi_permeabilita(){
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = ""){
 
     std::string rawdata = "../dati/" + file;
-    std::string output = file.substr(file.find_last_of("_"), file.find("."));
+    std::string output = file.substr(file.find_last_of("_"), file.find(".")-file.find_last_of("_"));
 
     log::print_mmsg("Analisi di " + rawdata);
 
