@@ -28,18 +28,12 @@ const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4);
 const double N_spire = 900;
 
 
-const double mu0=4*M_PI*pow(10, -7);
-const double l = 60.0e-3;
-const double n = N_spire/l;
-const double a_Fe = 12.1e-3;
-const double a_Al = 11.9e-3;
-const double diam = 24e-3;
-
-
-// funzione calcolo incertezza a partire da fondo scala (per Qualsiasi grandezza)
-// tab. VALORI  | Grandezza misurata | errPercent | partitions | fondoscala (range1) 
-//              | V (tensione)       | 3.5%       | 8          | variabile
-//              | T (periodi)        | ?.?%       | ?          | variabile
+const double mu0=4*M_PI*pow(10, -7);    // Permeabilità magnetica nel vuoto
+const double l = 60.0e-3;               // Lughezza rocchetto
+const double n = N_spire/l;             // parametro rocchetto
+const double a_Fe = 12.1e-3;            // Lato base Al
+const double a_Al = 11.9e-3;            // Lato base Fe
+const double diam = 24e-3;              // Diametro rocchetto
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
@@ -73,7 +67,11 @@ result_circ get_result(result r){
 }
 
 double get_L_fromCv0(double v0){return 1/(_C*pow(2*M_PI*v0, 2));}
-double get_err_L_fromCv0(double v0, double err_v0){return 0;}
+double get_err_L_fromCv0(double v0, double err_v0){return sqrt(pow(_err_C/_C, 2) + pow(err_v0/v0, 2))/(pow(2*M_PI*v0, 2)*_C);}
+
+double get_mu_R_fromLL0(double L, double L0, double a){return 1 + ((L-L0)/(mu0*n*n*l*a*a));}
+double get_err_mu_R_fromLL0(double L, double L0, double a, double err_L, double err_L0, double err_a = 0.05e-3/sqrt(3)){
+    return sqrt(pow(err_L*l, 2) + pow(err_L0*l, 2) + pow((L-L0)*(1e-4/sqrt(3)), 2) + pow(err_a*(L-L0)*l/a, 2))/(mu0*pow(N_spire*a, 2));}
 
 void analisi_permeabilita(){
 
