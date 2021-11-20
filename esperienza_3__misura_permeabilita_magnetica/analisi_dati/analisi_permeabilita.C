@@ -91,20 +91,6 @@ void analisi_permeabilita(){
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
     result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
     result m2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
-
-    // std::ofstream output("../misc/output.csv");
-    // output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
-    // output << "libero, " << libero.A.val[0]  << ", " << libero.A.err[0]  << ", " << libero.A.val[1]  << ", " << libero.A.err[1]  << ", "
-    //                      << libero.Q.val[0]  << ", " << libero.Q.err[0]  << ", " << libero.Q.val[1]  << ", " << libero.Q.err[1]  << ", "
-    //                      << libero.v0.val[0] << ", " << libero.v0.err[0] << ", " << libero.v0.val[1] << ", " << libero.v0.err[1] << std::endl;
-    
-    // output << "materiale1, " << m1.A.val[0]  << ", " << m1.A.err[0]  << ", " << m1.A.val[1]  << ", " << m1.A.err[1]  << ", "
-    //                          << m1.Q.val[0]  << ", " << m1.Q.err[0]  << ", " << m1.Q.val[1]  << ", " << m1.Q.err[1]  << ", "
-    //                          << m1.v0.val[0] << ", " << m1.v0.err[0] << ", " << m1.v0.val[1] << ", " << m1.v0.err[1] << std::endl;
-    
-    // output << "materiale2, " << m2.A.val[0]  << ", " << m2.A.err[0]  << ", " << m2.A.val[1]  << ", " << m2.A.err[1]  << ", "
-    //                          << m2.Q.val[0]  << ", " << m2.Q.err[0]  << ", " << m2.Q.val[1]  << ", " << m2.Q.err[1]  << ", "
-    //                          << m2.v0.val[0] << ", " << m2.v0.err[0] << ", " << m2.v0.val[1] << ", " << m2.v0.err[1] << std::endl;
     
     // Calcoli successivi
     // Calcoli per libero--------------------------------------------------------------------------------------------------------------------------------------
