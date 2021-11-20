@@ -72,6 +72,9 @@ result_circ get_result(result r){
     return {{R, err_R}, {R_L, err_R_L}, {L, err_L}, {C, err_C}};
 }
 
+double get_L_fromCv0(double v0){return 1/(_C*pow(2*M_PI*v0, 2));}
+double get_err_L_fromCv0(double v0, double err_v0){return 0;}
+
 void analisi_permeabilita(){
 
     gStyle->SetFrameLineWidth(0);
@@ -106,7 +109,7 @@ void analisi_permeabilita(){
     //                          << m2.v0.val[0] << ", " << m2.v0.err[0] << ", " << m2.v0.val[1] << ", " << m2.v0.err[1] << std::endl;
     
     // Calcoli successivi
-    // Calcoli per libero
+    // Calcoli per libero--------------------------------------------------------------------------------------------------------------------------------------
     log::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
 
     result_circ libero_circ = get_result(libero);
@@ -114,10 +117,15 @@ void analisi_permeabilita(){
               << "L = " << libero_circ.L.val << " +- " << libero_circ.L.err << " H" << std::endl
               << "C = " << libero_circ.C.val << " +- " << libero_circ.C.err << " F" << std::endl;
 
+    double bestfit_v0_lib = stattools::getbestvalue(libero.v0_amp.val, libero.v0_fase.val, libero.v0_amp.err, libero.v0_fase.err);
+    double err_bestfit_v0_lib = stattools::getbestvalueerr(libero.v0_amp.err, libero.v0_fase.err);
+
+    std::cout << "Miglior stima v0 (da libero) = " << bestfit_v0_lib << " +- " << err_bestfit_v0_lib << "Hz" << std::endl;
+    
     const double L_0 = libero_circ.L.val;
     const double err_L_0 = libero_circ.L.err;
 
-    // calcoli per m1
+    // calcoli per m1------------------------------------------------------------------------------------------------------------------------------------------
     log::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
     
     result_circ m1_circ_amp = get_result(m1);
@@ -130,8 +138,11 @@ void analisi_permeabilita(){
 
     std::cout << "mu_R per Fe (da amp, valori FIT) => " << mu_R_m1_amp << " +- " << err_mu_R_m1_amp << std::endl << std::endl;
 
+    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_amp.val << ", da amp)  = " << get_L_fromCv0(m1.v0_amp.val) << std::endl;
+    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_fase.val << ", da fase) = " << get_L_fromCv0(m1.v0_fase.val) << std::endl;
 
-    // Calcoli per m2
+
+    // Calcoli per m2------------------------------------------------------------------------------------------------------------------------------------------
     log::print_mmsg("Valore da m2");
     
     result_circ m2_circ = get_result(m2);
@@ -143,6 +154,11 @@ void analisi_permeabilita(){
     double err_mu_R_m2 = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
 
     std::cout << "mu_R per Al (da amp, valori FIT) => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
+
+    double bestfit_v0_m2 = stattools::getbestvalue(m2.v0_amp.val, m2.v0_fase.val, m2.v0_amp.err, m2.v0_fase.err);
+    double err_bestfit_v0_m2 = stattools::getbestvalueerr(m2.v0_amp.err, m2.v0_fase.err);
+
+    std::cout << "Miglior stima v0 (da libero) = " << bestfit_v0_m2 << " +- " << err_bestfit_v0_m2 << "Hz" << std::endl;
 
     
     c1->SaveAs("../fig/plot.pdf");
