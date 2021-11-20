@@ -17,8 +17,11 @@
 
 
 const double _R = 38;        // Ohm   (valore ideale 38 ohm)
+const double _err_R = 0.3;
 const double _C = 220e-9;    // Farad (valore ideale 220nF)
+const double _err_C = 2e-9;
 const double _L = 0.01003;   // Henry (valore ideale 10 mH)
+const double _err_L = 0.5e-3;
 const double _R_L = 3.7;     // Ohm
 const double _err_R_L = stattools::max_to_stat(0.01*_R_L+0.1*4);
 
