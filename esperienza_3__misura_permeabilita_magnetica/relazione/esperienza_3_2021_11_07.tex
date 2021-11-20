@@ -244,28 +244,26 @@ Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz os
 
 Un problema analogo si verifica quando i segnali oscillano ad alte frequenze (superiori a 50kHz, nell'ordine dei 100kHz), infatti il circuito viene realizzato su una base di lavoro (\textit{breadboard}) che presenta tante superfici conduttrici (necessarie per connettere i pin delle diverse componenti) che si possono comportare come capacità perciò quando operiamo a basse frequenze il filtro, che si comporta come un passa alto, non risente dell'effetto di questi condensatori (che possiamo definire \textit{virtuali} all'opposto del condensatore \textit{reale}), mentre ad alte frequenze l'effetto può essere influente. 
 
-Nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, eliminando quindi due punti alle code. Nel caso del materiale A (nucleo di Fe) le problematiche descritte sopra sono evidenziabili sotto i 700Hz e sopra i 10kHz, per cui utilizziamo un range più ristretto per eseguire il fit. Nel caso del terzo materiale (nucleo di Al) non riscontriamo gli stessi effetti e quindi consideriamo tutti i punti raccolti. 
+Quindi nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, eliminando quindi due punti alle code. Nel caso del materiale A (nucleo di Fe) le problematiche descritte sopra sono evidenziabili sotto i 700Hz e sopra i 10kHz, per cui utilizziamo un range più ristretto per eseguire il fit. Nel caso del terzo materiale (nucleo di Al) non riscontriamo gli stessi effetti e quindi consideriamo tutti i punti raccolti. 
 
 \section*{Considerazioni sull'errore legato al ritardo}
-Osseviamo che i grafici relativi alla fase presentano un errore associato molto piccolo. Potremmo procedere considerando diversi metodi per compensare questa sottostima, eseguendo un processo di \textit{error scaling} oppure procedendo a ragionamenti legati agli errori nei valori alle code e nella condizione di risonanza. 
+Osseviamo che i grafici relativi alla fase presentano un errore associato molto piccolo. Potremmo procedere considerando diversi metodi per compensare questa sottostima, eseguendo o un processo di \textit{error scaling} oppure facendo ragionamenti legati agli errori nei valori alle code e nella condizione di risonanza. 
 
 Per ottenere valori però sensati avremmo dovuto procedere già in sede di presa dati ad una considerazione di tipo statistico del ritardo e quindi ottenere relativamente a ogni frequenza un valor medio di $dt$ e deviazione standard. Questo processo sarebbe dovuto però essere in qualche modo previsto già in fase di progettazione e attuato nella presa dati considerando di automatizzare la presa dati e ottenere un set di dati più strutturato. 
 
-Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche ad un ragionamento relativo allo \text{scaling} dell'errore, in quanto non osserviamo un moglioramento legato al cambio si fattore di scala. Gli errori quindi benchè sottostimati, sono tutti ricavati come in \refeqn{eq:errors_ds}.
+Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche ad un ragionamento relativo allo \text{scaling} dell'errore, in quanto non osserviamo un miglioramento legato al cambio si fattore di scala. Gli errori quindi benchè sottostimati, sono tutti ricavati secondo la relazione fornitaci dal data-sheet.
 
 
 \section*{Osservazioni sul comportamento del materiale A (nucleo di F\lowercase{e})}
 Dai grafici in \reffig{fig:plot} possiamo osservare che la fase del nucleo di Fe ha un comportamento differente dagli altri due casi. Infatti senza aver bisogno di analizzare il fit possiamo notare che i valori ad alte frequenze tendono a una fase maggiore di $-\frac{\pi}{2}$, valore atteso dal modello utilizzato. Questo mostra come in realtà per questo caso il modello non sia corretto e giustifica il fatto che la funzione non riesca a eseguire il fit, e si ottenga un valore di \ChiNdf~ elevato. 
 
-Un'altra conseguenza è legata al fatto che i parametri dai due fit non vengano compatibili, ed entrambi non portano a un risultato corretto. Scegliamo però comunque di portare a termine i calcoli per ottenere un valore di $\mu_R$, su cui possiamo fare ulteriori osservazioni. 
+Un'altra conseguenza è legata al fatto che i parametri che otteniamo dai due fit non vengano compatibili, ed entrambi non portano a un risultato corretto. Scegliamo però comunque di portare a termine i calcoli per ottenere un valore di $\mu_R$, su cui possiamo fare ulteriori osservazioni. 
 
 
 \section*{Conclusioni\protect\footnote{DA RISCRIVERE}}
 % Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
-Dal fit eseguito otteniamo i valori dei parametri $A$, $Q$ e $\nu_0$ con i relativi errori. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
-Per il caso del solenoide libero troviamo la compatibilità tra i valori dei parametri entro \treSigma, quindi, considerando i set di dati essenzialmente scorrelati tra di loro (l'unica correlazione è legata al tempo, che però presenta errori molto piccoli, trascurabili quasi rispetto agli errori legati agli altri fattori) possiamo procedere a ricavare la miglior stima dei parametri, ottenendo quindi dalle relazioni di definizione di $A$, $Q$ e $\nu_0$ i valori di $R$, $L$ e $C$. 
 Analizzando questi ultimi dati osserviamo, senza aver necessariamente bisogno di un calcolo rigoroso, che non risultano compatibili con quelli misurati in modo diretto usando il tester. Infatti i valori ottenuti sono \begin{align*}
     R &= \SI{21.8+-1.5}{\ohm}\\
     L &= \SI{2.8+-0.2}{mH}\\
