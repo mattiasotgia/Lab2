@@ -101,7 +101,7 @@ Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i va
     \end{figure}
     
     
-    \noindent\textit{Caratterizzazione dell'induttanza---}\label{par:L} La bobina su cui andiamo a eseguire le misure di $L$ è composta da un rocchetto cilindrico di plastica cavo, attorno al quale viene avvolto un filo di rame smaltato, a comporre 900 spire. L'apparato così creato si comporta come un solenoide caratterizzato da \begin{equation}\label{eq:inductance}L=\frac{\Phi_B}{I}=\mu_0\frac{N^2}{\ell}S\end{equation} con $\Phi_B=B\cdot NS$ il flusso del campo magnetico di un solenoide in cui scorre corrente $I$, dove consideriamo $n=N/\ell$ ottenendo che il solenoide è caratterizzato da \begin{equation}L=\mu_0 n^2 \ell S.\end{equation}
+    \noindent\textit{Caratterizzazione dell'induttanza---}\label{par:L} La bobina su cui andiamo a eseguire le misure di $L$ è composta da un rocchetto cilindrico di plastica cavo, attorno al quale viene avvolto un filo di rame smaltato, a comporre 900 spire. L'apparato così creato si comporta come un solenoide caratterizzato da \begin{equation}\label{eq:inductance}L=\frac{\Phi_B}{I}=\mu_0\frac{N^2}{\ell}S\end{equation} con $\Phi_B=B\cdot NS$ il flusso del campo magnetico di un solenoide in cui scorre corrente $I$, dove consideriamo $n=N/\ell$ ottenendo che il solenoide è caratterizzato da \begin{equation}\label{eq:L0}L=\mu_0 n^2 \ell S.\end{equation}
     Consideriamo, in primo ordine di approssimazione che il rocchetto di plastica abbia permeabilità magnetica pari a 1, valore che non si discosta molto dalla realtà sperimentale. 
 
     
@@ -191,7 +191,7 @@ Inserendo invece il materiale A i valori dei parametri sono
 \end{align*}
 In questo caso possiamo verificare la non compatibilità dei valori entro \treSigma. Invece i valori di $\nu_0^H$ e $\nu_0^\varphi$ non risultano compatibili entro \treSigma. 
 
-Procediamo quindi a calcolare il valore di $L$ e della coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}(\text{Fe})-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
+Procediamo quindi a calcolare il valore di $L$ e della coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$ \refeqn{eq:L0}, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}(\text{Fe})-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
 \begin{align*}
     \mu_R^H      (\text{Fe}) &= \num{5.66133 +- 0.115364}\\
     \mu_R^\varphi(\text{Fe}) &= \num{4.99158 +- 0.0857181}
@@ -237,6 +237,35 @@ La funzione di trasferimento e la funzione della fase trovate in \refeqn{eq:H(A,
 la fase, dove i parametri sono $R+R_L$, $L$ e $C$. 
 
 Eseguendo un fit di questi modelli relativamente ai diagrammi di Bode come in \reffig{fig:plot}, otteniamo che minimizzando $\big|H[\nu]\big|$ e $\varphi[\nu]$ sul primo e sul secondo diagramma di Bode possiamo ricavare i valori dei componenti del circuito. 
+
+\section*{Valori dei componenti e calcolo del coefficiente di permeabilità magnetica}
+Minimizzando le funzioni secondo questo secondo modello considerato, otteniamo i valori dei coefficienti come riportato in \reftab{tab:val_RLC_2}.
+
+\begin{table}[h!]
+    \begin{ruledtabular}
+        \caption{Valori ottenuti dalla minimizzazione del secondo modello}
+        \label{tab:val_RLC_2}
+        \begin{tabular}{lrrr}
+            Caso & Resist. eq. $R+R_L$ (\unit{\ohm}) & Coeff. autoinduzione $L$ (\unit{\milli\henry}) & Capacità $C$ (\unit{\nano\farad}) \\
+            \colrule
+            $|H|$ (Libero)\footnote[1]{Il valore di $R+R_L$ è ottenuto come somma dei due parametri di fit}
+                 & $\num[round-precision=1]{75.7 +- 13.3} + \num{12.8698 +- 2.95411}$ & $\num{8.50181 +- 1.49301}$ & $\num[round-precision=1]{271.558 +- 48}$ \\
+            $|H|$ (Fe)\footnotemark[1]     & $\num{49.0132 +- 8.24196} + \num[round-mode=none]{97 +- 17}$ & $\num{17.483 +- 2.94306}$ & $\num[round-mode=none]{276 +- 46}$ \\
+            $|H|$ (Al)\footnotemark[1]     & $\num[round-mode=none]{5 +- 18e1} + \num[round-mode=none]{17 +- 59}$ & $\num[round-mode=none]{9 +- 30}$ & $\num[round-mode=none]{24 +- 83e1}$ \\
+            $\varphi$ (Libero) & $\num[round-mode=none]{98 +- 21}$ & $\num{9.76927 +- 2.1}$ & $\num[round-mode=none]{233 +- 50}$ \\
+            $\varphi$ (Fe) & $\num[round-mode=none]{179 +- 56}$ & $\num{19.8386 +- 6.15888}$ & $\num[round-mode=none]{225 +- 70}$ \\
+            $\varphi$ (Al) & $\num[round-mode=none]{75 +- 40}$ & $\num{9.11623 +- 4.83919}$ & $\num[round-mode=none]{218 +- 116}$ \\
+            
+        \end{tabular}
+    \end{ruledtabular}
+\end{table}
+
+Dati i valori ottenuti possiamo, dopo averne verificato la compatibilità, ricavare la miglior stima del valore di $L_{eq}$ rispettivamente a ogni caso studiato, ottenendo
+\begin{align*}
+    L_0^*            &= \SI{8.93327 +- 1.21255}{\milli\henry} \\
+    L^* (\text{Fe})  &= \SI{17.9209 +- 2.65545}{\milli\henry}\\
+    L^* (\text{Al})  &= \SI{9.10224 +- 4.77856}{\milli\henry}\\
+\end{align*}
 
 
 \section*{Considerazioni su errori a basse e alte frequenze}
