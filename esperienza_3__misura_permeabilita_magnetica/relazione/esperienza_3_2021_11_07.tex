@@ -60,12 +60,14 @@
 %%%% CORPO DEL TESTO
 
 \section*{Introduzione}\label{sec:introduction}
-Si vuole misurare il valore della permeabilità magnetica di alcuni materiali dati, di cui non conosciamo esatta composizione chimico-fisica ma che possiamo ipotizzare omogenei, lineari e isotropi (LHI) fino al primo grado di approssimazione, avendo a disposizione un rocchetto plastico su cui sono avvolte $N$ spire di rame, nel quale può essere inserito il volume di materiale creato in modo da riempire quasi completamente il rocchetto. Variando il materiale ci aspettiamo di poter misurare i differenti valori della permeabilità magnetica $\mu_R$. 
+Si vuole misurare il valore della permeabilità magnetica di alcuni materiali dati di cui non conosciamo esatta composizione chimico-fisica ma che possiamo ipotizzare omogenei, lineari e isotropi (LHI) fino al primo grado di approssimazione. 
 
-Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Cambiando il nucleo all'interno del solenoide modifichiamo il valore di $L$ e di conseguenza troveremo un valore differente di $\nu_0$. Dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
+Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Come indutanza usiamo un rocchetto plastico su cui sono avvolte $N$ spire di rame, nel quale può essere appunto inserito il volume di materiale che è creato in modo da riempire quasi completamente il rocchetto. Variando il materiale ci aspettiamo di poter misurare i differenti valori della permeabilità magnetica $\mu_R$.
+
+Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
 
 \begin{methods}{Metodi}
-    \textit{Caratterizzazione del circuito RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+\left(\frac{\omega L}{R} - \frac{1}{\omega RC}\right)^2}},\] per cui osserviamo che il suo valore massimo (cioè 1), si ottenga per $\omega=\omega_0=\frac{1}{\sqrt{LC}}$ che è il valore di quella che abbiamo chiamato frequenza di taglio ($\omega_0$ oppure $\nu_0$). Per valori più bassi e più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione della funzione di trasferimento può essere riscritta come \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}\] dove Q è $Q_{id}=\frac{1}{R}\sqrt{\frac{L}{C}}$ (e abbiamo sostituito $\omega$ con $\nu = \omega / 2\pi$ dove $\nu=1 / T$), per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro A uguale $A=\left(1+{R_L\over R}\right)^2$ da cui \begin{subequations}\begin{equation}\big|H[\nu]\big|=\frac{1}{\sqrt{A+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}.\label{eq:H(A, Q, v0)}\end{equation}
+    \textit{Caratterizzazione del circuito RLC---} Il circuito RLC è definito da tre parametri: la frequenza di taglio $\nu_0$, il fattore di qualità $Q$ e il parametro $A$. Analizzando il circuito troviamo infatti che il valore della funzione di trasferimento è dato da \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+\left(\frac{\omega L}{R} - \frac{1}{\omega RC}\right)^2}},\] per cui osserviamo che il suo valore massimo (cioè 1), si ottenga per $\omega=\omega_0=\frac{1}{\sqrt{LC}}$ che è il valore di quella che abbiamo chiamato frequenza di taglio ($\omega_0$ oppure $\nu_0$). Per valori più bassi e più alti di pulsazione e quindi di frequenza, il valore della funzione di trasferimento diminuisce, per cui il circuito si comporta come un filtro passa banda intorno al valore della frequenza di taglio che a seconda dei valori di L e di C del circuito può essere modificata. Allo stesso modo l'equazione della funzione di trasferimento può essere riscritta come \[\big|H[\nu]\big|=\frac{1}{\sqrt{1+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}\] dove Q è $Q_{id}=\frac{1}{R}\sqrt{\frac{L}{C}}$ (e abbiamo sostituito $\omega$ con $\nu = \omega / 2\pi$ dove $\nu=1 / T$), per cui notiamo che il filtro diventa tanto più selettivo, tanto più diventa grande Q, che viene definito quindi fattore di qualità. Inoltre dobbiamo anche considerare che l'induttanza si comporta in realtà anche come una resistenza, per cui dobbiamo riconsiderare il valore della funzione di trasferimento inserendo questo ulteriore parametro $A=\left(1+{R_L\over R}\right)^2$ da cui \begin{subequations}\begin{equation}\big|H[\nu]\big|=\frac{1}{\sqrt{A+Q_{id}^2\left({\nu\over\nu_0}-{\nu_0\over\nu}\right)^2}}.\label{eq:H(A, Q, v0)}\end{equation}
     
     Perciò in base ai valori di resistenza, capacità e induttanza che inseriamo all'interno del circuito possiamo modificare i valori di tali parametri. 
 
@@ -99,7 +101,7 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
     \end{figure}
     
     
-    \noindent\textit{Caratterizzazione dell'induttanza---}\label{par:L} La bobina su cui andiamo a eseguire le misure di $L$ è composta da un rocchetto cilindrico di plastica dura cavo, attorno al quale viene avvolto un filo di rame smaltato, a comporre 900 spire. L'apparato così creato si comporta come un solenoide caratterizzato da \begin{equation}\label{eq:inductance}L=\frac{\Phi_B}{I}=\mu_0\frac{N^2}{\ell}S\end{equation} con $\Phi_B=B\cdot NS$ il flusso del campo magnetico di un solenoide in cui scorre corrente $I$, dove consideriamo $n=N/\ell$ ottenendo che il solenoide è caratterizzato da \begin{equation}L=\mu_0 n^2 \ell S.\end{equation}
+    \noindent\textit{Caratterizzazione dell'induttanza---}\label{par:L} La bobina su cui andiamo a eseguire le misure di $L$ è composta da un rocchetto cilindrico di plastica cavo, attorno al quale viene avvolto un filo di rame smaltato, a comporre 900 spire. L'apparato così creato si comporta come un solenoide caratterizzato da \begin{equation}\label{eq:inductance}L=\frac{\Phi_B}{I}=\mu_0\frac{N^2}{\ell}S\end{equation} con $\Phi_B=B\cdot NS$ il flusso del campo magnetico di un solenoide in cui scorre corrente $I$, dove consideriamo $n=N/\ell$ ottenendo che il solenoide è caratterizzato da \begin{equation}L=\mu_0 n^2 \ell S.\end{equation}
     Consideriamo, in primo ordine di approssimazione che il rocchetto di plastica abbia permeabilità magnetica pari a 1, valore che non si discosta molto dalla realtà sperimentale. 
 
     
@@ -135,7 +137,7 @@ Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure 
 \end{methods}
 
 
-\section*{Modello di fit sui parametri di costruzione del filtro}
+\section*{Modello di fit sui parametri di caratterizzazione del filtro RLC}
 Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto $v_{out}/v_{in}$ e la fase $\varphi$ come $2\pi \cdot dt / T$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}\] 
 
 Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$. Per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli.
@@ -154,7 +156,7 @@ Trascriviamo quindi in tabelle (riportate in \reftab{tab:plotdata_free}, \ref{ta
 
 \input{tables/tables_data.tex}
 
-Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q^2$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando come parametri $\frac{Q}{\sqrt{A}}$ e $\nu_0$. Quindi, una volta che gli abbiamo ricavati, possiamo verificare la compatibilità per $\frac{Q}{\sqrt{A}}$(dal primo fit ricaviamo separatamente $Q^2$ e $A$, però da questi possiamo comunque calcolare $\frac{Q}{\sqrt{A}}$ ) e $\nu_0$. Se questi si rivelano compatibili, ricaviamo la miglior stima e in particolare dalla relazione \[\nu_0=\frac{1}{2\pi\sqrt{LC}}\]  considerando noto il valore assunto da $C$, possiamo trovare la miglior stima del coefficiente di autoinduzione $L$ e ottenere quindi il valore della permeabilità magnetica per tale materiale. Se invece non otteniamo la compatibilità, allora calcoliamo due diversi valori di $L$, che corrispondono a due valori di $\mu_R$. 
+Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H(A, Q, v0)} impostando come parametri $A$, $Q^2$ e $\nu_{0}$, mentre per la fase $\varphi$ utilizziamo l'equazione \refeqn{eq:phi(Q, A, v0)} impostando come parametri $\frac{Q}{\sqrt{A}}$ e $\nu_0$. Quindi, una volta che gli abbiamo ricavati, possiamo verificare la compatibilità per $\frac{Q}{\sqrt{A}}$(dal primo fit ricaviamo separatamente $Q^2$ e $A$, però da questi possiamo comunque calcolare $\frac{Q}{\sqrt{A}}$ ) e $\nu_0$. Se questi si rivelano compatibili, ricaviamo la miglior stima e in particolare dalla relazione \[\nu_0=\frac{1}{2\pi\sqrt{LC}}\]  considerando noto il valore assunto da $C$, possiamo trovare la miglior stima del coefficiente di autoinduzione $L$. 
 
 Quindi, nei casi in cui abbiamo inserito il materiale dentro al rocchetto, in base all'equazione \refeqn{eq:mu_R} troviamo $\mu_R$ del relativo metallo. Inoltre in quest'ultima relazione troviamo che in realtà $\mu_0 n^2 l S$ è proprio il valore dell'induttanza quando non vi sono materiali dentro al solenoide (la chiamiamo $L_0$). Perciò dal primo caso ci possiamo ricavare il valore di $L_0$ per poi utilizzarla successivamente. 
 
@@ -163,11 +165,6 @@ Quindi, nei casi in cui abbiamo inserito il materiale dentro al rocchetto, in ba
 % Infine per il materiale B troviamo i valori ricavati sono: \hl{inserire valori}
 
 
-\begin{figure*}
-    \includegraphics[width=\textwidth]{plot.pdf}
-    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
-    \label{fig:plot}
-\end{figure*}
 
 \section*{Calcolo della permeabilità magnetica relativa}
 Nel primo caso(induttanza senza materiali al suo interno) il fit di $\big|H[\nu]\big|$ e quello di $\varphi$ ci restituiscono rispettivamente questi valori dei parametri
@@ -188,6 +185,12 @@ Infine per il materiale B troviamo i valori ricavati sono
     Q     &= \num{3.75482 +- 0.0561269}\\
     \nu_0 &= \SI{3.54911 +- 0.0193217}{\kilo\hertz}
 \end{align*}
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{plot.pdf}
+    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
+    \label{fig:plot}
+\end{figure*}
 
 \section*{Modello di fit su parametri circuitali}
 Il modello prima usato sfruttava i parametri $A$, $Q^2$ e $\nu_0$ per la funzione di trasferimento e $\frac{Q}{\sqrt{A}}$ e $\nu_0$ per la fase, che sono però effettivamente derivati dai valori di $R$, $R_L$, $L$ e $C$, secondo le relazioni 
