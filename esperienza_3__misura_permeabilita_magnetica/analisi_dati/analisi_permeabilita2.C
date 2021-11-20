@@ -98,7 +98,7 @@ void analisi_permeabilita2(){
     result _mat2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
 
     std::cout << "mu_R da Fe => " << get_mu_R_fromLL0(_mat1.val, _lib0.val, a_Fe) << " +- " << get_err_mu_R_fromLL0(_mat1.val, _lib0.val, a_Fe, _mat1.err, _lib0.err) << std::endl;
-    std::cout << "mu_R da Fe => " << get_mu_R_fromLL0(_mat2.val, _lib0.val, a_Al) << " +- " << get_err_mu_R_fromLL0(_mat2.val, _lib0.val, a_Al, _mat2.err, _lib0.err) << std::endl;
+    std::cout << "mu_R da Al => " << get_mu_R_fromLL0(_mat2.val, _lib0.val, a_Al) << " +- " << get_err_mu_R_fromLL0(_mat2.val, _lib0.val, a_Al, _mat2.err, _lib0.err) << std::endl;
     
     return;
 }
