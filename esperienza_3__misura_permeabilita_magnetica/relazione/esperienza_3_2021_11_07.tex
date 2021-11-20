@@ -119,9 +119,9 @@ Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i va
     Dunque per il nostro progetto necessitiamo di particolari valori di R, C ed L. Quest'ultimo è già determinato, in quanto è legato alle caratteristiche fisiche del rocchetto di filo che appunto utilizziamo come induttanza. Quindi partendo da tale valore, che possiamo determinare in modo diretto usando il tester a nostra disposizione, ricaviamo anche quelli di R e C imponendo le condizioni sulla frequenza di risonanza e sul fattore di qualità. Se quindi vogliamo che $\nu_{0}=\frac{1}{\sqrt{LC}}\frac{1}{2\pi}$ sia pari a 3kHz, con L misurato grazie al tester che vale 10.03mH, allora $C=\frac{1}{L4\pi^2\nu_{0}^2}$ deve assumere un valore prossimo a 220nF. Prima di procedere a misurare R, attraverso la condizione su Q, misuriamo anche il valore della resistenza dell'induttanza, usando anche in questo caso il tester e otteniamo che $R_{L}$ è pari 3.7Ohm. Imponiamo che il valore di Q sia 6 e in base alla relazione $Q=\frac{1}{R}\sqrt{\frac{L}{C}}$ troviamo che $R=\frac{1}{Q}\sqrt{\frac{L}{C}}$, valore a cui però devo sottrarre quello di $R_{L}$ in quanto la $R_{eq}$ che ottengo dall'equazione precedente deriva in realtà dalla serie di R e $R_{L}$. Troviamo quindi che $R=\frac{1}{Q}\sqrt{\frac{L}{C}}-R_{L}$, cioè circa 38Ohm. In base ai valori trovati di R e C, cerchiamo tra i dispositivi presenti in laboratorio quelli che hanno valore nominale che più si avvicina a questi. Prendiamo quindi una capacità da 220nF e una resistenza da 38Ohm e misuriamo questi valori con il tester, per ottenere il loro effettivo valore. 
     
     Quindi misuriamo \begin{align*}
-        C &= \SI{220+-2}{\nano\farad}    \\
         R &= \SI{38.0+-0.3}{\ohm}        \\
-        L &= \SI{10.0+-0.5}{\milli\henry}
+        L &= \SI{10.0+-0.5}{\milli\henry}\\
+        C &= \SI{220+-2}{\nano\farad}    
     \end{align*}
 
     \noindent\textit{Presa dati---}Utilizziamo l'oscilloscopio come generatore di segnale in alternata che forniamo come input al nostro circuito. La frequenza di tale segnale \`e modificabile e il segnale di output del filtro cambia in base a tale frequenza.
@@ -138,19 +138,13 @@ Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i va
 
 
 \section*{Modello di fit sui parametri di caratterizzazione del filtro RLC}
-Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto $v_{out}/v_{in}$ e la fase $\varphi$ come $2\pi \cdot dt / T$. Di conseguenza l'errore su $\big|H[\nu]\big|$ è dato da \[\mstdErr{|H|}=\sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\] mentre l'errore su $\varphi$ è pari a \[\mstdErr{\varphi}=2\pi\sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}\] 
+Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della funzione di trasferimento e della fase. Per fare ciò calcoliamo $\big|H[\nu]\big|$ come rapporto $v_{out}/v_{in}$ e la fase $\varphi$ come $2\pi \cdot dt / T$. Di conseguenza gli errori relativi a $\big|H[\nu]\big|$ e $\varphi[\nu]$ sono ricavati come 
+\begin{align*}
+    \mstdErr{|H|} &= \sqrt{\left(\frac{\mstdErr{v_{out}}}{v_{in}}\right)^2+\left(\frac{\mstdErr{v_{in}}v_{out}}{v_{in}^2}\right)^2}\\
+    \mstdErr{\varphi} &= 2\pi \sqrt{\left(\frac{\mstdErr{dt}}{T}\right)^2 + \left(\frac{dt\cdot\mstdErr{T}}{T^2}\right)^2}
+\end{align*}
 
 Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$. Per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli.
-% Alla fine quindi otteniamo
-% \begin{subequations}\label{eq:errors_ds}
-%   \begin{align}
-%        \mstdErr{v_{in}}  &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{in}} )}{\sqrt{3}} \\
-%        \mstdErr{v_{out}} &= \frac{8  \cdot 0.035  \cdot (\text{fondo-scala}_{v_{out}})}{\sqrt{3}} \\
-%        \mstdErr{T}       &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{T}      )}{\sqrt{3}} \\
-%        \mstdErr{dt}      &= \frac{10 \cdot 0.0016 \cdot (\text{fondo-scala}_{dt}     )}{\sqrt{3}}
-%    \end{align}
-% \end{subequations}
-
 
 Trascriviamo quindi in tabelle (riportate in \reftab{tab:plotdata_free}, \ref{tab:plotdata_m1}, \ref{tab:plotdata_m2}) i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase (\reffig{fig:plot}). 
 
@@ -183,7 +177,7 @@ Dal circuito considerato con il nucleo dell'induttanza vuoto otteniamo
 \end{align*}
 
 dove possiamo verificare entro \treSigma\ la compatibilità di $\nu_0^H$ e $\nu_0^\varphi$ e del rapporto $Q / \sqrt{A}$ tra il primo diagramma di Bode e il secondo.
-Poichè otteniamo che i valori delle frequenze di taglio risultano compatibili, possiamo ottenere una miglior stima del suo valore. Questo valore ($\nu_0^{*}=\SI{3.33246 +- 0.00566358}{\kilo\hertz}$) possiamo sfruttarlo perciò per ottenere il valore del coeffieciente di autoinduzione $L_0$, valore che corrisponde all'induttanza libera, e potrà esserci necessaria nel calcolo della permeabilità relativa per i casi successivi.
+Poichè otteniamo che i valori delle frequenze di taglio risultano compatibili, possiamo ottenere una miglior stima del suo valore. Questo valore ($\nu_0^{*}=\SI{3.33246 +- 0.00566358}{\kilo\hertz}$) possiamo sfruttarlo perciò per ottenere il valore del coeffiecente di autoinduzione $L_0$, valore che corrisponde all'induttanza libera, e potrà esserci necessaria nel calcolo della permeabilità relativa per i casi successivi.
 Otteniamo quindi \[L_0 = \left(4\pi^2C\right)^{-1} = \SI{10.3678 +- 0.0958859}{\milli\henry}\]che risulta essere un valore compatibile entro \treSigma\ con il valore di $L$ misurato in laboratorio.
 
 Inserendo invece il materiale A i valori dei parametri sono
@@ -197,10 +191,10 @@ Inserendo invece il materiale A i valori dei parametri sono
 \end{align*}
 In questo caso possiamo verificare la non compatibilità dei valori entro \treSigma. Invece i valori di $\nu_0^H$ e $\nu_0^\varphi$ non risultano compatibili entro \treSigma. 
 
-Procediamo quindi a calcolare il valore di $L$ e della coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
+Procediamo quindi a calcolare il valore di $L$ e della coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}(\text{Fe})-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
 \begin{align*}
-    \mu_R^H &= \num{5.66133 +- 0.115364}\\
-    \mu_R^\varphi &= \num{4.99158 +- 0.0857181}
+    \mu_R^H      (\text{Fe}) &= \num{5.66133 +- 0.115364}\\
+    \mu_R^\varphi(\text{Fe}) &= \num{4.99158 +- 0.0857181}
 \end{align*}
 
 Infine per il materiale B troviamo che i valori ricavati sono
@@ -213,13 +207,17 @@ Infine per il materiale B troviamo che i valori ricavati sono
 \end{align*}
 dove osserviamo come nel caso iniziale, la compatibilità entro \treSigma\ dei valori ottenuti.
 
+Poiché i valori dei parametri sono compatibili possiamo ottenere il valore della miglior stima di $\nu_0$, che risulta essere \[\nu_0^* = \SI{3.56925 +- 0.00542886}{\kilo\hertz}\] per ottenere \[L_{eq}(\text{Al}) = \left(4\pi^2C\right)^{-1} = \SI{9.03782 +- 0.0833041}{\milli\henry}.\]
+
+Dato questo valore del coefficiente di autoinduzione, dall'equazione trovata per il primo materiale derivata da \refeqn{eq:mu_R} otteniamo il valore della permeabilità magnetica relativa \[\mu_R(\text{Al}) = \num{0.446375 +- 0.0528921}.\]
+
 \begin{figure*}
     \includegraphics[width=\textwidth]{plot.pdf}
     \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
     \label{fig:plot}
 \end{figure*}
 
-\section*{Modello di fit su parametri circuitali}
+\section*{Modello di fit sulle componenti circuitali}
 Il modello prima usato sfruttava i parametri $A$, $Q^2$ e $\nu_0$ per la funzione di trasferimento e $\frac{Q}{\sqrt{A}}$ e $\nu_0$ per la fase, che sono però effettivamente derivati dai valori di $R$, $R_L$, $L$ e $C$, secondo le relazioni 
 \begin{align}
     A &= \left(1+\frac{R_L}{R}\right)^2 \\
@@ -231,12 +229,14 @@ La funzione di trasferimento e la funzione della fase trovate in \refeqn{eq:H(A,
     \begin{equation}
         \big|H[\nu]\big| = \frac{1}{\sqrt{\left(1+\frac{R_L}{R}\right)^2 + \frac{1}{R^2}\left(2\pi\nu L - \frac{1}{2\pi\nu C}\right)^2}}
     \end{equation}
-    la funzione di trasferimento e 
+    la funzione di trasferimento, dove i parametri della funzione sono $R$, $R_L$, $L$ e $C$, e
     \begin{equation}
         \varphi[\nu] = -\arctan(\frac{2\pi\nu L - \frac{1}{2\pi\nu C}}{R + R_L})
     \end{equation}
 \end{subequations}
-la fase. 
+la fase, dove i parametri sono $R+R_L$, $L$ e $C$. 
+
+Eseguendo un fit di questi modelli relativamente ai diagrammi di Bode come in \reffig{fig:plot}, otteniamo che minimizzando $\big|H[\nu]\big|$ e $\varphi[\nu]$ sul primo e sul secondo diagramma di Bode possiamo ricavare i valori dei componenti del circuito. 
 
 
 \section*{Considerazioni su errori a basse e alte frequenze}
