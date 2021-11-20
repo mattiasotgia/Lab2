@@ -90,7 +90,7 @@ void analisi_permeabilita(){
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
     result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
     result m2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
-    
+
     // std::ofstream output("../misc/output.csv");
     // output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
     // output << "libero, " << libero.A.val[0]  << ", " << libero.A.err[0]  << ", " << libero.A.val[1]  << ", " << libero.A.err[1]  << ", "
@@ -247,9 +247,9 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
         phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt));
 
 
-        out_computeddata << "\\SI{" << Vout / Vin << " +- " << get_HErr(Vin, Vout, eVin, eVout) << "}{} "
-                         << "& \\SI{" << 2 * M_PI * dt / T << " +- " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << "}{} "
-                         << "& \\SI{" << 1 / T << " +- " << eT/pow(T, 2) << "}{} \\\\" << std::endl;
+        out_computeddata << "\\num{" << Vout / Vin << " +- " << get_HErr(Vin, Vout, eVin, eVout) << "} "
+                       << "& \\num{" << 2 * M_PI * dt / T << " +- " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << "} "
+                       << "& \\num{" << 1 / T << " +- " << eT/pow(T, 2) << "} \\\\" << std::endl;
     }
     out_rawdata << "EOF" << std::endl;
     out_cleandata << "EOF" << std::endl;
