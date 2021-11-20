@@ -316,14 +316,14 @@ Per il materiale B troviamo anche in questo caso la compatibilità. Tuttavia l'e
 
 
 
-Analizzando questi ultimi dati osserviamo, senza aver necessariamente bisogno di un calcolo rigoroso, che non risultano compatibili con quelli misurati in modo diretto usando il tester. Infatti i valori ottenuti sono \begin{align*}
-    R &= \SI{21.8+-1.5}{\ohm}\\
-    L &= \SI{2.8+-0.2}{mH}\\
-    C &= \SI{0.80+-0.07}{\micro\farad} 
-\end{align*}
-Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di L e C che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo.
+% Analizzando questi ultimi dati osserviamo, senza aver necessariamente bisogno di un calcolo rigoroso, che non risultano compatibili con quelli misurati in modo diretto usando il tester. Infatti i valori ottenuti sono \begin{align*}
+%     R &= \SI{21.8+-1.5}{\ohm}\\
+%     L &= \SI{2.8+-0.2}{mH}\\
+%     C &= \SI{0.80+-0.07}{\micro\farad} 
+% \end{align*}
+% Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di L e C che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo.
 
-In particolar modo definiamo $L_0$ il valore di $L$ ottenuto per questo caso: questo valore sarà necessario per calcolare il valore di $\mu_R$ relativo ai casi dove è presente il materiale nel nucleo, in quanto rappresenta il valore calcolato del modello privato di nucleo magnetizzabile.
+% In particolar modo definiamo $L_0$ il valore di $L$ ottenuto per questo caso: questo valore sarà necessario per calcolare il valore di $\mu_R$ relativo ai casi dove è presente il materiale nel nucleo, in quanto rappresenta il valore calcolato del modello privato di nucleo magnetizzabile.
 
  
 
@@ -346,7 +346,7 @@ In particolar modo definiamo $L_0$ il valore di $L$ ottenuto per questo caso: qu
 
 % dalla equazione \refeqn{eq:mu_R}.  e otteniamo che però \hl{$\mu_R=0.86 +/- 0.08$} \st{valore che non ha alcun senso fisico, in quanto per come \`e definita $\mu_R$, pu\`o assumere solamente valori positivi.} Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta che abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
 
-Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. \hl{Notiamo che in questo caso}
+% Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. \hl{Notiamo che in questo caso}
 
 
 % per materiale libero e Al si pu parlare della questione dell'errore di dt alla frequenza di risonanza, in qunato fissato lo zero il modello arctan() non può variare
