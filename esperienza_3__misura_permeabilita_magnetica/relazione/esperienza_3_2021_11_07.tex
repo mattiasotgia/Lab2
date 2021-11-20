@@ -304,9 +304,10 @@ Nel caso del materiale A invece i parametri tra il fit di $\big|H[\nu]\big|$ e q
 che sono appunto differenti, però sono entrambi nello stesso ordine di grandezza e non molto maggiori di 1. Perciò il materiale ha comunque un comportamento che porta a far aumentare il campo magnetico all'interno dell'induttanza, ma non raggiunge quei valori che sono tipicamente assunti dai materiali come quello che stiamo analizzando.
 
 Analizzando il secondo modello di fit troviamo che in tutti e tre i casi i parametri dal fit della funzione di trasferimento e i parametri dal fit della fase sono compatibili tra di loro. Però in particolar modo a noi interessa vedere se i valori di $L$ ottenuti nei tre casi attraverso il primo modello sono compatibili con i corrispondenti del secondo modello in modo da vedere se c'è corrispondenza tra i due oppure no. 
+Nel caso dell'induttanza senza materiali all'interno i due valori non vengono compatibili. Nel caso del materiale A invece troviamo che entrambe le induttanze trovate dal primo modello sono compatibili con l'induttanza trovata attraverso il secondo modello. Infine nell'ultimo caso, cioè per il materiale B, i due valori sono compatibili. Possiamo allora controllare se sono compatibili tra di loro i valori che abbiamo trovato per la permeabilità magnetica. 
+Per il materiale A troviamo la compatibilità dei due valori di $\mu_R$ del primo modello con il valore di $\mu_R$ del secondo. 
 
-
-
+Per il materiale B troviamo anche in questo caso la compatibilità. Tuttavia l'errore per $\mu_R$ trovato dal secondo modello è elevato per cui la permeabilità magnetica potrebbe essere minore o maggiore di 1 o addirittura negativa. Perciò il secondo modello utilizzato non ci permette di definire con precisione le proprietà magnetiche del materiale. 
 
 
 
@@ -324,13 +325,7 @@ Osserviamo che comunque il fit ci restituisce ugualmente un rapporto costante di
 
 In particolar modo definiamo $L_0$ il valore di $L$ ottenuto per questo caso: questo valore sarà necessario per calcolare il valore di $\mu_R$ relativo ai casi dove è presente il materiale nel nucleo, in quanto rappresenta il valore calcolato del modello privato di nucleo magnetizzabile.
 
-Nel caso del materiale A, per i motivi descritti in precedenza, troviamo, come ci aspettavamo dei valori non compatibili tra i parametri trovati attraverso il fit della funzione di trasferimento e quello della fase. Quindi, non potendo fare la miglior stima, procediamo ricavando i valori di $R$, $L$ e $C$ in entrambi i casi e troviamo i valori riportati in \reftab{tab:rlc_m2}. Da questi valori troviamo due valori di $\mu_R$ che sono
-\begin{align*}
-    \mu_R^H &=\num{0.65+-0.07} \\
-    \mu_R^\varphi &= \num{3.0+-0.6}
-\end{align*}
-
-Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperienza, in aggiunta a osservare che il modello utilizzato non si adatta al comportamento del Fe. 
+ 
 
 \begin{table}[h]
     \begin{ruledtabular}
@@ -347,13 +342,7 @@ Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperien
     \end{ruledtabular}
 \end{table}
 
-Nel caso del materiale B invece i valori dei paramatri risultano compatibili e dopo aver calcolato la miglior stima troviamo che i valori di $R$, $L$ e $C$ sono 
-\begin{align*}
-    R &= \SI{11.2335 +- 0.766854}{\ohm} \\
-    L &= \SI{2.5145 +- 0.132582}{\milli\henry} \\
-    C &= \SI{799.74 +- 7}{\micro\farad}
-\end{align*}
-In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega $\mu_R$ con $L_{eq}$, ma possiamo osservare che $\mu_0n^2\ell S$ è proprio il valore del coefficiente di autoinduzione del circuito (in particolare del solenoide utilizzato) che però possiamo ottenere dal fit nel caso libero. 
+
 
 % dalla equazione \refeqn{eq:mu_R}.  e otteniamo che però \hl{$\mu_R=0.86 +/- 0.08$} \st{valore che non ha alcun senso fisico, in quanto per come \`e definita $\mu_R$, pu\`o assumere solamente valori positivi.} Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta che abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
 
