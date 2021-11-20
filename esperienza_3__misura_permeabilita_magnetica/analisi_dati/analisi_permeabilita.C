@@ -294,9 +294,9 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     double Q_sqrtA_amp = Q_amp/sqrt(A_amp);
     double err_Q_sqrtA_amp = sqrt(pow(err_Q_amp/A_amp, 2) + pow(err_A_amp*Q_amp/(2*pow(A_amp, 3/2)), 2));
 
-    std::cout << "A da |H(w)|                      = " << A_amp  << " \\pm " << err_A_amp << std::endl
-              << "Fattore di Qualita' da |H(w)|, Q = " << Q_amp  << " \\pm " << err_Q_amp << std::endl
-              << "Frequenza di Taglio da |H(w)|, v = " << v0_amp << " \\pm " << err_v0_amp << " Hz" << std::endl;
+    std::cout << "A da |H(w)|                      = " << A_amp  << " +- " << err_A_amp << std::endl
+              << "Fattore di Qualita' da |H(w)|, Q = " << Q_amp  << " +- " << err_Q_amp << std::endl
+              << "Frequenza di Taglio da |H(w)|, v = " << v0_amp << " +- " << err_v0_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
     log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
@@ -332,8 +332,8 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     double v0_fase = phi_fit->GetParameter(1);
     double err_v0_fase = phi_fit->GetParError(1);
 
-    std::cout << "Q/sqrt(A) da phi(w)            = " << Q_sqrtA_fase << " \\pm " << err_Q_sqrtA_fase << std::endl
-            << "Frequenza di Taglio da phi(w), v = " << v0_fase      << " \\pm " << err_v0_fase << " Hz" << std::endl;
+    std::cout << "Q/sqrt(A) da phi(w)            = " << Q_sqrtA_fase << " +- " << err_Q_sqrtA_fase << std::endl
+            << "Frequenza di Taglio da phi(w), v = " << v0_fase      << " +- " << err_v0_fase << " Hz" << std::endl;
 
     std::cout << std::endl << "** Verifica compatibilita =>  (Q/sqrt(A)) " << stattools::compatible(Q_sqrtA_fase, err_Q_sqrtA_fase, Q_sqrtA_amp, err_Q_sqrtA_amp) << std::endl;
     std::cout              << "** Verifica compatibilita =>         (v0) " << stattools::compatible(v0_amp, err_v0_amp, v0_fase, err_v0_fase) << std::endl;
