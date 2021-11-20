@@ -110,7 +110,8 @@ void analisi_permeabilita(){
     std::cout << "Miglior stima v0 (da libero) = " << bestfit_v0_lib << " +- " << err_bestfit_v0_lib << "Hz" << std::endl;
 
     double L_0 = get_L_fromCv0(bestfit_v0_lib); double err_L_0 = get_err_L_fromCv0(bestfit_v0_lib, err_bestfit_v0_lib);
-    std::cout << "L (noto C = " << _C << ", v0 = " << bestfit_v0_lib << ", miglior stima)  = " << L_0 << " +- " << err_L_0 << " H" << std::endl;
+    std::cout << "L (noto C = " << _C << ", v0 = " << bestfit_v0_lib << ", miglior stima)  = " << L_0 << " +- " << err_L_0 << " H" 
+              << " => " << stattools::compatible(L_0, err_L_0, _L, _err_L) << std::endl;
 
 
     // calcoli per m1------------------------------------------------------------------------------------------------------------------------------------------
