@@ -101,13 +101,17 @@ void analisi_permeabilita(){
               << "L = " << libero_circ.L.val << " +- " << libero_circ.L.err << " H" << std::endl
               << "C = " << libero_circ.C.val << " +- " << libero_circ.C.err << " F" << std::endl;
 
+    const double L_0_fit = libero_circ.L.val;
+    const double err_L_0_fit = libero_circ.L.err;
+
     double bestfit_v0_lib = stattools::getbestvalue(libero.v0_amp.val, libero.v0_fase.val, libero.v0_amp.err, libero.v0_fase.err);
     double err_bestfit_v0_lib = stattools::getbestvalueerr(libero.v0_amp.err, libero.v0_fase.err);
 
     std::cout << "Miglior stima v0 (da libero) = " << bestfit_v0_lib << " +- " << err_bestfit_v0_lib << "Hz" << std::endl;
-    
-    const double L_0 = libero_circ.L.val;
-    const double err_L_0 = libero_circ.L.err;
+
+    double L_0 = get_L_fromCv0(bestfit_v0_lib); double err_L_0 = get_err_L_fromCv0(bestfit_v0_lib, err_bestfit_v0_lib);
+    std::cout << "L (noto C = " << _C << ", v0 = " << bestfit_v0_lib << ", miglior stima)  = " << L_0 << " +- " << err_L_0 << " H" << std::endl;
+
 
     // calcoli per m1------------------------------------------------------------------------------------------------------------------------------------------
     log::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
@@ -117,13 +121,22 @@ void analisi_permeabilita(){
               << "L = " << m1_circ_amp.L.val << " +- " << m1_circ_amp.L.err << " H" << std::endl
               << "C = " << m1_circ_amp.C.val << " +- " << m1_circ_amp.C.err << " F" << std::endl;
     
-    double mu_R_m1_amp = (m1_circ_amp.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Fe*a_Fe)+1;
-    double err_mu_R_m1_amp = sqrt(pow(m1_circ_amp.L.err/m1_circ_amp.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
+    double mu_R_m1_amp_fit = (m1_circ_amp.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Fe*a_Fe)+1;
+    double err_mu_R_m1_amp_fit = sqrt(pow(m1_circ_amp.L.err/m1_circ_amp.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
 
-    std::cout << "mu_R per Fe (da amp, valori FIT) => " << mu_R_m1_amp << " +- " << err_mu_R_m1_amp << std::endl << std::endl;
+    std::cout << "mu_R per Fe (da amp, valori FIT) => " << mu_R_m1_amp_fit << " +- " << err_mu_R_m1_amp_fit << std::endl << std::endl;
 
-    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_amp.val << ", da amp)  = " << get_L_fromCv0(m1.v0_amp.val) << std::endl;
-    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_fase.val << ", da fase) = " << get_L_fromCv0(m1.v0_fase.val) << std::endl;
+    double L_m1_v0amp = get_L_fromCv0(m1.v0_amp.val); double err_L_m1_v0amp = get_err_L_fromCv0(m1.v0_amp.val, m1.v0_amp.err);
+    double L_m1_v0fase = get_L_fromCv0(m1.v0_fase.val); double err_L_m1_v0fase = get_err_L_fromCv0(m1.v0_fase.val, m1.v0_fase.err);
+
+    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_amp.val << ", da amp)  = " << L_m1_v0amp << " +- " << err_L_m1_v0amp << " H" << std::endl;
+    std::cout << "L (noto C = " << _C << ", v0 = " << m1.v0_fase.val << ", da fase) = " << L_m1_v0fase << " +- " << err_L_m1_v0fase << " H" << std::endl;
+
+    double mu_R_m1_amp = get_mu_R_fromLL0(L_m1_v0amp, L_0, a_Fe); double err_mu_R_m1_amp = get_err_mu_R_fromLL0(L_m1_v0amp, L_0, a_Fe, err_L_m1_v0amp, err_L_0);
+    double mu_R_m1_fase = get_mu_R_fromLL0(L_m1_v0fase, L_0, a_Fe); double err_mu_R_m1_fase = get_err_mu_R_fromLL0(L_m1_v0fase, L_0, a_Fe, err_L_m1_v0fase, err_L_0);
+
+    std::cout << "mu_R per Fe (da L e L0, da amp)  => " << mu_R_m1_amp << " +- " << err_mu_R_m1_amp << std::endl;
+    std::cout << "mu_R per Fe (da L e L0, da fase) => " << mu_R_m1_fase << " +- " << err_mu_R_m1_fase << std::endl;
 
 
     // Calcoli per m2------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,20 +147,28 @@ void analisi_permeabilita(){
               << "L = " << m2_circ.L.val << " +- " << m2_circ.L.err << " H" << std::endl
               << "C = " << m2_circ.C.val << " +- " << m2_circ.C.err << " F" << std::endl;
     
-    double mu_R_m2 = (m2_circ.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Al*a_Al)+1;
-    double err_mu_R_m2 = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
+    double mu_R_m2_fit = (m2_circ.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Al*a_Al)+1;
+    double err_mu_R_m2_fit = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
 
-    std::cout << "mu_R per Al (da amp, valori FIT) => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
+    std::cout << "mu_R per Al (da amp, valori FIT) => " << mu_R_m2_fit << " +- " << err_mu_R_m2_fit << std::endl;
 
     double bestfit_v0_m2 = stattools::getbestvalue(m2.v0_amp.val, m2.v0_fase.val, m2.v0_amp.err, m2.v0_fase.err);
     double err_bestfit_v0_m2 = stattools::getbestvalueerr(m2.v0_amp.err, m2.v0_fase.err);
 
     std::cout << "Miglior stima v0 (da libero) = " << bestfit_v0_m2 << " +- " << err_bestfit_v0_m2 << "Hz" << std::endl;
 
+    double L_m2_v0 = get_L_fromCv0(bestfit_v0_m2); double err_L_m2_v0 = get_err_L_fromCv0(bestfit_v0_m2, err_bestfit_v0_m2);
+    std::cout << "L (noto C = " << _C << ", v0 = " << bestfit_v0_m2 << ", miglior stima)  = " << L_m2_v0 << " +- " << err_L_m2_v0 << " H" << std::endl;
+
+    double mu_R_m2 = get_mu_R_fromLL0(L_m2_v0, L_0, a_Al); double err_mu_R_m2 = get_err_mu_R_fromLL0(L_m2_v0, L_0, a_Al, err_L_m2_v0, err_L_0);
+    std::cout << "mu_R per Al (da L e L0)  => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
+
     
     c1->SaveAs("../fig/plot.pdf");
     return;
 }
+
+// ============================================================================================================================================================
 
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = ""){
 
@@ -345,7 +366,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     graphset::set_TGraphAxis(phi_plot, "Fase #varphi(#nu) [rad]", 4);
     graphset::set_ResidualsAxis(phi_resd, "Frequenza #nu [Hz]", 4);
 
-    // A_amp, Q_amp, v0_amp, Q_sqrtA_fase, v0_fase;
+    // Formato dati ritorno funzione => A_amp, Q_amp, v0_amp, Q_sqrtA_fase, v0_fase;
     return {{A_amp, err_A_amp}, {Q_amp, err_Q_amp}, {v0_amp, err_v0_amp}, {Q_sqrtA_fase, err_Q_sqrtA_fase}, {v0_fase, err_v0_fase}};
 }
 
