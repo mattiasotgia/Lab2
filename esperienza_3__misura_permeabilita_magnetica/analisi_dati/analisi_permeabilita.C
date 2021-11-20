@@ -41,47 +41,20 @@ const double diam = 24e-3;
 //              | V (tensione)       | 3.5%       | 8          | variabile
 //              | T (periodi)        | ?.?%       | ?          | variabile
 
-double get_VRangeErr(double errPercent, int partitions, double range1){ 
-  return errPercent * partitions *  range1;
-}
-double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){
-    return range1 * errPercent * partition;
-}
+double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
+double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
+double getH(double vin, double vout){return vout / vin;}
+double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt(pow(eVout / Vin, 2) + pow(eVin * Vout / pow(Vin, 2), 2));}
+double get_phi(double T, double dt){return 2 * M_PI * dt / T;}
+double get_phiErr(double T, double dt, double eT, double edt){return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));}
 
-double getH(double vin, double vout){
-    return vout / vin;
-}
-
-double get_HErr(double Vin, double Vout, double eVin, double eVout){ 
-  return sqrt(pow(eVout / Vin, 2) + pow(eVin * Vout / pow(Vin, 2), 2));
-}
-
-double get_phi(double T, double dt){
-    return 2 * M_PI * dt / T;
-}
-
-double get_phiErr(double T, double dt, double eT, double edt){
-    return 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2));
-}
-
-struct parameter{
-    double val;
-    double err;
-};
-
-struct result
-{
-    parameter A_amp, Q_amp, v0_amp, Q_sqrtA_fase, v0_fase;
-    
-};
-
-struct result_circ{
-    parameter R, R_L, L, C;
-};
+struct parameter{double val, err;};
+struct result{parameter A_amp, Q_amp, v0_amp, Q_sqrtA_fase, v0_fase;};
+struct result_circ{parameter R, R_L, L, C;};
 
 result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int position, double fitmin = -1, double fitmax = -1, std::string fitoption = "");
 
-result_circ getresult(result r){
+result_circ get_result(result r){
 
     double R, err_R, R_L, err_R_L, L, err_L, C, err_C;
 
@@ -117,6 +90,7 @@ void analisi_permeabilita(){
     result libero = analisi_RLC_filter("presa_dati_libero.txt", lib0, c1, 0, 8e2, 3.5e4);
     result m1 = analisi_RLC_filter("presa_dati_materiale1.txt", mat1, c1, 2, 7e2, 7e3);
     result m2 = analisi_RLC_filter("presa_dati_materiale2.txt", mat2, c1, 4);
+    
     // std::ofstream output("../misc/output.csv");
     // output << "materiale, A_amp, err_A_amp, A_fase, err_A_fase, Q_amp, err_Q_amp, Q_fase, err_Q_fase, v0_amp, err_v0_amp, v0_fase, err_v0_fase" << std::endl;
     // output << "libero, " << libero.A.val[0]  << ", " << libero.A.err[0]  << ", " << libero.A.val[1]  << ", " << libero.A.err[1]  << ", "
@@ -135,37 +109,40 @@ void analisi_permeabilita(){
     // Calcoli per libero
     log::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
 
-    result_circ libero_circ = getresult(libero);
-    std::cout << "R = " << libero_circ.R.val << " \\pm " << libero_circ.R.err << " Ohm" << std::endl
-              << "L = " << libero_circ.L.val << " \\pm " << libero_circ.L.err << " H" << std::endl
-              << "C = " << libero_circ.C.val << " \\pm " << libero_circ.C.err << " F" << std::endl;
+    result_circ libero_circ = get_result(libero);
+    std::cout << "R = " << libero_circ.R.val << " +- " << libero_circ.R.err << " ohm" << std::endl
+              << "L = " << libero_circ.L.val << " +- " << libero_circ.L.err << " H" << std::endl
+              << "C = " << libero_circ.C.val << " +- " << libero_circ.C.err << " F" << std::endl;
+
+    const double L_0 = libero_circ.L.val;
+    const double err_L_0 = libero_circ.L.err;
 
     // calcoli per m1
     log::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
     
-    result_circ m1_circ_amp = getresult(m1);
-    std::cout << "R = " << m1_circ_amp.R.val << " \\pm " << m1_circ_amp.R.err << " Ohm" << std::endl
-              << "L = " << m1_circ_amp.L.val << " \\pm " << m1_circ_amp.L.err << " H" << std::endl
-              << "C = " << m1_circ_amp.C.val << " \\pm " << m1_circ_amp.C.err << " F" << std::endl;
+    result_circ m1_circ_amp = get_result(m1);
+    std::cout << "R = " << m1_circ_amp.R.val << " +- " << m1_circ_amp.R.err << " ohm" << std::endl
+              << "L = " << m1_circ_amp.L.val << " +- " << m1_circ_amp.L.err << " H" << std::endl
+              << "C = " << m1_circ_amp.C.val << " +- " << m1_circ_amp.C.err << " F" << std::endl;
     
     double mu_R_m1_amp = (m1_circ_amp.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Fe*a_Fe)+1;
     double err_mu_R_m1_amp = sqrt(pow(m1_circ_amp.L.err/m1_circ_amp.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Fe), 2));
 
-    std::cout << "mu_R per Fe (da amp, valori FIT) => " << mu_R_m1_amp << " \\pm " << err_mu_R_m1_amp << std::endl << std::endl;
+    std::cout << "mu_R per Fe (da amp, valori FIT) => " << mu_R_m1_amp << " +- " << err_mu_R_m1_amp << std::endl << std::endl;
 
 
     // Calcoli per m2
     log::print_mmsg("Valore da m2");
     
-    result_circ m2_circ = getresult(m2);
-    std::cout << "R = " << m2_circ.R.val << " \\pm " << m2_circ.R.err << " Ohm" << std::endl
-              << "L = " << m2_circ.L.val << " \\pm " << m2_circ.L.err << " H" << std::endl
-              << "C = " << m2_circ.C.val << " \\pm " << m2_circ.C.err << " F" << std::endl;
+    result_circ m2_circ = get_result(m2);
+    std::cout << "R = " << m2_circ.R.val << " +- " << m2_circ.R.err << " ohm" << std::endl
+              << "L = " << m2_circ.L.val << " +- " << m2_circ.L.err << " H" << std::endl
+              << "C = " << m2_circ.C.val << " +- " << m2_circ.C.err << " F" << std::endl;
     
     double mu_R_m2 = (m2_circ.L.val-(libero_circ.L.val))/(mu0*n*n*l*a_Al*a_Al)+1;
     double err_mu_R_m2 = sqrt(pow(m2_circ.L.err/m2_circ.L.val, 2) + pow(libero_circ.L.err/libero_circ.L.val, 2) + pow(0.05e-3/(sqrt(3)*l), 2) + pow(0.05e-3/(sqrt(3)*a_Al), 2));
 
-    std::cout << "mu_R per Al (da amp, valori FIT) => " << mu_R_m2 << " \\pm " << err_mu_R_m2 << std::endl;
+    std::cout << "mu_R per Al (da amp, valori FIT) => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
 
     
     c1->SaveAs("../fig/plot.pdf");
@@ -245,7 +222,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
-        out_rawdata << Vin << " " << fsVin << " " << Vout << " " << fsVout << " " << T << " " << fsT << " " << dt << " " << fsdt << std::endl;
+        out_rawdata << Vin << " & " << fsVin << " & " << Vout << " & " << fsVout << " & " << T << " & " << fsT << " & " << dt << " & " << fsdt << " \\\\ " << std::endl;
         double eVin, eVout;
         if(fsVin<=0.01){
             eVin = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin));
@@ -270,9 +247,9 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
         phi_plot->SetPointError(i, eT/pow(T, 2), get_phiErr(T, dt, eT, edt));
 
 
-        out_computeddata << Vout / Vin << " " << get_HErr(Vin, Vout, eVin, eVout) << " "
-                         << 2 * M_PI * dt / T << " " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << " "
-                         << 1 / T << " " << eT/pow(T, 2) << std::endl;
+        out_computeddata << "\\SI{" << Vout / Vin << " +- " << get_HErr(Vin, Vout, eVin, eVout) << "}{} "
+                         << "& \\SI{" << 2 * M_PI * dt / T << " +- " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << "}{} "
+                         << "& \\SI{" << 1 / T << " +- " << eT/pow(T, 2) << "}{} \\\\" << std::endl;
     }
     out_rawdata << "EOF" << std::endl;
     out_cleandata << "EOF" << std::endl;
