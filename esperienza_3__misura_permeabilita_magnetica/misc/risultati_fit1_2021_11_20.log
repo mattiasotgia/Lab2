@@ -1,0 +1,173 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.24/02                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for macosx64 on Jun 28 2021, 09:28:51                      |
+  | From tags/v6-24-02@v6-24-02                                      |
+  | With Apple clang version 11.0.0 (clang-1100.0.33.17)             |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+
+Processing analisi_permeabilita.C...
+
+ **********
+    Analisi di ../dati/presa_dati_libero.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=10.5165 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.5888e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.36872e+00   5.79401e-02   7.91463e-07   2.10171e-02
+   2  p1           5.45768e+00   1.62221e-01   1.08597e-06   2.25626e-03
+   3  p2           3.31232e+03   2.40275e+01   3.88855e-02   6.26835e-07
+
+** CHI2 / NDF ( PROB. ) 10.5165 / 7 ( 0.161141 )
+
+A da |H(w)|                      = 1.36872 +- 0.0579401
+Fattore di Qualita' da |H(w)|, Q = 2.33617 +- 0.0347194
+Frequenza di Taglio da |H(w)|, v = 3312.32 +- 24.0275 Hz
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=204.3 FROM MIGRAD    STATUS=CONVERGED      55 CALLS          56 TOTAL
+                     EDM=7.08458e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.08876e+00   2.04400e-02   9.42559e-07  -2.59318e+00
+   2  p1           3.33364e+03   5.82779e+00   3.88632e-02   4.89438e-06
+
+** CHI2 / NDF ( PROB. ) 204.3 / 8 ( 7.92964e-40 )
+
+Q/sqrt(A) da phi(w)            = 2.08876 +- 0.02044
+Frequenza di Taglio da phi(w), v = 3333.64 +- 5.82779 Hz
+
+** Verifica compatibilita =>  (Q/sqrt(A)) COMPATIBILE
+** Verifica compatibilita =>         (v0) COMPATIBILE
+
+ **********
+    Analisi di ../dati/presa_dati_materiale1.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=10.336 FROM MIGRAD    STATUS=CONVERGED     127 CALLS         128 TOTAL
+                     EDM=1.38054e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           8.90048e+00   4.17679e-01   2.06134e-06   3.05268e-01
+   2  p1           2.63536e+01   9.45992e-01   2.80814e-06   9.54922e-02
+   3  p2           2.29053e+03   1.87353e+01   2.96572e-02  -2.44411e-05
+
+** CHI2 / NDF ( PROB. ) 10.336 / 7 ( 0.170318 )
+
+A da |H(w)|                      = 8.90048 +- 0.417679
+Fattore di Qualita' da |H(w)|, Q = 5.13357 +- 0.0921378
+Frequenza di Taglio da |H(w)|, v = 2290.53 +- 18.7353 Hz
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=1297.38 FROM MIGRAD    STATUS=CONVERGED      50 CALLS          51 TOTAL
+                     EDM=6.72623e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.65807e+00   1.52765e-02   2.08027e-06  -9.74664e-01
+   2  p1           2.38261e+03   4.53033e+00   7.94248e-02  -5.06031e-06
+
+** CHI2 / NDF ( PROB. ) 1297.38 / 8 ( 8.63814e-275 )
+
+Q/sqrt(A) da phi(w)            = 1.65807 +- 0.0152765
+Frequenza di Taglio da phi(w), v = 2382.61 +- 4.53033 Hz
+
+** Verifica compatibilita =>  (Q/sqrt(A)) COMPATIBILE
+** Verifica compatibilita =>         (v0) NON-COMPATIBILE
+
+ **********
+    Analisi di ../dati/presa_dati_materiale2.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=0.299636 FROM MIGRAD    STATUS=CONVERGED      83 CALLS          84 TOTAL
+                     EDM=6.34507e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.76723e+00   1.03269e-01   7.36336e-07   2.20926e-02
+   2  p1           1.40987e+01   4.21492e-01   7.13197e-07  -1.83670e-02
+   3  p2           3.54911e+03   1.93217e+01   1.06474e-02  -9.14486e-07
+
+** CHI2 / NDF ( PROB. ) 0.299636 / 9 ( 0.999997 )
+
+A da |H(w)|                      = 1.76723 +- 0.103269
+Fattore di Qualita' da |H(w)|, Q = 3.75482 +- 0.0561269
+Frequenza di Taglio da |H(w)|, v = 3549.11 +- 19.3217 Hz
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=48.6864 FROM MIGRAD    STATUS=CONVERGED      48 CALLS          49 TOTAL
+                     EDM=1.30773e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.4 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.71916e+00   2.55935e-02  -7.52467e-07  -4.04994e+00
+   2  p1           3.57097e+03   5.65674e+00   9.05202e-02   5.80374e-05
+
+** CHI2 / NDF ( PROB. ) 48.6864 / 10 ( 4.64919e-07 )
+
+Q/sqrt(A) da phi(w)            = 2.71916 +- 0.0255935
+Frequenza di Taglio da phi(w), v = 3570.97 +- 5.65674 Hz
+
+** Verifica compatibilita =>  (Q/sqrt(A)) COMPATIBILE
+** Verifica compatibilita =>         (v0) COMPATIBILE
+
+ **********
+    Analisi da libero, ampiezza, valori dal FIT
+ **********
+
+R = 21.7746 +- 1.48498 ohm
+L = 0.00285956 +- 0.000171522 H
+C = 8.07377e-07 +- 6.62845e-08 F
+Miglior stima v0 (da libero) = 3332.46 +- 5.66358Hz
+L (noto C = 2.2e-07, v0 = 3332.46, miglior stima)  = 0.0103678 +- 9.58859e-05 H
+
+ **********
+    Valore da m1, ampiezza, valori dal FIT
+ **********
+
+R = 1.86551 +- 0.14274 ohm
+L = 0.00198523 +- 5.25802e-05 H
+C = 2.43198e-06 +- 5.73304e-07 F
+mu_R per Fe (da amp, valori FIT) => 0.647985 +- 0.0656145
+
+L (noto C = 2.2e-07, v0 = 2290.53, da amp)  = 0.0219456 +- 0.000268372 H
+L (noto C = 2.2e-07, v0 = 2382.61, da fase) = 0.0202821 +- 0.000188372 H
+mu_R per Fe (da L e L0, da amp)  => 5.66133 +- 0.115364
+mu_R per Fe (da L e L0, da fase) => 4.99158 +- 0.0857181
+
+ **********
+    Valore da m2
+ **********
+
+R = 11.2335 +- 0.766854 ohm
+L = 0.0025145 +- 0.000132582 H
+C = 7.9974e-07 +- 7.45204e-08 F
+mu_R per Al (da amp, valori FIT) => 0.856367 +- 0.0799006
+Miglior stima v0 (da libero) = 3569.25 +- 5.42886Hz
+L (noto C = 2.2e-07, v0 = 3569.25, miglior stima)  = 0.00903782 +- 8.33041e-05 H
+mu_R per Al (da L e L0)  => 0.446375 +- 0.0528921
