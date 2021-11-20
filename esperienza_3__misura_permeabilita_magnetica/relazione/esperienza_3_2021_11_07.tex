@@ -179,9 +179,24 @@ Quindi, nei casi in cui abbiamo inserito il materiale dentro al rocchetto, in ba
 \end{figure*}
 
 \section*{Calcolo della permeabilità magnetica relativa}
-% Nel primo caso(induttanza senza materiali al suo interno) il fit di $\big|H[\nu]\big|$ e quello di $\varphi$ ci restituiscono rispettivamente questi valori dei parametri: \hl{inserire valori}
-% Inserendo invece il materiale A i valori dei parametri sono: \hl{inserire valori}
-% Infine per il materiale B troviamo i valori ricavati sono: \hl{inserire valori}
+Nel primo caso(induttanza senza materiali al suo interno) il fit di $\big|H[\nu]\big|$ e quello di $\varphi$ ci restituiscono rispettivamente questi valori dei parametri
+\begin{align*}
+    A     &= \num{1.36872 +- 0.06}\\
+    Q     &= \num{2.33617 +- 0.0347194}\\
+    \nu_0 &= \SI{3.31232 +- 0.0240275}{\kilo\hertz}
+\end{align*}
+Inserendo invece il materiale A i valori dei parametri sono
+\begin{align*}
+    A     &= \num{8.90048 +- 0.417679}\\
+    Q     &= \num{5.13357 +- 0.09}\\
+    \nu_0 &= \SI{2.29053 +- 0.0187353}{\kilo\hertz}
+\end{align*}
+Infine per il materiale B troviamo i valori ricavati sono
+\begin{align*}
+    A     &= \num{1.76723 +- 0.103269}\\
+    Q     &= \num{3.75482 +- 0.0561269}\\
+    \nu_0 &= \SI{3.54911 +- 0.0193217}{\kilo\hertz}
+\end{align*}
 
 \section*{Modello di fit su parametri circuitali}
 Il modello prima usato sfruttava i parametri $A$, $Q^2$ e $\nu_0$ per la funzione di trasferimento e $\frac{Q}{\sqrt{A}}$ e $\nu_0$ per la fase, che sono però effettivamente derivati dai valori di $R$, $R_L$, $L$ e $C$, secondo le relazioni 
@@ -224,7 +239,7 @@ Dai grafici in \reffig{fig:plot} possiamo osservare che la fase del nucleo di Fe
 Un'altra conseguenza è legata al fatto che i parametri dai due fit non vengano compatibili, ed entrambi non portano a un risultato corretto. Scegliamo però comunque di portare a termine i calcoli per ottenere un valore di $\mu_R$, su cui possiamo fare ulteriori osservazioni. 
 
 
-\section*{Conclusioni}
+\section*{Conclusioni\protect\footnote{DA RISCRIVERE}}
 % Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
 Dal fit eseguito otteniamo i valori dei parametri $A$, $Q$ e $\nu_0$ con i relativi errori. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
@@ -241,31 +256,32 @@ In particolar modo definiamo $L_0$ il valore di $L$ ottenuto per questo caso: qu
 
 Nel caso del materiale A, per i motivi descritti in precedenza, troviamo, come ci aspettavamo dei valori non compatibili tra i parametri trovati attraverso il fit della funzione di trasferimento e quello della fase. Quindi, non potendo fare la miglior stima, procediamo ricavando i valori di $R$, $L$ e $C$ in entrambi i casi e troviamo i valori riportati in \reftab{tab:rlc_m2}. Da questi valori troviamo due valori di $\mu_R$ che sono
 \begin{align*}
-    \mu_R^H &=\SI{0.65+-0.07}{} \\
-    \mu_R^\varphi &= \SI{3.0+-0.6}{}
+    \mu_R^H &=\num{0.65+-0.07} \\
+    \mu_R^\varphi &= \num{3.0+-0.6}
 \end{align*}
 
 Da questi valori ancora di più possiamo stabilire la non riuscita dell'esperienza, in aggiunta a osservare che il modello utilizzato non si adatta al comportamento del Fe. 
 
 \begin{table}[h]
     \begin{ruledtabular}
-        \caption{Valori di R, L e C ottenuti per il materiale A (Fe).}
-        \label{tab:rlc_m2}
+        \caption{Valori di R, L e C ottenuti da ogni fit per il primo diagramma di Bode (funzione di trasferimento).}
+        \label{tab:rlc_amp_results}
         \begin{tabular}{lrrr}
             Caso & Resistenza & Induttanza & Capacità \\
             & $R\pm\mstdErr{R}$ ($\Omega$) & $L\pm\mstdErr{L}$ (mH) & $R\pm\mstdErr{R}$ (nF) \\
             \colrule
-            Risultati da $\big|H\big|$ & \num{1.86551 +- 0.14274} & \num{1.98523 +- 0.0525802} & \num[exponent-mode = scientific]{2431.98 +- 573.304} \\
-            Risultati dalla fase  & - & - & - \\
+            Nucleo vuoto & \num{21.7746 +- 1.48498} & \num{2.85956 +- 0.171522} & \num[exponent-mode = scientific]{807.377 +- 66.2845} \\
+            Nucleo materiale A (Fe) & \num{1.86551 +- 0.14274} & \num{1.98523 +- 0.0525802} & \num[exponent-mode = scientific]{2431.98 +- 573.304} \\
+            Nucleo materiale B (Al) & \num{11.2335 +- 0.766854} & \num{2.5145 +- 0.132582} & \num[exponent-mode = scientific]{799.74 +- 74.5204}
         \end{tabular}
     \end{ruledtabular}
 \end{table}
 
 Nel caso del materiale B invece i valori dei paramatri risultano compatibili e dopo aver calcolato la miglior stima troviamo che i valori di $R$, $L$ e $C$ sono 
 \begin{align*}
-    R &= 11.2 \pm 0.8 \Omega\\
-    L &= 2.50 \pm 0.01 \text{mH}\\
-    C &= 0.79 \pm 0.07 \mu\text{F}
+    R &= \SI{11.2335 +- 0.766854}{\ohm} \\
+    L &= \SI{2.5145 +- 0.132582}{\milli\henry} \\
+    C &= \SI{799.74 +- 7}{\micro\farad}
 \end{align*}
 In questo modo possiamo, dal valore di $L$, ricavare il valore di $\mu_R$. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega $\mu_R$ con $L_{eq}$, ma possiamo osservare che $\mu_0n^2\ell S$ è proprio il valore del coefficiente di autoinduzione del circuito (in particolare del solenoide utilizzato) che però possiamo ottenere dal fit nel caso libero. 
 
