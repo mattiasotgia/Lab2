@@ -43,7 +43,7 @@
 
 \date{presa dati
     9 novembre 2021, consegnata in data
-    19 novembre 2021
+    22 novembre 2021
 }
 
 \begin{abstract}
@@ -62,7 +62,7 @@
 \section*{Introduzione}\label{sec:introduction}
 Si vuole misurare il valore della permeabilità magnetica di alcuni materiali dati di cui non conosciamo esatta composizione chimico-fisica ma che possiamo ipotizzare omogenei, lineari e isotropi (LHI) fino al primo grado di approssimazione. 
 
-Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Come indutanza usiamo un rocchetto plastico su cui sono avvolte $N$ spire di rame, nel quale può essere appunto inserito il volume di materiale che è creato in modo da riempire quasi completamente il rocchetto. Variando il materiale ci aspettiamo di poter misurare i differenti valori della permeabilità magnetica $\mu_R$.
+Poiché i tipi di misure più precisi che siamo capaci a effettuare sono misure di tempo (in termini di periodo e di frequenza) sfruttiamo il circuito risonante RLC per determinare il valore della frequenza di taglio ($\nu_0$), che risulta legata al valore dell'induttanza e della capacità del condensatore. Come induttanza usiamo un rocchetto plastico su cui sono avvolte $N$ spire di rame, nel quale può essere appunto inserito il volume di materiale che è creato in modo da riempire quasi completamente il rocchetto. 
 
 Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i valori delle altre componenti circuitali, e confrontando i diversi valori possiamo trovare $\mu_R$ per ogni materiale.
 
@@ -96,7 +96,7 @@ Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i va
             node[align=left, below right=2pt]{Generatore di\\tensione\\alternata\\(Oscilloscopio)} 
             rectangle (0.5, -3);
         \end{circuitikz}
-        \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo non essere nulla.}
+        \caption{Circuito utilizzato per il filtro passa-banda progettato nell'esperienza, i valori di R, L e C sono i valori nominali riportati sul componente. La resistenza $R_L$ è la resistenza interna all'induttanza, che verifichiamo essere non nulla.}
         \label{fig:circuit}
     \end{figure}
     
@@ -146,7 +146,7 @@ Utilizziamo i dati raccolti per creare i grafici dei diagrammi di Bode della fun
 
 Gli errori statistici di $v_{in}$, $v_{out}$, $T$ e $dt$ sono pari agli errori assoluti divisi per $\sqrt{3}$. Per trovare il valore degli errori assoluti cerchiamo sul data-sheet dell'oscilloscopio come calcolarli.
 
-Trascriviamo quindi in tabelle (riportate in \reftab{tab:plotdata_free}, \ref{tab:plotdata_m1}, \ref{tab:plotdata_m2}) i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase (\reffig{fig:plot}). 
+Trascriviamo quindi in tabelle (si vedano \reftab{tab:plotdata_free}, \ref{tab:plotdata_m1}, \ref{tab:plotdata_m2}) i valori di $\big|H[\nu]\big|$, $\varphi$ e $\nu$ con i rispettivi errori. Da tali tabelle costruiamo i grafici dei diagrammi di Bode per la funzione di trasferimento e per la fase (\reffig{fig:plot}). 
 
 \input{tables/tables_data.tex}
 
@@ -236,9 +236,9 @@ La funzione di trasferimento e la funzione della fase trovate in \refeqn{eq:H(A,
 \end{subequations}
 la fase, dove i parametri sono $R+R_L$, $L$ e $C$. 
 
-Eseguendo un fit di questi modelli relativamente ai diagrammi di Bode come in \reffig{fig:plot}, otteniamo che minimizzando $\big|H[\nu]\big|$ e $\varphi[\nu]$ sul primo e sul secondo diagramma di Bode possiamo ricavare i valori dei componenti del circuito. 
+Eseguendo un fit di questi modelli relativamente ai diagrammi di Bode come in \reffig{fig:plot}, otteniamo che minimizzando $\big|H[\nu]\big|$ e $\varphi[\nu]$ sul primo e sul secondo diagramma di Bode possiamo ricavare i valori delle componenti del circuito. 
 
-\section*{Valori dei componenti e calcolo del coefficiente di permeabilità magnetica}
+\section*{Valori delle componenti e calcolo del coefficiente di permeabilità magnetica}
 Minimizzando le funzioni secondo questo secondo modello considerato, otteniamo i valori dei coefficienti come riportato in \reftab{tab:val_RLC_2}.
 
 \begin{table}[h!]
@@ -267,6 +267,12 @@ Dati i valori ottenuti possiamo, dopo averne verificato la compatibilità, ricav
     L^* (\text{Al})  &= \SI{9.10224 +- 4.77856}{\milli\henry}\\
 \end{align*}
 
+Di conseguenza i valori di $\mu_R$ per il materiale A e il materiale B sono rispettivamente:
+\begin{align*}
+  \mu_R &= \SI{4.61853 +- 1.17534}{} \\
+  \mu_R &= \SI{1.07034 +- 2.05215}{}\\  
+\end{align*}
+
 
 \section*{Considerazioni su errori a basse e alte frequenze}
 Quando operiamo con valori di $\nu$ attorno a frequenze nell'ordine del 100Hz osserviamo visualmente sull'oscilloscopio che il segnale di $v_{out}$ è molto disturbato, per cui per misurare il suo valore ci affidiamo a una media operata dall'oscilloscopio. Nel fare questo passaggio dobbiamo quindi tenere conto che l'errore su queste misure è diverso da quanto ricaviamo per gli altri punti. Possiamo scegliere di procedere in due modi. Da una parte possiamo decidere di sovrastimare l'errore facendo misure \textit{a occhio} e quindi dare meno peso a questi punti nel fit. D'altra parte potremmo procedere invece con l'esclusione dal fit di tali punti. Scegliamo di procedere con quest'ultima opzione in quanto la prima non fornisce un risultato quantitativamente preciso e ci porta a fare un'alterazione dei dati raccolti, mentre la seconda lasca inalterati i valori numerici dei dati ed è in grado di fornirci un risultato più preciso. 
@@ -292,7 +298,7 @@ Un'altra conseguenza è legata al fatto che i parametri che otteniamo dai due fi
 \section*{Conclusioni}
 % Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
-Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ non sono compatibili con i valori che abbiamo misurato in modo diretto. Tuttavia notiamo che si trovano comunque nello stesso ordine di grandezza di questi e che il valore del prodotto di $L$ e $C$ ci restituisce un rapporto costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori.
+Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ non sono compatibili con i valori che abbiamo misurato in modo diretto. Tuttavia notiamo che si trovano comunque nel loro stesso ordine di grandezza e che il risultato del prodotto di $L$ e $C$ ci restituisce un valore costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori.
 
 Passando invece ad analizzare i valori di $\mu_R$ ottenuti, abbiamo trovato che per il materiale B, poichè tra il fit della funzione di trasferimento e quello della fase c'era compatibilità dei parametri, abbiamo ricavato un unico valore della permeabilità magnetica, che deriva dalla miglior stima tra i due. Il valore ottenuto è $\mu_R(\text{Al})=\num{0.446375 +- 0.0528921}$. Questo valore ha senso fisico in quanto sappiamo che, per come è definito, $\mu_R$ deve assumere valori positivi e a seconda se il materiale si comporta come un diamagnete, un paramagnete o un ferromagnete, $\mu_R$ può essere leggermente minore di 1, leggermente maggiore di 1, oppure molto maggiore di 1. Perciò in base al valore ottenuto possiamo dire che secondo questo modello il materiale B ha un comportamento diamagnetico. 
 
@@ -301,13 +307,18 @@ Nel caso del materiale A invece i parametri tra il fit di $\big|H[\nu]\big|$ e q
     \mu_R^H(\text{Fe}) &= \num{5.66133 +- 0.115364}~~~~~~&\text{(da $\big|H[\nu]\big|$)}\\
     \mu_R^\varphi (\text{Fe}) &= \num{4.99158 +- 0.0857181}~~~~~~&\text{(da $\varphi[\nu]$)}
 \end{align*}
-che sono appunto differenti, però sono entrambi nello stesso ordine di grandezza e non molto maggiori di 1. Perciò il materiale ha comunque un comportamento che porta a far aumentare il campo magnetico all'interno dell'induttanza (quindi paramagnetismo o ferromagnetismo), ma non raggiunge quei valori che sono tipicamente assunti dai materiali come quello che stiamo analizzando.
+che sono appunto differenti, però sono entrambi nello stesso ordine di grandezza e non molto maggiori di 1. Perciò il materiale ha comunque un comportamento che porta a far aumentare il campo magnetico all'interno dell'induttanza (quindi paramagnetismo o ferromagnetismo), ma non raggiunge quei valori che sono tipicamente assunti dai materiali come quello che stiamo utilizzando.
 
 Analizzando il secondo modello di fit troviamo che in tutti e tre i casi i parametri dal fit della funzione di trasferimento e i parametri dal fit della fase sono compatibili tra di loro. Però in particolar modo a noi interessa vedere se i valori di $L$ ottenuti nei tre casi attraverso il primo modello sono compatibili con i corrispondenti del secondo modello in modo da vedere se c'è corrispondenza tra i due oppure no. 
 
-Nel caso dell'induttanza senza materiali all'interno i due valori non vengono compatibili. Nel caso del materiale A invece troviamo che entrambe le induttanze trovate dal primo modello sono compatibili con l'induttanza trovata attraverso il secondo modello. Infine nell'ultimo caso, cioè per il materiale B, i due valori sono compatibili. Possiamo allora controllare se sono compatibili tra di loro i valori che abbiamo trovato per la permeabilità magnetica. 
-Per il materiale A troviamo la compatibilità dei due valori di $\mu_R$ del primo modello con il valore di $\mu_R$ del secondo. 
-Per il materiale B troviamo anche in questo caso che sono compatibili. Queste compatibilità trovate tra i valori delle permeabilità magnetiche ci portano quindi a dedurre che in effetti i due modelli sono legati, come era anche lecito aspettarsi, in quanto, pur avendo modificato la funzione di fit, i parametri scelti nel primo modello sono in realtà derivanti da quelli del secondo.
+Nel caso dell'induttanza senza materiali all'interno i due valori non vengono compatibili.
+
+Nel caso del materiale A invece troviamo che entrambe le induttanze trovate dal primo modello sono compatibili con l'induttanza trovata attraverso il secondo modello.
+
+Infine nell'ultimo caso, cioè per il materiale B, i due valori sono compatibili. 
+
+Possiamo allora controllare se sono compatibili tra di loro i valori che abbiamo trovato per la permeabilità magnetica. 
+Per il materiale A troviamo la compatibilità dei due valori di $\mu_R$ del primo modello con il valore di $\mu_R$ del secondo e per il materiale B troviamo anche in questo caso che sono compatibili. Queste compatibilità trovate tra i valori delle permeabilità magnetiche ci portano quindi a dedurre che in effetti i due modelli sono legati, come era anche lecito aspettarsi, in quanto, pur avendo modificato la funzione di fit, i parametri scelti nel primo modello sono in realtà derivanti da quelli del secondo.
 Tuttavia se analizziamo i valori della permeabilità magnetica trovati per il materiale B, vediamo che l'errore per $\mu_R$ trovato dal secondo modello è elevato per cui il valore ottenuto potrebbe essere minore o maggiore di 1 o addirittura negativo. Perciò il secondo modello utilizzato non ci permette di definire con precisione le proprietà magnetiche del materiale. 
 
 
@@ -330,7 +341,7 @@ Tuttavia se analizziamo i valori della permeabilità magnetica trovati per il ma
 
 \begin{table}[h]
     \begin{ruledtabular}
-        \caption{Valori di R, L e C ottenuti da ogni fit per il primo diagramma di Bode (funzione di trasferimento).}
+        \caption{Valori di R, L e C ottenuti da ogni fit per il primo diagramma di Bode (funzione di trasferimento). \hl{non ho capito a cosa serve questa tabella?}}
         \label{tab:rlc_amp_results}
         \begin{tabular}{lrrr}
             Caso & Resistenza & Induttanza & Capacità \\
