@@ -21,6 +21,8 @@
 #include<TLegend.h>
 
 const double title_size = 21;
+const double label_size = 15;
+const double offsetx = 10;
 
 namespace log
 {
@@ -56,6 +58,14 @@ namespace stattools
             return "COMPATIBILE";
         }
         return "NON-COMPATIBILE";
+    }
+
+    double getbestvalue(double G1, double G2, double errG1, double errG2){
+        return (G1 / pow(errG1, 2) + G2 / pow(errG2, 2)) / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
+    }
+
+    double getbestvalueerr(double errG1, double errG2){
+        return sqrt(1 / (1 / pow(errG1, 2) + 1 / pow(errG2, 2)));
     }
 } // namespace stat
 
@@ -173,7 +183,7 @@ namespace graphset
         g->GetYaxis()->SetTitleFont(43);
         g->GetYaxis()->SetTitleSize(title_size);
         g->GetYaxis()->SetLabelFont(43);
-        g->GetYaxis()->SetLabelSize(12);
+        g->GetYaxis()->SetLabelSize(label_size);
         g->GetYaxis()->CenterTitle();
 
         g->GetXaxis()->SetTickLength(0.05);
@@ -181,7 +191,7 @@ namespace graphset
 
     void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
-        rg->GetXaxis()->SetTitleOffset(5);
+        rg->GetXaxis()->SetTitleOffset(offsetx);
         rg->GetXaxis()->SetTitleFont(43);
         rg->GetXaxis()->SetTitleSize(title_size);
 
@@ -192,10 +202,10 @@ namespace graphset
         rg->GetYaxis()->CenterTitle();
 
         rg->GetYaxis()->SetLabelFont(43);
-        rg->GetYaxis()->SetLabelSize(12);
+        rg->GetYaxis()->SetLabelSize(label_size);
         rg->GetYaxis()->SetNdivisions(5, 5, 0);
         rg->GetXaxis()->SetLabelFont(43);
-        rg->GetXaxis()->SetLabelSize(12);
+        rg->GetXaxis()->SetLabelSize(label_size);
         rg->GetXaxis()->CenterTitle();
 
         rg->GetXaxis()->SetTickLength(0.08);
@@ -208,6 +218,8 @@ namespace graphset
 
     void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false){
         g.Graph->SetMargin(0.14, 0.06, 0.0, 0.06);
+        // g.Graph->SetTickx();
+        // g.Graph->SetTicky();
         g.Residuals->SetMargin(0.14, 0.06, 0.4, 1.0);
         if(logx){
             g.Graph->SetLogx();
@@ -226,6 +238,14 @@ namespace graphset
         c1->SetMargin(m_left, m_right, m_bottom, m_top);
         c1->SetFillStyle(4000);
         c1->Divide(nx, ny);
+    }
+
+    void setpad(TPad* p1, int nx, int ny, 
+            float m_left = 0.16, float m_right = 0.06, 
+            float m_bottom = 0.12, float m_top = 0.06){
+        // p1->SetMargin(m_left, m_right, m_bottom, m_top);
+        p1->SetFillStyle(4000);
+        p1->Divide(nx, ny);
     }
 
     void fillresiduals(TGraphErrors* g, TF1* g_fit, TGraphErrors* r){

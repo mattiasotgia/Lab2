@@ -18,14 +18,15 @@
 
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
-% \usepackage[
-%     % bookmarksopen=true, 
-%     % citebordercolor={0 1 0}, 
-%     % linkbordercolor={1 0 0}, 
-%     % urlbordercolor={0 1 1}
-% ]{hyperref}% add hypertext capabilities
+\usepackage[colorlinks, urlcolor=., bookmarks]{hyperref}% add hypertext capabilities
+\renewcommand\UrlFont{\color{blue}}
 
 \usepackage{physics}
+\usepackage[
+  % separate-uncertainty=true,
+  round-mode=uncertainty,
+  % exponent-mode = scientific
+]{siunitx}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -85,4 +86,4 @@
 
 \newenvironment{methods}[1]{\section*{#1}
 %\fontfamily{phv}
-\fontsize{7.5}{9}\selectfont\label{section:methods}\noindent}{\par\noindent}
+\fontsize{7.5}{9}\selectfont\label{sec:methods}\noindent}{\par\noindent}

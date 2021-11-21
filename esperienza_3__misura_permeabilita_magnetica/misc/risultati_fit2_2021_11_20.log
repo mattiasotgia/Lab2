@@ -1,0 +1,154 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.24/02                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for macosx64 on Jun 28 2021, 09:28:51                      |
+  | From tags/v6-24-02@v6-24-02                                      |
+  | With Apple clang version 11.0.0 (clang-1100.0.33.17)             |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+
+Processing analisi_permeabilita2.C...
+
+ **********
+    Analisi di ../dati/presa_dati_libero.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=10.5165 FROM HESSE     STATUS=NOT POSDEF     23 CALLS         133 TOTAL
+                     EDM=5.79664e-11    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           7.57391e+01   1.33004e+01   3.41334e-04   4.99854e-06
+   2  p1           1.28698e+01   2.95411e+00   5.99123e-04  -1.94951e-06
+   3  p2           8.50181e-03   1.49301e-03   3.91716e-08  -8.71806e-02
+   4  p3           2.71558e-07   4.76485e-08   1.05125e-12  -1.42819e+03
+   5  p4           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 10.5165 / 6 ( 0.104518 )
+
+R   = 75.7391 +- 13.3004
+R_L = 12.8698 +- 2.95411
+L   = 0.00850181 +- 0.00149301
+C   = 2.71558e-07 +- 4.76485e-08
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=204.3 FROM HESSE     STATUS=OK             16 CALLS          92 TOTAL
+                     EDM=3.39623e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.76927e-03   2.07826e-03   4.73925e-08  -4.88102e+00
+   2  p1           2.33313e-07   4.96262e-08   1.01872e-12  -1.22847e+05
+   3  p2           9.79653e+01   2.08573e+01   1.27848e-03   1.94801e-04
+   4  p3           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 204.3 / 7 ( 1.40944e-40 )
+
+R + R_L   = 97.9653 +- 20.8573
+L   = 0.00976927 +- 0.00207826
+C   = 2.33313e-07 +- 4.96262e-08
+Compatibilità L => COMPATIBILE
+Bestfit L => 0.00893327 +- 0.00121255
+
+ **********
+    Analisi di ../dati/presa_dati_materiale1.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=10.336 FROM HESSE     STATUS=NOT POSDEF     23 CALLS         210 TOTAL
+                     EDM=2.94419e-10    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           4.90132e+01   8.24196e+00   2.07611e-04  -2.30001e-05
+   2  p1           9.72109e+01   1.67388e+01   1.01019e-03   6.67492e-06
+   3  p2           1.74830e-02   2.94306e-03   8.14928e-08  -1.30561e-02
+   4  p3           2.76154e-07   4.64549e-08   1.29810e-12  -2.56032e+03
+   5  p4           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 10.336 / 6 ( 0.111196 )
+
+R   = 49.0132 +- 8.24196
+R_L = 97.2109 +- 16.7388
+L   = 0.017483 +- 0.00294306
+C   = 2.76154e-07 +- 4.64549e-08
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=1297.38 FROM MIGRAD    STATUS=CONVERGED      90 CALLS          91 TOTAL
+                     EDM=8.5821e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.98386e-02   6.15888e-03   1.31772e-06  -1.61117e+00
+   2  p1           2.24918e-07   6.98243e-08   1.44517e-11  -1.10509e+05
+   3  p2           1.79118e+02   5.56294e+01   2.89427e-02   3.97237e-05
+   4  p3           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 1297.38 / 7 ( 6.11843e-276 )
+
+R + R_L   = 179.118 +- 55.6294
+L   = 0.0198386 +- 0.00615888
+C   = 2.24918e-07 +- 6.98243e-08
+Compatibilità L => COMPATIBILE
+Bestfit L => 0.0179209 +- 0.00265545
+
+ **********
+    Analisi di ../dati/presa_dati_materiale2.txt
+ **********
+
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=0.299636 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=9.46254e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.08052e+01   1.79849e+02   3.75895e-04  -1.29006e-03
+   2  p1           1.67342e+01   5.92815e+01   1.02384e-03   4.50369e-04
+   3  p2           8.55461e-03   3.02826e-02   4.62571e-08   1.50687e+01
+   4  p3           2.35073e-07   8.32142e-07   1.36584e-12   3.01615e+05
+   5  p4           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 0.299636 / 8 ( 0.999981 )
+
+R   = 50.8052 +- 179.849
+R_L = 16.7342 +- 59.2815
+L   = 0.00855461 +- 0.0302826
+C   = 2.35073e-07 +- 8.32142e-07
+
+ **********
+    SECONDO DIAGRAMMA DI BODE (FASE)
+ **********
+
+ FCN=48.6864 FROM MIGRAD    STATUS=CONVERGED      72 CALLS          73 TOTAL
+                     EDM=7.52319e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.11623e-03   4.83919e-03   9.52154e-08   1.11258e+00
+   2  p1           2.17897e-07   1.15667e-07   2.37139e-12   3.10803e+04
+   3  p2           7.52220e+01   3.99360e+01   2.40381e-03  -4.48456e-05
+   4  p3           3.14159e+00     fixed    
+
+** CHI2 / NDF ( PROB. ) 48.6864 / 9 ( 1.9003e-07 )
+
+R + R_L   = 75.222 +- 39.936
+L   = 0.00911623 +- 0.00483919
+C   = 2.17897e-07 +- 1.15667e-07
+Compatibilità L => COMPATIBILE
+Bestfit L => 0.00910224 +- 0.00477856
+mu_R da Fe => 4.61853 +- 1.17534
+mu_R da Al => 1.07034 +- 2.05215
