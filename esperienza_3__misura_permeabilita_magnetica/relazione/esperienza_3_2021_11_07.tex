@@ -166,7 +166,7 @@ Dal fit del modulo della funzione di trasferimento $\big|H[\nu]\big|$ troviamo i
 
 In generale inoltre osserviamo che l'unico fattore di correlazione tra i dati dei due grafici è il periodo, che però presenta errore molto piccolo rispetto all'errore sul modulo o sulla fase della funzione di trasferimento, quindi rendendo in prima approssimazione i due set di dati scorrelati. Questa conclusione può essere sfruttata per ricavare una miglior stima dei parametri ottenuti, considerandone una media pesata sugli errori. Questa miglior stima poi possiamo sfruttarla per ottenere un valore vero di $L_{eq}$ più preciso.
 
-Dal circuito considerato con il nucleo dell'induttanza vuoto otteniamo 
+Dal circuito considerato con l'induttanza vuota otteniamo 
 
 \begin{align*}
     A     &= \num{1.36872 +- 0.06}\\
@@ -189,9 +189,9 @@ Inserendo invece il materiale A i valori dei parametri sono
     Q / \sqrt{A} &= \num{1.65807 +- 0.0152765}\\
     \nu_0^\varphi &= \SI[]{2.38261 +- 0.00453033}[]{\kilo\hertz} 
 \end{align*}
-In questo caso possiamo verificare la non compatibilità dei valori entro \treSigma. Invece i valori di $\nu_0^H$ e $\nu_0^\varphi$ non risultano compatibili entro \treSigma. 
+In questo caso possiamo verificare la non compatibilità dei valori entro \treSigma. Anche i valori di $\nu_0^H$ e $\nu_0^\varphi$ non risultano compatibili entro \treSigma. 
 
-Procediamo quindi a calcolare il valore di $L$ e della coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$ \refeqn{eq:L0}, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}(\text{Fe})-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
+Procediamo quindi a calcolare il valore di $L$ e del coefficiente di permeabilità magnetica nei due casi separati. Dalla equazione \refeqn{eq:mu_R} otteniamo una relazione che lega il valore di $\mu_R$ con il valore di $L_{eq}$, ma possiamo anche osservare che, poiché $L_0 = \mu_0 n^2 \ell S$ \refeqn{eq:L0}, possiamo descrivere il valore della permeabilità magnetica come \[\frac{L_{eq}^{H,\varphi}(\text{Fe})-L_0}{\mu_0 n^2 \ell a^2}+1\] ottenendo quindi 
 \begin{align*}
     \mu_R^H      (\text{Fe}) &= \num{5.66133 +- 0.115364}\\
     \mu_R^\varphi(\text{Fe}) &= \num{4.99158 +- 0.0857181}
@@ -301,13 +301,14 @@ Nel caso del materiale A invece i parametri tra il fit di $\big|H[\nu]\big|$ e q
     \mu_R^H(\text{Fe}) &= \num{5.66133 +- 0.115364}~~~~~~&\text{(da $\big|H[\nu]\big|$)}\\
     \mu_R^\varphi (\text{Fe}) &= \num{4.99158 +- 0.0857181}~~~~~~&\text{(da $\varphi[\nu]$)}
 \end{align*}
-che sono appunto differenti, però sono entrambi nello stesso ordine di grandezza e non molto maggiori di 1. Perciò il materiale ha comunque un comportamento che porta a far aumentare il campo magnetico all'interno dell'induttanza, ma non raggiunge quei valori che sono tipicamente assunti dai materiali come quello che stiamo analizzando.
+che sono appunto differenti, però sono entrambi nello stesso ordine di grandezza e non molto maggiori di 1. Perciò il materiale ha comunque un comportamento che porta a far aumentare il campo magnetico all'interno dell'induttanza (quindi paramagnetismo o ferromagnetismo), ma non raggiunge quei valori che sono tipicamente assunti dai materiali come quello che stiamo analizzando.
 
 Analizzando il secondo modello di fit troviamo che in tutti e tre i casi i parametri dal fit della funzione di trasferimento e i parametri dal fit della fase sono compatibili tra di loro. Però in particolar modo a noi interessa vedere se i valori di $L$ ottenuti nei tre casi attraverso il primo modello sono compatibili con i corrispondenti del secondo modello in modo da vedere se c'è corrispondenza tra i due oppure no. 
+
 Nel caso dell'induttanza senza materiali all'interno i due valori non vengono compatibili. Nel caso del materiale A invece troviamo che entrambe le induttanze trovate dal primo modello sono compatibili con l'induttanza trovata attraverso il secondo modello. Infine nell'ultimo caso, cioè per il materiale B, i due valori sono compatibili. Possiamo allora controllare se sono compatibili tra di loro i valori che abbiamo trovato per la permeabilità magnetica. 
 Per il materiale A troviamo la compatibilità dei due valori di $\mu_R$ del primo modello con il valore di $\mu_R$ del secondo. 
-
-Per il materiale B troviamo anche in questo caso la compatibilità. Tuttavia l'errore per $\mu_R$ trovato dal secondo modello è elevato per cui la permeabilità magnetica potrebbe essere minore o maggiore di 1 o addirittura negativa. Perciò il secondo modello utilizzato non ci permette di definire con precisione le proprietà magnetiche del materiale. 
+Per il materiale B troviamo anche in questo caso che sono compatibili. Queste compatibilità trovate tra i valori delle permeabilità magnetiche ci portano quindi a dedurre che in effetti i due modelli sono legati, come era anche lecito aspettarsi, in quanto, pur avendo modificato la funzione di fit, i parametri scelti nel primo modello sono in realtà derivanti da quelli del secondo.
+Tuttavia se analizziamo i valori della permeabilità magnetica trovati per il materiale B, vediamo che l'errore per $\mu_R$ trovato dal secondo modello è elevato per cui il valore ottenuto potrebbe essere minore o maggiore di 1 o addirittura negativo. Perciò il secondo modello utilizzato non ci permette di definire con precisione le proprietà magnetiche del materiale. 
 
 
 
@@ -344,9 +345,9 @@ Per il materiale B troviamo anche in questo caso la compatibilità. Tuttavia l'e
 
 
 
-% dalla equazione \refeqn{eq:mu_R}.  e otteniamo che però \hl{$\mu_R=0.86 +/- 0.08$} \st{valore che non ha alcun senso fisico, in quanto per come \`e definita $\mu_R$, pu\`o assumere solamente valori positivi.} Riguardando la formula utilizzata per trovare la permeabilità relativa e osservando il valore di $L$ in quest'ultimo caso dal fit, capiamo che il motivo per cui troviamo un valore negativo è dovuto al fatto che il programma ci restituisce un valore dell'induttanza troppo piccolo, in quanto è un ordine di grandezza più piccolo di quello che sarebbe dovuto essere secondo la misura diretta che abbiamo fatto. Notiamo infatti anche in questo caso che, come per il materiale A, il prodotto $L\cdot C$ rispecchia effettivamente il valore di $\nu_0$ ottenuto dal fit che è invece compatibile con quello che ci attendevamo in base ai valori di $L$ e $C$ inseriti nel circuito.
+% dalla equazione \refeqn{eq:mu_R}.  e otteniamo che però \hl{$\mu_R=0.86 +/- 0.08$} \st{valore che non ha alcun senso fisico, in quanto per come \`e definita $\mu_R$, pu\`o assumere solamente valori positivi.} 
 
-% Per capire meglio quale possa essere il problema proviamo a ripetere l'analisi dati modificando però le funzioni di fit:\hl{inserire equazioni del secondo fit} in cui inseriamo direttamente come parametri i valori di $R$, $L$ e $C$ aggiungendo in più anche $R_L$. \hl{Notiamo che in questo caso}
+
 
 
 % per materiale libero e Al si pu parlare della questione dell'errore di dt alla frequenza di risonanza, in qunato fissato lo zero il modello arctan() non può variare
