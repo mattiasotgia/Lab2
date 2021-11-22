@@ -213,7 +213,7 @@ Dato questo valore del coefficiente di autoinduzione, dall'equazione trovata per
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{plot.pdf}
-    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
+    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Dall'alto varso il basso: caso solenoide vuoto, solenoide con materiale A (Fe), solenoide con materiale B (Al). Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
     \label{fig:plot}
 \end{figure*}
 
@@ -298,7 +298,7 @@ Un'altra conseguenza è legata al fatto che i parametri che otteniamo dai due fi
 \section*{Conclusioni}
 % Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
-Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ non sono compatibili con i valori che abbiamo misurato in modo diretto (\reftab{tab:rlc_amp_results}). Tuttavia notiamo che si trovano comunque nel loro stesso ordine di grandezza e che il risultato del prodotto di $L$ e $C$ ci restituisce un valore costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori.
+Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ otenuti a partire da $A$, $Q^2$ e $\nu_0$ non sono compatibili con i valori che abbiamo misurato in modo diretto (\reftab{tab:rlc_amp_results}). Tuttavia notiamo che si trovano comunque nel loro stesso ordine di grandezza e che il risultato del prodotto di $L$ e $C$ ci restituisce un valore costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori. Ricaviamo infatti poi il valore di $L$ considerando noto il valore di $C=\SI{220+-2}{\nano\farad}$ e sfruttando la miglior stima, dove possibile, di $\nu_0$.
 
 Passando invece ad analizzare i valori di $\mu_R$ ottenuti, abbiamo trovato che per il materiale B, poichè tra il fit della funzione di trasferimento e quello della fase c'era compatibilità dei parametri, abbiamo ricavato un unico valore della permeabilità magnetica, che deriva dalla miglior stima tra i due. Il valore ottenuto è $\mu_R(\text{Al})=\num{0.446375 +- 0.0528921}$. Questo valore ha senso fisico in quanto sappiamo che, per come è definito, $\mu_R$ deve assumere valori positivi e a seconda se il materiale si comporta come un diamagnete, un paramagnete o un ferromagnete, $\mu_R$ può essere leggermente minore di 1, leggermente maggiore di 1, oppure molto maggiore di 1. Perciò in base al valore ottenuto possiamo dire che secondo questo modello il materiale B ha un comportamento diamagnetico. 
 
@@ -341,7 +341,7 @@ Tuttavia se analizziamo i valori della permeabilità magnetica trovati per il ma
 
 \begin{table}[h]
     \begin{ruledtabular}
-        \caption{Valori di R, L e C ottenuti dal fit del primo modello utilizzato per il primo diagramma di Bode (funzione di trasferimento) partendo dai valori di $A$, $Q^2$ e $\nu_0$ e considerando $R_L = \SI{3.7 +- 0.25}{\ohm}$ come valore noto.}% \hl{non ho capito a cosa serve questa tabella?}}
+        \caption{Valori di R, L e C ottenuti dal fit attraverso il primo modello utilizzato per il primo diagramma di Bode (funzione di trasferimento) partendo dai valori di $A$, $Q^2$ e $\nu_0$ e considerando $R_L = \SI{3.7 +- 0.25}{\ohm}$ come valore noto.}% \hl{non ho capito a cosa serve questa tabella?}}
         \label{tab:rlc_amp_results}
         \begin{tabular}{lrrr}
             Caso & Resistenza & Induttanza & Capacità \\
