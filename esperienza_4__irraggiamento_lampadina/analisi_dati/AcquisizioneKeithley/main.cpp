@@ -23,15 +23,28 @@ using namespace std;
 int fd;
 
 TApplication app("app",0,NULL);
-ofstream     outfile("output.dat");
+// ofstream     outfile("output.dat");
 
 void stop(int sig){
-  outfile.close();
+  // outfile.close();
   app.Run(true);
   exit(0);
 }
 
-int main(){
+int main(int argc, char ** argv){
+
+  double usleep_time = 0;
+  if(argc>1 && !strcmp(argv[1], "-q")){
+    goto startDATAAQ;
+  }
+  std::cout << "Attesa tra due punti (us): " << std::flush;
+  std::cin >> usleep_time;
+
+  startDATAAQ:
+  std::string filename;
+  std::cout << "Nome file output: " << std::flush;
+  std::cin >> filename;
+  ofstream outfile((filename + ".dat").c_str());
 
   //Configuro signal handler
   signal(SIGINT,stop);
@@ -53,6 +66,8 @@ int main(){
   // funzione setserial
   //** ----- **
 
+  setserial(fd, B9600, CS8);
+
   TCanvas can;
   TGraphErrors gr;
   gr.SetMarkerStyle(20);
@@ -63,6 +78,8 @@ int main(){
   //** - elementi da usare - **
   // classe Timer
   //** ----- **
+  Timer T;
+  T.Start();
 
   for (int i=0;;i++){
 
@@ -76,6 +93,8 @@ int main(){
     //** - elementi da usare - **
     // metodo Time della classe Timer
     //** ----- **
+    
+    t = T.Time();
 
     // STEP 2
     // invio comando di lettura
@@ -95,6 +114,21 @@ int main(){
     // atof 
     //** ----- **
 
+    std::string r_cmd = ":READ?\n";
+    int w = write(fd, r_cmd.c_str(), r_cmd.length());
+    if(w == -1){
+      std::cout << "Fallito invio comando al seriale" << std::endl;
+      exit(2);
+    }
+    usleep(200);
+    char ch[100];
+    int r = read(fd, ch, 100);
+    if(r == -1){
+      std::cout << "Fallita lettura dal seriale" << std::endl;
+      exit(2);
+    }
+    val = atof(ch);
+
     // STEP 4 (facoltativo)
     // calcolo l'errore
     // - estraggo il range 
@@ -108,6 +142,26 @@ int main(){
     // atof
     //** ----- **
 
+    std::string r_err_cmd = ":VOLT:DC:TANG:UPP?\n";
+    int w_err = write(fd, r_err_cmd.c_str(), r_err_cmd.length());
+    if(w_err == -1){
+      std::cout << "Fallito invio comando al seriale" << std::endl;
+      exit(2);
+    }
+    usleep(200);
+    int err_r = read(fd, ch, 100);
+    if(err_r == -1){
+      std::cout << "Fallita lettura dal seriale" << std::endl;
+      exit(2);
+    }
+    double range = atof(ch);
+
+    if(range == 0.1)       eval = 50e-6*val+35e-6*range;
+    else if(range == 1)    eval = 30e-6*val+7e-6*range;
+    else if(range == 10)   eval = 30e-6*val+5e-6*range;
+    else if(range == 100)  eval = 45e-6*val+6e-6*range;
+    else if(range == 1000) eval = 45e-6*val+6e-6*range;
+
     cout    << t << " " << val << " " << eval << endl;
     outfile << t << " " << val << " " << eval << endl;
     gr.SetPoint(i,t,val);
@@ -120,7 +174,7 @@ int main(){
       can.Update();
       gSystem->ProcessEvents();
     }
-    
+    usleep(usleep_time);
   }
 
   app.Run(true);
