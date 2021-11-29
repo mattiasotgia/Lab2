@@ -46,6 +46,8 @@ int main(){
   // funzione sd::open
   //** ----- **
 
+  fd = sd::open("/dev/ttyS0", O_RDWR);
+  if(fd = -1) return 1;
 
 
   // STEP 1
