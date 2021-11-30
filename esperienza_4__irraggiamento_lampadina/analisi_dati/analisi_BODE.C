@@ -35,7 +35,7 @@ void analisi_BODE(double fitmin = -1){
     std::string output = file.substr(0, file.find("."));
     std::ifstream data(rawdata.c_str());
 
-    double Vin, fsVin, Vout, fsVout, T, fsT, dt, fsdt;
+    double Vin, fsVin, Vout, fsVout, T, fsT;
 
     std::ofstream out_rawdata(("../misc/rawdata_" + output + ".txt").c_str()); // carbon copy of original data
     std::ofstream out_cleandata(("../misc/cleandata_" + output + ".txt").c_str()); // values from rawdata with error
@@ -66,8 +66,8 @@ void analisi_BODE(double fitmin = -1){
     TPad* Hp2 = H_pad.Residuals;
     graphset::setgraphsize(H_pad, true, true);
 
-    for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT >> dt >> fsdt; i++){
-        out_rawdata << Vin << " & " << fsVin << " & " << Vout << " & " << fsVout << " & " << T << " & " << fsT << " & " << dt << " & " << fsdt << " \\\\ " << std::endl;
+    for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT; i++){
+        out_rawdata << Vin << " & " << fsVin << " & " << Vout << " & " << fsVout << " & " << T << " & " << fsT << " \\\\ " << std::endl;
         double eVin, eVout;
         if(fsVin<=0.01){
             eVin = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin));
@@ -80,16 +80,14 @@ void analisi_BODE(double fitmin = -1){
             eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         }
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
-        double edt = stattools::max_to_stat(get_TRangeErr(fsdt));
 
 
-        out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << " " << dt << " " << edt << std::endl;
+        out_cleandata << Vin << " " << eVin << " " << Vout << " " << eVout << " " << T << " " << eT << std::endl;
 
         H_plot->SetPoint(i, 1 / T, Vout / Vin);
         H_plot->SetPointError(i, eT/pow(T, 2), get_HErr(Vin, Vout, eVin, eVout));
 
         out_computeddata << "\\num{" << Vout / Vin << " +- " << get_HErr(Vin, Vout, eVin, eVout) << "} "
-                       << "& \\num{" << 2 * M_PI * dt / T << " +- " << 2 * M_PI * sqrt(pow(edt/T, 2) + pow(dt * eT/(pow(T, 2)), 2)) << "} "
                        << "& \\num{" << 1 / T << " +- " << eT/pow(T, 2) << "} \\\\" << std::endl;
     }
     out_rawdata << "EOF" << std::endl;
