@@ -26,17 +26,18 @@ void analisi_BODE(double fitmin = -1){
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
 
-    TCanvas* c1 = new TCanvas("c1", "", 500, 500);
-    graphset::setcanvas(c1);
 
 
 
-    std::string file = "eliminare_test.txt";
+    std::string file;
     std::cout << "File input : " << std::flush;
     std::cin >> file;
     std::string rawdata = "../dati/" + file;
     std::string output = file.substr(0, file.find("."));
     std::ifstream data(rawdata.c_str());
+
+    TCanvas* c1 = new TCanvas("c1", "", 500, 500);
+    graphset::setcanvas(c1);
 
     double Vin, fsVin, Vout, fsVout, T, fsT;
 
@@ -46,8 +47,8 @@ void analisi_BODE(double fitmin = -1){
 
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
-    TF1* H_fit = new TF1("H_f", "1/sqrt([0]+[1]*(pow(x/[2]-[2]/x, 2)))"); // ! Controllare formule
-    // H_fit->SetParameters(params[0], params[1]*params[1], params[2]);
+    TF1* H_fit = new TF1("H_f", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
+    H_fit->SetParameters(80, 11e3);
     // H_fit->SetParLimits(0, 0, 10000);
     // H_fit->SetParLimits(1, 0, 10000);
     // H_fit->SetParLimits(2, 0, 10000);
@@ -126,8 +127,8 @@ void analisi_BODE(double fitmin = -1){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]");
-    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]");
+    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 1);
+    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 1);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 
