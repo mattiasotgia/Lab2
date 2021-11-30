@@ -23,7 +23,7 @@ void guadagno()
     string nomefile;
 
     std::cout << "nome file input" << std::endl;
-    std::cin >> nomefile >> std::endl;
+    std::cin >> nomefile;
 
     double vin, vout, fsvin, fsvout;
     const double errPercent = 0.035;
@@ -31,6 +31,8 @@ void guadagno()
     TGraphErrors*  g=new TGraphErrors();
     TF1* f= new TF1("fit", "[0]+[1]*x");
     int i = 0;
+
+    ifstream file(("../dati/" + nomefile).c_str());
 
     while (file >> vin >> fsvin >> vout >> fsvout)
     {
@@ -48,8 +50,8 @@ void guadagno()
 
     g->Fit("fit");
 
-    double G = f_>GetParameter(1);
-    double quota = f.GetParameter(0);
+    double G = f->GetParameter(1);
+    double quota = f->GetParameter(0);
 
     double e_quota = f->GetParError(0);
     double e_G = f->GetParError(1);
