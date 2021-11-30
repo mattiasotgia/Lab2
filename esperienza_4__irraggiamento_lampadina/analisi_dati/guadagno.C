@@ -44,6 +44,7 @@ void guadagno()
         i++;
     }
 
+g->SetTitle("V_out vs V_in;V_in[V];V_out[V]");
     g->Draw("ap");
     f->SetParameter(0, 0);
     f->SetParameter(1, 80);
