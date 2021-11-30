@@ -47,6 +47,8 @@ void guadagno()
     g->Draw("ap");
     f->SetParameter(0, 0);
     f->SetParameter(1, 80);
+    f->SetParName(0,"quota");
+    f->SetParName(1,"G");
 
     g->Fit("fit");
 
