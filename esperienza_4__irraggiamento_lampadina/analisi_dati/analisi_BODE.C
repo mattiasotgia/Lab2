@@ -33,7 +33,7 @@ void analisi_BODE(double fitmin = -1){
 
     std::string file = "eliminare_test.txt";
     std::cout << "File input : " << std::flush;
-    std::cin << file;
+    std::cin >> file;
     std::string rawdata = "../dati/" + file;
     std::string output = file.substr(0, file.find("."));
     std::ifstream data(rawdata.c_str());
