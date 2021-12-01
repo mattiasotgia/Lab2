@@ -136,7 +136,7 @@ void analisi_BODE(double fitmin = -1){
     H_res_f->Draw("same");
 
     graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 1);
-    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 1);
+    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 0.5);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 

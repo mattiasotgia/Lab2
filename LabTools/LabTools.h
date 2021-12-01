@@ -22,7 +22,7 @@
 
 const double title_size = 21;
 const double label_size = 15;
-const double offsetx = 10;
+const double offsetx = 4;
 
 namespace log
 {
