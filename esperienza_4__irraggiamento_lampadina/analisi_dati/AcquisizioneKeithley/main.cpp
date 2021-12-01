@@ -49,6 +49,8 @@ int main(int argc, char ** argv){
   //Configuro signal handler
   signal(SIGINT,stop);
 
+  *outfile << ":START?" << std::endl;
+
   // Apertura comunicazioni
   fd = open("/dev/ttyS0",O_RDWR);
   if (fd == -1){
@@ -163,7 +165,7 @@ int main(int argc, char ** argv){
     else if(range == 1000) eval = (45e-6*val+6e-6*range)/sqrt(3);
 
     cout    << t << " " << val << " " << eval << endl;
-    outfile << t << " " << val << " " << eval << endl;
+    *outfile << t << " " << val << " " << eval << endl;
     gr.SetPoint(i,t,val);
     gr.SetPointError(i,0,eval);
 
