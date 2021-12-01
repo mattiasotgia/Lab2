@@ -36,6 +36,14 @@ void analisi_BODE(double fitmin = -1){
     std::string output = file.substr(0, file.find("."));
     std::ifstream data(rawdata.c_str());
 
+    double guadagno;
+    std::cout << "Guadagno : " << std::flush;
+    std::cin >> guadagno;
+
+    double freq;
+    std::cout << "Fraquenza : " << std::flush;
+    std::cin >> freq;
+
     TCanvas* c1 = new TCanvas("c1", "", 500, 500);
     graphset::setcanvas(c1);
 
@@ -48,7 +56,7 @@ void analisi_BODE(double fitmin = -1){
     TGraphErrors* H_plot = new TGraphErrors();
     H_plot->SetName("H_plot");
     TF1* H_fit = new TF1("H_f", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
-    H_fit->SetParameters(80, 11e3);
+    H_fit->SetParameters(guadagno, freq);
     // H_fit->SetParLimits(0, 0, 10000);
     // H_fit->SetParLimits(1, 0, 10000);
     // H_fit->SetParLimits(2, 0, 10000);
