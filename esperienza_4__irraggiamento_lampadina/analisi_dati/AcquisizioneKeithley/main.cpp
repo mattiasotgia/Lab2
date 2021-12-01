@@ -23,10 +23,10 @@ using namespace std;
 int fd;
 
 TApplication app("app",0,NULL);
-// ofstream     outfile("output.dat");
+ofstream* outfile;
 
 void stop(int sig){
-  // outfile.close();
+  outfile->close();
   app.Run(true);
   exit(0);
 }
@@ -44,7 +44,7 @@ int main(int argc, char ** argv){
   std::string filename;
   std::cout << "Nome file output: " << std::flush;
   std::cin >> filename;
-  ofstream outfile((filename + ".dat").c_str());
+  outfile = new ofstream((filename + ".dat").c_str());
 
   //Configuro signal handler
   signal(SIGINT,stop);
