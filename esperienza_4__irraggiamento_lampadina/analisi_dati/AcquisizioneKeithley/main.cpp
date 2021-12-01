@@ -156,11 +156,11 @@ int main(int argc, char ** argv){
     }
     double range = atof(ch);
 
-    if(range == 0.1)       eval = stattools::max_to_stat(50e-6*val+35e-6*range);
-    else if(range == 1)    eval = stattools::max_to_stat(30e-6*val+7e-6*range);
-    else if(range == 10)   eval = stattools::max_to_stat(30e-6*val+5e-6*range);
-    else if(range == 100)  eval = stattools::max_to_stat(45e-6*val+6e-6*range);
-    else if(range == 1000) eval = stattools::max_to_stat(45e-6*val+6e-6*range);
+    if(range == 0.1)       eval = (50e-6*val+35e-6*range)/sqrt(3);
+    else if(range == 1)    eval = (30e-6*val+7e-6*range)/sqrt(3);
+    else if(range == 10)   eval = (30e-6*val+5e-6*range)/sqrt(3);
+    else if(range == 100)  eval = (45e-6*val+6e-6*range)/sqrt(3);
+    else if(range == 1000) eval = (45e-6*val+6e-6*range)/sqrt(3);
 
     cout    << t << " " << val << " " << eval << endl;
     outfile << t << " " << val << " " << eval << endl;
