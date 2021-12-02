@@ -26,15 +26,26 @@ void analisi_lampadina()
     std::cin >> nomefile;
 
     double t , vin, e_vin, range;
+    const double s_vin=0.01;
    // const double errPercent = 0.035;
 
-   // TGraphErrors*  g=new TGraphErrors();
+   TGraphErrors*  g=new TGraphErrors();
     //TF1* f= new TF1("fit", "[0]+[1]*x");
     int i = 0;
 
     ifstream file(("../dati/" + nomefile).c_str());
-if(){
+if(nomefile = "dati_60"){
+    while (file >> vin >> fsvin >> vout >> fsvout){
 
+g->SetPoint(i,t,vin);
+g->SetPointError(i,0,s_vin);
+i++;
+    }
+}
+else {
+   while (file >> t >> vin >> e_vin >> fsvout){
+
+   } 
 }
     while (file >> vin >> fsvin >> vout >> fsvout)
     {
