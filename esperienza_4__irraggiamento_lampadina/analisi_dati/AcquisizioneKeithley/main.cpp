@@ -49,7 +49,7 @@ int main(int argc, char ** argv){
   //Configuro signal handler
   signal(SIGINT,stop);
 
-  *outfile << ":START?" << std::endl;
+  // *outfile << ":START?" << std::endl;
 
   // Apertura comunicazioni
   fd = open("/dev/ttyS0",O_RDWR);
@@ -116,7 +116,7 @@ int main(int argc, char ** argv){
     // atof 
     //** ----- **
 
-    std::string r_cmd = ":MEAS?\n";
+    std::string r_cmd = ":READ?\n";
     int w = write(fd, r_cmd.c_str(), r_cmd.length());
     if(w == -1){
       std::cout << "Fallito invio comando al seriale" << std::endl;
@@ -144,7 +144,7 @@ int main(int argc, char ** argv){
     // atof
     //** ----- **
 
-    std::string r_err_cmd = ":VOLT:DC:TANG:UPP?\n";
+    std::string r_err_cmd = ":VOLT:DC:RANG:UPP?\n";
     int w_err = write(fd, r_err_cmd.c_str(), r_err_cmd.length());
     if(w_err == -1){
       std::cout << "Fallito invio comando al seriale" << std::endl;
