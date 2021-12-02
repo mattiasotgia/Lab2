@@ -44,7 +44,7 @@ int main(int argc, char ** argv){
   std::string filename;
   std::cout << "Nome file output: " << std::flush;
   std::cin >> filename;
-  outfile = new ofstream((filename + ".dat").c_str());
+  outfile = new ofstream(("../../dati/" + filename + ".dat").c_str());
 
   //Configuro signal handler
   signal(SIGINT,stop);
