@@ -33,12 +33,12 @@ void stop(int sig){
 
 int main(int argc, char ** argv){
 
-  double usleep_time = 0;
+  double sleep_time = 0;
   if(argc>1 && !strcmp(argv[1], "-q")){
     goto startDATAAQ;
   }
-  std::cout << "Attesa tra due punti (us): " << std::flush;
-  std::cin >> usleep_time;
+  std::cout << "Attesa tra due punti (s): " << std::flush;
+  std::cin >> sleep_time;
 
   startDATAAQ:
   std::string filename;
@@ -116,7 +116,7 @@ int main(int argc, char ** argv){
     // atof 
     //** ----- **
 
-    std::string r_cmd = ":READ?\n";
+    std::string r_cmd = ":MEAS?\n";
     int w = write(fd, r_cmd.c_str(), r_cmd.length());
     if(w == -1){
       std::cout << "Fallito invio comando al seriale" << std::endl;
@@ -176,7 +176,7 @@ int main(int argc, char ** argv){
       can.Update();
       gSystem->ProcessEvents();
     }
-    usleep(usleep_time);
+    sleep(sleep_time);
   }
 
   app.Run(true);
