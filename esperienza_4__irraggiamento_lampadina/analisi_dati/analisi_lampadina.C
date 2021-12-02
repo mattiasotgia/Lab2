@@ -34,25 +34,15 @@ void analisi_lampadina()
     int i = 0;
 
     ifstream file(("../dati/" + nomefile).c_str());
-if(nomefile = "dati_60"){
-    while (file >> vin >> fsvin >> vout >> fsvout){
 
-g->SetPoint(i,t,vin);
-g->SetPointError(i,0,s_vin);
-i++;
-    }
-}
-else {
-   while (file >> t >> vin >> e_vin >> fsvout){
+   while (file >> t >> vin >> e_vin >> range){
 
-   } 
-}
-    while (file >> vin >> fsvin >> vout >> fsvout)
-    {
-        double err_vin = get_VRangeErr(errPercent, 8, fsvin);
-        double err_vout = get_VRangeErr(errPercent, 8, fsvout);
-
-        g->SetPoint(i, vin, vout);
-        g->SetPointError(i, err_vin, err_vout);
+        g->SetPoint(i, t, vin);
+        g->SetPointError(i, 0, e_vin);
         i++;
     }
+g->Draw("ap");
+
+g->SetTitle("V_in vs t;tempo[s];V_in[V]");
+
+}
