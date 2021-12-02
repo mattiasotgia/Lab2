@@ -151,12 +151,13 @@ int main(int argc, char ** argv){
       exit(2);
     }
     usleep(200);
-    int err_r = read(fd, ch, 100);
+    char ch_err[100];
+    int err_r = read(fd, ch_err, 100);
     if(err_r == -1){
       std::cout << "Fallita lettura dal seriale" << std::endl;
       exit(2);
     }
-    double range = atof(ch);
+    double range = atof(ch_err);
 
     if(range == 0.1)       eval = (50e-6*val+35e-6*range)/sqrt(3);
     else if(range == 1)    eval = (30e-6*val+7e-6*range)/sqrt(3);
