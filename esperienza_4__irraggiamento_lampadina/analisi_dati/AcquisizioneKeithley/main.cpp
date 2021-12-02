@@ -144,7 +144,7 @@ int main(int argc, char ** argv){
     // atof
     //** ----- **
 
-    std::string r_err_cmd = ":VOLT:DC:RANG:AUTO?\n";
+    std::string r_err_cmd = ":VOLT:DC:RANG:UPP?\n";
     int w_err = write(fd, r_err_cmd.c_str(), r_err_cmd.length());
     if(w_err == -1){
       std::cout << "Fallito invio comando al seriale" << std::endl;
