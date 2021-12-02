@@ -122,7 +122,7 @@ int main(int argc, char ** argv){
       std::cout << "Fallito invio comando al seriale" << std::endl;
       exit(2);
     }
-    usleep(200);
+    usleep(500000);
     char ch[100];
     int r = read(fd, ch, 100);
     if(r == -1){
@@ -150,7 +150,7 @@ int main(int argc, char ** argv){
       std::cout << "Fallito invio comando al seriale" << std::endl;
       exit(2);
     }
-    usleep(200);
+    usleep(500000);
     char ch_err[100];
     int err_r = read(fd, ch_err, 100);
     if(err_r == -1){
