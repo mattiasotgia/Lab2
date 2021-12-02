@@ -165,8 +165,8 @@ int main(int argc, char ** argv){
     else if(range == 100)  eval = (45e-6*val+6e-6*range)/sqrt(3);
     else if(range == 1000) eval = (45e-6*val+6e-6*range)/sqrt(3);
 
-    cout    << t << " " << val << " " << eval << " " << range << endl;
-    *outfile << t << " " << val << " " << eval << " " << range << endl;
+    cout    << t << " " << val << " " << eval << " " << range << " " << ch_err << endl;
+    *outfile << t << " " << val << " " << eval << " " << range << " " << ch_err << endl;
     gr.SetPoint(i,t,val);
     gr.SetPointError(i,0,eval);
 
