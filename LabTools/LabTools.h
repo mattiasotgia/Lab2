@@ -163,6 +163,11 @@ namespace graphset
     //                                                                         //
     /////////////////////////////////////////////////////////////////////////////
 
+    bool _isresidualon = true;
+    std::string* _xtitle = new std::string("ERR: inverti set_ResidualAxis() #leftrightarrow set_TGraphAxis()");
+
+    /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
+    ottenere il risultato voluto. */
     void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
@@ -173,9 +178,23 @@ namespace graphset
         g->GetYaxis()->SetLabelSize(label_size);
         g->GetYaxis()->CenterTitle();
 
+        if(!_isresidualon){
+            std::cout << _isresidualon << std::endl;
+            g->GetXaxis()->SetTitle(((std::string)*_xtitle).c_str());
+            g->GetXaxis()->SetTitleOffset(1);
+            g->GetXaxis()->SetTitleFont(43);
+            g->GetXaxis()->SetTitleSize(title_size);
+
+            g->GetXaxis()->SetLabelFont(43);
+            g->GetXaxis()->SetLabelSize(label_size);
+            g->GetXaxis()->CenterTitle();
+        }
+
         g->GetXaxis()->SetTickLength(0.05);
     }
 
+    /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
+    ottenere il risultato voluto. */
     void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
         rg->GetXaxis()->SetTitleOffset(offsetx);
@@ -194,20 +213,28 @@ namespace graphset
         rg->GetXaxis()->SetLabelFont(43);
         rg->GetXaxis()->SetLabelSize(label_size);
         rg->GetXaxis()->CenterTitle();
+        *_xtitle = xtitle;
 
         rg->GetXaxis()->SetTickLength(0.08);
     }
     
     struct padtypes{
-        TPad* Graph = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
-        TPad* Residuals = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
+        TPad* Graph = new TPad();
+        TPad* Residuals = new TPad();
     };
 
-    void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false){
-        g.Graph->SetMargin(0.14, 0.06, 0.0, 0.06);
-        // g.Graph->SetTickx();
-        // g.Graph->SetTicky();
-        g.Residuals->SetMargin(0.14, 0.06, 0.4, 1.0);
+
+    /* Impostazione dei pad del grafico:
+    Il primo argomento è una struttura che contiene i TPad dei grafico e dei resudui;
+    Se dico di disegnare i residui tutto OK, se dico false al valore booleano drawresiduals
+    allora il grafico verrà eseguito senza i residui, e il nome degli assi impostato di con-
+    seguenza. È importante chiamare i comandi `set_ResidualAxis()` e `set_TGraphAxis()` in 
+    questo ordine, di modo che il titolo sull'asse x venga mostrato, altrimenti si mostrerà 
+    un titolo di errore */
+    void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false, bool drawresiduals = true){
+
+        g.Graph->SetFillColor(0);
+        g.Residuals->SetFillColor(0);
         if(logx){
             g.Graph->SetLogx();
             g.Residuals->SetLogx();
@@ -215,8 +242,20 @@ namespace graphset
         if(logy){
             g.Graph->SetLogy();
         }
-        g.Graph->Draw();
-        g.Residuals->Draw();
+        if(!drawresiduals){
+            g.Graph->SetPad(0.0, 0.0, 1.0, 1.0);
+            g.Residuals->SetPad(0.0, 0.0, 1.0, 0.0);
+            g.Graph->SetMargin(0.14, 0.06, 0.125, 0.06);
+            g.Graph->Draw();
+            _isresidualon = false;
+        }else{
+            g.Graph->SetMargin(0.14, 0.06, 0.0, 0.06);
+            g.Residuals->SetMargin(0.14, 0.06, 0.4, 1.0);
+            g.Graph->SetPad(0.0, 0.3, 1.0, 1.0);
+            g.Residuals->SetPad(0.0, 0.0, 1.0, 0.295);            
+            g.Graph->Draw();
+            g.Residuals->Draw();
+        }
     }
 
     void setcanvas(TCanvas* c1, int nx = 1, int ny = 1, 

@@ -40,6 +40,9 @@ void analisi_BODE2(double fitmin = -1){
     TGraphErrors* H_plot1 = new TGraphErrors();
     H_plot1->SetName("H_plot1");
     H_plot1->SetLineColor(kOrange-2);
+    H_plot1->SetMarkerStyle(21);
+    H_plot1->SetMarkerSize(0.3);
+    H_plot1->SetMarkerColor(kOrange-2);
     TF1*          H_fit1 = new TF1("H_f1", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit1->SetParameters(8, 100e3);
     H_fit1->SetLineColor(kOrange-3);
@@ -47,6 +50,9 @@ void analisi_BODE2(double fitmin = -1){
     TGraphErrors* H_plot2 = new TGraphErrors();
     H_plot2->SetName("H_plot2");
     H_plot2->SetLineColor(kGreen+1);
+    H_plot2->SetMarkerStyle(21);
+    H_plot2->SetMarkerSize(0.3);
+    H_plot2->SetMarkerColor(kGreen+1);
     TF1*          H_fit2 = new TF1("H_f2", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit2->SetParameters(80, 10e3);
     H_fit2->SetLineColor(kGreen+2);
@@ -60,7 +66,7 @@ void analisi_BODE2(double fitmin = -1){
     graphset::padtypes H_pad;
     TPad* Hp1 = H_pad.Graph;
     TPad* Hp2 = H_pad.Residuals;
-    graphset::setgraphsize(H_pad, true, true);
+    graphset::setgraphsize(H_pad, true, true, false);
 
     double Vin, fsVin, Vout, fsVout, T, fsT;
 
@@ -107,39 +113,39 @@ void analisi_BODE2(double fitmin = -1){
     log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
 
-    H_plot1->GetXaxis()->SetLimits(450, 300e3);
-    H_plot1->GetYaxis()->SetRangeUser(1, 100);
+    H_plot1->GetXaxis()->SetLimits(450, 400e3);
+    H_plot1->GetYaxis()->SetRangeUser(0.85, 100);
     H_plot1->Draw("ap");
     H_plot2->Draw("p");
     c1->Modified();
     c1->Update();
     H_plot1->Fit("H_f1", "", "same");
-    H_plot2->Fit("H_f2", "", "same", 450, 200e3);
+    log::print_stat(H_fit1);
+    H_plot2->Fit("H_f2", "", "same", 450, 400e3);
+    log::print_stat(H_fit2);
 
-    TLegend* l = new TLegend(0.2, 0.1, 0.8, 0.3);
+    TLegend* l = new TLegend(0.2, 0.2, 0.9, 0.3);
     l->SetHeader("#bf{Guadagno LM741} (Input invertente)");
-    l->AddEntry("H_plot1", "G = 8");
-    l->AddEntry("H_plot2", "G = 80");
+    l->AddEntry("H_plot1", "G = 8" , "ep");
+    l->AddEntry("H_plot2", "G = 80", "ep");
     l->SetBorderSize(0);
     l->SetFillColorAlpha(kWhite, 0);
     l->Draw();
 
-    log::print_stat(H_fit1);
-    log::print_stat(H_fit2);
 
     // RESIDUI
     Hp2->cd();
     graphset::fillresiduals(H_plot1, H_fit1, H_resd1);
     graphset::fillresiduals(H_plot2, H_fit2, H_resd2);
-    H_resd1->GetXaxis()->SetLimits(450, 300e3);
-    H_res_f->GetXaxis()->SetLimits(450, 300e3);
+    H_resd1->GetXaxis()->SetLimits(450, 400e3);
+    H_res_f->GetXaxis()->SetLimits(450, 400e3);
     H_resd1->Draw("ap");
     H_resd2->Draw("p");
     H_res_f->Draw("same");
 
 
-    graphset::set_TGraphAxis(H_plot1, "#left|H(#nu)#right| [a. u.]", 1);
     graphset::set_ResidualsAxis(H_resd1, "Frequenza #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot1, "#left|H(#nu)#right| [a. u.]", 1);
 
     c1->SaveAs("../fig/plot_combined.pdf");
 
