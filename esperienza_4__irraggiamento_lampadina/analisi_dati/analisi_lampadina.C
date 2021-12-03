@@ -34,7 +34,7 @@ void analisi_lampadina()
 
     int i = 0;
 
-    ifstream file(("../dati/" + nomefile).c_str());
+    ifstream file(("../dati/_clean/" + nomefile).c_str());
 
     /* if(! file.good() ){
         std::cout<<"errore lettura file"<<std::endl;
