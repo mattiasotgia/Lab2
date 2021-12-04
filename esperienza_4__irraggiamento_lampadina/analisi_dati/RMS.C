@@ -11,7 +11,7 @@ void RMS(){
     TCanvas *c1 = new TCanvas("", "", 600, 500);
     TF1* f = new TF1("f", "gaus(0)");
     f->SetLineColor(kRed);
-    std::ifstream file("../dati/valutazione_rumore.dat");
+    std::ifstream file("../dati/valutazione_rumore.txt");
     double T, V, eV, range;
     char crange;
     TH1D *hist = new TH1D("", "", 20, -40e-3, 40e-3);
