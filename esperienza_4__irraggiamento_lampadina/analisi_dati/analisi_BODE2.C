@@ -72,16 +72,8 @@ void analisi_BODE2(double fitmin = -1){
 
     for(int i=0; data1 >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT; i++){
         double eVin, eVout;
-        if(fsVin<=0.01){
-            eVin = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin));
-        }else{
-            eVin = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVin));
-        }
-        if(fsVout<=0.01){
-            eVout = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVout));
-        }else{
-            eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
-        }
+        eVin = (fsVin<=0.01)? stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin)):stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVin));
+        eVout = (fsVout<=0.01)? stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVout)):stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
 
 
@@ -91,16 +83,8 @@ void analisi_BODE2(double fitmin = -1){
     }
     for(int i=0; data2 >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT; i++){
         double eVin, eVout;
-        if(fsVin<=0.01){
-            eVin = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin));
-        }else{
-            eVin = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVin));
-        }
-        if(fsVout<=0.01){
-            eVout = stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVout));
-        }else{
-            eVout = stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
-        }
+        eVin = (fsVin<=0.01)? stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVin)):stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVin));
+        eVout = (fsVout<=0.01)? stattools::max_to_stat(get_VRangeErr(0.045, 8, fsVout)):stattools::max_to_stat(get_VRangeErr(0.035, 8, fsVout));
         double eT = stattools::max_to_stat(get_TRangeErr(fsT));
 
 
