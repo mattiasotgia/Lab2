@@ -168,7 +168,7 @@ namespace graphset
 
     /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
     ottenere il risultato voluto. */
-    void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2){
+    void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2, std::string xtitle = ""){
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
         g->GetYaxis()->SetTitleOffset(offset);
