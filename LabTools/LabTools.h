@@ -24,6 +24,12 @@ const double title_size = 21;
 const double label_size = 15;
 const double offsetx = 4;
 
+namespace base{
+    template<class _container, class _Ty> inline
+    bool isIn(_container _C, const _Ty& _Val){
+        return std::find(_C.begin(), _C.end(), _Val) != _C.end();
+    }
+} // namespace base
 namespace log
 {
     void print_mmsg(std::string mmsg){
@@ -111,7 +117,7 @@ namespace graphset
         TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
 
         void SetFitFormula(std::string formula);
-        void SetFitLimits(Double_t min = (0.0), Double_t max = (1.0));
+        void SetFitLimits(Double_t min, Double_t max);
 
         void SetLogX(){_logx = true;}
         void SetLogY(){_logx = true;}
@@ -140,7 +146,7 @@ namespace graphset
         xmax = max;
         _r_fit->SetRange(min, max);
     }
-    graph::graph(bool showresiduals = true){
+    graph::graph(bool showresiduals){
         if(!showresiduals){
             _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
             _r_pad = new TPad("", "", 0.0, 0.0, 0.0, 0.0);
