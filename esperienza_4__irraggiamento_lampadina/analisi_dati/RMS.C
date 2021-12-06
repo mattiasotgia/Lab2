@@ -3,6 +3,8 @@
 #include <TCanvas.h>
 #include <fstream>
 
+#include"../../LabTools/LabTools.h"
+
 void RMS(){
     gStyle->SetFrameLineWidth(0);
     gStyle->SetTextFont(43);
@@ -15,6 +17,7 @@ void RMS(){
     double T, V, eV, range;
     char crange;
     TH1D *hist = new TH1D("", "", 20, -40e-3, 40e-3);
+    graphset::set_TGraphAxis(hist, "", 2, "V_{out} (con V_{in} = 0V) [V]");
     while (file >> T >> V >> eV >> range >> crange)
     {
         hist->Fill(V);
