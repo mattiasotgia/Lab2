@@ -295,8 +295,8 @@ namespace graphset
     //     p1->SetFillStyle(4000);
     //     p1->Divide(nx, ny);
     // }
-    template<class _TPObj, class _TFObj> inline
-    void fillresiduals(_TPObj* g, _TFObj* g_fit, TGraphErrors* r){
+    template<class _TObj, class _TFObj> inline
+    void fillresiduals(_TObj* g, _TFObj* g_fit, TGraphErrors* r){
             for(int i=0; i<g->GetN(); i++){
                 r->SetPoint(i, g->GetX()[i], (g->GetY()[i] - g_fit->Eval(g->GetX()[i])) / g->GetEY()[i]);
                 r->SetPointError(i, 0, 1);
@@ -310,6 +310,26 @@ namespace graphset
         gStyle->SetTextFont(43);
         gStyle->SetLineScalePS(1);
         return;
+    }
+
+    template<class _TObj, class _TFObj> inline
+    void setmarker(_TObj* _g, _TFObj* _g_fit, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F)){
+        _g->SetMarkerStyle(mstyle);
+        _g->SetMarkerSize(msize);
+        if(lcolor != -1){
+            _g->SetLineColor(lcolor);
+            _g->SetMarkerColor(lcolor);
+            _g_fit->SetLineColor(lcolor);
+        }
+    }
+    template<class _TObj> inline
+    void setmarker(_TObj* _g, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F)){
+        _g->SetMarkerStyle(mstyle);
+        _g->SetMarkerSize(msize);
+        if(lcolor != -1){
+            _g->SetLineColor(lcolor);
+            _g->SetMarkerColor(lcolor);
+        }
     }
 }
 

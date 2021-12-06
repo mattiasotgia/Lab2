@@ -17,10 +17,8 @@ void RMS(){
     char crange;
     TH1D *hist = new TH1D("", "", 20, -40e-3, 40e-3);
     graphset::set_TGraphAxis(hist, "", 2, "V_{out} (con V_{in} = 0V) [V]");
-    while (file >> T >> V >> eV >> range >> crange)
-    {
-        hist->Fill(V);
-    }
+    graphset::setmarker(hist, kOrange-3);
+    while (file >> T >> V >> eV >> range >> crange){hist->Fill(V);}
     hist->Draw("HIST E");
     f->SetParameters(100, 0, 0.01);
     hist->Fit("f", "", "same");

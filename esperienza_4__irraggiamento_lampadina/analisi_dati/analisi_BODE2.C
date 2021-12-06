@@ -37,23 +37,15 @@ void analisi_BODE2(double fitmin = -1){
 
     TGraphErrors* H_plot1 = new TGraphErrors();
     H_plot1->SetName("H_plot1");
-    H_plot1->SetLineColor(kOrange-2);
-    H_plot1->SetMarkerStyle(21);
-    H_plot1->SetMarkerSize(0.3);
-    H_plot1->SetMarkerColor(kOrange-2);
     TF1*          H_fit1 = new TF1("H_f1", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit1->SetParameters(8, 100e3);
-    H_fit1->SetLineColor(kOrange-3);
+    graphset::setmarker(H_plot1, H_fit1, 25, 0.3, kOrange-3);
 
     TGraphErrors* H_plot2 = new TGraphErrors();
     H_plot2->SetName("H_plot2");
-    H_plot2->SetLineColor(kGreen+1);
-    H_plot2->SetMarkerStyle(21);
-    H_plot2->SetMarkerSize(0.3);
-    H_plot2->SetMarkerColor(kGreen+1);
     TF1*          H_fit2 = new TF1("H_f2", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit2->SetParameters(80, 10e3);
-    H_fit2->SetLineColor(kGreen+2);
+    graphset::setmarker(H_plot2, H_fit2, 25, 0.3, kGreen+1);
 
     
     TGraphErrors* H_resd1 = new TGraphErrors();
