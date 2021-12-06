@@ -6,9 +6,8 @@
 #include"../../LabTools/LabTools.h"
 
 void RMS(){
-    gStyle->SetFrameLineWidth(0);
-    gStyle->SetTextFont(43);
-    gStyle->SetLineScalePS(1);
+
+    graphset::init();
 
     TCanvas *c1 = new TCanvas("", "", 600, 500);
     TF1* f = new TF1("f", "gaus(0)");

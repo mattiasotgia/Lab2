@@ -22,9 +22,7 @@ double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt
 
 void analisi_BODE2(double fitmin = -1){
 
-    gStyle->SetFrameLineWidth(0);
-    gStyle->SetTextFont(43);
-    gStyle->SetLineScalePS(1);
+    graphset::init();
 
     std::string file1 = "input_bode8k.txt";
     std::string rawdata1 = "../dati/" + file1;

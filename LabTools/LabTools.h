@@ -302,6 +302,15 @@ namespace graphset
                 r->SetPointError(i, 0, 1);
             }
     }
+
+    /* Includere qui tutti i parametri globali/semi-globali per 
+    l'inizializzazione di grafici in ROOT */
+    void init(){
+        gStyle->SetFrameLineWidth(0);
+        gStyle->SetTextFont(43);
+        gStyle->SetLineScalePS(1);
+        return;
+    }
 }
 
 // * todo: fare in modo da avere che riempendo il grafico in 
