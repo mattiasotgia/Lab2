@@ -44,7 +44,7 @@ void analisi_lampadina()
     {
 
         g->SetPoint(i, t, vin);
-        g->SetPointError(i, 0, e_vin);
+        g->SetPointError(i, 0, 0.01);
         i++;
     }
 
