@@ -1,6 +1,6 @@
 README file
 ===========
--
+Misura dell'irraggiamento di una lampadina con un amplificatore per strumentazione
 
 Folder structure
 ----------------
