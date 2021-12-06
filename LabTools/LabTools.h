@@ -170,11 +170,14 @@ namespace graphset
     /////////////////////////////////////////////////////////////////////////////
 
     bool _isresidualon = true;
+    bool _isgraphset = false;
     std::string* _xtitle = new std::string("ERR: inverti set_ResidualAxis() #leftrightarrow set_TGraphAxis()");
+
 
     /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
     ottenere il risultato voluto. */
-    void set_TGraphAxis(TGraphErrors *g, std::string ytitle, float offset = 2, std::string xtitle = ""){
+    template<class _TObj> inline
+    void set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = ""){
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
         g->GetYaxis()->SetTitleOffset(offset);
@@ -184,7 +187,17 @@ namespace graphset
         g->GetYaxis()->SetLabelSize(label_size);
         g->GetYaxis()->CenterTitle();
 
-        if(!_isresidualon){
+        if(xtitle!=""){
+            std::cout << _isresidualon << std::endl;
+            g->GetXaxis()->SetTitle(xtitle.c_str());
+            g->GetXaxis()->SetTitleOffset(1);
+            g->GetXaxis()->SetTitleFont(43);
+            g->GetXaxis()->SetTitleSize(title_size);
+
+            g->GetXaxis()->SetLabelFont(43);
+            g->GetXaxis()->SetLabelSize(label_size);
+            g->GetXaxis()->CenterTitle();
+        }else if(!_isresidualon){
             std::cout << _isresidualon << std::endl;
             g->GetXaxis()->SetTitle(((std::string)*_xtitle).c_str());
             g->GetXaxis()->SetTitleOffset(1);
@@ -201,7 +214,8 @@ namespace graphset
 
     /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
     ottenere il risultato voluto. */
-    void set_ResidualsAxis(TGraphErrors *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
+    template<class _TObj> inline
+    void set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
         rg->GetXaxis()->SetTitle(xtitle.c_str());
         rg->GetXaxis()->SetTitleOffset(offsetx);
         rg->GetXaxis()->SetTitleFont(43);
@@ -262,9 +276,11 @@ namespace graphset
             g.Graph->Draw();
             g.Residuals->Draw();
         }
+        _isgraphset = true;
     }
 
-    void setcanvas(TCanvas* c1, int nx = 1, int ny = 1, 
+    template<class _TObj> inline
+    void setcanvas(_TObj* c1, int nx = 1, int ny = 1, 
                 float m_left = 0.16, float m_right = 0.06, 
                 float m_bottom = 0.12, float m_top = 0.06){
         c1->SetMargin(m_left, m_right, m_bottom, m_top);
@@ -272,15 +288,15 @@ namespace graphset
         c1->Divide(nx, ny);
     }
 
-    void setpad(TPad* p1, int nx, int ny, 
-            float m_left = 0.16, float m_right = 0.06, 
-            float m_bottom = 0.12, float m_top = 0.06){
-        // p1->SetMargin(m_left, m_right, m_bottom, m_top);
-        p1->SetFillStyle(4000);
-        p1->Divide(nx, ny);
-    }
-
-    void fillresiduals(TGraphErrors* g, TF1* g_fit, TGraphErrors* r){
+    // void setpad(TPad* p1, int nx, int ny, 
+    //         float m_left = 0.16, float m_right = 0.06, 
+    //         float m_bottom = 0.12, float m_top = 0.06){
+    //     // p1->SetMargin(m_left, m_right, m_bottom, m_top);
+    //     p1->SetFillStyle(4000);
+    //     p1->Divide(nx, ny);
+    // }
+    template<class _TPObj, class _TFObj> inline
+    void fillresiduals(_TPObj* g, _TFObj* g_fit, TGraphErrors* r){
             for(int i=0; i<g->GetN(); i++){
                 r->SetPoint(i, g->GetX()[i], (g->GetY()[i] - g_fit->Eval(g->GetX()[i])) / g->GetEY()[i]);
                 r->SetPointError(i, 0, 1);
