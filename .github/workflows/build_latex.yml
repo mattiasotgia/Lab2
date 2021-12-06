@@ -9,15 +9,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
-    - name: Compile e3 Latex document
+    - name: Compile e4 Latex document
       uses: dante-ev/latex-action@master
       with:
-        root_file: esperienza_3_2021_11_07.tex
-        working_directory: esperienza_3__misura_permeabilita_magnetica/relazione/
+        root_file: esperienza_4_2021_11_27.tex
+        working_directory: esperienza_4__irraggiamento_lampadina/relazione/
     - env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: startsWith(github.ref, 'refs/tags/')
       name: Relase latests papers
       uses: softprops/action-gh-release@v1
       with:
-        files: esperienza_3__misura_permeabilita_magnetica/relazione/esperienza_3_2021_11_07.pdf
+        files: esperienza_4__irraggiamento_lampadina/relazione/esperienza_4_2021_11_27.pdf

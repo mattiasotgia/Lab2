@@ -17,6 +17,11 @@
     a4paper]{revtex4-2}
 
 \input{../../style/preamble.tex}
+\sisetup{
+    % separate-uncertainty=true,
+    round-mode=uncertainty,
+    % exponent-mode = scientific
+}
 
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/3-\thepage
@@ -124,7 +129,7 @@ Quindi dalla misura della frequenza troviamo il valore di $L$, essendo noti i va
         C &= \SI{220+-2}{\nano\farad}    
     \end{align*}
 
-    \noindent\textit{Presa dati---}Utilizziamo l'oscilloscopio come generatore di segnale in alternata che forniamo come input al nostro circuito. La frequenza di tale segnale \`e modificabile e il segnale di output del filtro cambia in base a tale frequenza.
+    \noindent\textit{Presa dati---} Utilizziamo l'oscilloscopio come generatore di segnale in alternata che forniamo come input al nostro circuito. La frequenza di tale segnale \`e modificabile e il segnale di output del filtro cambia in base a tale frequenza.
     
     Per individuare la frequenza di taglio del circuito misuriamo, sempre utilizzando l'oscilloscopio, la tensione in ingresso $v_{in}$, la tensione in uscita $v_{out}$, il periodo del segnale $T$ (uguale per entrambi i segnali in quanto sono isofrequenziali) e il ritardo tra i due segnali $dt$, con i rispettivi fondo-scala necessari per ricavare l'errore. 
 
@@ -154,12 +159,6 @@ Per realizzare il fit di $\big|H[\nu]\big|$ utilizziamo l'equazione \refeqn{eq:H
 
 Quindi, nei casi in cui abbiamo inserito il materiale dentro al rocchetto, in base all'equazione \refeqn{eq:mu_R} troviamo $\mu_R$ del relativo metallo. Inoltre in quest'ultima relazione troviamo che in realtà $\mu_0 n^2 l S$ è proprio il valore dell'induttanza quando non vi sono materiali dentro al solenoide (la chiamiamo $L_0$). Perciò dal primo caso ci possiamo ricavare il valore di $L_0$ per poi utilizzarla successivamente. 
 
-% Nel primo caso(induttanza senza materiali al suo interno) il fit di $\big|H[\nu]\big|$ e quello di $\varphi$ ci restituiscono rispettivamente questi valori dei parametri: \hl{inserire valori}
-% Inserendo invece il materiale A i valori dei parametri sono: \hl{inserire valori}
-% Infine per il materiale B troviamo i valori ricavati sono: \hl{inserire valori}
-
-
-
 \section*{Calcolo della permeabilità magnetica relativa}
 
 Dal fit del modulo della funzione di trasferimento $\big|H[\nu]\big|$ troviamo i valori dei parametri $A$, $Q$ e $\nu_0$ ($A$ e $\nu_0$ sono effettivi parametri utilizzati nel fit, mentre $Q$ è ricavato dal parametro di fit $Q^2$ con relativo errore che discende dalla propagazione degli errori statistici). Dal fit della fase otteniamo invece i valori dei parametri $Q / \sqrt{A}$ e $\nu_0$ con i relativi errori. 
@@ -177,7 +176,7 @@ Dal circuito considerato con l'induttanza vuota otteniamo
 \end{align*}
 
 dove possiamo verificare entro \treSigma\ la compatibilità di $\nu_0^H$ e $\nu_0^\varphi$ e del rapporto $Q / \sqrt{A}$ tra il primo diagramma di Bode e il secondo.
-Poichè otteniamo che i valori delle frequenze di taglio risultano compatibili, possiamo ottenere una miglior stima del suo valore. Questo valore ($\nu_0^{*}=\SI{3.33246 +- 0.00566358}{\kilo\hertz}$) possiamo sfruttarlo perciò per ottenere il valore del coeffiecente di autoinduzione $L_0$, valore che corrisponde all'induttanza libera, e potrà esserci utile nel calcolo della permeabilità relativa per i casi successivi.
+Poiché otteniamo che i valori delle frequenze di taglio risultano compatibili, possiamo ottenere una miglior stima del suo valore. Questo valore ($\nu_0^{*}=\SI{3.33246 +- 0.00566358}{\kilo\hertz}$) possiamo sfruttarlo perciò per ottenere il valore del coeffieciente di autoinduzione $L_0$, valore che corrisponde all'induttanza libera, e potrà esserci utile nel calcolo della permeabilità relativa per i casi successivi.
 Otteniamo quindi \[L_0 = \left(4\pi^2C\right)^{-1} = \SI{10.3678 +- 0.0958859}{\milli\henry}\]che risulta essere un valore compatibile entro \treSigma\ con il valore di $L$ misurato in laboratorio.
 
 Inserendo invece il materiale A i valori dei parametri sono
@@ -213,7 +212,7 @@ Dato questo valore del coefficiente di autoinduzione, dall'equazione trovata per
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{plot.pdf}
-    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
+    \caption{Diagrammi di Bode per il filtro circuito RLC utilizzato. Dall'alto verso il basso: caso solenoide vuoto, solenoide con materiale A (Fe), solenoide con materiale B (Al). Gli assi sono allineati per evidenziare lo spostamento della frequenza di risonanza (picco della funzione di trasferimento) verso frequenze più basse per il materiale A, e invece la quasi identità tra il caso libero e il secondo materiale, che possiamo quindi presupporre essere scarsamente magnetico, ovvero diamagnetico o paramagnetico (la distinzione richiede analisi più dettagliata del risultato in termini quantitativi). }
     \label{fig:plot}
 \end{figure*}
 
@@ -284,9 +283,9 @@ Quindi nel caso del solenoide libero il fit è ristretto da 800Hz fino a 35kHz, 
 \section*{Considerazioni sull'errore legato al ritardo}
 Osseviamo che i grafici relativi alla fase presentano un errore associato molto piccolo. Potremmo procedere considerando diversi metodi per compensare questa sottostima, eseguendo o un processo di \textit{error scaling} oppure facendo ragionamenti legati agli errori nei valori alle code e nella condizione di risonanza. 
 
-Per ottenere valori però sensati avremmo dovuto procedere già in sede di presa dati ad una considerazione di tipo statistico del ritardo e quindi ottenere relativamente a ogni frequenza un valor medio di $dt$ e deviazione standard. Questo processo sarebbe dovuto però essere in qualche modo previsto già in fase di progettazione e attuato nella presa dati considerando di automatizzare la presa dati e ottenere un set di dati più strutturato. 
+Per ottenere valori però sensati avremmo dovuto procedere già in sede di presa dati a una considerazione di tipo statistico del ritardo e quindi ottenere relativamente a ogni frequenza un valore medio di $dt$ e deviazione standard. Questo processo sarebbe dovuto però essere in qualche modo previsto già in fase di progettazione e attuato nella presa dati considerando di automatizzare la presa dati e ottenere un set di dati più strutturato. 
 
-Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche ad un ragionamento relativo allo \text{scaling} dell'errore, in quanto non osserviamo un miglioramento legato al cambio si fattore di scala. Gli errori quindi benchè sottostimati, sono tutti ricavati secondo la relazione fornitaci dal data-sheet.
+Osservando quanto otteniamo dal valore del fit, non riteniamo opportuno però procedere neanche a un ragionamento relativo allo \text{scaling} dell'errore, in quanto non osserviamo un miglioramento legato al cambio si fattore di scala. Gli errori quindi benché sottostimati, sono tutti ricavati secondo la relazione fornitaci dal data-sheet.
 
 
 \section*{Osservazioni sul comportamento del materiale A (nucleo di F\lowercase{e})}
@@ -298,9 +297,9 @@ Un'altra conseguenza è legata al fatto che i parametri che otteniamo dai due fi
 \section*{Conclusioni}
 % Dai valori ottenuti dai parametri, utilizzando le relazioni di definizione di $A$, $Q$ e $\nu_0$, torniamo ai valori di $R$, $L$ e $C$. Otteniamo però due valori per ogni caso, uno dalla fase e una dalla funzione di trasferimento. 
 
-Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ non sono compatibili con i valori che abbiamo misurato in modo diretto (\reftab{tab:rlc_amp_results}). Tuttavia notiamo che si trovano comunque nel loro stesso ordine di grandezza e che il risultato del prodotto di $L$ e $C$ ci restituisce un valore costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori.
+Analizzando il primo modello di fit, troviamo che i valori di $R$, $L$ e $C$ ottenuti a partire da $A$, $Q^2$ e $\nu_0$ non sono compatibili con i valori che abbiamo misurato in modo diretto (\reftab{tab:rlc_amp_results}). Tuttavia notiamo che si trovano comunque nel loro stesso ordine di grandezza e che il risultato del prodotto di $L$ e $C$ ci restituisce un valore costante che rispecchia il fatto che $\nu_0$ sia effettivamente simile al valore trovato direttamente quando abbiamo impostato che $dt$ fosse nullo. Questo è legato al fatto che in questo modello di fit non abbiamo impostato direttamente come parametri i valori delle componenti circuitali e quindi il fit ci ha comunque dato il risultato che ci serviva adattandosi però sugli altri parametri che sono comunque legati a $R$, $L$ e $C$, dandoci però una diversa combinazione di questi ultimi valori. Ricaviamo infatti poi il valore di $L$ considerando noto il valore di $C=\SI{220+-2}{\nano\farad}$ e sfruttando la miglior stima, dove possibile, di $\nu_0$.
 
-Passando invece ad analizzare i valori di $\mu_R$ ottenuti, abbiamo trovato che per il materiale B, poichè tra il fit della funzione di trasferimento e quello della fase c'era compatibilità dei parametri, abbiamo ricavato un unico valore della permeabilità magnetica, che deriva dalla miglior stima tra i due. Il valore ottenuto è $\mu_R(\text{Al})=\num{0.446375 +- 0.0528921}$. Questo valore ha senso fisico in quanto sappiamo che, per come è definito, $\mu_R$ deve assumere valori positivi e a seconda se il materiale si comporta come un diamagnete, un paramagnete o un ferromagnete, $\mu_R$ può essere leggermente minore di 1, leggermente maggiore di 1, oppure molto maggiore di 1. Perciò in base al valore ottenuto possiamo dire che secondo questo modello il materiale B ha un comportamento diamagnetico. 
+Passando invece ad analizzare i valori di $\mu_R$ ottenuti, abbiamo trovato che per il materiale B, poiché tra il fit della funzione di trasferimento e quello della fase c'era compatibilità dei parametri, abbiamo ricavato un unico valore della permeabilità magnetica, che deriva dalla miglior stima tra i due. Il valore ottenuto è $\mu_R(\text{Al})=\num{0.446375 +- 0.0528921}$. Questo valore ha senso fisico in quanto sappiamo che, per come è definito, $\mu_R$ deve assumere valori positivi e a seconda se il materiale si comporta come un diamagnete, un paramagnete o un ferromagnete, $\mu_R$ può essere leggermente minore di 1, leggermente maggiore di 1, oppure molto maggiore di 1. Perciò in base al valore ottenuto possiamo dire che secondo questo modello il materiale B ha un comportamento diamagnetico. 
 
 Nel caso del materiale A invece i parametri tra il fit di $\big|H[\nu]\big|$ e quello della fase non sono risultati compatibili (risultato che in realtà ci aspettavamo, in quanto già abbiamo detto che questo modello non riesce a spiegare il comportamento del Fe) e quindi abbiamo calcolato per ogni diagramma di Bode, un valore di $\mu_R$. I valori ottenuti sono 
 \begin{align*}
@@ -341,7 +340,7 @@ Tuttavia se analizziamo i valori della permeabilità magnetica trovati per il ma
 
 \begin{table}[h]
     \begin{ruledtabular}
-        \caption{Valori di R, L e C ottenuti dal fit del primo modello utilizzato per il primo diagramma di Bode (funzione di trasferimento) partendo dai valori di $A$, $Q^2$ e $\nu_0$ e considerando $R_L = \SI{3.7 +- 0.25}{\ohm}$ come valore noto.}% \hl{non ho capito a cosa serve questa tabella?}}
+        \caption{Valori di R, L e C ottenuti dal fit attraverso il primo modello utilizzato per il primo diagramma di Bode (funzione di trasferimento) partendo dai valori di $A$, $Q^2$ e $\nu_0$ e considerando $R_L = \SI{3.7 +- 0.25}{\ohm}$ come valore noto.}% \hl{non ho capito a cosa serve questa tabella?}}
         \label{tab:rlc_amp_results}
         \begin{tabular}{lrrr}
             Caso & Resistenza & Induttanza & Capacità \\
