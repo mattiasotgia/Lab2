@@ -39,13 +39,13 @@ void analisi_BODE2(double fitmin = -1){
     H_plot1->SetName("H_plot1");
     TF1*          H_fit1 = new TF1("H_f1", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit1->SetParameters(8, 100e3);
-    graphset::setmarker(H_plot1, H_fit1, 25, 0.3, kOrange-3);
+    graphset::setmarker(H_plot1, H_fit1, kOrange-3, 25, 0.3);
 
     TGraphErrors* H_plot2 = new TGraphErrors();
     H_plot2->SetName("H_plot2");
     TF1*          H_fit2 = new TF1("H_f2", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit2->SetParameters(80, 10e3);
-    graphset::setmarker(H_plot2, H_fit2, 25, 0.3, kGreen+1);
+    graphset::setmarker(H_plot2, H_fit2, kGreen+1, 25, 0.3);
 
     
     TGraphErrors* H_resd1 = new TGraphErrors();
@@ -118,8 +118,8 @@ void analisi_BODE2(double fitmin = -1){
     H_res_f->Draw("same");
 
 
-    graphset::set_ResidualsAxis(H_resd1, "Frequenza #nu [Hz]", 1);
-    graphset::set_TGraphAxis(H_plot1, "#left|H(#nu)#right| [a. u.]", 1);
+    graphset::set_ResidualsAxis(H_resd1, "Frequency #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot1, "Open-loop Gain G_{open}", 1);
 
     c1->SaveAs("../fig/plot_combined.pdf");
 
