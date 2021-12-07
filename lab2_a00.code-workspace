@@ -3,6 +3,9 @@
 		{
 			"path": "."
 		}
+		{
+			"path": "/Users/massimosotgia/Documents/CustomLibs"
+		}
 	],
 	"settings": {
 		"files.associations": {
