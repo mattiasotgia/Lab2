@@ -174,18 +174,23 @@ Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddett
 \end{figure}
 
 \section*{Studio e caratterizzazione amplificatore per strumentazione}
-Vogliamo costriure un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
+Vogliamo costriure un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
 
 Prendiamo quindi come resistenze:
 \begin{align*}
-    R_a &= \SI{17.8 +- 0.189}{\kilo\ohm}\\
-    R_b &= \SI{37.5 +- 0.2875}{\kilo\ohm}\\
-    R_c &= \SI{1.0 +- 0.11}{\kilo\ohm}\\
-    R_d &= \SI{32.2 +- 0.2610}{\kilo\ohm}\\
-    R_b'&= \SI{37.5 +- 0.2875}{\kilo\ohm}\\
-    R_c'&= \SI{1.0 +- 0.11}{\kilo\ohm}\\
-    R_d'&= \SI{32.2 +- 0.2610}{\kilo\ohm}\\
+    R_a &= \SI{17.8 +- 0.109}{\kilo\ohm}\\
+    R_b &= \SI{37.5 +- 0.166}{\kilo\ohm}\\
+    R_c &= \SI{1.0 +- 0.064}{\kilo\ohm}\\
+    R_d &= \SI{32.2 +- 0.151}{\kilo\ohm}\\
+    R_b'&= \SI{37.5 +- 0.166}{\kilo\ohm}\\
+    R_c'&= \SI{1.0 +- 0.064}{\kilo\ohm}\\
+    R_d'&= \SI{32.2 +- 0.151}{\kilo\ohm}\\
 \end{align*}
+(Per assicurarci che le resitenze che volevamo fossero uguali avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
+
+Il valore del guadagno dovrebbe quindi essere ...
+
+
 
 
 
