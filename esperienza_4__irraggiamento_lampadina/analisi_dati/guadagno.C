@@ -20,13 +20,18 @@ double get_VRangeErr(double errPercent, int partitions, double range1) { return 
 void guadagno()
 {
 
-    string nomefile;
+    graphset::init();
+
+    std::string nomefile;
 
     std::cout << "nome file input" << std::endl;
     std::cin >> nomefile;
+    std::string output = nomefile.substr(nomefile.find_last_of("_"), nomefile.find(".")-nomefile.find_last_of("_"));
 
     double vin, vout, fsvin, fsvout;
     const double errPercent = 0.035;
+    TCanvas* c1 = new TCanvas("", "", 600, 500);
+    graphset::setcanvas(c1);
 
     TGraphErrors*  g=new TGraphErrors();
     TF1* f= new TF1("fit", "[0]+[1]*x");
@@ -44,7 +49,6 @@ void guadagno()
         i++;
     }
 
-g->SetTitle("V_out vs V_in;V_in[V];V_out[V]");
     g->Draw("ap");
     f->SetParameter(0, 0);
     f->SetParameter(1, 80);
@@ -63,7 +67,11 @@ g->SetTitle("V_out vs V_in;V_in[V];V_out[V]");
     double prob = f->GetProb();
     double ndf = f->GetNDF();
 
-    std::cout << "il valore del guadagno è:" << G << "+/-" << e_G << std::endl;
-    std::cout << "il valore della quota è:" << quota << "+/-" << e_quota << std::endl;
+    graphset::set_TGraphAxis(g, "Tensione uscita V_{out} [V]", 1.5, "Tensione ingresso V_{in} [V]");
+
+    std::cout << "il valore del guadagno è: " << G << "+-" << e_G << std::endl;
+    std::cout << "il valore della quota è: " << quota << "+-" << e_quota << std::endl;
     log::print_stat(f);
+
+    c1->SaveAs(("../fig/Guadagno_" + output + ".pdf").c_str());
 }
