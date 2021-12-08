@@ -128,8 +128,6 @@ Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro ca
 
 Inoltre dalla \reffig{fig:plot_combined} possiamo osservare anche visualmente che il prodotto che prima abbiamo quantitativamente verificato essere costante sia visibile anche sovrapponendo i due diagrammi. Infatti possiamo osservare che diminuendo il guadagno $G_{\text{close}}$ da 80 a 8, ovvero cambiando $R_1$ da \SI{80}{\kilo\ohm} a \SI{8}{\kilo\ohm}, osserviamo che la frequenza di taglio si sposta di un fattore 10, passando da \SI{8}{\kilo\hertz} a \SI{80}{\kilo\hertz}.
 
-
-
 Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per verificare che come da modello sia effettivamente pari ad $R_1$. Per fare questo colleghiamo in serie una resistenza che abbia lo stesso valore di $R_1$ tra il punto che porta $V_{in}$ e $R_1$. Misuriamo quindi la tensione in uscita nel nodo di congiunzione tra le due resistenze e troviamo che il valore di $V_{out}$ è circa pari a $\frac{V_{in}}{2}$ e ciò significa che la tensione si è ripartita a metà tra la nuova resistenza che abbiamo inserito e l'impedenza di ingresso del circuito e quindi effettivamente l'impedenza di ingresso del nostro circuito è proprio $R_1$.
 
 \begin{figure}[t!]
@@ -160,8 +158,34 @@ Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fat
 
 Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta "slew rate". La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{??} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
 
+\begin{figure}
+    \begin{circuitikz}
+        \draw (0,0)
+        node[op amp, noinv input up, scale=0.75](opamp){\texttt{LM741}}
+        (opamp.+) -- (-2, 0.375) node[left]{in}
+        (opamp.-) -- (-2, -0.375) -- (-2, -0.75) node[ground]{}
+        (opamp.out) -- (1, 0) node[right]{out}
+        (opamp.up) -- ++(0, 1) node[above]{+Vcc}
+        (opamp.down) -- ++(0, -1) node[below]{-Vcc}
+        ;
+    \end{circuitikz}
+    \caption{Schema circuitale del comparatore utilizzato per effettu}
+    \label{fig:opamp_comparatore}
+\end{figure}
+
 \section*{Studio e caratterizzazione amplificatore per strumentazione}
-Vogliamo costriure un amplificatore 
+Vogliamo costriure un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
+
+Prendiamo quindi come resistenze:
+\begin{align*}
+    R_a &= \SI{17.8 +- 0.189}{\kilo\ohm}\\
+    R_b &= \SI{37.5 +- 0.2875}{\kilo\ohm}\\
+    R_c &= \SI{1.0 +- 0.11}{\kilo\ohm}\\
+    R_d &= \SI{32.2 +- 0.2610}{\kilo\ohm}\\
+    R_b'&= \SI{37.5 +- 0.2875}{\kilo\ohm}\\
+    R_c'&= \SI{1.0 +- 0.11}{\kilo\ohm}\\
+    R_d'&= \SI{32.2 +- 0.2610}{\kilo\ohm}\\
+\end{align*}
 
 
 
