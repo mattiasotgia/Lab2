@@ -65,6 +65,82 @@
 %%%% CORPO DEL TESTO
 %%%% CORPO DEL TESTO
 
+\section*{Introduzione}
+Lo scopo principale di questa esperienza di laboratorio è fare una verifica sperimentale della dipendenza quadratica inversa dell'energia irradiata da una sorgente luminosa in funzione della distanza da essa.
+Per fare le misure necessarie abbiamo bisogno di diversi dispositivi e in particolare, l'esperienza si basa sull'utilizzo degli amplificatori. 
+
+Come sorgente luminosa usiamo una piccola lampadina ad incandescenza che possiamo posizionare a diverse distanze da un termometro al platino (PT100) che usiamo quindi come sensore e la cui caratteristica principale è la dipendenza lineare, a temperature intorno a quella ambiente, della resistenza in funzione della variazione di temperatura (la derivata è 0.4 \unit{\ohm/\kelvin}). 
+
+Poichè vogliamo misurare delle variazioni di temperatura attraverso la variazione del valore di una resistenza, utilizziamo un ponte di Wheatstone in modo che le nostre misure siano il più precise possibili e per vedere ancora meglio gli effetti di queste variazioni sulla nostra uscita del segnale usiamo un amplificatore per strumentazione. 
+
+\section*{Studio e caratterizzazione di un amplificatore operazionale}
+
+Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura è costituito da tre amplificatori operazionali inseriti in un unico circuito, ci interessa studiare meglio il loro comportamento in modo da progettare il circuito nel modo migliore possibile.
+
+\begin{figure}
+    \begin{circuitikz}
+        \draw (0,0)
+        node[op amp, scale=0.5] (opamp) {}
+        (opamp.-) to [short, -*] (-1, 0.25)
+        to [R, l^=$R_{1}$, resistors/scale=0.8] node[left]{in}(-2.5, 0.25)
+        (-1, 0.25) -- (-1, 1) to [R, l=$R_{2}$, resistors/scale=0.8](1, 1)
+        to [short, -*] (1, 0)
+        (opamp.out) -- (2,0) node[right]{out}(2, 0)
+        (opamp.+) -- (-1, -0.25) -- (-1, -0.75) node[ground]{}
+        ;
+    \end{circuitikz}
+    \caption{Schema circuitale amplificatore invertente}
+    \label{fig:amp_inv}
+\end{figure}
+\begin{figure}
+    \begin{circuitikz}
+        \draw (0,0)
+        node[op amp, scale=0.5, yscale=-1] (opamp) {}
+        (opamp.-) -- (-1, -0.25) to [short, -*] (-1, -1)
+        to [R, l^=$R_{1}$, resistors/scale=0.8] node[ground]{}(-1, -2.5)
+        (-1, -0.25) -- (-1, -1) to [R, l=$R_{2}$, resistors/scale=0.8](1, -1)
+        to [short, -*] (1, 0)
+        (opamp.out) -- (2,0) node[right]{out}(2, 0)
+        (opamp.+) -- (-1, 0.25) node[left]{in}
+        ;
+    \end{circuitikz}
+    \caption{Schema circuitale amplificatore non-invertente}
+    \label{fig:amp_noninv}
+\end{figure}
+
+Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore {\fontfamily{phv}\selectfont\small\bf LM741} alimentato con $V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-\frac{R_{1}}{R_{2}}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
+
+Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} in modo da acquisire i dati in ua zona in cui il guadagno non dipende dalla frequenza poichè l'amplificatore si comporta come un passa basso  .Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di $15V$, che è la tensione con cui alimentiamo l'amplificatore, perchè altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$ (questi valori sono riportati in \reftab{??}). Creiamo quindi un grafico su cui eseguiamo un fit usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostiamo come parametri $G$ e $q$. Otteniamo quindi che:
+\begin{align*}
+    G & =\num{78.6454 +- 8.1} \\
+    q & =\SI{0.03}{\volt} \\ 
+\end{align*}
+
+Osserviamo quindi che il valore di $G$ è compatibile con il valore che volevamo ottenere, cioè $G=80$ e che la quota della retta è compatibile con zero e ciò rispecchia il fatto che se la tensione in entrata è nulla, anche quella in uscita deve esserlo.
+
+Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a $100mV$ e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da 100Hz fino 20KHz raccogliendo circa 3 punti per ogni decade (questi valori sono riportati in \reftab{??}). Una volta creato il grafico realizziamo un fit usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
+Otteniamo quindi che:
+\begin{align*}
+    G & =\num{ 83.2458 +- 1.24581} \\
+    \nu_0 & =\SI{8.71835 +- 0.2559}{\kilo\hertz} \\ 
+\end{align*}
+
+Ripetiamo lo stesso procedimento utilizzando però come $R_2$ una resistenza da \SI{8}{\kilo\ohm} in modo che il guadagno sia 10 volte più piccolo. Vogliamo quindi verificare che il prodotto $\nu_0 \cdot G $ è costante. Raccogliamo quindi i nuovi dati riportati in \reftab{??} e realizziamo un altro fit usando di nuovo l'equazione \refeqn{eq:H} e impostando gli stessi parametri e troviamo che:
+\begin{align*}
+    G & =\num{7.99818 +- 0.101188} \\
+    \nu_0 & =\SI{85.4452 +- 2.31586}{\kilo\hertz} \\ 
+\end{align*}
+
+Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro caso vale \num{72.5766 +- 2.39117e4} e troviamo che quindi sono effettivamente compatibili.
+
+Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per verificare che come da modello sia effettivamente pari ad $R_1$. Per fare questo colleghiamo in serie una resistenza che abbia lo stesso valore di $R_1$ tra il punto che porta $V_{in}$ e $R_1$. Misuriamo quindi la tensione in uscita nel nodo di congiunzione tra le due resistenze e troviamo che il valore di $V_{out}$ è circa pari a $\frac{V_{in}}{2}$ e ciò significa che la tensione si è ripartita a metà tra la nuova resistenza che abbiamo inserito e l'impedenza di ingresso del circuito e quindi effettivamente l'impedenza di ingresso del nostro circuito è proprio $R_1$.
+
+
+
+\begin{methods}{D\lowercase{ati completi e codice sorgente}}
+    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
+\end{methods}
+
 %\onecolumngrid
 \appendix
 
