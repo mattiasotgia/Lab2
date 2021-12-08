@@ -14,6 +14,7 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
+#include"../../../../../Documents/CustomLibs/ErrorAnalysis/ErrorAnalysis.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
@@ -121,13 +122,26 @@ void analisi_BODE2(double fitmin = -1){
     graphset::set_ResidualsAxis(H_resd1, "Frequency #nu [Hz]", 1);
     graphset::set_TGraphAxis(H_plot1, "Closed-loop Gain G_{open}", 1);
 
+    Double_t hfit1val[2] = {H_fit1->GetParameter(1), H_fit1->GetParameter(0)};
+    Double_t hfit1err[2] = {H_fit1->GetParError(1), H_fit1->GetParError(0)};
+
     std::cout << "** Analisi R=8k :" << std::endl 
     << "freq : " << H_fit1->GetParameter(1) << " +- " << H_fit1->GetParError(1) << std::endl
     << "G    : " << H_fit1->GetParameter(0) << " +- " << H_fit1->GetParError(0) << std::endl << std::endl;
 
+    Double_t hfit2val[2] = {H_fit2->GetParameter(1), H_fit2->GetParameter(0)};
+    Double_t hfit2err[2] = {H_fit2->GetParError(1), H_fit2->GetParError(0)};
+
     std::cout << "** Analisi R=80k :" << std::endl 
     << "freq : " << H_fit2->GetParameter(1) << " +- " << H_fit2->GetParError(1) << std::endl
     << "G    : " << H_fit2->GetParameter(0) << " +- " << H_fit2->GetParError(0) << std::endl << std::endl;
+
+    std::cout << "** Compatibilita a 3stddev di G * nu0 : \n"
+    << "da R=8k  : " << get_pValue("x*y", hfit1val) << " +- " <<  get_pError("x*y", hfit1val, hfit1err) << std::endl
+    << "da R=80k : " << get_pValue("x*y", hfit2val) << " +- " <<  get_pError("x*y", hfit2val, hfit2err) << std::endl
+    << stattools::compatible(get_pValue("x*y", hfit1val), get_pError("x*y", hfit1val, hfit1err), get_pValue("x*y", hfit2val), get_pError("x*y", hfit2val, hfit2err)) << std::endl;
+
+
 
     c1->SaveAs("../fig/plot_combined.pdf");
 

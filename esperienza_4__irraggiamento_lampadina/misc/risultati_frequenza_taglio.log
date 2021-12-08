@@ -40,3 +40,7 @@ G    : 7.99818 +- 0.101188
 freq : 8718.35 +- 255.9
 G    : 83.2458 +- 1.24581
 
+** Compatibilita a 3stddev di G * nu0 : 
+da R=8k  : 683406 +- 20441.2
+da R=80k : 725766 +- 23911.7
+COMPATIBILE
