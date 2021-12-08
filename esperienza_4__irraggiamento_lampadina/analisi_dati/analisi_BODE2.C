@@ -137,9 +137,9 @@ void analisi_BODE2(double fitmin = -1){
     << "G    : " << H_fit2->GetParameter(0) << " +- " << H_fit2->GetParError(0) << std::endl << std::endl;
 
     std::cout << "** Compatibilita a 3stddev di G * nu0 : \n"
-    << "da R=8k  : " << get_pValue("x*y", hfit1val) << " +- " <<  get_pError("x*y", hfit1val, hfit1err) << std::endl
-    << "da R=80k : " << get_pValue("x*y", hfit2val) << " +- " <<  get_pError("x*y", hfit2val, hfit2err) << std::endl
-    << stattools::compatible(get_pValue("x*y", hfit1val), get_pError("x*y", hfit1val, hfit1err), get_pValue("x*y", hfit2val), get_pError("x*y", hfit2val, hfit2err)) << std::endl;
+    << "da R=8k  : " << get_pValue("x[0]*x[1]", hfit1val) << " +- " <<  get_pError("x[0]*x[1]", hfit1val, hfit1err) << std::endl
+    << "da R=80k : " << get_pValue("x[0]*x[1]", hfit2val) << " +- " <<  get_pError("x[0]*x[1]", hfit2val, hfit2err) << std::endl
+    << stattools::compatible(get_pValue("x[0]*x[1]", hfit1val), get_pError("x[0]*x[1]", hfit1val, hfit1err), get_pValue("x[0]*x[1]", hfit2val), get_pError("x[0]*x[1]", hfit2val, hfit2err)) << std::endl;
 
 
 
