@@ -188,7 +188,7 @@ namespace graphset
         g->GetYaxis()->CenterTitle();
 
         if(xtitle!=""){
-            std::cout << _isresidualon << std::endl;
+            // std::cout << _isresidualon << std::endl;
             g->GetXaxis()->SetTitle(xtitle.c_str());
             g->GetXaxis()->SetTitleOffset(1);
             g->GetXaxis()->SetTitleFont(43);
@@ -198,7 +198,7 @@ namespace graphset
             g->GetXaxis()->SetLabelSize(label_size);
             g->GetXaxis()->CenterTitle();
         }else if(!_isresidualon){
-            std::cout << _isresidualon << std::endl;
+            // std::cout << _isresidualon << std::endl;
             g->GetXaxis()->SetTitle(((std::string)*_xtitle).c_str());
             g->GetXaxis()->SetTitleOffset(1);
             g->GetXaxis()->SetTitleFont(43);

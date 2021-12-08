@@ -121,6 +121,14 @@ void analisi_BODE2(double fitmin = -1){
     graphset::set_ResidualsAxis(H_resd1, "Frequency #nu [Hz]", 1);
     graphset::set_TGraphAxis(H_plot1, "Closed-loop Gain G_{open}", 1);
 
+    std::cout << "** Analisi R=8k :" << std::endl 
+    << "freq : " << H_fit1->GetParameter(1) << " +- " << H_fit1->GetParError(1) << std::endl
+    << "G    : " << H_fit1->GetParameter(0) << " +- " << H_fit1->GetParError(0) << std::endl << std::endl;
+
+    std::cout << "** Analisi R=80k :" << std::endl 
+    << "freq : " << H_fit2->GetParameter(1) << " +- " << H_fit2->GetParError(1) << std::endl
+    << "G    : " << H_fit2->GetParameter(0) << " +- " << H_fit2->GetParError(0) << std::endl << std::endl;
+
     c1->SaveAs("../fig/plot_combined.pdf");
 
     return;
