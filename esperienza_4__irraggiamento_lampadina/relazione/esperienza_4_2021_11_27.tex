@@ -83,8 +83,8 @@ Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura 
         \draw (0,0)
         node[op amp, scale=0.5] (opamp) {}
         (opamp.-) to [short, -*] (-1, 0.25)
-        to [R, l^=$R_{1}$, resistors/scale=0.8] node[left]{in}(-2.5, 0.25)
-        (-1, 0.25) -- (-1, 1) to [R, l=$R_{2}$, resistors/scale=0.8](1, 1)
+        to [R=$R_{1}$, resistors/scale=0.8] node[left]{in}(-2.5, 0.25)
+        (-1, 0.25) -- (-1, 1) to [R=$R_{2}$, resistors/scale=0.8](1, 1)
         to [short, -*] (1, 0)
         (opamp.out) -- (2,0) node[right]{out}(2, 0)
         (opamp.+) -- (-1, -0.25) -- (-1, -0.75) node[ground]{}
@@ -135,8 +135,8 @@ Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per 
         \draw (0,0)
         node[op amp, scale=0.5, yscale=-1] (opamp) {}
         (opamp.-) -- (-1, -0.25) to [short, -*] (-1, -1)
-        to [R, l^=$R_{1}$, resistors/scale=0.8] node[ground]{}(-1, -2.5)
-        (-1, -0.25) -- (-1, -1) to [R, l=$R_{2}$, resistors/scale=0.8](1, -1)
+        to [R=$R_{1}$, resistors/scale=0.8] node[ground]{}(-1, -2.5)
+        (-1, -0.25) -- (-1, -1) to [R=$R_{2}$, resistors/scale=0.8](1, -1)
         to [short, -*] (1, 0)
         (opamp.out) -- (2,0) node[right]{out}(2, 0)
         (opamp.+) -- (-1, 0.25) node[left]{in}
@@ -174,7 +174,7 @@ Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddett
 \end{figure}
 
 \section*{Studio e caratterizzazione amplificatore per strumentazione}
-Vogliamo costriure un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
+Vogliamo costruire un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttuazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
 
 Prendiamo quindi come resistenze:
 \begin{align*}
@@ -192,7 +192,28 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}
 
 Iniziamo misurando l'offset. L'offset è di fatto sempre presente perchè i due amplificatori che usiamo nel primo stadio, molto difficilmente sono identici e di conseguenza anche le correnti che scorrono in essi. Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset. Per fare ciò
 
-
+\begin{figure}
+    \begin{circuitikz}
+        \circuitikzset{resistors/scale=0.4}
+        \draw 
+        (0,0) node[op amp, noinv input up, scale=0.5, anchor=-](OA1){\texttt{OA1}}
+        (OA1.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Non inverting input}}}
+        (0,-3) node[op amp, scale=0.5, anchor=-](OA2){\texttt{OA2}}
+        (OA2.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Inverting input}}}
+        (OA1.-) to [short, -.] (0,-0.75) to [R=$R_a$] (0,-2.25)
+        (OA2.-) to [short, -.] (0, -2.25) to [R=$R_b$] (1.5, -2.25) -. (1.5, -3.25)
+        (0, -0.75) to [R=$R_b'$](1.5, -0.75) -. (1.5, 0.25)
+        (OA1.out) -- (1.5, 0.25) to [R=$R_c'$] (2.5, 0.25) -- ++(0.5, 0) -- (3, -1.5) 
+        (2.5, -1) node[ground]{} to [R=$R_d'$] (2.5, 0.25) 
+        (OA2.out) -- (1.5, -3.25) to [R=$R_c$] (3, -3.25) -- (3, -2)
+        (3, -2) node[op amp, noinv input up, scale=0.5, anchor=-](OAout){\texttt{OA out}}
+        (OAout.out) -- ++(1, 0) node[above]{\texttt{\tiny Out}}
+        (3, -3.25) to [R=$R_d$] (4.5, -3.25) -- (4.5, -1.75)
+        ;
+    \end{circuitikz}
+    \caption{Schema circuitale amplificatore per strumentazione}
+    \label{fig:circ:strum_amp}
+\end{figure}
 
 
 
