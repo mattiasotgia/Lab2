@@ -304,11 +304,14 @@ namespace graphset
     }
 
     /* Includere qui tutti i parametri globali/semi-globali per 
-    l'inizializzazione di grafici in ROOT */
-    void init(){
+    l'inizializzazione di grafici in ROOT 
         gStyle->SetFrameLineWidth(0);
         gStyle->SetTextFont(43);
-        gStyle->SetLineScalePS(1);
+        gStyle->SetLineScalePS(1);*/
+    void init(){
+        gStyle->SetFrameLineWidth(0);   // No line all aroung pad
+        gStyle->SetTextFont(43);        // Helvetice font
+        gStyle->SetLineScalePS(1);      // Hi-res. pdf
         return;
     }
 
