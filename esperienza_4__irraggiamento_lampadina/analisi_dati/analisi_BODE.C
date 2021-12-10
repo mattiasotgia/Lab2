@@ -14,6 +14,7 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
+#include"ErrorAnalysis/ErrorAnalysis.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
@@ -143,7 +144,7 @@ void analisi_BODE(double fitmin = -1){
     return;
 }
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
     analisi_BODE(-1);
     return 0;

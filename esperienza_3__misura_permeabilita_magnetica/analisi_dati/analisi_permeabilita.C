@@ -14,7 +14,7 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
-#include"../../../../../Documents/CustomLibs/ErrorAnalysis/ErrorAnalysis.h"
+#include"ErrorAnalysis/ErrorAnalysis.h"
 
 
 const double _R = 38;        // Ohm   (valore ideale 38 ohm)
@@ -75,6 +75,9 @@ double get_err_mu_R_fromLL0(double L, double L0, double a, double err_L, double 
     return sqrt(pow(err_L*l, 2) + pow(err_L0*l, 2) + pow((L-L0)*(1e-4/sqrt(3)), 2) + pow(err_a*(L-L0)*l/a, 2))/(mu0*pow(N_spire*a, 2));}
 
 void analisi_permeabilita(){
+
+    gInterpreter->AddIncludePath("~/Documents/CustomLibs/ErrorAnalysis/");
+    gSystem->Load("~/Documents/CustomLibs/libErrorAnalysis.dylib");
 
     gStyle->SetFrameLineWidth(0);
     gStyle->SetTextFont(43);
@@ -378,8 +381,10 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 }
 
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
+    gInterpreter->AddIncludePath("~/Documents/CustomLibs/ErrorAnalysis/");
+    gSystem->Load("~/Documents/CustomLibs/libErrorAnalysis.dylib");
     analisi_permeabilita();
     return 0;
 }
