@@ -14,6 +14,7 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
+#include"../../../../../Documents/CustomLibs/ErrorAnalysis/ErrorAnalysis.h"
 
 
 const double _R = 38;        // Ohm   (valore ideale 38 ohm)
@@ -163,6 +164,11 @@ void analisi_permeabilita(){
 
     double mu_R_m2 = get_mu_R_fromLL0(L_m2_v0, L_0, a_Al); double err_mu_R_m2 = get_err_mu_R_fromLL0(L_m2_v0, L_0, a_Al, err_L_m2_v0, err_L_0);
     std::cout << "mu_R per Al (da L e L0)  => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
+
+    double val[6] = {L_m2_v0, L_0, mu0, n, l, a_Al};
+    double err[6] = {err_L_m2_v0, err_L_0, 0, 0, 1e-4/sqrt(3), 0.05e-3/sqrt(3)};
+
+    std::cout << "mu_R per AL (da L e L0)  => " << get_pValue("(x[0]-x[1])/(x[2]*x[3]*x[5]*x[3]*x[5]*x[4])+1", val) << " +- " << get_pError("(x[0]-x[1])/(x[2]*x[3]*x[5]*x[3]*x[5]*x[4])+1", val, err) << std::endl;
 
     
     c1->SaveAs("../fig/plot.pdf");
