@@ -94,7 +94,7 @@ Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura 
     \label{fig:amp_inv}
 \end{figure}
 
-Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore \LMopamp alimentato con $\pm V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-\frac{R_{1}}{R_{2}}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
+Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-\frac{R_{1}}{R_{2}}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
 
 Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} in modo da acquisire i dati in ua zona in cui il guadagno non dipende dalla frequenza poichè l'amplificatore si comporta come un passa basso  .Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di $15V$, che è la tensione con cui alimentiamo l'amplificatore, perchè altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$ (questi valori sono riportati in \reftab{??}). Eseguendo in fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ Otteniamo quindi che 
 \begin{align*}
@@ -186,9 +186,9 @@ Prendiamo quindi come resistenze:
     R_c'&= \SI{1.0 +- 0.064}{\kilo\ohm}\\
     R_d'&= \SI{32.2 +- 0.151}{\kilo\ohm}\\
 \end{align*}
-(Per assicurarci che le resitenze che volevamo fossero uguali avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
+(Per assicurarci che le resistenze che volevamo fossero uguali avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
 
-Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}
+Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
 
 Iniziamo misurando l'offset. L'offset è di fatto sempre presente perchè i due amplificatori che usiamo nel primo stadio, molto difficilmente sono identici e di conseguenza anche le correnti che scorrono in essi. Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset. Per fare ciò
 
