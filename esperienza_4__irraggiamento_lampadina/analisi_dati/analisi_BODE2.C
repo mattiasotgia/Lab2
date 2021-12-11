@@ -21,7 +21,7 @@ double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 
 double getH(double vin, double vout){return vout / vin;}
 double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt(pow(eVout / Vin, 2) + pow(eVin * Vout / pow(Vin, 2), 2));}
 
-void analisi_BODE2(double fitmin = -1){
+void analisi_BODE2(){
 
     graphset::init();
 
@@ -150,7 +150,7 @@ void analisi_BODE2(double fitmin = -1){
 
 #ifndef __CINT__
 int main(){
-    analisi_BODE2(-1);
+    analisi_BODE2();
     return 0;
 }
 #endif
