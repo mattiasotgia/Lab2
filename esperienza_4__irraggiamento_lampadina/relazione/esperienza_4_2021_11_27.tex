@@ -122,7 +122,7 @@ Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro ca
 
 \begin{figure}
     \includegraphics[width=\linewidth]{plot_combined.pdf}
-    \caption{}
+    \caption{Grafico combinato dei diagrammi di Bode }
     \label{fig:plot_combined}
 \end{figure}
 
@@ -186,10 +186,14 @@ Prendiamo quindi come resistenze:
     R_c'&= \SI{1.0 +- 0.064}{\kilo\ohm}\\
     R_d'&= \SI{32.2 +- 0.151}{\kilo\ohm}\\
 \end{align*}
-(Per assicurarci che le resitenze che volevamo fossero uguali, avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
-Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}
+(Per assicurarci che le resistenze che volevamo fossero uguali, avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
+Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}. 
 
-Iniziamo misurando l'offset. L'offset è di fatto sempre presente perchè i due amplificatori che usiamo nel primo stadio, molto difficilmente sono identici e di conseguenza anche le correnti che scorrono in essi. Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset. Per fare ciò 
+Il circuito integrato nell'amplificatore per strumentazione è caratterizzato da un guadagno complessivo dato da diversi fattori \[V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}\] che rapprese
+
+Iniziamo misurando l'offset. L'offset è di fatto sempre presente perché i due amplificatori che usiamo nel primo stadio, molto difficilmente sono identici e di conseguenza anche le correnti che scorrono in essi. 
+
+Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset. Per fare ciò facciamo passare nell'amplificatore per strumentazione 
 
 \begin{figure}
     \begin{circuitikz}
