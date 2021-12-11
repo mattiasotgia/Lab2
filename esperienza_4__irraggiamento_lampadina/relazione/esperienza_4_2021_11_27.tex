@@ -222,7 +222,19 @@ Per misurare il valore di offset vogliamo quindi che i primi due termini di \ref
 Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
-ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{CM}\cdot V_{in}+q$ scegliendo come parametri $G_{CM}$ e $q$ (I valori raccolti si trovano in ).
+ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{CM}\cdot V_{in}+q$ scegliendo come parametri $G_{CM}$ e $q$ (I valori raccolti si trovano in \reftab{??}). Troviamo quindi che i valori dei parametri sono rispettivamente
+\begin{align*}
+    G_{CM} &=\num{0.0132857+-0.00105784} \\
+    q &=\num{0.172163+-0.099093e-2} \\
+\end{align*}
+e notiamo che giustamente il valore della quota è compatibile con zero.
+
+Misurato il $G_{CM}$, procediamo a calcolare il valore di $G_{diff}$ usando lo stesso metodo con cui abbiamo trovato $G_{CM}$ senza però impostare $V_{inv}=V_{non-inv}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
+\begin{align*}
+    G_{CM} &=\num{0.0132857+-0.00105784} \\
+    q &=\num{0.172163+-0.099093e-2} \\
+\end{align*}
+
 
 
 
