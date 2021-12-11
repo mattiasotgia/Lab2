@@ -189,12 +189,6 @@ Prendiamo quindi come resistenze:
 (Per assicurarci che le resistenze che volevamo fossero uguali, avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
 Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}. 
 
-Il circuito integrato nell'amplificatore per strumentazione è caratterizzato da un guadagno complessivo dato da diversi fattori \[V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}\] che rapprese
-
-Iniziamo misurando l'offset. L'offset è di fatto sempre presente perché i due amplificatori che usiamo nel primo stadio, molto difficilmente sono identici e di conseguenza anche le correnti che scorrono in essi. 
-
-Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset. Per fare ciò facciamo passare nell'amplificatore per strumentazione 
-
 \begin{figure}
     \begin{circuitikz}
         \circuitikzset{resistors/scale=0.4}
@@ -214,9 +208,22 @@ Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare l
         (3, -3.25) to [R=$R_d$] (4.5, -3.25) -- (4.5, -1.75)
         ;
     \end{circuitikz}
-    \caption{Schema circuitale amplificatore per strumentazione}
+    \includegraphics[width=\linewidth]{scheda_AMP_STRUM.png}
+    \caption{Schema circuitale amplificatore per strumentazione.}
     \label{fig:circ:strum_amp}
 \end{figure}
+
+Il circuito integrato nell'amplificatore per strumentazione (\reffig{fig:circ:strum_amp}) è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}.\label{eq:V_out=GtotVin}\end{equation}
+$V_{\text{offset}}$ è il valore di offset dello strumento, ovvero il valore $V_{\text{out}}$ che troviamo anche in assenza di segnale di ingresso $\left(V_{\text{non-inv}}-V_{\text{inv}}\right)$ ed è causato dalla presenta di una differenza reale dei due amplificatori che usiamo nel primo stadio e di conseguenza anche nelle correnti che scorrono in essi.\\
+$G_{\text{CM}}$ è invece il guadagno di modo comune che è presente poiché le resistenze scelte $R_c/R_d$ e $R_c'/R_d'$ non sono coppie uguali perfettamente, e rendono asimmetrico l'ingresso, introducendo una tensione di modo comune $V_{\text{CM}}$ che è la media delle tensioni in ingresso.\\
+$G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso sono simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
+
+Per misurare il valore di offset vogliamo quindi che i primi due termini di \refeqn{eq:V_out=GtotVin} vengano annullati. Poniamo dunque \[V_{\text{non-inv}}=V_{\text{inv}}=0\] e osserviamo il valore della tensione in uscita, verificando rispetto al valore di terra dove si pone la tensione in uscita $V_{out}$.
+Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
+
+Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
+ed effettuaando 
+
 
 
 
