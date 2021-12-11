@@ -35,7 +35,7 @@
 
 \begin{document}
 
-\title{- 
+\title{Verifica sperimentale della dipendenza quadratica inversa $d^{-2}$ del calore irradiato rispetto distanza 
 }
 \thanks{Esperienza n. 4
 }
@@ -72,7 +72,7 @@ Per fare le misure necessarie abbiamo bisogno di diversi dispositivi e in partic
 
 Come sorgente luminosa usiamo una piccola lampadina ad incandescenza che possiamo posizionare a diverse distanze da un termometro al platino (PT100) che usiamo quindi come sensore e la cui caratteristica principale è la dipendenza lineare, a temperature intorno a quella ambiente, della resistenza in funzione della variazione di temperatura (la derivata è 0.4 \unit{\ohm/\kelvin}). 
 
-\hl{Poich\'e vogliamo misurare delle variazioni di temperatura attraverso la variazione del valore di una resistenza, utilizziamo un ponte di Wheatstone in modo che le nostre misure siano il pi\`u precise possibili e per vedere ancora meglio gli effetti di queste variazioni sulla nostra uscita del segnale usiamo un amplificatore per strumentazione.}
+% \hl{Poich\'e vogliamo misurare delle variazioni di temperatura attraverso la variazione del valore di una resistenza, utilizziamo un ponte di Wheatstone in modo che le nostre misure siano il pi\`u precise possibili e per vedere ancora meglio gli effetti di queste variazioni sulla nostra uscita del segnale usiamo un amplificatore per strumentazione.}
 
 \section*{Studio e caratterizzazione di un amplificatore operazionale}
 
@@ -193,9 +193,9 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
     \begin{circuitikz}
         \circuitikzset{resistors/scale=0.4}
         \draw 
-        (0,0) node[op amp, noinv input up, scale=0.6, anchor=-](OA1){\texttt{LF356}}
+        (0,0) node[op amp, noinv input up, scale=0.5, anchor=-](OA1){\texttt{LF356}}
         (OA1.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Non inverting input}}}
-        (0,-3) node[op amp, scale=0.6, anchor=-](OA2){\texttt{LF356}}
+        (0,-3) node[op amp, scale=0.5, anchor=-](OA2){\texttt{LF356}}
         (OA2.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Inverting input}}}
         (OA1.-) to [short, -.] (0,-0.75) to [R=$R_a$] (0,-2.25)
         (OA2.-) to [short, -.] (0, -2.25) to [R=$R_b$] (1.5, -2.25) -. (1.5, -3.25)
@@ -203,18 +203,17 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
         (OA1.out) -- (1.5, 0.25) to [R=$R_c'$] (2.5, 0.25) -- ++(0.5, 0) -- (3, -1.5) 
         (2.5, -1) node[ground]{} to [R=$R_d'$] (2.5, 0.25) 
         (OA2.out) -- (1.5, -3.25) to [R=$R_c$] (3, -3.25) -- (3, -2)
-        (3, -2) node[op amp, noinv input up, scale=0.6, anchor=-](OAout){\texttt{LF356}}
+        (3, -2) node[op amp, noinv input up, scale=0.5, anchor=-](OAout){\texttt{LF356}}
         (OAout.out) -- ++(1, 0) node[above]{\texttt{\tiny Out}}
         (3, -3.25) to [R=$R_d$] (4.5, -3.25) -- (4.5, -1.75)
         ;
     \end{circuitikz}
-    \includegraphics[width=\linewidth]{scheda_AMP_STRUM.png}
     \caption{Schema circuitale amplificatore per strumentazione.}
     \label{fig:circ:strum_amp}
 \end{figure}
 
 Il circuito integrato nell'amplificatore per strumentazione (\reffig{fig:circ:strum_amp}) è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}.\label{eq:V_out=GtotVin}\end{equation}
-$V_{\text{offset}}$ è il valore di offset dello strumento, ovvero il valore $V_{\text{out}}$ che troviamo anche in assenza di segnale di ingresso $\left(V_{\text{non-inv}}-V_{\text{inv}}\right)$ ed è causato dalla presenta di una differenza reale dei due amplificatori che usiamo nel primo stadio e di conseguenza anche nelle correnti che scorrono in essi.\\
+$V_{\text{offset}}$ è il valore di offset dello strumento, ovvero il valore $V_{out}$ che troviamo anche in assenza di segnale di ingresso $\left(V_{\text{non-inv}}-V_{\text{inv}}\right)$ ed è causato dalla presenta di una differenza reale dei due amplificatori che usiamo nel primo stadio e di conseguenza anche nelle correnti che scorrono in essi.\\
 $G_{\text{CM}}$ è invece il guadagno di modo comune che è presente poiché le resistenze scelte $R_c/R_d$ e $R_c'/R_d'$ non sono coppie uguali perfettamente, e rendono asimmetrico l'ingresso, introducendo una tensione di modo comune $V_{\text{CM}}$ che è la media delle tensioni in ingresso.\\
 $G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso sono simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
 
@@ -222,14 +221,14 @@ Per misurare il valore di offset vogliamo quindi che i primi due termini di \ref
 Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
-ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{CM}\cdot V_{in}+q$ scegliendo come parametri $G_{CM}$ e $q$ (I valori raccolti si trovano in \reftab{??}). Troviamo quindi che i valori dei parametri sono rispettivamente
+ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$ (I valori raccolti si trovano in \reftab{??}). Troviamo quindi che i valori dei parametri sono rispettivamente
 \begin{align*}
-    G_{CM} &=\num{0.0132857+-0.00105784} \\
+    G_{\text{CM}} &=\num{0.0132857+-0.00105784} \\
     q &=\SI{0.172163+-0.099093e-2}{\volt} \\
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
-Misurato il $G_{CM}$, procediamo a calcolare il valore di $G_{diff}$ usando lo stesso metodo con cui abbiamo trovato $G_{CM}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
+Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
     G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
@@ -242,9 +241,54 @@ Un altra caratteristica che possiamo misurare è la banda passante dell'amplific
     \nu_0 &=\SI{ 155.835 +-  10.4320}{\kilo\hertz} \\ 
 \end{align*}
 Vediamo inoltre che il valore del guadagno trovato è compatibile con quello ricavato in precedenza. 
-Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; infatti considerando l'amplificatore come costituito da due stadi consecutivi, dalla scelta delle resistenze otteniamo che il primo stradio porta con sé un guadagno pari a 5 ($G_{1}$), e il secondo un guadagno pari a circa 32 ($G_{2}$). Questi due stadi si comportano come due amplificatori operazionali (LF356) e hanno lo stesso prodotto Guadagno-Banda passante (GBW), del valore di \SI{5}{\mega\hertz} (data-sheet). Quindi a parità di GBW taglia prima lo stadio a guadagno maggiore, e la frequenza di taglio risultante è data da $\text{GBW}/G_{2} = \SI{156}{\kilo\hertz}$, perfettamente compatibile con il valore ottenuto.
+Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; infatti considerando l'amplificatore come costituito da due stadi consecutivi, dalla scelta delle resistenze otteniamo che il primo stadio porta con sé un guadagno pari a 5 ($G_{1}$), e il secondo un guadagno pari a circa 32 ($G_{2}$). Questi due stadi si comportano come due amplificatori operazionali (LF356) e hanno lo stesso prodotto Guadagno-Banda passante (GBW), del valore di \SI{5}{\mega\hertz} (data-sheet). Quindi a parità di GBW taglia prima lo stadio a guadagno maggiore, e la frequenza di taglio risultante è data da $\text{GBW}/G_{2} = \SI{156}{\kilo\hertz}$, perfettamente compatibile con il valore ottenuto.
+
+\section*{Descrizione setup sperimentale}
+
+\begin{figure}
+    \begin{circuitikz}
+        \circuitikzset{resistors/scale=0.2}
+        \draw 
+        (0,0) node[op amp, noinv input up, scale=0.2, anchor=-](OA1){}
+        (0,-1) node[op amp, scale=0.2, anchor=-](OA2){}
+        (1.25, -0.5) node[op amp, noinv input up, scale=0.2, anchor=-](OAout){}
+        (OA1.out) to [R] (1, 0.1) -- ++(0.25, 0) -- (1.25, -0.3) 
+        (1, -0.45) node[ground, scale=0.5]{} to [R] (1, 0.1) 
+        (OA1.-) to [R] (0,-1)
+        (0, -0.25) to [R](0.5, -0.25) -. (0.5, 0.1)
+        (0, -0.8) to [R] (0.5, -0.8) -. (0.5, -1.1)
+        (OA2.out) to [R] (1.25, -1.1) -- (1.25, -0.5)
+        (1.25, -1.1) to [R] (1.75, -1.1) -- (1.75, -0.4)
+        (OA1.+) -- ++(-0.5, 0) node[above](noninvin){}
+        (OA2.+) -- ++(-0.1, 0) node[above](invin){}
+        (OAout.out) -- ++(1, 0) node[above]{Out}
+        ;
+        \draw (noninvin)
+        -- (-0.5, -0.5)  
+        to [short, -*] (-0.75, -0.5) node[left]{$V_B$}
+        (invin) -- (-0.1, -3.5) -- (-4.25, -3.5) -- (-4.25, -0.5) to [short, -*] (-3.7, -0.5) 
+        to[tgeneric={\texttt{POT 1K}}, resistors/scale=0.8] (-3.7, -2.75) -- (-0.75, -2.75)
+        to[generic=\texttt{PT100}, resistors/scale=0.8] (-0.75, -0.5)
+        to[R=$R_4$, resistors/scale=0.8] (-0.75, 2.25) -- (-3.7,2.25)
+        to[R=$R_1$, resistors/scale=0.8] (-3.7,-0.5) node[right]{$V_A$}
+        (-3.7, 2.25) to [short, -o] (-4.75, 2.25) node[left]{$+V_{cc}$}
+        (-3.7,-2.75) -- (-4.75, -2.75) node[ground]{}
+        ;
+    \end{circuitikz}
+    \includegraphics[width=\linewidth]{scheda_AMP_STRUM.png}
+    \caption{Sopra: Schematico del ponte di Wheatstone e della configurazione utilizzata per effettuare misure. La tensione $+V_{cc}$ fornita al ponte è la stessa utilizzata per alimentare l'amplificatore per strumentazione. Sotto: fotografia del circuito integrato utilizzato. Questo contiene sia posto per le componenti dell'amplificatore per strumentazione, sia il ponte di Wheatstone.}
+    \label{fig:circ_all}
+\end{figure}
+
+Vogliamo misurare la variazione di tensione ai capi del termometro al platino PT100, per ricavarne la resistenza interna che è legata in modo lineare alla variazione di temperatura. Poiché misuriamo variazioni di tensione possiamo decidere dove porre lo zero della misura, e perciò sfruttiamo il funzionamento del ponte di Wheatstone, che permette, in una precisa configurazione, di imporre il valore della tensione in uscita uguale a zero, e misurare solo le variazioni da questa condizione. Il ponte permette tale funzionamento solo se è ben bilanciato, ovvero se i prodotti incrociati delle resistenze sono uguali tra loro (nel caso della \reffig{fig:circ_all}: $R_1\cdot R_{PT}=R_2\cdot R_4$). Per evitare che la dissipazione di calore per effetto Joule possa influire sulla misura, impostiamo che la corrente massima che possa scorrere nel ramo del PT100 sia \SI{5}{\milli\ampere}. Poichè la tensione con cui alimentiamo il ponte è \SI{15}{\volt} in quanto utilizziamo $V_{cc}$, inserendo come $R_4$ una resistenza da \SI{3}{\kilo\ohm} e poichè questa resistenza è collegata in serie con il PT100 la resistenza complessiva dovrebbe essere \SI{3100}{\ohm} per cui la corrente nel ramo arriva a valere $V_{cc}/R_{tot}\approx\SI{5}{\milli\ampere}$. Imponendo la condizione per il bilanciamento del ponte e impostando il potenziometro a \SI{500}{\ohm} ricaviamo che $R_1$ deve valere \SI{15}{\kilo\ohm} 
+
+Per controllare che il ponte sia effettivamente ben bilanciato, colleghiamo l'uscita del ponte all'oscilloscopio e regolando il potenziometro possiamo vedere quando il segnale è più vicino possibile a zero. Per fare una regolazione ancora migliore colleghiamo l'uscita del ponte all'amplificatore e quella dell'amplificatore all'oscilloscopio, in modo che pur essendo amplificato, il valore della tensione d'uscita, una volta regolata, sia comunque prossima a zero.
+
+L'uscita del ponte di Wheatstone è collegata all'amplificatore per strumentazione in modo che la variazione di tensione sia amplificata e quindi misurabile in modo migliore. 
 
 
+\section*{Presa dati}
+Attraverso una interfaccia seriale e un programma di interpretazione del seriale possiamo acquisire a intervalli temporali regolari il valore di tensione misurato dal multimetro da banco Keitley.
 
 
 
@@ -258,6 +302,21 @@ Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; inf
 
 % \setcounter{table}{0}
 \renewcommand{\thetable}{S-\arabic{table}}
+\renewcommand{\thefigure}{S-\arabic{figure}}
+\begin{figure*}[p]
+    \raggedright
+    \includegraphics[width=0.8\textwidth]{Guadagno__invertente.pdf}
+    \includegraphics[width=0.8\textwidth]{Guadagno__noninvertente.pdf}
+    \caption{}
+    \label{fig:guadagno_inv_noninv}
+\end{figure*}
+\begin{figure*}
+    \raggedright
+    \includegraphics[width=0.8\textwidth]{GuadagnoMC.pdf}
+    \includegraphics[width=0.8\textwidth]{GuadagnoDIFF.pdf}
+    \caption{}
+    \label{fig:guadagno_op_amp_strum}
+\end{figure*}
 
 \end{document}
     
