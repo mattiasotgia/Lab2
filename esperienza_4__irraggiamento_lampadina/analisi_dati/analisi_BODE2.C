@@ -148,7 +148,7 @@ void analisi_BODE2(double fitmin = -1){
     return;
 }
 
-#ifndef __CLING__
+#ifndef __CINT__
 int main(){
     analisi_BODE2(-1);
     return 0;
