@@ -225,16 +225,18 @@ Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), p
 ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{CM}\cdot V_{in}+q$ scegliendo come parametri $G_{CM}$ e $q$ (I valori raccolti si trovano in \reftab{??}). Troviamo quindi che i valori dei parametri sono rispettivamente
 \begin{align*}
     G_{CM} &=\num{0.0132857+-0.00105784} \\
-    q &=\num{0.172163+-0.099093e-2} \\
+    q &=\SI{0.172163+-0.099093e-2}{\volt} \\
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
 Misurato il $G_{CM}$, procediamo a calcolare il valore di $G_{diff}$ usando lo stesso metodo con cui abbiamo trovato $G_{CM}$ senza però impostare $V_{inv}=V_{non-inv}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
-    G_{CM} &=\num{0.0132857+-0.00105784} \\
-    q &=\num{0.172163+-0.099093e-2} \\
+    G_{diff} &=\num{183.238+-15.5928} \\
+    q &=\SI{-0.044431+-0.449922}{\volt} \\
 \end{align*}
+La quota è compatibile con zero e il valore di $G_{diff}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{teorico}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{diff}$ è diversi ordini di grandezza più grande di $G_{CM}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR) è pari a \num{13.777+-1.6063e3}.
 
+Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò 
 
 
 
