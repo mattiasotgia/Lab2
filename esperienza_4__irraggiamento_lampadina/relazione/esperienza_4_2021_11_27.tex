@@ -193,9 +193,9 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
     \begin{circuitikz}
         \circuitikzset{resistors/scale=0.4}
         \draw 
-        (0,0) node[op amp, noinv input up, scale=0.5, anchor=-](OA1){\texttt{OA1}}
+        (0,0) node[op amp, noinv input up, scale=0.6, anchor=-](OA1){\texttt{LF356}}
         (OA1.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Non inverting input}}}
-        (0,-3) node[op amp, scale=0.5, anchor=-](OA2){\texttt{OA2}}
+        (0,-3) node[op amp, scale=0.6, anchor=-](OA2){\texttt{LF356}}
         (OA2.+) -- ++(-1, 0) node[above]{{\tiny \texttt{Inverting input}}}
         (OA1.-) to [short, -.] (0,-0.75) to [R=$R_a$] (0,-2.25)
         (OA2.-) to [short, -.] (0, -2.25) to [R=$R_b$] (1.5, -2.25) -. (1.5, -3.25)
@@ -203,7 +203,7 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
         (OA1.out) -- (1.5, 0.25) to [R=$R_c'$] (2.5, 0.25) -- ++(0.5, 0) -- (3, -1.5) 
         (2.5, -1) node[ground]{} to [R=$R_d'$] (2.5, 0.25) 
         (OA2.out) -- (1.5, -3.25) to [R=$R_c$] (3, -3.25) -- (3, -2)
-        (3, -2) node[op amp, noinv input up, scale=0.5, anchor=-](OAout){\texttt{OA out}}
+        (3, -2) node[op amp, noinv input up, scale=0.6, anchor=-](OAout){\texttt{LF356}}
         (OAout.out) -- ++(1, 0) node[above]{\texttt{\tiny Out}}
         (3, -3.25) to [R=$R_d$] (4.5, -3.25) -- (4.5, -1.75)
         ;
@@ -229,21 +229,21 @@ ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di 
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
-Misurato il $G_{CM}$, procediamo a calcolare il valore di $G_{diff}$ usando lo stesso metodo con cui abbiamo trovato $G_{CM}$ senza però impostare $V_{inv}=V_{non-inv}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
+Misurato il $G_{CM}$, procediamo a calcolare il valore di $G_{diff}$ usando lo stesso metodo con cui abbiamo trovato $G_{CM}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
-    G_{diff} &=\num{183.238+-15.5928} \\
+    G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
 \end{align*}
-La quota è compatibile con zero e il valore di $G_{diff}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{teorico}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{diff}$ è diversi ordini di grandezza più grande di $G_{CM}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR) è pari a \num{13.777+-1.6063e3}.
+La quota è compatibile con zero e il valore di $G_{\text{diff}}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{\text{teorico}}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{\text{diff}}$ è diversi ordini di grandezza più grande di $G_{\text{CM}}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR) è pari a \num{13.777+-1.6063e3}.
 
 Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò impostiamo la tensione di ingresso a diverse frequenze e raccogliamo i valori di $V_{out}$ per costruire un diagramma di Bode della funzione di traferimento e calcolare la frequenza di taglio (sappiamo infatti che il circuito dovrebbe comportarsi da passa-basso). Utilizziamo quindi di nuovo l'equazione \refeqn{eq:H} impostando gli stessi parametri e troviamo che 
 \begin{align*}
     G     &=\num{ 182.043 +-  3.61039} \\
     \nu_0 &=\SI{ 155.835 +-  10.4320}{\kilo\hertz} \\ 
 \end{align*}
-Perciò il guadagno
+Vediamo inoltre che il valore del guadagno trovato è compatibile con quello ricavato in precedenza. 
+Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; infatti considerando l'amplificatore come costituito da due stadi consecutivi, dalla scelta delle resistenze otteniamo che il primo stradio porta con sé un guadagno pari a 5 ($G_{1}$), e il secondo un guadagno pari a circa 32 ($G_{2}$). Questi due stadi si comportano come due amplificatori operazionali (LF356) e hanno lo stesso prodotto Guadagno-Banda passante (GBW), del valore di \SI{5}{\mega\hertz} (data-sheet). Quindi a parità di GBW taglia prima lo stadio a guadagno maggiore, e la frequenza di taglio risultante è data da $\text{GBW}/G_{2} = \SI{156}{\kilo\hertz}$, perfettamente compatibile con il valore ottenuto.
 
-https://prod.liveshare.vsengsaas.visualstudio.com/join?5F428723293507A9CA6639BDD71593CE66DE
 
 
 
