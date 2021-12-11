@@ -131,8 +131,8 @@ void analisi_BODE(double fitmin = -1){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    graphset::set_ResidualsAxis(H_resd1, "Frequency #nu [Hz]", 1);
-    graphset::set_TGraphAxis(H_plot1, "Closed-loop Gain G_{close}", 1);
+    graphset::set_ResidualsAxis(H_resd, "Frequency #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot, "Closed-loop Gain G_{close}", 1);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 
