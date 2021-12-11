@@ -14,7 +14,7 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
-#include"ErrorAnalysis/ErrorAnalysis.h"
+#include"ErrorAnalysis.h"
 
 
 const double _R = 38;        // Ohm   (valore ideale 38 ohm)
