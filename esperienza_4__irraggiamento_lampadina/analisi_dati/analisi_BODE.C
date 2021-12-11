@@ -14,7 +14,6 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
-#include"ErrorAnalysis.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
