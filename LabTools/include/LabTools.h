@@ -2,8 +2,8 @@
 // Author M. Sotgia 05/11/21
 // v0.0.2 alpha
 
-#ifndef _LABTOOLS_H
-#define _LABTOOLS_H
+#ifndef LABTOOLS_LabTools
+#define LABTOOLS_LabTools
 
 #include <vector>
 #include <cmath>

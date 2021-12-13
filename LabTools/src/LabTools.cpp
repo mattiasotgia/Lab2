@@ -1,10 +1,6 @@
 // Lab Analysis Toolset "LabTools.h" -*- C++ -*- 
 // Author M. Sotgia 05/11/21
 // v0.0.2 alpha
-
-#ifndef _LABTOOLS_H
-#define _LABTOOLS_H
-
 #include <vector>
 #include <cmath>
 #include <iostream>
