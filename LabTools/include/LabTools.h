@@ -99,15 +99,6 @@ namespace graphset
         ~graph();
     };
 
-    graph::graph(bool showresiduals = true){
-
-        _show_res=showresiduals;
-
-        // Alcuni accortezze da impostare inizializzando la classe
-        _r_fit->SetLineStyle(2);
-        
-    }
-
     void graph::_fillresiduals(){
 
         if(!_show_res){
@@ -139,6 +130,9 @@ namespace graphset
         }
         _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);  
         _r_pad = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
+
+        // Alcuni accortezze da impostare inizializzando la classe
+        _r_fit->SetLineStyle(2);
     }
     
     // graph::~graph(){
