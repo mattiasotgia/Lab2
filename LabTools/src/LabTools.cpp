@@ -237,9 +237,3 @@ inline void graphset::setmarker(_TObj *_g, Color_t lcolor, Style_t mstyle, Size_
         _g->SetMarkerColor(lcolor);
     }
 }
-
-
-// * todo: fare in modo da avere che riempendo il grafico in 
-// *       automatico se io genero i residui sono già riempiti
-
-#endif
