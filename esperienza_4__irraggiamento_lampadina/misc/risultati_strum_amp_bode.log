@@ -1,0 +1,26 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.24/02                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for macosx64 on Jun 28 2021, 09:28:51                      |
+  | From tags/v6-24-02@v6-24-02                                      |
+  | With Apple clang version 11.0.0 (clang-1100.0.33.17)             |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+ErrorAnalysis load status: 0
+
+Processing analisi_BODE.C...
+File input : Guadagno : Fraquenza : 
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=0.22433 FROM MIGRAD    STATUS=CONVERGED      45 CALLS          46 TOTAL
+                     EDM=1.65461e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.82043e+02   3.61039e+00   1.42201e-03  -1.51960e-06
+   2  p1           1.55835e+05   1.04320e+04   2.48980e+00   1.34114e-09
+
+** CHI2 / NDF ( PROB. ) 0.22433 / 8 ( 0.999994 )
+

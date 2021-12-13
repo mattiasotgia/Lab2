@@ -22,12 +22,7 @@ double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt
 
 void analisi_BODE(double fitmin = -1){
 
-    gStyle->SetFrameLineWidth(0);
-    gStyle->SetTextFont(43);
-    gStyle->SetLineScalePS(1);
-
-
-
+    graphset::init();
 
     std::string file;
     std::cout << "File input : " << std::flush;
@@ -135,15 +130,15 @@ void analisi_BODE(double fitmin = -1){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 1);
-    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 0.5);
+    graphset::set_ResidualsAxis(H_resd, "Frequency #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot, "Closed-loop Gain G_{close}", 1);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 
     return;
 }
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
     analisi_BODE(-1);
     return 0;

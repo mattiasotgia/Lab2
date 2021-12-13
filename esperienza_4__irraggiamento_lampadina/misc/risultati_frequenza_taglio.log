@@ -1,0 +1,46 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.24/02                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for macosx64 on Jun 28 2021, 09:28:51                      |
+  | From tags/v6-24-02@v6-24-02                                      |
+  | With Apple clang version 11.0.0 (clang-1100.0.33.17)             |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+
+Processing analisi_BODE2.C...
+
+ **********
+    PRIMO DIAGRAMMA DI BODE (AMPIEZZA)
+ **********
+
+ FCN=1.25519 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07711e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           7.99818e+00   1.01188e-01   5.41196e-05   6.11915e-03
+   2  p1           8.54452e+04   2.31586e+03   1.19052e+00   2.28809e-07
+
+** CHI2 / NDF ( PROB. ) 1.25519 / 10 ( 0.999517 )
+
+ FCN=0.842944 FROM MIGRAD    STATUS=CONVERGED      48 CALLS          49 TOTAL
+                     EDM=2.17019e-12    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           8.32458e+01   1.24581e+00   5.48490e-04   2.45455e-06
+   2  p1           8.71835e+03   2.55900e+02   1.12621e-01   1.07460e-08
+
+** CHI2 / NDF ( PROB. ) 0.842944 / 8 ( 0.999059 )
+
+** Analisi R=8k :
+freq : 85445.2 +- 2315.86
+G    : 7.99818 +- 0.101188
+
+** Analisi R=80k :
+freq : 8718.35 +- 255.9
+G    : 83.2458 +- 1.24581
+
+** Compatibilita a 3stddev di G * nu0 : 
+da R=8k  : 683406 +- 20441.2
+da R=80k : 725766 +- 23911.7
+COMPATIBILE

@@ -1,0 +1,14 @@
+Processing guadagno.C...
+nome file input
+input_guadagno_noninvertente.txt
+ FCN=0.156993 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
+                     EDM=2.26802e-13    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  quota        1.80687e-01   8.18311e-01   1.27694e-04  -1.64339e-06
+   2  G            8.15167e+01   7.03287e+00   1.09741e-03  -2.59668e-07
+1
+il valore del guadagno è: 81.5167+-7.03287
+il valore della quota è: 0.180687+-0.818311
+
+** CHI2 / NDF ( PROB. ) 0.156993 / 3 ( 0.984214 )

@@ -14,13 +14,14 @@
 #include<TLegend.h>
 
 #include"../../LabTools/LabTools.h"
+#include"ErrorAnalysis.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
 double getH(double vin, double vout){return vout / vin;}
 double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt(pow(eVout / Vin, 2) + pow(eVin * Vout / pow(Vin, 2), 2));}
 
-void analisi_BODE2(double fitmin = -1){
+void analisi_BODE2(){
 
     graphset::init();
 
@@ -39,13 +40,13 @@ void analisi_BODE2(double fitmin = -1){
     H_plot1->SetName("H_plot1");
     TF1*          H_fit1 = new TF1("H_f1", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit1->SetParameters(8, 100e3);
-    graphset::setmarker(H_plot1, H_fit1, 25, 0.3, kOrange-3);
+    graphset::setmarker(H_plot1, H_fit1, kOrange-3, 25, 0.3);
 
     TGraphErrors* H_plot2 = new TGraphErrors();
     H_plot2->SetName("H_plot2");
     TF1*          H_fit2 = new TF1("H_f2", "[0]/sqrt(1+pow(x/[1], 2))"); // ! Controllare formule
     H_fit2->SetParameters(80, 10e3);
-    graphset::setmarker(H_plot2, H_fit2, 25, 0.3, kGreen+1);
+    graphset::setmarker(H_plot2, H_fit2, kGreen+1, 25, 0.3);
 
     
     TGraphErrors* H_resd1 = new TGraphErrors();
@@ -118,8 +119,29 @@ void analisi_BODE2(double fitmin = -1){
     H_res_f->Draw("same");
 
 
-    graphset::set_ResidualsAxis(H_resd1, "Frequenza #nu [Hz]", 1);
-    graphset::set_TGraphAxis(H_plot1, "#left|H(#nu)#right| [a. u.]", 1);
+    graphset::set_ResidualsAxis(H_resd1, "Frequency #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot1, "Closed-loop Gain G_{close}", 1);
+
+    Double_t hfit1val[2] = {H_fit1->GetParameter(1), H_fit1->GetParameter(0)};
+    Double_t hfit1err[2] = {H_fit1->GetParError(1), H_fit1->GetParError(0)};
+
+    std::cout << "** Analisi R=8k :" << std::endl 
+    << "freq : " << H_fit1->GetParameter(1) << " +- " << H_fit1->GetParError(1) << std::endl
+    << "G    : " << H_fit1->GetParameter(0) << " +- " << H_fit1->GetParError(0) << std::endl << std::endl;
+
+    Double_t hfit2val[2] = {H_fit2->GetParameter(1), H_fit2->GetParameter(0)};
+    Double_t hfit2err[2] = {H_fit2->GetParError(1), H_fit2->GetParError(0)};
+
+    std::cout << "** Analisi R=80k :" << std::endl 
+    << "freq : " << H_fit2->GetParameter(1) << " +- " << H_fit2->GetParError(1) << std::endl
+    << "G    : " << H_fit2->GetParameter(0) << " +- " << H_fit2->GetParError(0) << std::endl << std::endl;
+
+    std::cout << "** Compatibilita a 3stddev di G * nu0 : \n"
+    << "da R=8k  : " << get_pValue("x[0]*x[1]", hfit1val) << " +- " <<  get_pError("x[0]*x[1]", hfit1val, hfit1err) << std::endl
+    << "da R=80k : " << get_pValue("x[0]*x[1]", hfit2val) << " +- " <<  get_pError("x[0]*x[1]", hfit2val, hfit2err) << std::endl
+    << stattools::compatible(get_pValue("x[0]*x[1]", hfit1val), get_pError("x[0]*x[1]", hfit1val, hfit1err), get_pValue("x[0]*x[1]", hfit2val), get_pError("x[0]*x[1]", hfit2val, hfit2err)) << std::endl;
+
+
 
     c1->SaveAs("../fig/plot_combined.pdf");
 
@@ -128,7 +150,7 @@ void analisi_BODE2(double fitmin = -1){
 
 #ifndef __CINT__
 int main(){
-    analisi_BODE2(-1);
+    analisi_BODE2();
     return 0;
 }
 #endif
