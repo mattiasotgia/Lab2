@@ -13,7 +13,7 @@
 #include <TLatex.h>
 #include <TLegend.h>
 
-#include "../../LabTools/LabTools.h"
+#include "LabTools.h"
 
 const double offset = -3e-3;
 const double err_off = -2.6 / (2 * sqrt(3));

@@ -13,7 +13,7 @@
 #include <TLatex.h>
 #include <TLegend.h>
 
-#include "../../LabTools/LabTools.h"
+#include "LabTools.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 

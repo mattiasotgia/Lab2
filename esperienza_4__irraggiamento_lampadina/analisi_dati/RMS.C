@@ -3,7 +3,7 @@
 #include <TCanvas.h>
 #include <fstream>
 
-#include"../../LabTools/LabTools.h"
+#include"LabTools.h"
 
 void RMS(){
 
@@ -28,7 +28,7 @@ void RMS(){
     c1->SaveAs("../fig/RMS.pdf");
 }
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
     RMS();
     return 0;
