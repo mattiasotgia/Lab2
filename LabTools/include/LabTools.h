@@ -5,11 +5,11 @@
 #ifndef LABTOOLS_LabTools
 #define LABTOOLS_LabTools
 
-#include <vector>
-#include <cmath>
-#include <iostream>
-#include <fstream>
-#include <string>
+#include<vector>
+#include<cmath>
+#include<iostream>
+#include<fstream>
+#include<string>
 
 #include<TCanvas.h>
 #include<TGraphErrors.h>
@@ -26,8 +26,10 @@ const double offsetx = 4;
 
 namespace base
 {
-    template<class _container, class _Ty> inline
-    bool isIn(_container _C, const _Ty& _Val);
+    template<class _container, class _Ty>
+    bool isIn(_container _C, const _Ty& _Val){
+        return std::find(_C.begin(), _C.end(), _Val) != _C.end();
+    }
 } // namespace base
 
 namespace log
@@ -154,14 +156,72 @@ namespace graphset
 
     /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
     ottenere il risultato voluto. */
-    template<class _TObj> inline
-    void set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = "");
+    template<class _TObj>
+    void set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = ""){
+        g->SetTitle("");
+        g->GetYaxis()->SetTitle(ytitle.c_str());
+        g->GetYaxis()->SetTitleOffset(offset);
+        g->GetYaxis()->SetTitleFont(43);
+        g->GetYaxis()->SetTitleSize(title_size);
+        g->GetYaxis()->SetLabelFont(43);
+        g->GetYaxis()->SetLabelSize(label_size);
+        g->GetYaxis()->CenterTitle();
+
+        if (xtitle != "")
+        {
+            // std::cout << _isresidualon << std::endl;
+            g->GetXaxis()->SetTitle(xtitle.c_str());
+            g->GetXaxis()->SetTitleOffset(1);
+            g->GetXaxis()->SetTitleFont(43);
+            g->GetXaxis()->SetTitleSize(title_size);
+
+            g->GetXaxis()->SetLabelFont(43);
+            g->GetXaxis()->SetLabelSize(label_size);
+            g->GetXaxis()->CenterTitle();
+        }
+        else if (!_isresidualon)
+        {
+            // std::cout << _isresidualon << std::endl;
+            g->GetXaxis()->SetTitle(((std::string)*_xtitle).c_str());
+            g->GetXaxis()->SetTitleOffset(1);
+            g->GetXaxis()->SetTitleFont(43);
+            g->GetXaxis()->SetTitleSize(title_size);
+
+            g->GetXaxis()->SetLabelFont(43);
+            g->GetXaxis()->SetLabelSize(label_size);
+            g->GetXaxis()->CenterTitle();
+        }
+
+        g->GetXaxis()->SetTickLength(0.05);
+}
+
 
     /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
     ottenere il risultato voluto. */
-    template<class _TObj> inline
-    void set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]");
-    
+    template<class _TObj>
+    void set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
+        rg->GetXaxis()->SetTitle(xtitle.c_str());
+        rg->GetXaxis()->SetTitleOffset(offsetx);
+        rg->GetXaxis()->SetTitleFont(43);
+        rg->GetXaxis()->SetTitleSize(title_size);
+
+        rg->GetYaxis()->SetTitle(ytitle.c_str());
+        rg->GetYaxis()->SetTitleOffset(offset);
+        rg->GetYaxis()->SetTitleFont(43);
+        rg->GetYaxis()->SetTitleSize(title_size);
+        rg->GetYaxis()->CenterTitle();
+
+        rg->GetYaxis()->SetLabelFont(43);
+        rg->GetYaxis()->SetLabelSize(label_size);
+        rg->GetYaxis()->SetNdivisions(5, 5, 0);
+        rg->GetXaxis()->SetLabelFont(43);
+        rg->GetXaxis()->SetLabelSize(label_size);
+        rg->GetXaxis()->CenterTitle();
+        *_xtitle = xtitle;
+
+        rg->GetXaxis()->SetTickLength(0.08);
+    }
+
     struct padtypes{
         TPad* Graph = new TPad();
         TPad* Residuals = new TPad();
@@ -177,14 +237,24 @@ namespace graphset
     un titolo di errore */
     void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false, bool drawresiduals = true);
 
-    template<class _TObj> inline
+    template<class _TObj>
     void setcanvas(_TObj* c1, int nx = 1, int ny = 1, 
                 float m_left = 0.16, float m_right = 0.06, 
-                float m_bottom = 0.12, float m_top = 0.06);
+                float m_bottom = 0.12, float m_top = 0.06){
+    c1->SetMargin(m_left, m_right, m_bottom, m_top);
+    c1->SetFillStyle(4000);
+    c1->Divide(nx, ny);
+}
 
 
-    template<class _TObj, class _TFObj> inline
-    void fillresiduals(_TObj* g, _TFObj* g_fit, TGraphErrors* r);
+    template<class _TObj, class _TFObj>
+    void fillresiduals(_TObj* g, _TFObj* g_fit, TGraphErrors* r){
+        for (int i = 0; i < g->GetN(); i++)
+        {
+            r->SetPoint(i, g->GetX()[i], (g->GetY()[i] - g_fit->Eval(g->GetX()[i])) / g->GetEY()[i]);
+            r->SetPointError(i, 0, 1);
+        }
+}
 
     /* Includere qui tutti i parametri globali/semi-globali per 
     l'inizializzazione di grafici in ROOT 
@@ -193,12 +263,30 @@ namespace graphset
         gStyle->SetLineScalePS(1);*/
     void init();
 
-    template<class _TObj, class _TFObj> inline
-    void setmarker(_TObj* _g, _TFObj* _g_fit, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F));
-    
-    template<class _TObj> inline
-    void setmarker(_TObj* _g, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F));
-    
+    template <class _TObj, class _TFObj>
+    void setmarker(_TObj *_g, _TFObj *_g_fit, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F))
+    {
+        _g->SetMarkerStyle(mstyle);
+        _g->SetMarkerSize(msize);
+        if (lcolor != -1)
+        {
+            _g->SetLineColor(lcolor);
+            _g->SetMarkerColor(lcolor);
+            _g_fit->SetLineColor(lcolor);
+        }
+    }
+
+    template <class _TObj>
+    void setmarker(_TObj *_g, Color_t lcolor = -1, Style_t mstyle = (Style_t)1, Size_t msize = (1.0F))
+    {
+        _g->SetMarkerStyle(mstyle);
+        _g->SetMarkerSize(msize);
+        if (lcolor != -1)
+        {
+            _g->SetLineColor(lcolor);
+            _g->SetMarkerColor(lcolor);
+        }
+    }
 }
 
 // * todo: fare in modo da avere che riempendo il grafico in 
