@@ -97,7 +97,44 @@ $ g++ file_name.cpp -o exe_name -I/usr/local/include -L/usr/local/lib/ -lLabTool
 where `` `root-config --glibs --cflags` `` is only needed if the code calls for other ROOT specific functions.
 
 ### Usage
+#### Namespace `base`
+Some standard methods.
 
+`bool base::isIn(_container _C, const _Ty &_Val)` check if given value/string (`class _Ty` object) is inside a container (`class _container`:`enum` or `union` type). 
+
+#### Namespace `log`
+Logging passed to stdout. This is not a logger!
+
+`void log::print_mmsg(std::string mmsg)`: print `mmsg` to stdout.
+
+`void log::print_stat(TF1 *_f)`: print <!-- $\chi^2/\text{ndf}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cchi%5E2%2F%5Ctext%7Bndf%7D"> and <!-- $\text{prob}(\chi^2)$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Ctext%7Bprob%7D(%5Cchi%5E2)"> to stdout. 
+
+#### Namespace `stattools`
+Some useful and recurring statistical-computation functions.
+
+`double stattools::max_to_stat(double value)`: divide any given number to the squate root of 3.
+
+`std::string stattools::compatible(double G1, double errG1, double G2, double errG2)`: check 3 sigma compatibility between G1 and G2, given their error.
+
+`double stattools::getbestvalue(double G1, double G2, double errG1, double errG2)`: compute error-weighted mean value.
+
+`double stattools::getbestvalueerr(double errG1, double errG2)`: compute error-weighted mean error.
+
+#### Namespace `graphset`
+
+`void graphset::set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = "")`: Automatically sets-up the `_TObj` graph axis, and combined with the following methods, is pretty useful for creating residuals for current graph.
+
+`void graphset::set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]")`: sets-up residual graph axis.
+
+`struct graphset::padtypes`: struct that contain two objects: `graphset::padtypes::Graph` and `graphset::padtypes::Residuals` useful for passin arguments.
+
+`void graphset::setgraphsize(graphset::padtypes g, bool logx = false, bool logy = false, bool drawresiduals = true)`: set automatic graph size, logarithmic axis if needed, and turn on and off residual graph.
+
+`void graphset::setcanvas(_TObj *c1, int nx = 1, int ny = 1, float m_left, float m_right, float m_bottom, float m_top)`: auto set canvas size. All parameters are altready set, so basic usage is by passing only `_TObj` as argument.
+
+`void graphset::fillresiduals(_TObj *g, _TFObj *g_fit, TGraphErrors *r)`: fill residuals for any `_TObj` using `_TFObj` fit function.
+
+`void graphset::setmarker()`: set marker and full line color and get matching both.
 
 Changelog
 ---------
