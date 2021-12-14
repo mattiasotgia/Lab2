@@ -75,6 +75,7 @@ Come sorgente luminosa usiamo una piccola lampadina ad incandescenza che possiam
 % \hl{Poich\'e vogliamo misurare delle variazioni di temperatura attraverso la variazione del valore di una resistenza, utilizziamo un ponte di Wheatstone in modo che le nostre misure siano il pi\`u precise possibili e per vedere ancora meglio gli effetti di queste variazioni sulla nostra uscita del segnale usiamo un amplificatore per strumentazione.}
 
 \section*{Studio e caratterizzazione di un amplificatore operazionale}
+\label{sec:studio_caratt_op_amp}
 
 Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura è costituito da tre amplificatori operazionali inseriti in un unico circuito, ci interessa studiare meglio il loro comportamento in modo da progettare il circuito nel modo migliore possibile.
 
@@ -94,9 +95,9 @@ Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura 
     \label{fig:amp_inv}
 \end{figure}
 
-Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore \LMopamp alimentato con $\pm V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-\frac{R_{1}}{R_{2}}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
+Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-\frac{R_{1}}{R_{2}}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
 
-Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} in modo da acquisire i dati in ua zona in cui il guadagno non dipende dalla frequenza poichè l'amplificatore si comporta come un passa basso  .Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di $15V$, che è la tensione con cui alimentiamo l'amplificatore, perchè altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$ (questi valori sono riportati in \reftab{??}). Eseguendo in fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ Otteniamo quindi che 
+Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} in modo da acquisire i dati in ua zona in cui il guadagno non dipende dalla frequenza poichè l'amplificatore si comporta come un passa basso  .Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di $15V$, che è la tensione con cui alimentiamo l'amplificatore, perchè altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$. Eseguendo in fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ Otteniamo quindi che 
 \begin{align*}
     G & =\num{78.6454 +- 8.1} \\
     q & =\SI{0.03}{\volt} \\ 
@@ -104,14 +105,14 @@ Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di usc
 
 Osserviamo quindi che il valore di $G$ è compatibile con il valore che volevamo ottenere, cioè $G=80$ e che la quota della retta è compatibile con zero e ciò rispecchia il fatto che se la tensione in entrata è nulla, anche quella in uscita deve esserlo.
 
-Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a $100mV$ e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da 100Hz fino 20KHz raccogliendo circa 3 punti per ogni decade (questi valori sono riportati in \reftab{??}). Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
+Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a $100mV$ e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da 100Hz fino 20KHz raccogliendo circa 3 punti per ogni decade. Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
 Otteniamo quindi che
 \begin{align*}
     G     &=\num{ 83.2458 +- 1.24581} \\
     \nu_0 &=\SI{8.71835 +- 0.2559}{\kilo\hertz} \\ 
 \end{align*}
 
-Ripetiamo lo stesso procedimento utilizzando però come $R_2$ una resistenza da \SI{8}{\kilo\ohm} in modo che il guadagno sia 10 volte più piccolo. Vogliamo quindi verificare che il prodotto $\nu_0 \cdot G $ è costante. Raccogliamo quindi i nuovi dati riportati in \reftab{??} e realizziamo un altro fit usando di nuovo l'equazione \refeqn{eq:H} e impostando gli stessi parametri e troviamo che
+Ripetiamo lo stesso procedimento utilizzando però come $R_2$ una resistenza da \SI{8}{\kilo\ohm} in modo che il guadagno sia 10 volte più piccolo. Vogliamo quindi verificare che il prodotto $\nu_0 \cdot G $ è costante. Raccogliamo quindi i nuovi dati e realizziamo un altro fit usando di nuovo l'equazione \refeqn{eq:H} e impostando gli stessi parametri e troviamo che
 \begin{align*}
     G     &=\num{7.99818 +- 0.101188} \\
     \nu_0 &=\SI{85.4452 +- 2.31586}{\kilo\hertz} \\ 
@@ -146,7 +147,7 @@ Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per 
     \label{fig:amp_noninv}
 \end{figure}
 
-Successivamente costruiamo un circuito amplificatore non-invertente il cui schema è riportato in \reffig{fig:amp_noninv} e utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno (dati raccolti in \reftab{??}) e troviamo che
+Successivamente costruiamo un circuito amplificatore non-invertente il cui schema è riportato in \reffig{fig:amp_noninv} e utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno e troviamo che
 \begin{align*}
     G &=\num{81.5167+-7.03287} \\
     q &=\SI{0.180687+-0.818311}{\volt} \\ 
@@ -156,7 +157,7 @@ per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da mod
 
 Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perchè infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di $10^6 \Omega$.
 
-Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta "slew rate". La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{??} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
+Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta "slew rate". La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
 
 \begin{figure}
     \begin{circuitikz}
@@ -221,14 +222,14 @@ Per misurare il valore di offset vogliamo quindi che i primi due termini di \ref
 Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
-ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$ (I valori raccolti si trovano in \reftab{??}). Troviamo quindi che i valori dei parametri sono rispettivamente
+ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
 \begin{align*}
     G_{\text{CM}} &=\num{0.0132857+-0.00105784} \\
     q &=\SI{0.172163+-0.099093e-2}{\volt} \\
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
-Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$ (I valori raccolti si trovano in \reftab{??}). I valori dei parametri che il fit ci restituisce sono
+Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$. I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
     G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
@@ -288,8 +289,12 @@ L'uscita del ponte di Wheatstone è collegata all'amplificatore per strumentazio
 
 
 \section*{Presa dati}
-Attraverso una interfaccia seriale e un programma di interpretazione del seriale possiamo acquisire a intervalli temporali regolari il valore di tensione misurato dal multimetro da banco Keitley.
+Attraverso una interfaccia seriale e un programma di interpretazione del seriale possiamo acquisire e trascrivere a intervalli temporali regolari il valore di tensione misurato dal multimetro da banco Keitley che legge il segnale in uscita dall'amplificatore (\reffig{fig:circ_all}).
 
+Lasciando il sistema allo stato iniziale (lampadina spenta e strumentazione di misura attiva) colleghiamo l'uscita dell'amplificatore allo'oscilloscopio per osservare qualitativamente la dimensione della banda del rumore. 
+Per quantificare tali fluttuazioni statistiche dovute al rumore utilizziamo il Keytley e acquisiamo per circa \SI{100}{\second} a intervalli regolari la misura della tensione. Una successiva analisi di questi dati ci porter\'a a quantificare l'errore per le successive misure.
+
+Poichè vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
 
 
 
@@ -305,15 +310,15 @@ Attraverso una interfaccia seriale e un programma di interpretazione del seriale
 \renewcommand{\thefigure}{S-\arabic{figure}}
 \begin{figure*}[p]
     \raggedright
-    \includegraphics[width=0.8\textwidth]{Guadagno__invertente.pdf}
-    \includegraphics[width=0.8\textwidth]{Guadagno__noninvertente.pdf}
-    \caption{}
+    \includegraphics[width=0.7\textwidth]{Guadagno__invertente.pdf}
+    \includegraphics[width=0.7\textwidth]{Guadagno__noninvertente.pdf}
+    \caption{Misura del guadagno degli amplificatori operazioneli realizzati in sezione \ref{sec:studio_caratt_op_amp}. Sopra: valori variabili di tensione in ingressso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Sotto: come sopra, per la configurazione non invertente.}
     \label{fig:guadagno_inv_noninv}
 \end{figure*}
 \begin{figure*}
     \raggedright
-    \includegraphics[width=0.8\textwidth]{GuadagnoMC.pdf}
-    \includegraphics[width=0.8\textwidth]{GuadagnoDIFF.pdf}
+    \includegraphics[width=0.7\textwidth]{GuadagnoMC.pdf}
+    \includegraphics[width=0.7\textwidth]{GuadagnoDIFF.pdf}
     \caption{}
     \label{fig:guadagno_op_amp_strum}
 \end{figure*}
