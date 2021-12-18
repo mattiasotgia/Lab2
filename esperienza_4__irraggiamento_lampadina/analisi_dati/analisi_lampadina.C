@@ -13,7 +13,7 @@
 #include <TLatex.h>
 #include <TLegend.h>
 
-#include "../../LabTools/LabTools.h"
+#include "LabTools.h"
 
 //double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
@@ -22,7 +22,7 @@ void analisi_lampadina()
 
     string nomefile;
 
-    std::cout << "nome file input" << std::endl;
+    std::cout << "Nome file input : " << std::flush;
     std::cin >> nomefile;
 
     double t, vin, e_vin, range;
@@ -50,5 +50,5 @@ void analisi_lampadina()
 
     g->Draw("ap");
 
-    g->SetTitle("V_in vs t;tempo[s];V_in[V]");
+    g->SetTitle(("../dati/_clean/" + nomefile + ";tempo [s];V_{in} [V]").c_str());
 }

@@ -13,7 +13,8 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-#include"../../LabTools/LabTools.h"
+#include"LabTools.h"
+#include"ErrorAnalysis.h"
 
 
 const double _R = 38;        // Ohm   (valore ideale 38 ohm)
@@ -75,6 +76,9 @@ double get_err_mu_R_fromLL0(double L, double L0, double a, double err_L, double 
 
 void analisi_permeabilita(){
 
+    gInterpreter->AddIncludePath("~/Documents/CustomLibs/ErrorAnalysis/");
+    gSystem->Load("~/Documents/CustomLibs/libErrorAnalysis.dylib");
+
     gStyle->SetFrameLineWidth(0);
     gStyle->SetTextFont(43);
     gStyle->SetLineScalePS(1);
@@ -94,7 +98,7 @@ void analisi_permeabilita(){
     
     // Calcoli successivi
     // Calcoli per libero--------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
+    logs::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
 
     result_circ libero_circ = get_result(libero);
     std::cout << "R = " << libero_circ.R.val << " +- " << libero_circ.R.err << " ohm" << std::endl
@@ -115,7 +119,7 @@ void analisi_permeabilita(){
 
 
     // calcoli per m1------------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
+    logs::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
     
     result_circ m1_circ_amp = get_result(m1);
     std::cout << "R = " << m1_circ_amp.R.val << " +- " << m1_circ_amp.R.err << " ohm" << std::endl
@@ -141,7 +145,7 @@ void analisi_permeabilita(){
 
 
     // Calcoli per m2------------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Valore da m2");
+    logs::print_mmsg("Valore da m2");
     
     result_circ m2_circ = get_result(m2);
     std::cout << "R = " << m2_circ.R.val << " +- " << m2_circ.R.err << " ohm" << std::endl
@@ -164,6 +168,11 @@ void analisi_permeabilita(){
     double mu_R_m2 = get_mu_R_fromLL0(L_m2_v0, L_0, a_Al); double err_mu_R_m2 = get_err_mu_R_fromLL0(L_m2_v0, L_0, a_Al, err_L_m2_v0, err_L_0);
     std::cout << "mu_R per Al (da L e L0)  => " << mu_R_m2 << " +- " << err_mu_R_m2 << std::endl;
 
+    double val[6] = {L_m2_v0, L_0, mu0, n, l, a_Al};
+    double err[6] = {err_L_m2_v0, err_L_0, 0, 0, 1e-4/sqrt(3), 0.05e-3/sqrt(3)};
+
+    std::cout << "mu_R per AL (da L e L0)  => " << get_pValue("(x[0]-x[1])/(x[2]*x[3]*x[5]*x[3]*x[5]*x[4])+1", val) << " +- " << get_pError("(x[0]-x[1])/(x[2]*x[3]*x[5]*x[3]*x[5]*x[4])+1", val, err) << std::endl;
+
     
     c1->SaveAs("../fig/plot.pdf");
     return;
@@ -176,7 +185,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     std::string rawdata = "../dati/" + file;
     std::string output = file.substr(file.find_last_of("_"), file.find(".")-file.find_last_of("_"));
 
-    log::print_mmsg("Analisi di " + rawdata);
+    logs::print_mmsg("Analisi di " + rawdata);
 
     std::ifstream data(rawdata.c_str());
 
@@ -279,7 +288,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
 
     // Grafico 1 Bode
-    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    logs::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->GetXaxis()->SetLimits(450, 55e3);
     H_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -297,7 +306,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
-    log::print_stat(H_fit);
+    logs::print_stat(H_fit);
 
     // RESIDUI
     Hp2->cd();
@@ -321,7 +330,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
               << "Frequenza di Taglio da |H(w)|, v = " << v0_amp << " +- " << err_v0_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
-    log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
+    logs::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->GetXaxis()->SetLimits(450, 55e3);
     phi_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -339,7 +348,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     phi_header->DrawLatexNDC(0.5, 0.8, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{2#circ diagramma di Bode} #bf{(B)}}{" + phi_stat + "}}").c_str());
 
-    log::print_stat(phi_fit);
+    logs::print_stat(phi_fit);
 
     // RESIDUI
     phi_p2->cd();
@@ -372,8 +381,10 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 }
 
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
+    gInterpreter->AddIncludePath("~/Documents/CustomLibs/ErrorAnalysis/");
+    gSystem->Load("~/Documents/CustomLibs/libErrorAnalysis.dylib");
     analisi_permeabilita();
     return 0;
 }

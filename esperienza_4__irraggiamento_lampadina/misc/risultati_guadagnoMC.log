@@ -1,0 +1,23 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.24/02                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for macosx64 on Jun 28 2021, 09:28:51                      |
+  | From tags/v6-24-02@v6-24-02                                      |
+  | With Apple clang version 11.0.0 (clang-1100.0.33.17)             |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+ErrorAnalysis load status: 0
+
+Processing guadagnoMC.C...
+ FCN=0.652695 FROM MIGRAD    STATUS=CONVERGED     102 CALLS         103 TOTAL
+                     EDM=2.21337e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  q            1.72163e-03   9.90930e-04   2.10025e-07  -1.98588e+00
+   2  G            1.32857e-02   1.05784e-03   2.24061e-07  -1.73369e+00
+
+** CHI2 / NDF ( PROB. ) 0.652695 / 4 ( 0.957032 )
+
+G:0.0132857+-0.00105784
+q:0.00172163+-0.00099093

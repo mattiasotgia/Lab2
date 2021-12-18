@@ -13,7 +13,7 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-#include"../../LabTools/LabTools.h"
+#include"LabTools.h"
 
 double get_VRangeErr(double errPercent, int partitions, double range1){return errPercent * partitions *  range1;}
 double get_TRangeErr(double range1, double errPercent = 0.0016, int partition = 10){return range1 * errPercent * partition;}
@@ -22,12 +22,7 @@ double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt
 
 void analisi_BODE(double fitmin = -1){
 
-    gStyle->SetFrameLineWidth(0);
-    gStyle->SetTextFont(43);
-    gStyle->SetLineScalePS(1);
-
-
-
+    graphset::init();
 
     std::string file;
     std::cout << "File input : " << std::flush;
@@ -107,7 +102,7 @@ void analisi_BODE(double fitmin = -1){
     out_computeddata << "EOF" << std::endl;
 
     // Grafico 1 Bode
-    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    logs::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     // H_plot->GetXaxis()->SetLimits(450, 55e3);
     // H_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -125,7 +120,7 @@ void analisi_BODE(double fitmin = -1){
 
     header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
-    log::print_stat(H_fit);
+    logs::print_stat(H_fit);
 
     // RESIDUI
     Hp2->cd();
@@ -135,15 +130,15 @@ void analisi_BODE(double fitmin = -1){
     H_resd->Draw("ap");
     H_res_f->Draw("same");
 
-    graphset::set_TGraphAxis(H_plot, "#left|H(#nu)#right| [a. u.]", 1);
-    graphset::set_ResidualsAxis(H_resd, "Frequenza #nu [Hz]", 0.5);
+    graphset::set_ResidualsAxis(H_resd, "Frequency #nu [Hz]", 1);
+    graphset::set_TGraphAxis(H_plot, "Closed-loop Gain G_{close}", 1);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 
     return;
 }
 
-#ifndef __CINT__
+#ifndef __CLING__
 int main(){
     analisi_BODE(-1);
     return 0;

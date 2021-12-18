@@ -1,0 +1,14 @@
+Processing guadagno.C...
+nome file input
+input_guadagno_invertente.txt
+ FCN=0.0706649 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=6.52342e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  quota        3.61541e-02   1.03041e+00   1.23147e-04   5.65476e-04
+   2  G            7.86454e+01   8.07506e+00   9.64749e-04   1.11460e-04
+1
+il valore del guadagno è: 78.6454 +- 8.07506
+il valore della quota è: 0.0361541 +- 1.03041
+
+** CHI2 / NDF ( PROB. ) 0.0706649 / 3 ( 0.995109 )
