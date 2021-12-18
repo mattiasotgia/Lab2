@@ -59,7 +59,7 @@ skip_test:
 
     graphset::set_TGraphAxis(g, "Tensione uscita V_{out} [V]", 1.5, "Tensione ingresso V_{in} [V]");
 
-    log::print_stat(f);
+    logs::print_stat(f);
     std::cout << "G:" << G << "+-" << e_G << std::endl;
     std::cout << "q:" << quota << "+-" << e_quota << std::endl;
 

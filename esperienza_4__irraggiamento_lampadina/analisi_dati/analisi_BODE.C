@@ -102,7 +102,7 @@ void analisi_BODE(double fitmin = -1){
     out_computeddata << "EOF" << std::endl;
 
     // Grafico 1 Bode
-    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    logs::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     // H_plot->GetXaxis()->SetLimits(450, 55e3);
     // H_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -120,7 +120,7 @@ void analisi_BODE(double fitmin = -1){
 
     header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
-    log::print_stat(H_fit);
+    logs::print_stat(H_fit);
 
     // RESIDUI
     Hp2->cd();

@@ -13,7 +13,7 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-#include"../../LabTools/LabTools.h"
+#include"LabTools.h"
 #include"ErrorAnalysis.h"
 
 
@@ -98,7 +98,7 @@ void analisi_permeabilita(){
     
     // Calcoli successivi
     // Calcoli per libero--------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
+    logs::print_mmsg("Analisi da libero, ampiezza, valori dal FIT");
 
     result_circ libero_circ = get_result(libero);
     std::cout << "R = " << libero_circ.R.val << " +- " << libero_circ.R.err << " ohm" << std::endl
@@ -119,7 +119,7 @@ void analisi_permeabilita(){
 
 
     // calcoli per m1------------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
+    logs::print_mmsg("Valore da m1, ampiezza, valori dal FIT");
     
     result_circ m1_circ_amp = get_result(m1);
     std::cout << "R = " << m1_circ_amp.R.val << " +- " << m1_circ_amp.R.err << " ohm" << std::endl
@@ -145,7 +145,7 @@ void analisi_permeabilita(){
 
 
     // Calcoli per m2------------------------------------------------------------------------------------------------------------------------------------------
-    log::print_mmsg("Valore da m2");
+    logs::print_mmsg("Valore da m2");
     
     result_circ m2_circ = get_result(m2);
     std::cout << "R = " << m2_circ.R.val << " +- " << m2_circ.R.err << " ohm" << std::endl
@@ -185,7 +185,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
     std::string rawdata = "../dati/" + file;
     std::string output = file.substr(file.find_last_of("_"), file.find(".")-file.find_last_of("_"));
 
-    log::print_mmsg("Analisi di " + rawdata);
+    logs::print_mmsg("Analisi di " + rawdata);
 
     std::ifstream data(rawdata.c_str());
 
@@ -288,7 +288,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
 
     // Grafico 1 Bode
-    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    logs::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
     H_plot->GetXaxis()->SetLimits(450, 55e3);
     H_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -306,7 +306,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
 
-    log::print_stat(H_fit);
+    logs::print_stat(H_fit);
 
     // RESIDUI
     Hp2->cd();
@@ -330,7 +330,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
               << "Frequenza di Taglio da |H(w)|, v = " << v0_amp << " +- " << err_v0_amp << " Hz" << std::endl;
 
     // Grafico 2 Bode
-    log::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
+    logs::print_mmsg("SECONDO DIAGRAMMA DI BODE (FASE)");
     phi_p1->cd();
     phi_plot->GetXaxis()->SetLimits(450, 55e3);
     phi_fit->GetXaxis()->SetLimits(450, 55e3);
@@ -348,7 +348,7 @@ result analisi_RLC_filter(std::string file, double* params, TCanvas* canvas, int
 
     phi_header->DrawLatexNDC(0.5, 0.8, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{2#circ diagramma di Bode} #bf{(B)}}{" + phi_stat + "}}").c_str());
 
-    log::print_stat(phi_fit);
+    logs::print_stat(phi_fit);
 
     // RESIDUI
     phi_p2->cd();
