@@ -85,7 +85,7 @@ void analisi_BODE2(){
     }
 
     // Grafico 1 Bode
-    log::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
+    logs::print_mmsg("PRIMO DIAGRAMMA DI BODE (AMPIEZZA)");
     Hp1->cd();
 
     H_plot1->GetXaxis()->SetLimits(450, 400e3);
@@ -95,9 +95,9 @@ void analisi_BODE2(){
     c1->Modified();
     c1->Update();
     H_plot1->Fit("H_f1", "", "same");
-    log::print_stat(H_fit1);
+    logs::print_stat(H_fit1);
     H_plot2->Fit("H_f2", "", "same", 450, 400e3);
-    log::print_stat(H_fit2);
+    logs::print_stat(H_fit2);
 
     TLegend* l = new TLegend(0.2, 0.2, 0.9, 0.3);
     l->SetHeader("#bf{Guadagno LM741} (Input invertente)");

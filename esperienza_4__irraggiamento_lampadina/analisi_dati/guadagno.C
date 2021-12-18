@@ -71,7 +71,7 @@ void guadagno()
 
     std::cout << "il valore del guadagno è: " << G << " +- " << e_G << std::endl;
     std::cout << "il valore della quota è: " << quota << " +- " << e_quota << std::endl;
-    log::print_stat(f);
+    logs::print_stat(f);
 
     c1->SaveAs(("../fig/Guadagno_" + output + ".pdf").c_str());
 }

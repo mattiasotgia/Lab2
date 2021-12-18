@@ -32,7 +32,7 @@ namespace base
     }
 } // namespace base
 
-namespace log
+namespace logs
 {
     void print_mmsg(std::string mmsg);
     void print_stat(TF1 *_f);

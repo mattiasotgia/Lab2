@@ -19,7 +19,7 @@
 #include "LabTools.h"
 
 
-void log::print_mmsg(std::string mmsg)
+void logs::print_mmsg(std::string mmsg)
 {
     std::cout << std::endl
               << " **********" << std::endl
@@ -28,7 +28,7 @@ void log::print_mmsg(std::string mmsg)
               << std::endl;
 }
 
-void log::print_stat(TF1 *_f)
+void logs::print_stat(TF1 *_f)
 {
     std::cout << std::endl
               << "** "

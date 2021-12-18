@@ -102,12 +102,12 @@ Some standard methods.
 
 `bool base::isIn(_container _C, const _Ty &_Val)` check if given value/string (`class _Ty` object) is inside a container (`class _container`:`enum` or `union` type). 
 
-#### Namespace `log`
+#### Namespace `logs`
 Logging passed to stdout. This is not a logger!
 
-`void log::print_mmsg(std::string mmsg)`: print `mmsg` to stdout.
+`void logs::print_mmsg(std::string mmsg)`: print `mmsg` to stdout.
 
-`void log::print_stat(TF1 *_f)`: print <!-- $\chi^2/\text{ndf}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cchi%5E2%2F%5Ctext%7Bndf%7D"> and <!-- $\text{prob}(\chi^2)$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Ctext%7Bprob%7D(%5Cchi%5E2)"> to stdout. 
+`void logs::print_stat(TF1 *_f)`: print <!-- $\chi^2/\text{ndf}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cchi%5E2%2F%5Ctext%7Bndf%7D"> and <!-- $\text{prob}(\chi^2)$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Ctext%7Bprob%7D(%5Cchi%5E2)"> to stdout. 
 
 #### Namespace `stattools`
 Some useful and recurring statistical-computation functions.
