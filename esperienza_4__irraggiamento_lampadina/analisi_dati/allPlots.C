@@ -19,7 +19,7 @@
 void allPlots(){
     
     graphset::init();
-    std::string pfix = "../dati/_clean/";
+    std::string pfix = "../dati/_zeroed/";
     const int full_dataT_s = 8;
     std::string all_data_table[] = {
         "dati_2.txt",
