@@ -296,12 +296,36 @@ Per quantificare tali fluttuazioni statistiche dovute al rumore utilizziamo il K
 
 Poichè vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
 
-\section*{Scelta qualitativa dei dati raccolti}
+\section*{Scelta dei dati raccolti}
 Delle serie di dati raccolti effettuiamo una prima analisi di tipo qualitativo, semplicemente osservandone i grafici di tensione in funzione del tempo. Se il sistema si trova a riposo infatti la tensione in uscita non dovrebbe variare rispetto alla posizione iniziale se non per fluttuazioni legate all'ambiente e ad altri fattori casuali. Dovremmo quindi osservare un comportamento stabile fino all'istante in cui la lampadina non viene accesa e quindi la variazione di tensione è legata al fenomeno dell'irraggiamento. 
 
 Prendiamo quindi in considerazione solo i dati per cui le fluttuazioni prima che la lampadina venisse accesa siano almeno un ordine di grandezza inferiori alla variazione legata al fenomeno fisico considerato, ovvero per cui una volta accesa la lampadina, si osservi in modo evidente una variazione della tensione rispetto alla condizione di stabilità precedente. Decidiamo quindi di ignorare i valori presi per distanze maggiori di \SI{20}{\centi\metre}. Tuttavia  osserviamo che i dati raccolti a una distanza di \SI{15}{\centi\metre} non rientrano nelle condizioni prefissate, quindi non li consideriamo per successive analisi. 
 
+Inoltre ci preoccupiamo di rimuovere i valori corrispondenti agli istanti precedenti all'accensione della lampadina, in quanto non sono influenti per la nostra analisi.
 
+\section*{Valutazione errore sulla lettura di tensione}
+
+\section*{Modello \#1 di analisi della variazione di tensione}
+I dati ottenuti si presentano come letture di tensione in funzione del tempo. Non essendo a conoscenza di una precisa legge fisica che regoli questo andamento della tensione in relazione al tempo, possiamo però procedere ipotizzando alcuni modelli che possano descrivere il fenomeno che si osserva. 
+
+Innanzitutto quando la lampadina viene accesa la luce raggiunge in modo immediato il sensore resistivo che quindi per il fenomeno dell'irraggiamento viene scaldato, e poiché la resistenza del PT100 dipende in modo lineare dalla sua temperatura, cambierà anche la tensione ai capi dello strumento. Tuttavia la lampadina scalda anche il vetro e l'aria che circondano il nostro sensore. Questo trasferimento di calore al vetro e all'aria fa sì che il PT100 risenta anche del loro effetto. Noi però siamo interessati solamente all'effetto prodotto dalla lampadina per mezzo dell'irraggiamento. Quindi poiché possiamo considerare la velocità di trasferimento di calore per irraggiamento molto maggiore della velocità di trasferimento di calore per conduzione termica, ipotizziamo che i primi secondi dall'accensione della lampadina siano caratterizzati principalmente dall'effetto dell'irraggiamento. 
+
+Inoltre ad un primo ordine di approssimazione su $t$ per i primi secondi possiamo ipotizzare che l'andamento della tensione sia lineare. Osservando i dati raccolti vediamo che il massimo intervallo che possiamo prendere affinché il comportamento lineare della curva sia presente in tutti i grafici che abbiamo selezionato è di \SI{10}{\second} per tutte le curve. 
+
+Eseguendo un fit lineare quindi possiamo ottenere il valore della velocità di variazione della tensione $dV/dt$ per ogni distanza che abbiamo selezionato.
+
+A questo punto procediamo a raccogliere le coppie $(d,~dV/dt)$ in un grafico per poterne osservare il comportamento. 
+La nostra ipotesi è infatti che maggiore è la distanza, minore sarà la velocità con cui la tensione cambierà a causa dell'irraggiamento. 
+
+Volgiamo infatti verificare che i punti raccolti siano in relazione come 
+\[
+    \frac{dV}{dt} \propto d^{-2}
+\]
+e quindi eseguiamo un fit come
+\[
+    \frac{dV}{dt} = p_0\cdot(d+p_2)^{p_1}
+\]
+dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di -2.
 
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
@@ -325,7 +349,7 @@ Prendiamo quindi in considerazione solo i dati per cui le fluttuazioni prima che
     \raggedright
     \includegraphics[width=0.7\textwidth]{GuadagnoMC.pdf}
     \includegraphics[width=0.7\textwidth]{GuadagnoDIFF.pdf}
-    \caption{Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale dell'amplificatore per strumentazione, eseguito utlizzando tensioni diverse ai capi invertente e non invertente. }
+    \caption{Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
     \label{fig:guadagno_op_amp_strum}
 \end{figure*}
 
