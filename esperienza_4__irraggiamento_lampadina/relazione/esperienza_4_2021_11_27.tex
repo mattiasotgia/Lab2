@@ -46,7 +46,7 @@
 \email{s4942225@studenti.unige.it}
 
 \collaboration{Gruppo A1}
-\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova}
 
 \date{presa dati
     30 novembre, 1-2 dicembre 2021, consegnata in data 
@@ -123,7 +123,7 @@ Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro ca
 
 \begin{figure}
     \includegraphics[width=\linewidth]{plot_combined.pdf}
-    \caption{Grafico combinato dei diagrammi di Bode }
+    \caption{Grafico combinato dei diagrammi di Bode dell'amplificatore operazionale LM741 ottenuti in differenti configurazioni invertenti tali da avere guadagni diversi, ma possiamo osservare che convergendo asintoticamente sul fronte di discesa, possimo qualitativamente verificare la conservazione del GBW (\emph{Gain-Bandwidth}).}
     \label{fig:plot_combined}
 \end{figure}
 
@@ -157,7 +157,7 @@ per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da mod
 
 Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perchè infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di $10^6 \Omega$.
 
-Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta "slew rate". La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
+Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta \emph{slew rate}. La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
 
 \begin{figure}
     \begin{circuitikz}
@@ -170,7 +170,7 @@ Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddett
         (opamp.down) -- ++(0, -1) node[below]{-Vcc}
         ;
     \end{circuitikz}
-    \caption{Schema circuitale del comparatore utilizzato per effettuare la misura della \textit{slew rate}.}
+    \caption{Schema circuitale del comparatore utilizzato per effettuare la misura della \emph{slew rate}.}
     \label{fig:opamp_comparatore}
 \end{figure}
 
@@ -219,7 +219,7 @@ $G_{\text{CM}}$ è invece il guadagno di modo comune che è presente poiché le 
 $G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso sono simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
 
 Per misurare il valore di offset vogliamo quindi che i primi due termini di \refeqn{eq:V_out=GtotVin} vengano annullati. Poniamo dunque \[V_{\text{non-inv}}=V_{\text{inv}}=0\] e osserviamo il valore della tensione in uscita, verificando rispetto al valore di terra dove si pone la tensione in uscita $V_{out}$.
-Possiamo quindi usare un "trimmer" presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
+Possiamo quindi usare un \emph{trimmer} presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
 ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
@@ -296,7 +296,7 @@ Per quantificare tali fluttuazioni statistiche dovute al rumore utilizziamo il K
 
 Poichè vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
 
-\section*{Considerazioni qualitative sui dati raccolti}
+\section*{Scelta qualitativa dei dati raccolti}
 Delle serie di dati raccolti effettuiamo una prima analisi di tipo qualitativo, semplicemente osservandone i grafici di tensione in funzione del tempo. Se il sistema si trova a riposo infatti la tensione in uscita non dovrebbe variare rispetto alla posizione iniziale se non per fluttuazioni legate all'ambiente e ad altri fattori casuali. Dovremmo quindi osservare un comportamento stabile fino all'istante in cui la lampadina non viene accesa e quindi la variazione di tensione è legata al fenomeno dell'irradiazione. 
 
 
@@ -322,7 +322,7 @@ Delle serie di dati raccolti effettuiamo una prima analisi di tipo qualitativo, 
     \raggedright
     \includegraphics[width=0.7\textwidth]{GuadagnoMC.pdf}
     \includegraphics[width=0.7\textwidth]{GuadagnoDIFF.pdf}
-    \caption{}
+    \caption{Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale dell'amplificatore per strumentazione, eseguito utlizzando tensioni diverse ai capi invertente e non invertente. }
     \label{fig:guadagno_op_amp_strum}
 \end{figure*}
 
