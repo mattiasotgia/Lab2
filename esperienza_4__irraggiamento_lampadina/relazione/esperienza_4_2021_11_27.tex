@@ -123,7 +123,7 @@ Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro ca
 
 \begin{figure}
     \includegraphics[width=\linewidth]{plot_combined.pdf}
-    \caption{Grafico combinato dei diagrammi di Bode dell'amplificatore operazionale LM741 ottenuti in differenti configurazioni invertenti tali da avere guadagni diversi, ma possiamo osservare che convergendo asintoticamente sul fronte di discesa, possimo qualitativamente verificare la conservazione del GBW (\emph{Gain-Bandwidth}).}
+    \caption{Grafico combinato dei diagrammi di Bode dell'amplificatore operazionale LM741 ottenuti in differenti configurazioni invertenti tali da avere guadagni diversi, ma possiamo osservare che convergendo asintoticamente sul fronte di discesa, possiamo qualitativamente verificare la conservazione del GBW (\emph{Gain-Bandwidth}).}
     \label{fig:plot_combined}
 \end{figure}
 
@@ -155,9 +155,9 @@ Successivamente costruiamo un circuito amplificatore non-invertente il cui schem
 
 per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da modello cioè $G=1+R_1/R_2$ mentre la quota è compatibile con zero.
 
-Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perchè infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di $10^6 \Omega$.
+Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perché infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di $10^6 \Omega$.
 
-Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta \emph{slew rate}. La velocità di risposta, o slew rate, è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poichè quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
+Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta \emph{slew rate}. La \emph{slew rate} è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poiché quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
 
 \begin{figure}
     \begin{circuitikz}
@@ -236,7 +236,7 @@ Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}
 \end{align*}
 La quota è compatibile con zero e il valore di $G_{\text{diff}}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{\text{teorico}}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{\text{diff}}$ è diversi ordini di grandezza più grande di $G_{\text{CM}}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR) è pari a \num{13.777+-1.6063e3}.
 
-Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò impostiamo la tensione di ingresso a diverse frequenze e raccogliamo i valori di $V_{out}$ per costruire un diagramma di Bode della funzione di traferimento e calcolare la frequenza di taglio (sappiamo infatti che il circuito dovrebbe comportarsi da passa-basso). Utilizziamo quindi di nuovo l'equazione \refeqn{eq:H} impostando gli stessi parametri e troviamo che 
+Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò impostiamo la tensione di ingresso a diverse frequenze e raccogliamo i valori di $V_{out}$ per costruire un diagramma di Bode della funzione di trasferimento e calcolare la frequenza di taglio (sappiamo infatti che il circuito dovrebbe comportarsi da passa-basso). Utilizziamo quindi di nuovo l'equazione \refeqn{eq:H} impostando gli stessi parametri e troviamo che 
 \begin{align*}
     G     &=\num{ 182.043 +-  3.61039} \\
     \nu_0 &=\SI{ 155.835 +-  10.4320}{\kilo\hertz} \\ 
@@ -294,7 +294,7 @@ Attraverso una interfaccia seriale e un programma di interpretazione del seriale
 Lasciando il sistema allo stato iniziale (lampadina spenta e strumentazione di misura attiva) colleghiamo l'uscita dell'amplificatore allo'oscilloscopio per osservare qualitativamente la dimensione della banda del rumore. 
 Per quantificare tali fluttuazioni statistiche dovute al rumore utilizziamo il Keytley e acquisiamo per circa \SI{100}{\second} a intervalli regolari la misura della tensione. Una successiva analisi di questi dati ci porter\'a a quantificare l'errore per le successive misure.
 
-Poichè vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
+Poiché vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
 
 \section*{Scelta dei dati raccolti}
 Delle serie di dati raccolti effettuiamo una prima analisi di tipo qualitativo, semplicemente osservandone i grafici di tensione in funzione del tempo. Se il sistema si trova a riposo infatti la tensione in uscita non dovrebbe variare rispetto alla posizione iniziale se non per fluttuazioni legate all'ambiente e ad altri fattori casuali. Dovremmo quindi osservare un comportamento stabile fino all'istante in cui la lampadina non viene accesa e quindi la variazione di tensione è legata al fenomeno dell'irraggiamento. 
@@ -303,19 +303,48 @@ Prendiamo quindi in considerazione solo i dati per cui le fluttuazioni prima che
 
 Inoltre ci preoccupiamo di rimuovere i valori corrispondenti agli istanti precedenti all'accensione della lampadina, in quanto non sono influenti per la nostra analisi.
 
-\section*{Valutazione errore sulla lettura di tensione}
+\section*{Valutazione propagazione errori}
+
+\begin{table}
+    \caption{Quantità e incertezze legate alla determinazione della distanza.}
+    \label{tab:error:expected}
+    \begin{ruledtabular}
+        \begin{tabular}{ld}
+            Quantità & \multicolumn{1}{c}{Incertezza} \\
+            & \multicolumn{1}{c}{(\unit{\milli\metre})} \\
+            \colrule
+            (stat) & \\
+            \colrule
+            Allineamento del bulbo con il supporto & 1 \\
+            Allineamento del supporto con il righello & 1 \\
+            Allineamento del righello con la base del PT100 & 1 \\
+            Errore di parallasse per ogni allineamento & 2 \\
+            Errore sul possibile scivolamento durante le misure & 2 \\
+            \colrule
+            (syst) & \\
+            \colrule
+            Perpendicolarità degli indicatori di allineamento & \\
+            sul PT100 & 3 \\
+            Perpendicolarità degli indicatori di allineamento & \\
+            sul supporto della lampada & 3 \\
+            Disallineamento orizzontale sorgente/PT100 & \dots \\
+            Totale statistico ($1\sigma$) & 7/\sqrt{3} \\
+            Totale sistematico ($1\sigma$) & 6/\sqrt{3}
+        \end{tabular}
+    \end{ruledtabular}
+\end{table}
+
 
 \section*{Modello \#1 di analisi della variazione di tensione}
 I dati ottenuti si presentano come letture di tensione in funzione del tempo. Non essendo a conoscenza di una precisa legge fisica che regoli questo andamento della tensione in relazione al tempo, possiamo però procedere ipotizzando alcuni modelli che possano descrivere il fenomeno che si osserva. 
 
-Innanzitutto quando la lampadina viene accesa la luce raggiunge in modo immediato il sensore resistivo che quindi per il fenomeno dell'irraggiamento viene scaldato, e poiché la resistenza del PT100 dipende in modo lineare dalla sua temperatura, cambierà anche la tensione ai capi dello strumento. Tuttavia la lampadina scalda anche il vetro e l'aria che circondano il nostro sensore. Questo trasferimento di calore al vetro e all'aria fa sì che il PT100 risenta anche del loro effetto. Noi però siamo interessati solamente all'effetto prodotto dalla lampadina per mezzo dell'irraggiamento. Poichè quindi possiamo considerare la velocità di trasferimento di calore per irraggiamento molto maggiore della velocità di trasferimento di calore per conduzione termica, ipotizziamo che i primi secondi dall'accensione della lampadina siano caratterizzati principalmente dall'effetto dell'irraggiamento. 
+Innanzitutto quando la lampadina viene accesa la luce raggiunge in modo immediato il sensore resistivo che quindi per il fenomeno dell'irraggiamento viene scaldato, e poiché la resistenza del PT100 dipende in modo lineare dalla sua temperatura, cambierà anche la tensione ai capi dello strumento. Tuttavia la lampadina scalda anche il vetro e l'aria che circondano il nostro sensore. Questo trasferimento di calore al vetro e all'aria fa sì che il PT100 risenta anche del loro effetto. Noi però siamo interessati solamente all'effetto prodotto dalla lampadina per mezzo dell'irraggiamento. Poiché quindi possiamo considerare la velocità di trasferimento di calore per irraggiamento molto maggiore della velocità di trasferimento di calore per conduzione termica, ipotizziamo che i primi secondi dall'accensione della lampadina siano caratterizzati principalmente dall'effetto dell'irraggiamento. 
 
 Inoltre, ad un primo ordine di approssimazione su $t$, per i primi secondi possiamo ipotizzare che l'andamento della tensione sia lineare. Osservando i dati raccolti vediamo che il massimo intervallo che possiamo prendere affinché il comportamento lineare della curva sia presente in tutti i grafici che abbiamo selezionato è di \SI{10}{\second} per tutte le curve. 
 
 Eseguendo un fit lineare possiamo quindi ottenere il valore della velocità di variazione della tensione $dV/dt$ per ogni distanza che abbiamo selezionato.
 
-A questo punto procediamo a raccogliere le coppie $(d,~dV/dt)$ in un grafico per poterne osservare il comportamento. 
-La nostra ipotesi è infatti che maggiore è la distanza, minore sarà la velocità con cui la tensione cambierà a causa dell'irraggiamento. 
+A questo punto procediamo a raccogliere le coppie $(d,~dV/dt)$ in un grafico per poterne osservare il comportamento. La nostra ipotesi è infatti che maggiore è la distanza, minore sarà la velocità con cui la tensione cambierà a causa dell'irraggiamento. 
 
 Volgiamo infatti verificare che i punti raccolti siano in relazione come 
 \[
@@ -325,7 +354,7 @@ e quindi eseguiamo un fit come
 \[
     \frac{dV}{dt} = p_0\cdot(d+p_2)^{p_1}
 \]
-dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di -2, mentre il valore di $p_2$ rappresenta l'eventuale offset sui valori raccolti della distanza. Il parametro $p_0$ rappresenta invece la costante di proporzionalità.
+dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di -2, mentre il valore di $p_2$ rappresenta l'eventuale offset sui valori raccolti della distanza. Il parametro $p_0$ rappresenta invece la costante di proporzionalità, ed è caratteristica del problema che stiamo considerando.
 
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
