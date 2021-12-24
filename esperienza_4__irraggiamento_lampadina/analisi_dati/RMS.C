@@ -15,7 +15,7 @@ void RMS(){
     f->SetLineColor(kRed);
     std::ifstream file("../dati/valutazione_rumore.txt");
     double T, V, eV, range;
-    char crange;
+    double crange;
     TH1D *hist = new TH1D("", "", 20, -40e-3, 40e-3);
     graphset::set_TGraphAxis(hist, "", 2, "V_{out} (con V_{in} = 0V) [V]");
     graphset::setmarker(hist, kRed-3);

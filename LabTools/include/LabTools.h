@@ -1,4 +1,4 @@
-// Lab Analysis Toolset "LabTools.h" -*- C++ -*- 
+// Lab Analysis Toolset "LabTools.h" -*- C++ -*-
 // Author M. Sotgia 05/11/21
 // v0.0.2 alpha
 
@@ -26,8 +26,9 @@ const double offsetx = 4;
 
 namespace base
 {
-    template<class _container, class _Ty>
-    bool isIn(_container _C, const _Ty& _Val){
+    template <class _container, class _Ty>
+    bool isIn(_container _C, const _Ty &_Val)
+    {
         return std::find(_C.begin(), _C.end(), _Val) != _C.end();
     }
 } // namespace base
@@ -49,29 +50,29 @@ namespace stattools
 } // namespace stat
 
 namespace graphset
-{   
+{
 
-    class graph{
+    class graph
+    {
 
         // cosa serve che si possa fare:
-        // * creato un elemento della classe voglio che questa mi dia accesso a:
+        // - creato un elemento della classe voglio che questa mi dia accesso a:
         //   1 grafico dei dati, 1 grafico dei residui, 1 pad con grafico e residui.
-        // * voglio poter decidere se avere il grafico dei residui oppure no
+        // - voglio poter decidere se avere il grafico dei residui oppure no
 
     private:
-
         bool _has_fitted = false;
         bool _show_res = true;
         bool _logx = false;
         bool _logy = false;
 
-        TPad* _full_pad = new TPad();
-        TPad* _g_pad;
-        TPad* _r_pad;
-        TGraphErrors* _g_graph = new TGraphErrors();
-        TGraphErrors* _r_graph = new TGraphErrors();
-        TF1* _g_fit;
-        TF1* _r_fit = new TF1("_r_fit", "0");
+        TPad *_full_pad = new TPad();
+        TPad *_g_pad;
+        TPad *_r_pad;
+        TGraphErrors *_g_graph = new TGraphErrors();
+        TGraphErrors *_r_graph = new TGraphErrors();
+        TF1 *_g_fit;
+        TF1 *_r_fit = new TF1("_r_fit", "0");
 
         const double _title_size = 21;
 
@@ -85,63 +86,67 @@ namespace graphset
     public:
         graph(bool showresiduals = true);
 
-        TPad* GetPad(){return _full_pad;};
-        TGraphErrors* GetGraph(){return _g_graph;};
-        TF1* GetFitTF1(){return _g_fit;} // needed to get SetParameters() method;
+        TPad *GetPad() { return _full_pad; };
+        TGraphErrors *GetGraph() { return _g_graph; };
+        TF1 *GetFitTF1() { return _g_fit; } // needed to get SetParameters() method;
 
-        void SetGraph(TGraphErrors* clonegraph);
-        void SetFitTF1(TF1* clonefit);
-
+        void SetGraph(TGraphErrors *clonegraph);
+        void SetFitTF1(TF1 *clonefit);
 
         void SetFitFormula(std::string formula);
         void SetFitLimits(Double_t min, Double_t max);
 
-        void SetLogX(){_logx = true;}
-        void SetLogY(){_logx = true;}
+        void SetLogX() { _logx = true; }
+        void SetLogY() { _logx = true; }
         ~graph();
     };
 
-    void graph::_fillresiduals(){
+    void graph::_fillresiduals()
+    {
 
-        if(!_show_res){
+        if (!_show_res)
+        {
             return;
         }
-        if(_has_fitted){
-            for (int i = 0; i < _g_graph->GetN(); i++){
+        if (_has_fitted)
+        {
+            for (int i = 0; i < _g_graph->GetN(); i++)
+            {
                 _r_graph->SetPoint(i, _g_graph->GetX()[i], (_g_graph->GetY()[i] - _g_fit->Eval(_g_graph->GetX()[i])) / _g_graph->GetEY()[i]);
                 _r_graph->SetPointError(i, 0, 1);
             }
         }
     }
 
-    void graph::SetFitFormula(std::string formula){
+    void graph::SetFitFormula(std::string formula)
+    {
         _g_fit = new TF1("_g_fit", formula.c_str());
     }
 
-    void graph::SetFitLimits(Double_t min = (0.0), Double_t max = (1.0)){
+    void graph::SetFitLimits(Double_t min = (0.0), Double_t max = (1.0))
+    {
         xmin = min;
         xmax = max;
         _r_fit->SetRange(min, max);
     }
-    graph::graph(bool showresiduals){
-        if(!showresiduals){
+    graph::graph(bool showresiduals)
+    {
+        if (!showresiduals)
+        {
             _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
             _r_pad = new TPad("", "", 0.0, 0.0, 0.0, 0.0);
             _show_res = false;
             _r_pad->Delete();
         }
-        _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);  
+        _g_pad = new TPad("", "", 0.0, 0.3, 1.0, 1.0);
         _r_pad = new TPad("", "", 0.0, 0.0, 1.0, 0.295);
 
         // Alcuni accortezze da impostare inizializzando la classe
         _r_fit->SetLineStyle(2);
     }
-    
+
     // graph::~graph(){
     // }
-
-
-
 
     /////////////////////////////////////////////////////////////////////////////
     //                                                                         //
@@ -151,13 +156,21 @@ namespace graphset
 
     bool _isresidualon = true;
     bool _isgraphset = false;
-    std::string* _xtitle = new std::string("ERR: inverti set_ResidualAxis() #leftrightarrow set_TGraphAxis()");
+    std::string *_xtitle = new std::string("ERR: inverti set_ResidualAxis() #leftrightarrow set_TGraphAxis()");
 
-
-    /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
-    ottenere il risultato voluto. */
-    template<class _TObj>
-    void set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = ""){
+    /**
+     * @brief Set the TGraphAxis object
+     * REMINDER: impostare prima il metodo @a set_ResidualAxis() e poi @a set_TGraphAxis() per ottenere il risultato voluto. 
+     * 
+     * @tparam _TObj General TObject from ROOT
+     * @param rg Residuals dynamically declared TGraphError graph for residuals
+     * @param ytitle y axis title
+     * @param offset y axis offset, to be conjugated with the offser in @a set_ResidualAxis().
+     * @param xtitle x axis title
+     */
+    template <class _TObj>
+    void set_TGraphAxis(_TObj *g, std::string ytitle, float offset = 2, std::string xtitle = "")
+    {
         g->SetTitle("");
         g->GetYaxis()->SetTitle(ytitle.c_str());
         g->GetYaxis()->SetTitleOffset(offset);
@@ -193,13 +206,21 @@ namespace graphset
         }
 
         g->GetXaxis()->SetTickLength(0.05);
-}
+    }
 
-
-    /* REMINDER: impostare prima il metodo `set_ResidualAxis()` e poi `set_TGraphAxis()` per
-    ottenere il risultato voluto. */
-    template<class _TObj>
-    void set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]"){
+    /**
+     * @brief Set the ResidualsAxis object. 
+     * REMINDER: impostare prima il metodo @a set_ResidualAxis() e poi @a set_TGraphAxis() per ottenere il risultato voluto. 
+     * 
+     * @tparam _TObj General TObject from ROOT (In this case always use TGraphErros typeclass)
+     * @param rg Residuals dynamically declared TGraphError graph for residuals
+     * @param xtitle x axis title
+     * @param offset y axis offset, to be conjugated with the offser in @a set_TGraphAxis().
+     * @param ytitle automatic set to "Residui [σ]"
+     */
+    template <class _TObj>
+    void set_ResidualsAxis(_TObj *rg, std::string xtitle, float offset = 2, std::string ytitle = "Residui [#sigma]")
+    {
         rg->GetXaxis()->SetTitle(xtitle.c_str());
         rg->GetXaxis()->SetTitleOffset(offsetx);
         rg->GetXaxis()->SetTitleFont(43);
@@ -222,45 +243,71 @@ namespace graphset
         rg->GetXaxis()->SetTickLength(0.08);
     }
 
-    struct padtypes{
-        TPad* Graph = new TPad();
-        TPad* Residuals = new TPad();
+    struct padtypes
+    {
+        TPad *Graph = new TPad();
+        TPad *Residuals = new TPad();
     };
 
+    /**
+     * @brief Impostazione dei pad del grafico
+     * Il primo argomento è una struttura che contiene i TPad dei grafico e dei resudui;
+     * Se dico di disegnare i residui tutto OK, se dico false al valore booleano drawresiduals
+     * allora il grafico verrà eseguito senza i residui, e il nome degli assi impostato di
+     * conseguenza. È importante chiamare i comandi @a set_ResidualAxis() e @a set_TGraphAxis()
+     * in questo ordine, di modo che il titolo sull'asse x venga mostrato, altrimenti si mostrerà
+     * un titolo di errore.
+     * @return Imposta le dimensioni del grafico allocato dinamicamente
+     */
+    void setgraphsize(graphset::padtypes g, bool logx = false, bool logy = false, bool drawresiduals = true);
 
-    /* Impostazione dei pad del grafico:
-    Il primo argomento è una struttura che contiene i TPad dei grafico e dei resudui;
-    Se dico di disegnare i residui tutto OK, se dico false al valore booleano drawresiduals
-    allora il grafico verrà eseguito senza i residui, e il nome degli assi impostato di con-
-    seguenza. È importante chiamare i comandi `set_ResidualAxis()` e `set_TGraphAxis()` in 
-    questo ordine, di modo che il titolo sull'asse x venga mostrato, altrimenti si mostrerà 
-    un titolo di errore */
-    void setgraphsize(graphset::padtypes g, bool logx=false, bool logy=false, bool drawresiduals = true);
+    /**
+     * @brief Set canvas/pad division and margins
+     * 
+     * @tparam _TObj General ROOT TObject
+     * @param c1 Dynamically allocated canvas/pad
+     * @param nx number of division over x
+     * @param ny number of division over y
+     * @param m_left Left margin
+     * @param m_right Right margin
+     * @param m_bottom Bottom margin
+     * @param m_top Top margin
+     */
+    template <class _TObj>
+    void setcanvas(_TObj *c1, int nx = 1, int ny = 1,
+                   float m_left = 0.16, float m_right = 0.06,
+                   float m_bottom = 0.12, float m_top = 0.06)
+    {
+        c1->SetMargin(m_left, m_right, m_bottom, m_top);
+        c1->SetFillStyle(4000);
+        c1->Divide(nx, ny);
+    }
 
-    template<class _TObj>
-    void setcanvas(_TObj* c1, int nx = 1, int ny = 1, 
-                float m_left = 0.16, float m_right = 0.06, 
-                float m_bottom = 0.12, float m_top = 0.06){
-    c1->SetMargin(m_left, m_right, m_bottom, m_top);
-    c1->SetFillStyle(4000);
-    c1->Divide(nx, ny);
-}
-
-
-    template<class _TObj, class _TFObj>
-    void fillresiduals(_TObj* g, _TFObj* g_fit, TGraphErrors* r){
+    /**
+     * @brief Fill residual TGraphErrors
+     * 
+     * @tparam _TObj General ROOT TObject
+     * @tparam _TFObj General ROOT TObject (TF1 typeclass)
+     * @param g Data graph
+     * @param g_fit TF1 fitting curve
+     * @param r Residual TGraphErrors
+     */
+    template <class _TObj, class _TFObj>
+    void fillresiduals(_TObj *g, _TFObj *g_fit, TGraphErrors *r)
+    {
         for (int i = 0; i < g->GetN(); i++)
         {
             r->SetPoint(i, g->GetX()[i], (g->GetY()[i] - g_fit->Eval(g->GetX()[i])) / g->GetEY()[i]);
             r->SetPointError(i, 0, 1);
         }
-}
+    }
 
-    /* Includere qui tutti i parametri globali/semi-globali per 
-    l'inizializzazione di grafici in ROOT 
-        gStyle->SetFrameLineWidth(0);
-        gStyle->SetTextFont(43);
-        gStyle->SetLineScalePS(1);*/
+    /**
+     * @brief Includere qui tutti i parametri globali/semi-globali per l'inizializzazione di grafici in ROOT
+     * @param gStyle->SetFrameLineWidth(0); Set graph only with two axis
+     * @param gStyle->SetTextFont(43);      Set graph font to be Helvetica
+     * @param gStyle->SetLineScalePS(1);    Set ok pdf scaling
+     */
     void init();
 
     template <class _TObj, class _TFObj>
@@ -289,7 +336,7 @@ namespace graphset
     }
 }
 
-// * todo: fare in modo da avere che riempendo il grafico in 
+// * todo: fare in modo da avere che riempendo il grafico in
 // *       automatico se io genero i residui sono già riempiti
 
 #endif

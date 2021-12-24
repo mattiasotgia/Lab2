@@ -19,3 +19,4 @@ target_link_libraries(LabTools ${ROOT_LIBRARIES})
 
 install(TARGETS LabTools DESTINATION /usr/local/lib/)
 install(FILES include/LabTools.h DESTINATION include)
+
