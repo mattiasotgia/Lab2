@@ -303,7 +303,28 @@ Prendiamo quindi in considerazione solo i dati per cui le fluttuazioni prima che
 
 Inoltre ci preoccupiamo di rimuovere i valori corrispondenti agli istanti precedenti all'accensione della lampadina, in quanto non sono influenti per la nostra analisi.
 
+Infine procediamo ad analizzare i dati rimanenti eliminando eventuali errori di lettura dal seriale, ovvero punti facilmente individuabili dove per esempio due istatni di tempo successivi presentano la stessa lettura di tensione, o punti che presentano letture di tensione che non sono sensate rispetto alle grandezze misurate. 
+
 \section*{Valutazione propagazione errori}
+
+\noindent\textit{Errore sulla misura temporale---}
+I punti sono acquisiti ad intervalli temporali regolari, controllati dal computer, che quindi possiamo considerare con un errore trascurabile rispetto alla misura effettuata. 
+
+\noindent\textit{Errore sulla misura della tensione---}
+?
+
+\noindent\textit{Errore sulla misura della distanza---}
+Per la misura di distanza entrano in gioco diversi fattori che influiscono sulla misura e che portano con sé un errore. La somma di tutti questi contributi, staticizzata, definisce quindi l'errore finale sulla misura ottenuta. 
+In \reftab{tab:error:expected} abbiamo riportato le possibili fonti di errore. Consideriamo \SI{1}{\milli\metre} come errore di allineamento, ovvero l'accuratezza dello strumento in uso, e poiché l'allineamento lo effettuiamo sia dalla parte del sensore che dalla parte della sorgente, questa incertezza la consideriamo due volte. Inoltre poiché questa misura viene effettuata manualmente è anche soggetta ad un possibile errore di parallasse sulla misura, che valutiamo di \SI{1}{\milli\metre} per ogni allineamento, quindi \SI{2}{\milli\metre} in totale. Otteniamo un totale statistico di $6/\sqrt{3}$ mm.
+
+Oltre all'errore statistico possiamo individuare una serie di errori sistematici che possono essere presenti. In primo luogo l'allineamento della sorgente e del PT100 con il righello era effettuato sfruttando un segno a matita che individuava un punto sulla base dei due strumenti. Però Questi segni potrebbero non essere precisi e soffrire di un disallineamento con lo strumento stesso (il PT100 o il centro della lampadina), che abbiamo stimato comunque poter essere al più \SI{3}{\milli\metre} ciascuna. 
+
+Infine è probabile che sorgente e sensore non siano posti in asse, quindi presentino un offset orizzontale e verticale, per cui la distanza reale $d_{\text{r}}$ è maggiore alla distanza misurata $d_{\text{meas}}$, in quanto 
+\[
+    d_{\text{r}} = \sqrt{d_{\text{meas ($x$)}}^2 + \delta_y^2 + \delta_z^2}.
+\]
+Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in grado di fornire una stima. Inoltre l'effetto di questo disallineamento diviene più evidente più la distanza $d_{\text{meas}}$ tra sorgente e sensore diventa piccola.
+
 
 \begin{table}
     \caption{Quantità e incertezze legate alla determinazione della distanza.}
@@ -315,7 +336,7 @@ Inoltre ci preoccupiamo di rimuovere i valori corrispondenti agli istanti preced
             \colrule
             (stat) & \\
             \colrule
-            Allineamento del bulbo con il supporto & 1 \\
+            % Allineamento del bulbo con il supporto & 1 \\
             Allineamento del supporto con il righello & 1 \\
             Allineamento del righello con la base del PT100 & 1 \\
             Errore di parallasse per ogni allineamento & 2 \\
@@ -327,8 +348,8 @@ Inoltre ci preoccupiamo di rimuovere i valori corrispondenti agli istanti preced
             sul PT100 & 3 \\
             Perpendicolarità degli indicatori di allineamento & \\
             sul supporto della lampada & 3 \\
-            Disallineamento orizzontale sorgente/PT100\footnote{Non valutabile in una analisi dati a posteriori.} & \dots \\
-            Totale statistico ($1\sigma$) & 7/\sqrt{3} \\
+            Disallineamento verticale/orizzontale sorgente/PT100\footnote{Non valutabile in una analisi dati a posteriori.} & \dots \\
+            Totale statistico ($1\sigma$) & 6/\sqrt{3} \\
             Totale sistematico ($1\sigma$) & 6/\sqrt{3}
         \end{tabular}
     \end{ruledtabular}
