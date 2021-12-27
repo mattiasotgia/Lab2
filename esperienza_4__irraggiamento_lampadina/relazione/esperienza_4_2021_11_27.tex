@@ -239,7 +239,7 @@ La quota è compatibile con zero e il valore di $G_{\text{diff}}$ è compatibile
 Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò impostiamo la tensione di ingresso a diverse frequenze e raccogliamo i valori di $V_{out}$ per costruire un diagramma di Bode della funzione di trasferimento e calcolare la frequenza di taglio (sappiamo infatti che il circuito dovrebbe comportarsi da passa-basso). Utilizziamo quindi di nuovo l'equazione \refeqn{eq:H} impostando gli stessi parametri e troviamo che 
 \begin{align*}
     G     &=\num{ 182.043 +-  3.61039} \\
-    \nu_0 &=\SI{ 155.835 +-  10.4320}{\kilo\hertz} \\ 
+    \nu_0 &=\SI[round-mode=none]{ 156 +-  10}{\kilo\hertz} \\ 
 \end{align*}
 Vediamo inoltre che il valore del guadagno trovato è compatibile con quello ricavato in precedenza. 
 Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; infatti considerando l'amplificatore come costituito da due stadi consecutivi, dalla scelta delle resistenze otteniamo che il primo stadio porta con sé un guadagno pari a 5 ($G_{1}$), e il secondo un guadagno pari a circa 32 ($G_{2}$). Questi due stadi si comportano come due amplificatori operazionali (LF356) e hanno lo stesso prodotto Guadagno-Banda passante (GBW), del valore di \SI{5}{\mega\hertz} (data-sheet). Quindi a parità di GBW taglia prima lo stadio a guadagno maggiore, e la frequenza di taglio risultante è data da $\text{GBW}/G_{2} = \SI{156}{\kilo\hertz}$, perfettamente compatibile con il valore ottenuto.
@@ -332,7 +332,7 @@ Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in
     \begin{ruledtabular}
         \begin{tabular}{ld}
             Quantità & \multicolumn{1}{c}{Incertezza} \\
-            & \multicolumn{1}{c}{(\unit{\milli\metre})} \\
+            & \multicolumn{1}{c}{(\si{\milli\metre})} \\
             \colrule
             (stat) & \\
             \colrule
@@ -372,11 +372,15 @@ Volgiamo infatti verificare che i punti raccolti siano in relazione come
     \frac{dV}{dt} \propto d^{-2}
 \]
 e quindi eseguiamo un fit come
-\[
+\begin{equation}\label{eq:modello_plot}
     \frac{dV}{dt} = p_0\cdot(d+p_2)^{p_1}
-\]
+\end{equation}
 dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di -2, mentre il valore di $p_2$ rappresenta l'eventuale offset sui valori raccolti della distanza. Il parametro $p_0$ rappresenta invece la costante di proporzionalità, ed è caratteristica del problema che stiamo considerando.
 
+\section*{Modello \#2 di analisi della variazione di tensione}
+Invece che limitarci a considerare la variazione dei valori entro i primi punti dove il comportamento è prettamente lineare, andiamo ora a considerare la variazione di tensione su intervalli temporali più estesi, dove non possiamo però conoscere con certezza il modello fisico-matematico che sta dietro al fenomeno. Perciò, invece che calcolare la velocità di variazione, consideriamo un intervallo fisso di tempo $\Delta t_1$ (scegliamo per esempio \SI{20}{\second}), per il quale dopo aver posto il valore della tensione uguale a zero all'istante iniziale ($t=0$), vogliamo valutare la variazione di tensione dopo $\Delta t_1$. Il problema principale che si pone è che i dati raccolti sono dati discreti e probabilmente non presentano una lettura della tensione esattamente dopo $\Delta t_1$ s; quindi poichè in un primo ordine di approssimazione per il tempo, per un intervallo sufficientemente piccolo il grafico può essere approssimato come $p_0+x\cdot p_1$, possiamo eseguire dei fit localizzati in un intorno [$\Delta t_1-2$ s; $\Delta t_1+2$ s] e poi estrapolare il valore di tensione in un istante preciso. Procedendo poi come già fatto per il Modello \#1, possiamo eseguire un fit sulla equazione \ref{eq:modello_plot}.
+
+Proviamo infine a considerare intervalli diversi, e per ognuno di questi intervalli 
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
     Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
