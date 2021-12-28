@@ -53,7 +53,7 @@ std::string stattools::compatible(double G1, double errG1,
     {
         return "COMPATIBILE";
     }
-    return ("NON-COMPATIBILE: distanza di " + std::to_string(abs(G2 - G1)/sqrt(pow(errG1, 2) + pow(errG2, 2))) + " σ");
+    return ("NON-COMPATIBILE: significativita' statistica  " + std::to_string(abs(G2 - G1)/sqrt(pow(errG1, 2) + pow(errG2, 2))) + " σ");
 }
 
 double stattools::getbestvalue(double G1, double G2, double errG1, double errG2)
