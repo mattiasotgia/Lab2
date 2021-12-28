@@ -296,6 +296,12 @@ Per quantificare tali fluttuazioni statistiche dovute al rumore utilizziamo il K
 
 Poiché vogliamo misurare l'andamento della temperatura rispetto alla distanza della sorgente posizioniamo tale sorgente a distanze fissate rispetto alla posizione del termometro PT100. Misurata tale distanza, vogliamo poi assicurarci che il termometro sia in una condizione stabile, e quindi avviamo il programma di acquisizione dati, e una volta che osserviamo valori stabili della tensione procediamo ad accendere la lampadina e da questo istante consideriamo un intervallo temporale [\SI{100}{\second}, \SI{180}{\second}], dopo il quale interrompiamo la presa dati. Ripetiamo questo processo per alcuni valori diversi della distanza $d$.
 
+\begin{figure*}
+    \includegraphics[width=\linewidth]{ValErrore.pdf}
+    \caption{}
+    \label{fig:errore}
+\end{figure*}
+
 \section*{Scelta dei dati raccolti}
 Delle serie di dati raccolti effettuiamo una prima analisi di tipo qualitativo, semplicemente osservandone i grafici di tensione in funzione del tempo. Se il sistema si trova a riposo infatti la tensione in uscita non dovrebbe variare rispetto alla posizione iniziale se non per fluttuazioni legate all'ambiente e ad altri fattori casuali. Dovremmo quindi osservare un comportamento stabile fino all'istante in cui la lampadina non viene accesa e quindi la variazione di tensione è legata al fenomeno dell'irraggiamento. 
 
@@ -311,20 +317,10 @@ Infine procediamo ad analizzare i dati rimanenti eliminando eventuali errori di 
 I punti sono acquisiti ad intervalli temporali regolari, controllati dal computer, che quindi possiamo considerare con un errore trascurabile rispetto alla misura effettuata. 
 
 \noindent\textit{Errore sulla misura della tensione---}
-Osservando i dati raccolti, rappresentanti le fluttazioni legate al rumore o ad altri fenomeni di disturbo, notiamo un comportamento non totalmente imputabile a fluttazioni casuali. Infatti è intuibile osservare la presenza di un segnale sinusoidale a frequenza molto bassa (vedi \reffig{}). Per riuscire a sfruttare comunque questi dati decidiamo quindi di effettuare un fit secondo la funzione $p_0+p_1\cdot \cos(p_2\cdot (t-p_3))$ e sottraiamo questa funzione ai dati precedentemente raccolti ottenendo un comportamento in cui non è più possibile osservare componenti non casuali. Da questi nuovi dati possiamo quindi ricavare una distribuzione gaussiana dalla quale è possibile calcolare il valore della deviazione standard che utilizziamo come errore per i valori della tensione. Il valore ottenuto è pari a \SI{4}{\milli\volt} 
+Osservando i dati raccolti, rappresentanti le fluttazioni legate al rumore o ad altri fenomeni di disturbo, notiamo un comportamento non totalmente imputabile a fluttazioni casuali. Infatti è intuibile osservare la presenza di un segnale sinusoidale a frequenza molto bassa (vedi \reffig{fig:errore}). Per riuscire a sfruttare comunque questi dati decidiamo quindi di effettuare un fit secondo la funzione $p_0+p_1\cdot \cos(p_2\cdot (t-p_3))$ e sottraiamo questa funzione ai dati precedentemente raccolti ottenendo un comportamento in cui non è più possibile osservare componenti non casuali. Da questi nuovi dati possiamo quindi ricavare una distribuzione gaussiana dalla quale è possibile calcolare il valore della deviazione standard che utilizziamo come errore per i valori della tensione. Il valore ottenuto è pari a \SI{4}{\milli\volt} 
 
 \noindent\textit{Errore sulla misura della distanza---}
 Per la misura di distanza entrano in gioco diversi fattori che influiscono sulla misura e che portano con sé un errore. La somma di tutti questi contributi, staticizzata, definisce quindi l'errore finale sulla misura ottenuta. 
-In \reftab{tab:error:expected} abbiamo riportato le possibili fonti di errore. Consideriamo \SI{1}{\milli\metre} come errore di allineamento, ovvero l'accuratezza dello strumento in uso, e poiché l'allineamento lo effettuiamo sia dalla parte del sensore che dalla parte della sorgente, questa incertezza la consideriamo due volte. Inoltre poiché questa misura viene effettuata manualmente è anche soggetta ad un possibile errore di parallasse sulla misura, che valutiamo di \SI{1}{\milli\metre} per ogni allineamento, quindi \SI{2}{\milli\metre} in totale. Otteniamo un totale statistico di $6/\sqrt{3}$ mm.
-
-Oltre all'errore statistico possiamo individuare una serie di errori sistematici che possono essere presenti. In primo luogo l'allineamento della sorgente e del PT100 con il righello era effettuato sfruttando un segno a matita che individuava un punto sulla base dei due strumenti. Però Questi segni potrebbero non essere precisi e soffrire di un disallineamento con lo strumento stesso (il PT100 o il centro della lampadina), che abbiamo stimato comunque poter essere al più \SI{3}{\milli\metre} ciascuna. 
-
-Infine è probabile che sorgente e sensore non siano posti in asse, quindi presentino un offset orizzontale e verticale, per cui la distanza reale $d_{\text{r}}$ è maggiore alla distanza misurata $d_{\text{meas}}$, in quanto 
-\[
-    d_{\text{r}} = \sqrt{d_{\text{meas ($x$)}}^2 + \delta_y^2 + \delta_z^2}.
-\]
-Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in grado di fornire una stima. Inoltre l'effetto di questo disallineamento diviene più evidente più la distanza $d_{\text{meas}}$ tra sorgente e sensore diventa piccola.
-
 
 \begin{table}
     \caption{Quantità e incertezze legate alla determinazione della distanza.}
@@ -355,6 +351,23 @@ Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in
     \end{ruledtabular}
 \end{table}
 
+\begin{figure*}
+    \includegraphics[width=\linewidth]{plot_mod1.pdf}
+    \caption{}
+    \label{fig:plot:mod1}
+\end{figure*}
+
+In \reftab{tab:error:expected} abbiamo riportato le possibili fonti di errore. Consideriamo \SI{1}{\milli\metre} come errore di allineamento, ovvero l'accuratezza dello strumento in uso, e poiché l'allineamento lo effettuiamo sia dalla parte del sensore che dalla parte della sorgente, questa incertezza la consideriamo due volte. Inoltre poiché questa misura viene effettuata manualmente è anche soggetta ad un possibile errore di parallasse sulla misura, che valutiamo di \SI{1}{\milli\metre} per ogni allineamento, quindi \SI{2}{\milli\metre} in totale. Otteniamo un totale statistico di $6/\sqrt{3}$ mm.
+
+Oltre all'errore statistico possiamo individuare una serie di errori sistematici che possono essere presenti. In primo luogo l'allineamento della sorgente e del PT100 con il righello era effettuato sfruttando un segno a matita che individuava un punto sulla base dei due strumenti. Però Questi segni potrebbero non essere precisi e soffrire di un disallineamento con lo strumento stesso (il PT100 o il centro della lampadina), che abbiamo stimato comunque poter essere al più \SI{3}{\milli\metre} ciascuna. 
+
+Infine è probabile che sorgente e sensore non siano posti in asse, quindi presentino un offset orizzontale e verticale, per cui la distanza reale $d_{\text{r}}$ è maggiore alla distanza misurata $d_{\text{meas}}$, in quanto 
+\[
+    d_{\text{r}} = \sqrt{d_{\text{meas ($x$)}}^2 + \delta_y^2 + \delta_z^2}.
+\]
+Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in grado di fornire una stima. Inoltre l'effetto di questo disallineamento diviene più evidente più la distanza $d_{\text{meas}}$ tra sorgente e sensore diventa piccola.
+
+
 
 \section*{Modello \#1 di analisi della variazione di tensione}
 I dati ottenuti si presentano come letture di tensione in funzione del tempo. Non essendo a conoscenza di una precisa legge fisica che regoli questo andamento della tensione in relazione al tempo, possiamo però procedere ipotizzando alcuni modelli che possano descrivere il fenomeno che si osserva. 
@@ -367,7 +380,7 @@ Eseguendo un fit lineare possiamo quindi ottenere il valore della velocità di v
 
 A questo punto procediamo a raccogliere le coppie $(d,~dV/dt)$ in un grafico per poterne osservare il comportamento. La nostra ipotesi è infatti che maggiore è la distanza, minore sarà la velocità con cui la tensione cambierà a causa dell'irraggiamento. 
 
-Volgiamo infatti verificare che i punti raccolti siano in relazione come 
+Vogliamo infatti verificare che i punti raccolti siano in relazione come 
 \[
     \frac{dV}{dt} \propto d^{-2}
 \]
@@ -378,9 +391,12 @@ e quindi eseguiamo un fit come
 dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di -2, mentre il valore di $p_2$ rappresenta l'eventuale offset sui valori raccolti della distanza. Il parametro $p_0$ rappresenta invece la costante di proporzionalità, ed è caratteristica del problema che stiamo considerando.
 
 \section*{Modello \#2 di analisi della variazione di tensione}
-Invece che limitarci a considerare la variazione dei valori entro i primi punti dove il comportamento è prettamente lineare, andiamo ora a considerare la variazione di tensione su intervalli temporali più estesi, dove non possiamo però conoscere con certezza il modello fisico-matematico che sta dietro al fenomeno. Perciò, invece che calcolare la velocità di variazione, consideriamo un intervallo fisso di tempo $\Delta t_1$ (scegliamo per esempio \SI{20}{\second}), dopo il quale, una volta posto il valore della tensione a zero all'istante iniziale ($t=0$), vogliamo valutare la variazione della d.d.p. Il problema principale che si pone è che i dati raccolti sono dati discreti e probabilmente non presentano una lettura della tensione esattamente dopo $\Delta t_1$ s; quindi, poichè il grafico in un primo ordine di approssimazione per il tempo per un intervallo sufficientemente piccolo può essere approssimato come $p_0+x\cdot p_1$, possiamo eseguire dei fit localizzati in un intorno [$\Delta t_1-2$ s; $\Delta t_1+2$ s] e poi estrapolare il valore di tensione in un istante preciso. Procedendo poi come già fatto per il Modello \#1, possiamo eseguire un fit in base all'equazione equazione \ref{eq:modello_plot}.
+Invece che limitarci a considerare la variazione dei valori entro i primi punti dove il comportamento è prettamente lineare, andiamo ora a considerare la variazione di tensione su intervalli temporali più estesi, dove non possiamo però conoscere con certezza il modello fisico-matematico che sta dietro al fenomeno. Perciò, invece che calcolare la velocità di variazione, consideriamo un intervallo fisso di tempo $\Delta t_1$ (scegliamo per esempio \SI{20}{\second}), dopo il quale, una volta posto il valore della tensione a zero all'istante iniziale ($t=0$), vogliamo valutare la variazione della d.d.p. Il problema principale che si pone è che i dati raccolti sono dati discreti e probabilmente non presentano una lettura della tensione esattamente dopo $\Delta t_1$ s; quindi, poichè il grafico in un primo ordine di approssimazione per il tempo per un intervallo sufficientemente piccolo può essere approssimato come $p_0+x\cdot p_1$, possiamo eseguire dei fit localizzati in un intorno [$\Delta t_1-2$ s; $\Delta t_1+2$ s] e poi estrapolare il valore di tensione in un istante preciso. Procedendo poi come già fatto per il Modello \#1, possiamo eseguire un fit in base all'equazione equazione \ref{eq:modello_plot} e andiamo a verificare la compatibilità del parametro $p_1$ con -2.
 
-Proviamo infine a considerare intervalli diversi, e per ognuno di questi $\Delta t$ 
+Proviamo infine a considerare intervalli diversi, e per ognuno di questi $\Delta t$ ripetiamo lo stesso procedimento. Possiamo quindi vedere qual è il massimo valore di $\Delta t $ che ci permette di trovare la compatibilità del parametro $p_1$ con -2 per capire effettivamente se e quando diventa rilevante il contributo degli altri fattori diversi dall'irraggiamento.
+
+\section*{risultati e conclusioni}
+
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
     Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
