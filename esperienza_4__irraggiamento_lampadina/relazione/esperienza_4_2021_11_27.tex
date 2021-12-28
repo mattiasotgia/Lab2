@@ -353,7 +353,7 @@ Per la misura di distanza entrano in gioco diversi fattori che influiscono sulla
 
 \begin{figure*}
     \includegraphics[width=\linewidth]{plot_mod1.pdf}
-    \caption{\textbf{Applicazione del primo modello di analisi dei dati}. A sinistra abbiamo i diversi dati raccolti su cui eseguiamo un fit lineare entro un intervallo breve di tempo, ovvero fino a quando possiamo osservare il regime di linearità iniziale. Già visualmente si può osservare in questo modo che aumentando la distanza, la velocità con cui la tensione cambia non è sempre minore. Inoltre si possono già osservare anomalie su alcune distanze, come i dati a \SI{4}{\centi\metre} e \SI{5}{\centi\metre}, dove le due curve risultano invertite rispetto all'ordine crescente in cui si pongono le altre, anomalia che si ritrova anche nel grafico a destra. A Destra invece troviamo più chiaro il comportamento come $d^{-a}$ previsto, anche se qualitativamente non è facile individuare il range in cui $a$ può trovarsi.}
+    \caption{\textbf{Applicazione del primo modello di analisi dei dati}. A sinistra abbiamo i diversi dati raccolti su cui eseguiamo un fit lineare entro un intervallo breve di tempo, ovvero fino a quando possiamo osservare il regime di linearità iniziale. Già visualmente si può osservare in questo modo che aumentando la distanza, la velocità con cui la tensione cambia non è sempre minore. Inoltre si possono già osservare anomalie su alcune distanze, come i dati a \SI{4}{\centi\metre} e \SI{5}{\centi\metre}, dove le due curve risultano invertite rispetto all'ordine crescente in cui si pongono le altre, anomalia che si ritrova anche nel grafico a destra. A destra invece troviamo più chiaro il comportamento $d^{a}$ come  previsto, anche se qualitativamente non è facile individuare il range in cui $a$ può trovarsi.}
     \label{fig:plot:mod1}
 \end{figure*}
 
@@ -368,6 +368,11 @@ Infine è probabile che sorgente e sensore non siano posti in asse, quindi prese
 Questi valori però non sono stati raccolti in laboratorio, per cui non siamo in grado di fornire una stima. Inoltre l'effetto di questo disallineamento diviene più evidente più la distanza $d_{\text{meas}}$ tra sorgente e sensore diventa piccola.
 
 
+\begin{figure*}
+    \includegraphics[width=\linewidth]{plot_mod2.pdf}
+    \caption{\textbf{Applicazione del secondo modello di analisi dei dati}. A sinistra abbiamo i diversi dati raccolti su cui eseguiamo un fit lineare entro un intorno del punto che vogliamo misurare, per poter effettuare una misura ad una data distanza temporale, poiché i dati non si presentano continui. Si può inoltre osservare come di fatto dopo circa \SI[parse-numbers=false]{30/40}{\second} il comportamento della tensione diventi lineare, in accordo con quanto ipotizzato possa essere il suo comportamento pratico. A destra invece troviamo più chiaro il comportamento $d^{a}$ come  previsto, anche se qualitativamente non è facile individuare il range in cui $a$ può trovarsi.}
+    \label{fig:plot:mod2}
+\end{figure*}
 
 \section*{Modello \#1 di analisi della variazione di tensione}
 I dati ottenuti si presentano come letture di tensione in funzione del tempo. Non essendo a conoscenza di una precisa legge fisica che regoli questo andamento della tensione in relazione al tempo, possiamo però procedere ipotizzando alcuni modelli che possano descrivere il fenomeno che si osserva. 
@@ -390,7 +395,15 @@ e quindi eseguiamo un fit come
 \end{equation}
 dove il fattore $p_1$ vogliamo verificare che sia compatibile con il valore atteso di $a = -2$, mentre il valore di $p_2$ rappresenta l'eventuale offset sui valori raccolti della distanza. Il parametro $p_0$ rappresenta invece la costante di proporzionalità, ed è caratteristica del problema che stiamo considerando.
 
+
 \section*{Modello \#2 di analisi della variazione di tensione}
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{LinTest.pdf}
+    \caption{Evidenziamo come in effetti si possa eseguire un fit lineare su una curva dei dati (per esempio è stata presa la curva ottenuta ad una distanza di \SI{5e-2}{\metre}) dopo un iniziale intervallo di tempo dove presupponiamo invervenga principalmente un fattore legato all'irraggiamento. }
+    \label{fig:plot:linear}
+\end{figure}
+
 Invece che limitarci a considerare la variazione dei valori entro i primi punti dove il comportamento è prettamente lineare, andiamo ora a considerare la variazione di tensione su intervalli temporali più estesi, dove non possiamo però conoscere con certezza il modello fisico-matematico che sta dietro al fenomeno. Perciò, invece che calcolare la velocità di variazione, consideriamo un intervallo fisso di tempo $\Delta t_1$ (scegliamo per esempio \SI{20}{\second}), dopo il quale, una volta posto il valore della tensione a zero all'istante iniziale ($t=0$), vogliamo valutare la variazione della d.d.p. Il problema principale che si pone è che i dati raccolti sono dati discreti e probabilmente non presentano una lettura della tensione esattamente dopo $\Delta t_1$ s; quindi, poichè il grafico in un primo ordine di approssimazione per il tempo per un intervallo sufficientemente piccolo può essere approssimato come $p_0+x\cdot p_1$, possiamo eseguire dei fit localizzati in un intorno [$\Delta t_1-2$ s; $\Delta t_1+2$ s] e poi estrapolare il valore di tensione in un istante preciso. Procedendo poi come già fatto per il Modello \#1, possiamo eseguire un fit in base all'equazione equazione \ref{eq:modello_plot} e andiamo a verificare la compatibilità del parametro $p_1$ con -2.
 
 Proviamo infine a considerare intervalli diversi, e per ognuno di questi $\Delta t$ ripetiamo lo stesso procedimento. Possiamo quindi vedere qual è il massimo valore di $\Delta t $ che ci permette di trovare la compatibilità del parametro $p_1$ con -2 per capire effettivamente se e quando diventa rilevante il contributo degli altri fattori diversi dall'irraggiamento.
