@@ -120,14 +120,14 @@ int main(int argc, char const *argv[])
     }
 
     graphset::setcanvas(c6->cd(2));
-    plot2->Draw("ap");
+    plot2->Draw("ap Z");
     graphset::set_TGraphAxis(plot2, "Voltage after 20s [V/s]", 1, "Source distance [m]");
     plot2->Fit("fit_mod2", "R");
 
     TGraphErrors *plot2_sup = (TGraphErrors *)plot2->Clone();
     plot2_sup->SetPointError(0, errore_distanza + 0.005 / sqrt(3), err_dV_mod2[0]);
-    plot2->SetLineColor(kGreen + 2);
-    plot2_sup->Draw("p");
+    plot2_sup->SetLineColor(kRed);
+    plot2_sup->Draw("p []");
 
     logs::print_stat(fit_mod2);
 
