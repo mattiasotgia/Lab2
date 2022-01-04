@@ -64,6 +64,7 @@ int main(int argc, char const *argv[])
     TGraphErrors *plot2 = new TGraphErrors();
     TF1 *fit_mod2 = new TF1("fit_mod2", "[0]*pow((x+[2]), [1])", 0.02, 0.25);
     fit_mod2->SetParameters(1, -2, 0);
+    graphset::set_TGraphAxis(plot2, "Voltage after 20s [V/s]", 1, "Source distance [m]");
 
 
     for (int k = 0; k < full_dataT_s; k++)
@@ -120,14 +121,16 @@ int main(int argc, char const *argv[])
     }
 
     graphset::setcanvas(c6->cd(2));
-    plot2->Draw("ap Z");
-    graphset::set_TGraphAxis(plot2, "Voltage after 20s [V/s]", 1, "Source distance [m]");
-    plot2->Fit("fit_mod2", "R");
+
 
     TGraphErrors *plot2_sup = (TGraphErrors *)plot2->Clone();
     plot2_sup->SetPointError(0, errore_distanza + 0.005 / sqrt(3), err_dV_mod2[0]);
-    plot2_sup->SetLineColor(kRed);
-    plot2_sup->Draw("p []");
+    // plot2->SetLineColor(kRed);
+
+    plot2_sup->Draw("ap Z");
+    plot2->Draw("p ||");
+
+    plot2->Fit("fit_mod2", "R");
 
     logs::print_stat(fit_mod2);
 
@@ -152,7 +155,8 @@ int main(int argc, char const *argv[])
     std::cout << "compatibilità di zero: " << // offset con stima (6/sqrt(3) mm): " <<
         stattools::compatible(0, 0, fit_mod2->GetParameter(2), fit_mod2->GetParError(2)) << std::endl;
 
-    c6->Draw();
+    // c6->Draw();
+    c6->Update();
     c6->SaveAs("../fig/plot_mod2.pdf");
 
     app->Run(true);
