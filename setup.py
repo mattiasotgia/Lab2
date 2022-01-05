@@ -128,7 +128,7 @@ def capitalize(title_full: str) -> str:
             temp_str += word.capitalize() + ' '
         return temp_str
 
-if __name__ == "__main__":
+def main():
     '''setup.py python3 file
     This file is made to be used as a light tools for directory managment in Lab1A papers
 
@@ -253,3 +253,6 @@ if __name__ == "__main__":
     # ? TODO: add command to make python cd to ./esperienza_#_<<>> <-- might not be possible
 
     subprocess.run(['code', 'lab2_a00.code-workspace'])
+
+if __name__ == "__main__":
+    main()
