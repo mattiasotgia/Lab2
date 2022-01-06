@@ -1,6 +1,7 @@
 // Lab Analysis Toolset "LabTools.h" -*- C++ -*-
 // Author M. Sotgia 05/11/21
 // v0.0.2 alpha
+
 #include<vector>
 #include<cmath>
 #include<iostream>
@@ -52,7 +53,7 @@ std::string stattools::compatible(double G1, double errG1,
     {
         return "COMPATIBILE";
     }
-    return "NON-COMPATIBILE";
+    return ("NON-COMPATIBILE: significativita' statistica  " + std::to_string(abs(G2 - G1)/sqrt(pow(errG1, 2) + pow(errG2, 2))) + " σ");
 }
 
 double stattools::getbestvalue(double G1, double G2, double errG1, double errG2)
@@ -77,13 +78,6 @@ double stattools::getbestvalueerr(double errG1, double errG2)
 !!! impazzirà. 
 */
 
-/* Impostazione dei pad del grafico:
-Il primo argomento è una struttura che contiene i TPad dei grafico e dei resudui;
-Se dico di disegnare i residui tutto OK, se dico false al valore booleano drawresiduals
-allora il grafico verrà eseguito senza i residui, e il nome degli assi impostato di con-
-seguenza. È importante chiamare i comandi `set_ResidualAxis()` e `set_TGraphAxis()` in
-questo ordine, di modo che il titolo sull'asse x venga mostrato, altrimenti si mostrerà
-un titolo di errore */
 void graphset::setgraphsize(graphset::padtypes g, bool logx, bool logy, bool drawresiduals)
 {
 
@@ -118,11 +112,6 @@ void graphset::setgraphsize(graphset::padtypes g, bool logx, bool logy, bool dra
     _isgraphset = true;
 }
 
-/* Includere qui tutti i parametri globali/semi-globali per
-l'inizializzazione di grafici in ROOT
-    gStyle->SetFrameLineWidth(0);
-    gStyle->SetTextFont(43);
-    gStyle->SetLineScalePS(1);*/
 void graphset::init()
 {
     gStyle->SetFrameLineWidth(0); // No line all aroung pad

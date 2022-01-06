@@ -115,7 +115,7 @@ LOGO = [
 ]
 
 LATEX_HEADER = '''%% Document created {date} automatically \n%% from {script} \n
-%% Copyright (C) Mattia Sotgia et al. 2022
+%% Copyright (C) Mattia Sotgia et al. {year}
 %% Using class revtex4-2.cls
 '''
 
@@ -128,7 +128,7 @@ def capitalize(title_full: str) -> str:
             temp_str += word.capitalize() + ' '
         return temp_str
 
-if __name__ == "__main__":
+def main():
     '''setup.py python3 file
     This file is made to be used as a light tools for directory managment in Lab1A papers
 
@@ -212,7 +212,7 @@ if __name__ == "__main__":
     
     latex_readlines = TEMP_FILE.readlines()
 
-    latex_file.write(LATEX_HEADER.format(date=NOW.strftime('%d %B %Y'), script=__file__))
+    latex_file.write(LATEX_HEADER.format(date=NOW.strftime('%d %B %Y'), script=__file__, year=NOW.strftime('%Y')))
     for o in LOGO: latex_file.write('%' + o + '\n')
 
     for line in latex_readlines:
@@ -253,3 +253,6 @@ if __name__ == "__main__":
     # ? TODO: add command to make python cd to ./esperienza_#_<<>> <-- might not be possible
 
     subprocess.run(['code', 'lab2_a00.code-workspace'])
+
+if __name__ == "__main__":
+    main()
