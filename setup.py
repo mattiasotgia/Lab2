@@ -115,7 +115,7 @@ LOGO = [
 ]
 
 LATEX_HEADER = '''%% Document created {date} automatically \n%% from {script} \n
-%% Copyright (C) Mattia Sotgia et al. 2022
+%% Copyright (C) Mattia Sotgia et al. {year}
 %% Using class revtex4-2.cls
 '''
 
@@ -212,7 +212,7 @@ def main():
     
     latex_readlines = TEMP_FILE.readlines()
 
-    latex_file.write(LATEX_HEADER.format(date=NOW.strftime('%d %B %Y'), script=__file__))
+    latex_file.write(LATEX_HEADER.format(date=NOW.strftime('%d %B %Y'), script=__file__, year=NOW.strftime('%Y')))
     for o in LOGO: latex_file.write('%' + o + '\n')
 
     for line in latex_readlines:
