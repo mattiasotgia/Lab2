@@ -70,7 +70,7 @@
 Lo scopo principale di questa esperienza di laboratorio è fare una verifica sperimentale della dipendenza quadratica inversa dell'energia irradiata da una sorgente luminosa in funzione della distanza da essa.
 Per fare le misure necessarie abbiamo bisogno di diversi dispositivi e in particolare sfrutteremo il funzionamento di amplificatori per strumentazione, basati su amplificatori operazionali.
 
-Come sorgente luminosa usiamo una piccola lampadina ad incandescenza che possiamo posizionare a diverse distanze da un termometro al platino (PT100) che usiamo quindi come sensore e la cui caratteristica principale è la dipendenza lineare, a temperature intorno a quella ambiente, della resistenza in funzione della variazione di temperatura (la derivata è 0.4 \unit{\ohm/\kelvin}). 
+Come sorgente luminosa usiamo una piccola lampadina ad incandescenza che possiamo posizionare a diverse distanze da un termometro al platino (PT100) che usiamo quindi come sensore e la cui caratteristica principale è la dipendenza lineare, a temperature intorno a quella ambiente, della resistenza in funzione della variazione di temperatura (la derivata è \SI{0.4}{\ohm/\kelvin}). 
 
 % \hl{Poich\'e vogliamo misurare delle variazioni di temperatura attraverso la variazione del valore di una resistenza, utilizziamo un ponte di Wheatstone in modo che le nostre misure siano il pi\`u precise possibili e per vedere ancora meglio gli effetti di queste variazioni sulla nostra uscita del segnale usiamo un amplificatore per strumentazione.}
 
@@ -95,9 +95,9 @@ Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura 
     \label{fig:amp_inv}
 \end{figure}
 
-Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm 15V$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-R_{1}/R_{2}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
+Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm \SI{15}{\volt}$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-R_{1}/R_{2}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
 
-Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} in modo da acquisire i dati in ua zona in cui il guadagno non dipende dalla frequenza poichè l'amplificatore si comporta come un passa basso  .Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di $15V$, che è la tensione con cui alimentiamo l'amplificatore, perchè altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$. Eseguendo in fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ Otteniamo quindi che 
+Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} (\reffig{fig:guadagno_inv_noninv}, configurazione invertente) in modo da acquisire i dati in una zona in cui il guadagno non dipende dalla frequenza poiché l'amplificatore si comporta come un passa basso. Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di \SI{15}{\volt}, che è la tensione con cui alimentiamo l'amplificatore, perché altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$. Eseguendo in fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ otteniamo quindi che 
 \begin{align*}
     G & =\num{78.6454 +- 8.1} \\
     q & =\SI{0.03}{\volt} \\ 
@@ -105,7 +105,7 @@ Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di usc
 
 Osserviamo quindi che il valore di $G$ è compatibile con il valore che volevamo ottenere, cioè $G=80$ e che la quota della retta è compatibile con zero e ciò rispecchia il fatto che se la tensione in entrata è nulla, anche quella in uscita deve esserlo.
 
-Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a $100mV$ e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da 100Hz fino 20KHz raccogliendo circa 3 punti per ogni decade. Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
+Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a \SI{100}{\milli\volt} e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da \SI{100}{\hertz} fino \SI{20}{\kilo\hertz} raccogliendo circa 3 punti per ogni decade. Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
 Otteniamo quindi che
 \begin{align*}
     G     &=\num{ 83.2458 +- 1.24581} \\
@@ -147,7 +147,7 @@ Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per 
     \label{fig:amp_noninv}
 \end{figure}
 
-Successivamente costruiamo un circuito amplificatore non-invertente il cui schema è riportato in \reffig{fig:amp_noninv} e utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno e troviamo che
+Successivamente costruiamo un circuito amplificatore non-invertente il cui schema è riportato in \reffig{fig:amp_noninv} e utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno (\reffig{fig:guadagno_inv_noninv}, configurazione non-invertente) e troviamo che
 \begin{align*}
     G &=\num{81.5167+-7.03287} \\
     q &=\SI{0.180687+-0.818311}{\volt} \\ 
@@ -155,9 +155,9 @@ Successivamente costruiamo un circuito amplificatore non-invertente il cui schem
 
 per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da modello cioè $G=1+R_1/R_2$ mentre la quota è compatibile con zero.
 
-Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perché infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di $10^6 \Omega$.
+Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perché infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di \SI{1}{\mega\ohm}.
 
-Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta \emph{slew rate}. La \emph{slew rate} è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poiché quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\micro\second^{-1}} che è molto vicino al valore indicato sul data-sheet del dispositivo.
+Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddetta \emph{slew rate}. La \emph{slew rate} è una grandezza che indica la velocità, espressa in volt su secondi, con cui è capace di reagire un dispositivo o circuito elettronico, sollecitato sul suo ingresso, da un impulso di tensione, il cui valore, da minimo a massimo, è contenuto in un tempo brevissimo. Per misurarla costruiamo un comparatore a soglia nulla, il cui schema è riportato in \reffig{fig:opamp_comparatore} e mandiamo in ingresso un'onda quadra. Poiché quindi la risposta del circuito non è immediata, sull'oscilloscopio non osserviamo un'onda quadra, bensì dei trapezi isosceli e ciò che a noi interessa è proprio la pendenza dei lati obliqui di questi trapezi. Utilizzando i cursori dell'oscilloscopio possiamo quindi misurare il rapporto tra la variazione di tensione ($\Delta Y$) e l'intervallo di tempo ($\Delta X$). Troviamo quindi che il valore dello slew rate è \SI{0.54076305 +- 0.016294305}{\volt\per\micro\second} che è molto vicino al valore indicato sul data-sheet del dispositivo.
 
 \begin{figure}
     \begin{circuitikz}
@@ -175,11 +175,11 @@ Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddett
 \end{figure}
 
 \section*{Studio e caratterizzazione amplificatore per strumentazione}
-Vogliamo costruire un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttuazioni. Dallo studio del circuito riportato in \reffig{fig:opamp_comparatore} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
+Vogliamo costruire un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita ad essere troppo sensibile a rumori e fluttuazioni. Dallo studio del circuito riportato in \reffig{fig:circ:strum_amp} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
 
 Prendiamo quindi come resistenze:
 \begin{align*}
-    R_a &= \SI{17.8 +- 0.109}{\kilo\ohm}\\
+    R_a &= \SI{17.8 +- 0.11}{\kilo\ohm}\\
     R_b &= \SI{37.5 +- 0.166}{\kilo\ohm}\\
     R_c &= \SI{1.0 +- 0.064}{\kilo\ohm}\\
     R_d &= \SI{32.2 +- 0.151}{\kilo\ohm}\\
@@ -213,7 +213,7 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
     \label{fig:circ:strum_amp}
 \end{figure}
 
-Il circuito integrato nell'amplificatore per strumentazione (\reffig{fig:circ:strum_amp}) è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}.\label{eq:V_out=GtotVin}\end{equation}
+Il circuito integrato nell'amplificatore per strumentazione (Figure \ref{fig:circ:strum_amp} e \ref{fig:circ_all}) è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}.\label{eq:V_out=GtotVin}\end{equation}
 $V_{\text{offset}}$ è il valore di offset dello strumento, ovvero il valore $V_{out}$ che troviamo anche in assenza di segnale di ingresso $\left(V_{\text{non-inv}}-V_{\text{inv}}\right)$ ed è causato dalla presenta di una differenza reale dei due amplificatori che usiamo nel primo stadio e di conseguenza anche nelle correnti che scorrono in essi.\\
 $G_{\text{CM}}$ è invece il guadagno di modo comune che è presente poiché le resistenze scelte $R_c/R_d$ e $R_c'/R_d'$ non sono coppie uguali perfettamente, e rendono asimmetrico l'ingresso, introducendo una tensione di modo comune $V_{\text{CM}}$ che è la media delle tensioni in ingresso.\\
 $G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso sono simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
@@ -222,14 +222,14 @@ Per misurare il valore di offset vogliamo quindi che i primi due termini di \ref
 Possiamo quindi usare un \emph{trimmer} presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
-ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
+ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ (\reffig{fig:guadagno_op_amp_strum}, sopra) e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
 \begin{align*}
     G_{\text{CM}} &=\num{0.0132857+-0.00105784} \\
     q &=\SI{0.172163+-0.099093e-2}{\volt} \\
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
-Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$. I valori dei parametri che il fit ci restituisce sono
+Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ (\reffig{fig:guadagno_op_amp_strum}, sotto) usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$. I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
     G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
@@ -428,20 +428,20 @@ La prima analisi realizzata secondo il modello \#2 è stata fatta con $\Delta t=
 % \setcounter{table}{0}
 \renewcommand{\thetable}{S-\arabic{table}}
 \renewcommand{\thefigure}{S-\arabic{figure}}
-\begin{figure*}[p]
+\begin{figure}[p]
     \raggedright
-    \includegraphics[width=0.7\textwidth]{Guadagno__invertente.pdf}
-    \includegraphics[width=0.7\textwidth]{Guadagno__noninvertente.pdf}
-    \caption{Misura del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}. Sopra: valori variabili di tensione in ingressso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Sotto: come sopra, per la configurazione non invertente.}
+    \includegraphics[width=\linewidth]{Guadagno__invertente.pdf}
+    \includegraphics[width=\linewidth]{Guadagno__noninvertente.pdf}
+    \caption{\textbf{Misura del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}.} Sopra: valori variabili di tensione in ingressso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Sotto: come sopra, per la configurazione non invertente.}
     \label{fig:guadagno_inv_noninv}
-\end{figure*}
-\begin{figure*}
+\end{figure}
+\begin{figure}[p]
     \raggedright
-    \includegraphics[width=0.7\textwidth]{GuadagnoMC.pdf}
-    \includegraphics[width=0.7\textwidth]{GuadagnoDIFF.pdf}
-    \caption{Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
+    \includegraphics[width=\linewidth]{GuadagnoMC.pdf}
+    \includegraphics[width=\linewidth]{GuadagnoDIFF.pdf}
+    \caption{\textbf{Analisi del guadagno dell'amplificatore per strumentazione.} Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
     \label{fig:guadagno_op_amp_strum}
-\end{figure*}
+\end{figure}
 
 \end{document}
     
