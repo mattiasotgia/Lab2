@@ -44,8 +44,9 @@ namespace stattools
     double max_to_stat(double value);
 
     std::string compatible(double G1, double errG1, double G2, double errG2);
+    std::string get_statsign(double G1, double errG1, double G2, double errG2);
 
-    double getbestvalue(double G1, double G2, double errG1, double errG2);
+    double getbestvalue(double G1, double errG1, double G2, double errG2);
     double getbestvalueerr(double errG1, double errG2);
 } // namespace stat
 
