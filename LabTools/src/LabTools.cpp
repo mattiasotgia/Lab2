@@ -61,7 +61,7 @@ std::string stattools::get_statsign(double G1, double errG1,
     return ("significativita' statistica  " + std::to_string(abs(G2 - G1)/sqrt(pow(errG1, 2) + pow(errG2, 2))) + " σ");
 }
 
-double stattools::getbestvalue(double G1, double G2, double errG1, double errG2)
+double stattools::getbestvalue(double G1, double errG1, double G2, double errG2)
 {
     return (G1 / pow(errG1, 2) + G2 / pow(errG2, 2)) / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
 }
