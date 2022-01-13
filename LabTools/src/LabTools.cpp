@@ -119,7 +119,7 @@ void graphset::setgraphsize(graphset::padtypes g, bool logx, bool logy, bool dra
 
 void graphset::init()
 {
-    gStyle->SetFrameLineWidth(0); // No line all aroung pad
+    //gStyle->SetFrameLineWidth(0); // No line all aroung pad
     gStyle->SetTextFont(43);      // Helvetice font
     gStyle->SetLineScalePS(1);    // Hi-res. pdf
     return;
