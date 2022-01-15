@@ -24,21 +24,32 @@
 
 template<typename _TObj>
 void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){
+
+    Double_t fontsize = 8;
     
     graph->SetTitle("");
     graph->GetYaxis()->SetTitle(ytitle.c_str());
     // graph->GetYaxis()->SetTitleFont(43);
+    // graph->GetYaxis()->SetTitleSize(fontsize);
     // graph->GetYaxis()->SetLabelFont(43);
+    // graph->GetYaxis()->SetLabelSize(fontsize);
     graph->GetYaxis()->CenterTitle();
 
     graph->GetXaxis()->SetTitle(xtitle.c_str());
     // graph->GetXaxis()->SetTitleFont(43);
+    // graph->GetXaxis()->SetTitleSize(fontsize);
     // graph->GetXaxis()->SetLabelFont(43);
+    // graph->GetXaxis()->SetLabelSize(fontsize);
     graph->GetXaxis()->CenterTitle();
 }
 
 template void set_axis<TGraphErrors>(TGraphErrors*, ax_Title, ax_Title);
 template void set_axis<TH1>(TH1*, ax_Title, ax_Title);
+template void set_axis<TH1D>(TH1D*, ax_Title, ax_Title);
+template void set_axis<TH1F>(TH1F*, ax_Title, ax_Title);
+template void set_axis<TH1I>(TH1I*, ax_Title, ax_Title);
+template void set_axis<TH1C>(TH1C*, ax_Title, ax_Title);
+template void set_axis<TH1S>(TH1S*, ax_Title, ax_Title);
 template void set_axis<TF1>(TF1*, ax_Title, ax_Title);
 
 ////////////////////////////////////////////////////////////////////

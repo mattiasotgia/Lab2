@@ -25,7 +25,7 @@
 typedef std::string ax_Title;
 
 template<typename _TObj> 
-void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle);
+void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle = "Entries");
 
 ////////////////////////////////////////////////////////////////////
 
