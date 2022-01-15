@@ -9,14 +9,26 @@ project(LabTools VERSION 0.0.2)
 find_package(ROOT)
 
 set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
+set(LIBSRC 
+    src/LabTools.cpp
+    src/PltTools.cpp
+    src/Logger.cpp
+    src/StsTools.cpp
+)
+set(LIBINC
+    include/LabTools.h
+    include/PltTools.h
+    include/Logger.h
+    include/StsTools.h
+)
 
 add_compile_options(-I${ROOT_INCLUDE_DIRS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-add_library(LabTools SHARED src/LabTools.cpp)
+add_library(LabTools SHARED ${LIBSRC})
 
 target_link_libraries(LabTools ${ROOT_LIBRARIES})
 
 install(TARGETS LabTools DESTINATION /usr/local/lib/)
-install(FILES include/LabTools.h DESTINATION include)
+install(FILES ${LIBINC} DESTINATION include)
 
