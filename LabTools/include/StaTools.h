@@ -2,6 +2,9 @@
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
+#ifndef LABTOOLS_StaTools
+#define LABTOOLS_StaTools
+
 #include<vector>
 #include<cmath>
 #include<iostream>
@@ -18,5 +21,6 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-#include"StsTools.h"
 
+
+#endif

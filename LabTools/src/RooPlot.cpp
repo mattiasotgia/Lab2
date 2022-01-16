@@ -1,4 +1,4 @@
-// Lab Analysis Toolset - Graphing - "PltTools" -*- C++ -*-
+// Lab Analysis Toolset - Graphing - "RooPlot" -*- C++ -*-
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
@@ -20,7 +20,8 @@
 #include<TLegend.h>
 #include<TLine.h>
 
-#include"PltTools.h"
+#include"ATLASStyle.h"
+#include"RooPlot.h"
 
 template<typename _TObj>
 void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){

@@ -11,15 +11,17 @@ find_package(ROOT)
 set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
 set(LIBSRC 
     src/LabTools.cpp
-    src/PltTools.cpp
+    src/RooPlot.cpp
     src/Logger.cpp
-    src/StsTools.cpp
+    src/StaTools.cpp
+    src/ATLASStyle.cpp
 )
 set(LIBINC
     include/LabTools.h
-    include/PltTools.h
+    include/RooPlot.h
     include/Logger.h
-    include/StsTools.h
+    include/StaTools.h
+    include/ATLASStyle.h
 )
 
 add_compile_options(-I${ROOT_INCLUDE_DIRS})

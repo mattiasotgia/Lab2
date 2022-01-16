@@ -1,9 +1,9 @@
-// Lab Analysis Toolset - Graphing - "PltTools" -*- C++ -*-
+// Lab Analysis Toolset - Graphing - "RooPlot" -*- C++ -*-
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
-#ifndef LABTOOLS_PltTools
-#define LABTOOLS_PltTools
+#ifndef LABTOOLS_RooPlot
+#define LABTOOLS_RooPlot
 
 #include<vector>
 #include<cmath>
