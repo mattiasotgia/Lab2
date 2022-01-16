@@ -11,14 +11,14 @@ find_package(ROOT)
 set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
 set(LIBSRC 
     src/LabTools.cpp
-    src/RooPlot.cpp
+    src/LabPlot.cpp
     src/Logger.cpp
     src/StaTools.cpp
     src/ATLASStyle.cpp
 )
 set(LIBINC
     include/LabTools.h
-    include/RooPlot.h
+    include/LabPlot.h
     include/Logger.h
     include/StaTools.h
     include/ATLASStyle.h

@@ -2,8 +2,8 @@
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
-#ifndef LABTOOLS_RooPlot
-#define LABTOOLS_RooPlot
+#ifndef LABTOOLS_LabPlot
+#define LABTOOLS_LabPlot
 
 #include<vector>
 #include<cmath>

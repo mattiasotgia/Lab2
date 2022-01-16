@@ -20,7 +20,10 @@ font 43).
 For general instructions on formatting text in ROOT, refer to,
     https://root.cern.ch/doc/master/classTAttText.html
 */
+#ifndef LABTOOLS_ATLASStyle
+#define LABTOOLS_ATLASStyle
 
 #include<TStyle.h>
-
 TStyle *atlas_style(Color_t tsize=29);
+
+#endif

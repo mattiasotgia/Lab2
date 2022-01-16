@@ -21,7 +21,7 @@
 #include<TLine.h>
 
 #include"ATLASStyle.h"
-#include"RooPlot.h"
+#include"LabPlot.h"
 
 template<typename _TObj>
 void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){
@@ -30,17 +30,9 @@ void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){
     
     graph->SetTitle("");
     graph->GetYaxis()->SetTitle(ytitle.c_str());
-    // graph->GetYaxis()->SetTitleFont(43);
-    // graph->GetYaxis()->SetTitleSize(fontsize);
-    // graph->GetYaxis()->SetLabelFont(43);
-    // graph->GetYaxis()->SetLabelSize(fontsize);
     graph->GetYaxis()->CenterTitle();
 
     graph->GetXaxis()->SetTitle(xtitle.c_str());
-    // graph->GetXaxis()->SetTitleFont(43);
-    // graph->GetXaxis()->SetTitleSize(fontsize);
-    // graph->GetXaxis()->SetLabelFont(43);
-    // graph->GetXaxis()->SetLabelSize(fontsize);
     graph->GetXaxis()->CenterTitle();
 }
 
