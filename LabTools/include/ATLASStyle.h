@@ -24,6 +24,6 @@ For general instructions on formatting text in ROOT, refer to,
 #define LABTOOLS_ATLASStyle
 
 #include<TStyle.h>
-TStyle *atlas_style(Color_t tsize=29);
+TStyle *atlas_style(Size_t tsize=29);
 
 #endif

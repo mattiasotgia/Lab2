@@ -1,4 +1,4 @@
-// Lab Analysis Toolset - Graphing - "RooPlot" -*- C++ -*-
+// Lab Analysis Toolset - Graphing - "LabPlot" -*- C++ -*-
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
@@ -11,7 +11,7 @@
 #include<TCanvas.h>
 #include<TPad.h>
 #include<TGraphErrors.h>
-#include<TH1D.h>
+#include<TH1.h>
 #include<TF1.h>
 #include<TStyle.h>
 #include<TAxis.h>
@@ -19,9 +19,20 @@
 #include<TLatex.h>
 #include<TLegend.h>
 #include<TLine.h>
+#include<TROOT.h>
 
 #include"ATLASStyle.h"
 #include"LabPlot.h"
+
+void set_atlas_style(Size_t tsize){
+
+    printf("\u001b[34;1mApplying ATLAS style settings\u001b[0m\n");
+
+    TStyle *style = (tsize==_FNULL ? atlas_style():atlas_style(tsize));
+
+    gROOT->SetStyle("ATLAS");
+    gROOT->ForceStyle();
+}
 
 template<typename _TObj>
 void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){

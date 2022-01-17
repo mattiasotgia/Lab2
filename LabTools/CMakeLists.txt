@@ -12,16 +12,18 @@ set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
 set(LIBSRC 
     src/LabTools.cpp
     src/LabPlot.cpp
-    src/Logger.cpp
-    src/StaTools.cpp
+    src/LabPlotCore.cpp
+    src/LabStat.cpp
     src/ATLASStyle.cpp
+    src/Logger.cpp
 )
 set(LIBINC
     include/LabTools.h
     include/LabPlot.h
-    include/Logger.h
-    include/StaTools.h
+    include/LabPlotCore.cpp
+    include/LabStat.h
     include/ATLASStyle.h
+    include/Logger.h
 )
 
 add_compile_options(-I${ROOT_INCLUDE_DIRS})

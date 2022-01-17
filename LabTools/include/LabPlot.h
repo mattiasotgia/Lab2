@@ -1,4 +1,4 @@
-// Lab Analysis Toolset - Graphing - "RooPlot" -*- C++ -*-
+// Lab Analysis Toolset - Graphing - "LabPlot" -*- C++ -*-
 // Author M. Sotgia 14/01/22
 // v0.1.0 alpha
 
@@ -11,16 +11,20 @@
 #include<fstream>
 #include<string>
 
+#include<TStyle.h>
 #include<TCanvas.h>
 #include<TPad.h>
+#include<TH1.h>
 #include<TGraphErrors.h>
-#include<TH1D.h>
 #include<TF1.h>
-#include<TStyle.h>
 #include<TAxis.h>
 #include<TMath.h>
 #include<TLatex.h>
 #include<TLegend.h>
+
+#define _FNULL (float)0
+
+void set_atlas_style(Size_t tsize=_FNULL);
 
 typedef std::string ax_Title;
 
