@@ -8,22 +8,29 @@
 #include<TROOT.h>
 #include<TCanvas.h>
 
-/*
-class Figure{
-private:
-    TCanvas *_canvas;
-    Axes *_ax; // ! TODO: define Axes object class !
-public:
-    Figure(const char *name="", const char *title="", Size_t figsizex=800, Size_t figsizey=600);
-    ~Figure();
-}; // Figure class
-
 class Axes{
 private:
-
+    
 public:
     Axes();
     ~Axes();
 }; // Axes class
-*/
+
+class Figure{
+private:
+    TCanvas *_canvas;
+    Axes _ax; // ! TODO: define Axes object class !
+public:
+    Figure(const char *name="", const char *title="", Size_t figsizex=800, Size_t figsizey=600);
+    
+    TCanvas *canvas() { return _canvas; };
+    Axes axes() { return _ax; };
+
+    void add_axes(Axes ax);
+
+    ~Figure();
+}; // Figure class
+
+
+
 #endif
