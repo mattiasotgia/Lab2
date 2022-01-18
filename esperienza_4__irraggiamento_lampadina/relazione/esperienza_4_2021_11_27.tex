@@ -222,14 +222,14 @@ Per misurare il valore di offset vogliamo quindi che i primi due termini di \ref
 Possiamo quindi usare un \emph{trimmer} presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
-ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ (\reffig{fig:guadagno_op_amp_strum}, sopra) e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
+ed effettuando 5 diverse misure del valore di $V_{out}$ per 5 diversi valori di $V_{in}$ (\reffig{fig:guadagno_op_amp_strum}, sinistra) e facendo quindi un fit secondo l'equazione $V_{out}=G_{\text{CM}}\cdot V_{in}+q$ scegliendo come parametri $G_{\text{CM}}$ e $q$. Troviamo quindi che i valori dei parametri sono rispettivamente
 \begin{align*}
     G_{\text{CM}} &=\num{0.0132857+-0.00105784} \\
     q &=\SI{0.172163+-0.099093e-2}{\volt} \\
 \end{align*}
 e notiamo che giustamente il valore della quota è compatibile con zero.
 
-Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ (\reffig{fig:guadagno_op_amp_strum}, sotto) usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$. I valori dei parametri che il fit ci restituisce sono
+Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}}$ (\reffig{fig:guadagno_op_amp_strum}, destra) usando lo stesso metodo con cui abbiamo trovato $G_{\text{CM}}$ senza però impostare $V_{\text{non-inv}}=V_{\text{inv}}$. I valori dei parametri che il fit ci restituisce sono
 \begin{align*}
     G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
@@ -415,7 +415,7 @@ Proviamo infine a considerare intervalli diversi, e per ognuno di questi $\Delta
 
 \begin{figure}
     \includegraphics[width=\linewidth]{results.pdf}
-    \caption{Risultati dell'esperienza rispetto al modello \#1 e \#2, con miglior stima ricavata dai risultati compatibili dei due modelli, che presenta significatività statistica rispetto alla teoria di $2.8\sigma$.}
+    \caption{Risultati dell'esperienza rispetto al modello \#1 e \#2, con miglior stima ricavata dai risultati compatibili dei due modelli, che presenta significatività statistica rispetto alla teoria di $2.4\sigma$.}
     \label{fig:results}
 \end{figure}
 
@@ -432,24 +432,33 @@ Poiché i due risultati sono tra loro compatibili può essere sensato calcolare 
     Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++ basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}).
 \end{methods}
 
-%\onecolumngrid
+\onecolumngrid
 \appendix
+\newpage
+\section{Analisi del guadagno per amplificatori operazionali}
 
 % \setcounter{table}{0}
-\renewcommand{\thetable}{S-\arabic{table}}
-\renewcommand{\thefigure}{S-\arabic{figure}}
-\begin{figure}[p]
+\renewcommand{\thetable}{A-\arabic{table}}
+\renewcommand{\thefigure}{A-\arabic{figure}}
+\begin{figure}[!h]
     \raggedright
-    \includegraphics[width=\linewidth]{Guadagno__invertente.pdf}
-    \includegraphics[width=\linewidth]{Guadagno__noninvertente.pdf}
-    \caption{\textbf{Misura del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}.} Sopra: valori variabili di tensione in ingresso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Sotto: come sopra, per la configurazione non invertente.}
+    \includegraphics[width=0.45\linewidth]{Guadagno__invertente.pdf}
+    \includegraphics[width=0.45\linewidth]{Guadagno__noninvertente.pdf}
+    \caption{\textbf{Misura del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}.} Sinistra: valori variabili di tensione in ingresso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Destra: come sopra, per la configurazione non invertente.}
     \label{fig:guadagno_inv_noninv}
 \end{figure}
-\begin{figure}[p]
+
+\section{Analisi del guadagno per amplificatore per strumentazione}
+
+% \setcounter{table}{0}
+\renewcommand{\thetable}{B-\arabic{table}}
+\renewcommand{\thefigure}{B-\arabic{figure}}
+
+\begin{figure}[!h]
     \raggedright
-    \includegraphics[width=\linewidth]{GuadagnoMC.pdf}
-    \includegraphics[width=\linewidth]{GuadagnoDIFF.pdf}
-    \caption{\textbf{Analisi del guadagno dell'amplificatore per strumentazione.} Sopra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Sotto: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
+    \includegraphics[width=0.45\linewidth]{GuadagnoMC.pdf}
+    \includegraphics[width=0.45\linewidth]{GuadagnoDIFF.pdf}
+    \caption{\textbf{Analisi del guadagno dell'amplificatore per strumentazione.} Sinistra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Destra: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
     \label{fig:guadagno_op_amp_strum}
 \end{figure}
 

@@ -21,6 +21,7 @@ void guadagno()
 {
 
     graphset::init();
+    gStyle->SetFrameLineWidth(0);
 
     std::string nomefile;
 
@@ -56,6 +57,15 @@ void guadagno()
     f->SetParName(1,"G");
 
     g->Fit("fit");
+
+    std::cout << Form("%s \n", output.c_str());
+
+    TLatex* text = new TLatex();
+    text->SetTextFont(43);
+    text->SetTextSize(20);
+    text->DrawLatexNDC(0.20, 0.85, (Form("#splitline{#bf{GUADAGNO} Configurazione %s}{#chi^{2}/ndf (prob.) = %.2f/%d (%.3f)}", (output=="_invertente"? "Invertente":"Non-Invertente"), f->GetChisquare(), f->GetNDF(), f->GetProb())));
+
+
 
     double G = f->GetParameter(1);
     double quota = f->GetParameter(0);
