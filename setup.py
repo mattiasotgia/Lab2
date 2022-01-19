@@ -216,9 +216,9 @@ def main():
     for o in LOGO: latex_file.write('%' + o + '\n')
 
     for line in latex_readlines:
-        if '%%TITLE_HERE%%' in line: line = line.replace('%%TITLE_HERE%%', capitalize(title_full))
-        if '%%DATE_HERE%%' in line: line = line.replace('%%DATE_HERE%%', data_IT(NOW))
-        if '%%NN%%' in line: line = line.replace('%%NN%%', exp_no)
+        if '[[TITLE_HERE]]' in line: line = line.replace('[[TITLE_HERE]]', capitalize(title_full))
+        if '[[DATE_HERE]]' in line: line = line.replace('[[DATE_HERE]]', data_IT(NOW))
+        if '[[NN]]' in line: line = line.replace('[[NN]]', exp_no)
         
         latex_file.write(line)
 

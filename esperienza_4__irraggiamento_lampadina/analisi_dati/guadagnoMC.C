@@ -22,6 +22,7 @@ double get_VRangeErr(double errPercent, int partitions, double range1) { return 
 
 void guadagnoMC(){
     graphset::init();
+    gStyle->SetFrameLineWidth(0);
 
     string nomefile = "guadagnoMC.txt";
 
@@ -50,6 +51,11 @@ skip_test:
 
     g->Draw("ap");
     g->Fit("fit");
+
+    TLatex* text = new TLatex();
+    text->SetTextFont(43);
+    text->SetTextSize(20);
+    text->DrawLatexNDC(0.20, 0.85, (Form("#splitline{#bf{GUADAGNO} Modo Comune}{#chi^{2}/ndf (prob.) = %.2f/%d (%.3f)}", f->GetChisquare(), f->GetNDF(), f->GetProb())));
 
     double G = f->GetParameter(1);
     double quota = f->GetParameter(0);
