@@ -40,7 +40,7 @@ void analisi_BODE(double fitmin = -1){
     std::cout << "Fraquenza : " << std::flush;
     std::cin >> freq;
 
-    TCanvas* c1 = new TCanvas("c1", "", 600, 650);
+    TCanvas* c1 = new TCanvas("c1", "", 600, 625);
     graphset::setcanvas(c1);
 
     double Vin, fsVin, Vout, fsVout, T, fsT;
@@ -68,6 +68,7 @@ void analisi_BODE(double fitmin = -1){
     TPad* Hp1 = H_pad.Graph;
     TPad* Hp2 = H_pad.Residuals;
     graphset::setgraphsize(H_pad, true, true);
+    H_plot->GetYaxis()->SetMoreLogLabels(kTRUE);
 
     for(int i=0; data >> Vin >> fsVin >> Vout >> fsVout >> T >> fsT; i++){
         out_rawdata << Vin << " & " << fsVin << " & " << Vout << " & " << fsVout << " & " << T << " & " << fsT << " \\\\ " << std::endl;
@@ -112,7 +113,7 @@ void analisi_BODE(double fitmin = -1){
     TLatex* text = new TLatex();
     text->SetTextFont(43);
     text->SetTextSize(20);
-    text->DrawLatexNDC(0.20, 0.15, (Form("#splitline{#splitline{#bf{GBW (Gain-Bandwidth)}}{Amplificatore per strumentazione}}{#chi^{2}/ndf (prob.) = %.2f/%d (%.3f)}", H_fit->GetChisquare(), H_fit->GetNDF(), H_fit->GetProb())));
+    text->DrawLatexNDC(0.20, 0.15, (Form("#splitline{#splitline{#bf{GBW (Gain-Bandwidth)}}{Amplificatore per strumentazione}}{#chi^{2}/ndf (prob.) = %.2f/%d (%.2f)}", H_fit->GetChisquare(), H_fit->GetNDF(), H_fit->GetProb())));
 
     logs::print_stat(H_fit);
 
