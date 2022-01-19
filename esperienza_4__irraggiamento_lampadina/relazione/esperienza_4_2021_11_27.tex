@@ -35,7 +35,7 @@
 
 \begin{document}
 
-\title{Verifica sperimentale della dipendenza quadratica inversa $d^{-2}$ del calore irradiato rispetto distanza 
+\title{Verifica sperimentale della dipendenza quadratica inversa $d^{-2}$ del calore irradiato rispetto alla distanza 
 }
 \thanks{Esperienza n. 4
 }
@@ -95,7 +95,7 @@ Poiché l'amplificatore per strumentazione che utilizziamo per la nostra misura 
     \label{fig:amp_inv}
 \end{figure}
 
-Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm \SI{15}{\volt}$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno risulta essere $G=-R_{1}/R_{2}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
+Iniziamo costruendo un semplice circuito (\reffig{fig:amp_inv}) con un amplificatore LM741 alimentato con $\pm V_{cc}=\pm \SI{15}{\volt}$ e progettato in modo che il guadagno ad anello chiuso sia $G_{\text{close}}=80$. Attraverso lo studio del circuito troviamo che il guadagno teorico risulta essere $G=-R_{1}/R_{2}$. Per scegliere le resistenze da inserire nel circuito non ci basiamo però solo su questa condizione, bensì le prendiamo in modo che siano molto più grandi della resistenza interna del generatore che dovrebbe essere circa \SI{50}{\ohm}. Prendiamo quindi come valore nominale di $R_{1}$ \SI{1}{\kilo\ohm}, mentre per $R_2$ \SI{80}{\kilo\ohm}. Misuriamo le resistenze con il tester a nostra disposizione e troviamo che $R_{1}=\SI{0.988 +- 0.006}{\kilo\ohm}$ mentre $R_{2}=\SI{82.7 +- 0.5}{\kilo\ohm}$ 
 
 Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di uscita ($V_{out}$) con i rispettivi valori della tensione di entrata ($V_{in}$) a \SI{50}{\hertz} (\reffig{fig:guadagno_inv_noninv}, configurazione invertente) in modo da acquisire i dati in una zona in cui il guadagno non dipende dalla frequenza poiché l'amplificatore si comporta come un passa basso. Inoltre i valori di $V_{in}$ li abbiamo scelti in modo che, una volta amplificati, fossero comunque minori di \SI{15}{\volt}, che è la tensione con cui alimentiamo l'amplificatore, perché altrimenti il valore di $V_{out}$ sarebbe appunto uguale a $V_{cc}$. Eseguendo un fit lineare usando come funzione \[V_{out}=G\cdot V_{in}+q\] e impostando come parametri $G$ e $q$ otteniamo quindi che 
 \begin{align*}
@@ -103,9 +103,9 @@ Per effettuare la misura del guadagno raccogliamo 5 valori della tensione di usc
     q & =\SI{0.03}{\volt} \\ 
 \end{align*}
 
-Osserviamo quindi che il valore di $G$ è compatibile con il valore che volevamo ottenere, cioè $G=80$ e che la quota della retta è compatibile con zero e ciò rispecchia il fatto che se la tensione in entrata è nulla, anche quella in uscita deve esserlo.
+Osserviamo quindi che il valore di $G$ è compatibile con il valore che volevamo ottenere, cioè $G=80$ e che la quota della retta è compatibile con zero: ciò rispecchia il fatto che se la tensione in entrata è nulla, anche quella in uscita deve esserlo.
 
-Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi la $V_{in}$ a \SI{100}{\milli\volt} e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da \SI{100}{\hertz} fino \SI{20}{\kilo\hertz} raccogliendo circa 3 punti per ogni decade. Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
+Utilizzando sempre lo stesso circuito vogliamo creare un diagramma di Bode della funzione di trasferimento, in modo da osservare effettivamente il comportamento da passa-basso e da trovare la frequenza di taglio. Impostiamo quindi $V_{in}$ a \SI{100}{\milli\volt} e raccogliamo i valori di $V_{in}$, $V_{out}$ e del periodo $T$ con i loro rispettivi fondo scala, facendo variare la frequenza da \SI{100}{\hertz} fino \SI{20}{\kilo\hertz} raccogliendo circa 3 punti per ogni decade. Realizziamo un fit sui dati usando come funzione  \begin{equation}\left|H[\nu]\right|=\frac{G}{\sqrt{1+\left(\frac{\nu}{\nu_0}\right)^2}} \label{eq:H}\end{equation} e scegliendo come parametri $G$ e $\nu_0$. 
 Otteniamo quindi che
 \begin{align*}
     G     &=\num{ 83.2458 +- 1.24581} \\
@@ -129,7 +129,7 @@ Nel primo caso il prodotto vale \num{68.3406 +- 2.04412e4}, mentre nell'altro ca
 
 Inoltre dalla \reffig{fig:plot_combined} possiamo osservare anche visualmente che il prodotto che prima abbiamo quantitativamente verificato essere costante sia visibile anche sovrapponendo i due diagrammi. Infatti possiamo osservare che diminuendo il guadagno $G_{\text{close}}$ da 80 a 8, ovvero cambiando $R_1$ da \SI{80}{\kilo\ohm} a \SI{8}{\kilo\ohm}, osserviamo che la frequenza di taglio si sposta di un fattore 10, passando da \SI{8}{\kilo\hertz} a \SI{80}{\kilo\hertz}.
 
-Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per verificare che come da modello sia effettivamente pari ad $R_1$. Per fare questo colleghiamo in serie una resistenza che abbia lo stesso valore di $R_1$ tra il punto che porta $V_{in}$ e $R_1$. Misuriamo quindi la tensione in uscita nel nodo di congiunzione tra le due resistenze e troviamo che il valore di $V_{out}$ è circa pari a $\frac{V_{in}}{2}$ e ciò significa che la tensione si è ripartita a metà tra la nuova resistenza che abbiamo inserito e l'impedenza di ingresso del circuito e quindi effettivamente l'impedenza di ingresso del nostro circuito è proprio $R_1$.
+Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per verificare che come da modello sia effettivamente pari ad $R_1$. Per fare questo colleghiamo in serie una resistenza che abbia lo stesso valore di $R_1$ tra $V_{in}$ e $R_1$. Misuriamo quindi la tensione in uscita nel nodo di congiunzione tra le due resistenze e troviamo che il valore di $V_{out}$ è circa pari a $V_{in}/2$ e ciò significa che la tensione si è ripartita a metà tra la nuova resistenza che abbiamo inserito e l'impedenza di ingresso del circuito e quindi effettivamente l'impedenza di ingresso del nostro circuito è proprio $R_1$.
 
 \begin{figure}[t!]
     \begin{circuitikz}
@@ -147,13 +147,13 @@ Un'altra cosa che vogliamo misurare è il valore dell'impedenza di ingresso per 
     \label{fig:amp_noninv}
 \end{figure}
 
-Successivamente costruiamo un circuito amplificatore non-invertente il cui schema è riportato in \reffig{fig:amp_noninv} e utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno (\reffig{fig:guadagno_inv_noninv}, configurazione non-invertente) e troviamo che
+Successivamente costruiamo un circuito amplificatore non-invertente, il cui schema è riportato in \reffig{fig:amp_noninv}, utilizzando le stesse resistenze usate in precedenza. Ripetiamo quindi gli stessi procedimenti fatti prima per trovare il guadagno (\reffig{fig:guadagno_inv_noninv}, configurazione non-invertente) e troviamo che
 \begin{align*}
     G &=\num{81.5167+-7.03287} \\
     q &=\SI{0.180687+-0.818311}{\volt} \\ 
 \end{align*}
 
-per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da modello cioè $G=1+R_1/R_2$ mentre la quota è compatibile con zero.
+per cui il guadagno è compatibile con quello che avremmo dovuto ottenere da modello cioè $G=1+R_1/R_2$, mentre la quota è compatibile con zero.
 
 Per misurare la tensione di ingresso del circuito ripetiamo ciò che avevamo fatto prima e questa volta troviamo che $V_{out}$ è praticamente uguale a  $V_{in}$. Ciò significa che la resistenza di ingresso del circuito è molto più grande di \SI{1}{\kilo\ohm} perché infatti sulla nuova resistenza inserita non vi è praticamente caduta di potenziale. Ciò significa che il modello è verificato in quanto la resistenza di ingresso dovrebbe essere infinita, cioè realisticamente nell'ordine di \SI{1}{\mega\ohm}.
 
@@ -175,7 +175,7 @@ Un'altra caratteristica dell'amplificatore che possiamo misurare è la cosiddett
 \end{figure}
 
 \section*{Studio e caratterizzazione amplificatore per strumentazione}
-Vogliamo costruire un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200. Infatti avere un guadagno troppo alto porta il segnale di uscita a essere troppo sensibile a rumori e fluttuazioni. Dallo studio del circuito riportato in \reffig{fig:circ:strum_amp} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
+Vogliamo costruire un amplificatore per strumentazione a due stadi il cui guadagno sia compreso tra 100 e 200, poichè avere un guadagno troppo alto porta il segnale di uscita a essere troppo sensibile a rumori e fluttuazioni. Dallo studio del circuito riportato in \reffig{fig:circ:strum_amp} troviamo che se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$ il guadagno è dato da \[G=\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right).\] 
 
 Prendiamo quindi come resistenze:
 \begin{align*}
@@ -187,7 +187,7 @@ Prendiamo quindi come resistenze:
     R_c'&= \SI{1.0 +- 0.064}{\kilo\ohm}\\
     R_d'&= \SI{32.2 +- 0.151}{\kilo\ohm}\\
 \end{align*}
-(Per assicurarci che le resistenze che volevamo fossero uguali, avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
+(Per assicurarci che le resistenze che volevamo fossero uguali avessero lo stesso valore abbiamo misurato ogni resistenza con il tester).
 Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}. 
 
 \begin{figure}
@@ -216,9 +216,9 @@ Il valore del guadagno dovrebbe quindi essere \num{1.68 +- 0.12e2}.
 Il circuito integrato nell'amplificatore per strumentazione (Figure \ref{fig:circ:strum_amp} e \ref{fig:circ_all}) è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}}.\label{eq:V_out=GtotVin}\end{equation}
 $V_{\text{offset}}$ è il valore di offset dello strumento, ovvero il valore $V_{out}$ che troviamo anche in assenza di segnale di ingresso $\left(V_{\text{non-inv}}-V_{\text{inv}}\right)$ ed è causato dalla presenta di una differenza reale dei due amplificatori che usiamo nel primo stadio e di conseguenza anche nelle correnti che scorrono in essi.\\
 $G_{\text{CM}}$ è invece il guadagno di modo comune che è presente poiché le resistenze scelte $R_c/R_d$ e $R_c'/R_d'$ non sono coppie uguali perfettamente, e rendono asimmetrico l'ingresso, introducendo una tensione di modo comune $V_{\text{CM}}$ che è la media delle tensioni in ingresso.\\
-$G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso sono simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
+$G_{\text{diff}}$ è il guadagno differenziale e caratterizza il guadagno ideale che il circuito dovrebbe avere se i segnali in ingresso fossero simmetrici rispetto allo zero, rendendo il termine $G_{\text{CM}}\cdot V_{\text{CM}} = 0$. 
 
-Per misurare il valore di offset vogliamo quindi che i primi due termini di \refeqn{eq:V_out=GtotVin} vengano annullati. Poniamo dunque \[V_{\text{non-inv}}=V_{\text{inv}}=0\] e osserviamo il valore della tensione in uscita, verificando dove si pone la tensione in uscita $V_{out}$ rispetto al valore di terra.
+Per misurare il valore di offset vogliamo quindi che i primi due termini di \refeqn{eq:V_out=GtotVin} vengano annullati. Poniamo dunque \[V_{\text{non-inv}}=V_{\text{inv}}=0\] e osserviamo il valore della tensione in uscita, verificando dove si pone rispetto al valore di terra.
 Possiamo quindi usare un \emph{trimmer} presente sulla scheda in modo da modificare la corrente in ingresso e cercare di eliminare l'offset.
 
 Posto l'offset ad un valore trascurabile (nell'ordine dei \unit{\milli\volt}), procediamo a valutare il valore di $G_{\text{CM}}$ ponendo \[V_{\text{non-inv}}=V_{\text{inv}}\neq0\]
@@ -234,7 +234,7 @@ Misurato il $G_{\text{CM}}$, procediamo a calcolare il valore di $G_{\text{diff}
     G_{\text{diff}} &=\num[round-mode=none]{183+-16} \\
     q &=\SI{-0.044431+-0.449922}{\volt} \\
 \end{align*}
-La quota è compatibile con zero e il valore di $G_{\text{diff}}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{\text{teorico}}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{\text{diff}}$ è diversi ordini di grandezza più grande di $G_{\text{CM}}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR) è pari a \num{13.777+-1.6063e3}.
+La quota è compatibile con zero e il valore di $G_{\text{diff}}$ è compatibile con il guadagno teorico che avevamo calcolato quando abbiamo scelto le resistenze da inserire nel circuito ($G_{\text{teorico}}=$\num{1.68 +- 0.12e2}). Inoltre vediamo anche che $G_{\text{diff}}$ è diversi ordini di grandezza più grande di $G_{\text{CM}}$ per cui possiamo considerare quest'ultimo trascurabile. Infatti il rapporto di reiezione di modo comune (CMRR), ovvero $G_{\text{diff}}/G_{\text{CM}}$ è pari a \num{13.777+-1.6063e3}.
 
 Un altra caratteristica che possiamo misurare è la banda passante dell'amplificatore. Per fare ciò impostiamo la tensione di ingresso a diverse frequenze e raccogliamo i valori di $V_{out}$ per costruire un diagramma di Bode della funzione di trasferimento e calcolare la frequenza di taglio (sappiamo infatti che il circuito dovrebbe comportarsi da passa-basso). Utilizziamo quindi di nuovo l'equazione \refeqn{eq:H} impostando gli stessi parametri e troviamo che 
 \begin{align*}
@@ -281,7 +281,7 @@ Inoltre il valore della frequenza di risonanza è anche fisicamente sensato; inf
     \label{fig:circ_all}
 \end{figure}
 
-Vogliamo misurare la variazione di tensione ai capi del termometro al platino PT100, per ricavarne la resistenza interna che è legata in modo lineare alla variazione di temperatura. Poiché misuriamo variazioni di tensione possiamo decidere dove porre lo zero della misura, e perciò sfruttiamo il funzionamento del ponte di Wheatstone, che permette, in una precisa configurazione, di imporre il valore della tensione in uscita uguale a zero, e misurare solo le variazioni da questa condizione. Il ponte permette tale funzionamento solo se è ben bilanciato, ovvero se i prodotti incrociati delle resistenze sono uguali tra loro (nel caso della \reffig{fig:circ_all}: $R_1\cdot R_{PT}=R_2\cdot R_4$). Per evitare che la dissipazione di calore per effetto Joule possa influire sulla misura, impostiamo che la corrente massima che possa scorrere nel ramo del PT100 sia \SI{5}{\milli\ampere}. Poichè la tensione con cui alimentiamo il ponte è \SI{15}{\volt} in quanto utilizziamo $V_{cc}$, inserendo come $R_4$ una resistenza da \SI{3}{\kilo\ohm} e poichè questa resistenza è collegata in serie con il PT100 la resistenza complessiva dovrebbe essere \SI{3100}{\ohm} per cui la corrente nel ramo arriva a valere $V_{cc}/R_{tot}\approx\SI{5}{\milli\ampere}$. Imponendo la condizione per il bilanciamento del ponte e impostando il potenziometro a \SI{500}{\ohm} ricaviamo che $R_1$ deve valere \SI{15}{\kilo\ohm} 
+Vogliamo misurare la variazione di tensione ai capi del termometro al platino PT100, per ricavarne la resistenza interna che è legata in modo lineare alla variazione di temperatura. Poiché misuriamo variazioni di tensione possiamo decidere dove porre lo zero della misura, e perciò sfruttiamo il funzionamento del ponte di Wheatstone, che permette, in una precisa configurazione, di imporre il valore della tensione in uscita uguale a zero, e misurare solo le variazioni da questa condizione. Il ponte permette tale funzionamento solo se è ben bilanciato, ovvero se i prodotti incrociati delle resistenze sono uguali tra loro (nel caso della \reffig{fig:circ_all}: $R_1\cdot R_{PT}=R_2\cdot R_4$). Per evitare che la dissipazione di calore per effetto Joule possa influire sulla misura, impostiamo che la corrente massima che possa scorrere nel ramo del PT100 sia \SI{5}{\milli\ampere}. Poichè la tensione con cui alimentiamo il ponte è \SI{15}{\volt} in quanto utilizziamo $V_{cc}$, inserendo come $R_4$ una resistenza da \SI{3}{\kilo\ohm}, che è dunque collegata in serie con il PT100, la resistenza complessiva dovrebbe essere \SI{3100}{\ohm}, per cui la corrente nel ramo arriva a valere $V_{cc}/R_{tot}\approx\SI{5}{\milli\ampere}$. Imponendo la condizione per il bilanciamento del ponte e impostando il potenziometro a \SI{500}{\ohm} ricaviamo che $R_1$ deve valere \SI{15}{\kilo\ohm} 
 
 Per controllare che il ponte sia effettivamente ben bilanciato, colleghiamo l'uscita del ponte all'oscilloscopio e regolando il potenziometro possiamo vedere quando il segnale è più vicino possibile a zero. Per fare una regolazione ancora migliore colleghiamo l'uscita del ponte all'amplificatore e quella dell'amplificatore all'oscilloscopio, in modo che pur essendo amplificato, il valore della tensione d'uscita, una volta regolata, sia comunque prossima a zero.
 
@@ -444,7 +444,7 @@ Poiché i due risultati sono tra loro compatibili può essere sensato calcolare 
     \raggedright
     \includegraphics[width=0.45\linewidth]{Guadagno__invertente.pdf}
     \includegraphics[width=0.45\linewidth]{Guadagno__noninvertente.pdf}
-    \caption{\textbf{Analisi del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}.} Sinistra: valori variabili di tensione in ingresso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Destra: come sopra, per la configurazione non invertente.}
+    \caption{\textbf{Analisi del guadagno degli amplificatori operazionali.} Sinistra: valori variabili di tensione in ingresso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Destra: come sopra, per la configurazione non invertente.}
     \label{fig:guadagno_inv_noninv}
 \end{figure}
 
