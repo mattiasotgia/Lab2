@@ -442,8 +442,8 @@ Poiché i due risultati sono tra loro compatibili può essere sensato calcolare 
 \renewcommand{\thefigure}{A-\arabic{figure}}
 \begin{figure}[!h]
     \raggedright
-    \includegraphics[width=0.45\linewidth]{Guadagno__invertente.pdf}
-    \includegraphics[width=0.45\linewidth]{Guadagno__noninvertente.pdf}
+    \includegraphics[width=0.325\linewidth]{Guadagno__invertente.pdf}
+    \includegraphics[width=0.325\linewidth]{Guadagno__noninvertente.pdf}
     \caption{\textbf{Analisi del guadagno degli amplificatori operazionali realizzati in sezione \ref{sec:studio_caratt_op_amp}.} Sinistra: valori variabili di tensione in ingresso e in uscita per misurare il guadagno dello strumento, in configurazione invertente. Destra: come sopra, per la configurazione non invertente.}
     \label{fig:guadagno_inv_noninv}
 \end{figure}
@@ -456,10 +456,22 @@ Poiché i due risultati sono tra loro compatibili può essere sensato calcolare 
 
 \begin{figure}[!h]
     \raggedright
-    \includegraphics[width=0.45\linewidth]{GuadagnoMC.pdf}
-    \includegraphics[width=0.45\linewidth]{GuadagnoDIFF.pdf}
+    \includegraphics[width=0.325\linewidth]{GuadagnoMC.pdf}
+    \includegraphics[width=0.325\linewidth]{GuadagnoDIFF.pdf}
     \caption{\textbf{Analisi del guadagno dell'amplificatore per strumentazione.} Sinistra: Analisi del guadagno in modo comune $G_{\text{CM}}$ dell'amplificatore per strumentazione ottenute misurando la tensione in ingresso e in uscita all'amplificatore operazionale, fornendo tensione uguale al capo invertente e non invertente. Destra: Analisi del guadagno differenziale $G_{\text{diff}}$ dell'amplificatore per strumentazione, eseguito utilizzando tensioni diverse ai capi invertente e non invertente.}
     \label{fig:guadagno_op_amp_strum}
+\end{figure}
+
+\section{Analisi banda passante per amplificatore per strumentazione}
+
+\renewcommand{\thetable}{C-\arabic{table}}
+\renewcommand{\thefigure}{C-\arabic{figure}}
+
+\begin{figure}[!h]
+    \raggedright
+    \includegraphics[width=0.325\linewidth]{plot_strum_amp_bode.pdf}
+    \caption{\textbf{Analisi della banda passante dell'amplificatore per strumentazione.}}
+    \label{fig:gbw_amp_strum}
 \end{figure}
 
 \end{document}

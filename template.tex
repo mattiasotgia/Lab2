@@ -13,18 +13,18 @@
 \input{../../style/preamble.tex}
 
 \fancyfoot[C]{
-    \the\year\twodigits\month\twodigits\day/%%NN%%-\thepage
+    \the\year\twodigits\month\twodigits\day/[[NN]]-\thepage
 }
 \fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
-    N. 00%%NN%% % ! <== CAMBIARE (Nessuna rel. -> 00)
+    N. 00[[NN]] % ! <== CAMBIARE (Nessuna rel. -> 00)
     } (\the\year)
 }
 
 \begin{document}
 
-\title{%%TITLE_HERE%%
+\title{[[TITLE_HERE]]
 }
-\thanks{Esperienza n. %%NN%%
+\thanks{Esperienza n. [[NN]]
 }
 
 \author{Francesco Polleri}
@@ -37,7 +37,7 @@
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
 \date{presa dati
-    %%DATE_HERE%%, analisi dati <date>, relazione in data 
+    [[DATE_HERE]], analisi dati <date>, relazione in data 
     \today
 }
 
@@ -48,7 +48,7 @@
 \thispagestyle{fancy}
 % Rimuovere per consegna
 \SetBgContents{
-    laboratorio2: e%%NN%% (non per la consegna) \today % ! Note di versione
+    laboratorio2: e[[NN]] (non per la consegna) \today % ! Note di versione
 }
 
 %%%% CORPO DEL TESTO

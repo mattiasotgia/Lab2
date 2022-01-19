@@ -23,6 +23,7 @@ double get_HErr(double Vin, double Vout, double eVin, double eVout){ return sqrt
 void analisi_BODE(double fitmin = -1){
 
     graphset::init();
+    gStyle->SetFrameLineWidth(0);
 
     std::string file;
     std::cout << "File input : " << std::flush;
@@ -39,7 +40,7 @@ void analisi_BODE(double fitmin = -1){
     std::cout << "Fraquenza : " << std::flush;
     std::cin >> freq;
 
-    TCanvas* c1 = new TCanvas("c1", "", 500, 500);
+    TCanvas* c1 = new TCanvas("c1", "", 600, 650);
     graphset::setcanvas(c1);
 
     double Vin, fsVin, Vout, fsVout, T, fsT;
@@ -62,11 +63,6 @@ void analisi_BODE(double fitmin = -1){
     TGraphErrors* H_resd = new TGraphErrors();
     TF1* H_res_f = new TF1("H_rf", "0", 10, 10e6);
     H_res_f->SetLineStyle(2);
-
-
-    TLatex* header = new TLatex();
-    header->SetTextFont(43);
-    header->SetTextSize(15);
 
     graphset::padtypes H_pad;
     TPad* Hp1 = H_pad.Graph;
@@ -113,12 +109,10 @@ void analisi_BODE(double fitmin = -1){
         H_plot->Fit("H_f", "", "same");
     }
 
-    std::string H_stat="#chi^{2}/ndf (prob.) = "
-            +std::to_string(H_fit->GetChisquare())+"/"
-            +std::to_string(H_fit->GetNDF())
-            +" ("+std::to_string(H_fit->GetProb())+")";
-
-    header->DrawLatexNDC(0.3, 0.15, ("#splitline{#it{#bf{" + rawdata + "}}}{#splitline{#it{1#circ diagramma di Bode} #bf{(A)}}{" + H_stat + "}}").c_str());
+    TLatex* text = new TLatex();
+    text->SetTextFont(43);
+    text->SetTextSize(20);
+    text->DrawLatexNDC(0.20, 0.15, (Form("#splitline{#splitline{#bf{GBW (Gain-Bandwidth)}}{Amplificatore per strumentazione}}{#chi^{2}/ndf (prob.) = %.2f/%d (%.3f)}", H_fit->GetChisquare(), H_fit->GetNDF(), H_fit->GetProb())));
 
     logs::print_stat(H_fit);
 
@@ -131,7 +125,7 @@ void analisi_BODE(double fitmin = -1){
     H_res_f->Draw("same");
 
     graphset::set_ResidualsAxis(H_resd, "Frequency #nu [Hz]", 1);
-    graphset::set_TGraphAxis(H_plot, "Closed-loop Gain G_{close}", 1);
+    graphset::set_TGraphAxis(H_plot, "Gain |H[#nu]|", 1);
 
     c1->SaveAs(("../fig/plot_" + output + ".pdf").c_str());
 
