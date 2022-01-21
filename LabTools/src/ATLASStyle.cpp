@@ -75,7 +75,7 @@ TStyle *atlas_style(Size_t tsize){
 
     // Use bold lines and markers
     atlasStyle->SetMarkerStyle(20);
-    atlasStyle->SetMarkerSize(1.2);
+    atlasStyle->SetMarkerSize(0.8);
     atlasStyle->SetHistLineWidth(2);
     atlasStyle->SetLineStyleString(2, "[12 12]"); // postscript dashes
 
