@@ -26,7 +26,7 @@
 
 void set_atlas_style(Size_t tsize=_FNULL);
 
-typedef std::string ax_Title;
+typedef std::string ax_Title; //> axis title object
 
 template<typename _TObj> 
 void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle = "Entries");

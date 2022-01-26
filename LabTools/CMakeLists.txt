@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
 set(LIBSRC 
     src/LabTools.cpp
     src/LabPlot.cpp
-    src/LabPlotCore.cpp
+    # src/LabPlotCore.cpp
     src/LabStat.cpp
     src/ATLASStyle.cpp
     src/Logger.cpp
@@ -20,7 +20,7 @@ set(LIBSRC
 set(LIBINC
     include/LabTools.h
     include/LabPlot.h
-    include/LabPlotCore.cpp
+    # include/LabPlotCore.cpp
     include/LabStat.h
     include/ATLASStyle.h
     include/Logger.h
