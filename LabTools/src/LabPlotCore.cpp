@@ -10,11 +10,6 @@
 
 #include"LabPlotCore.h"
 
-template<typename Base, typename T>
-inline bool isinstance(const T*){
-    return std::is_base_of<Base, T>::value;
-}
-
 
 Figure::Figure(const char *name, const char *title, Size_t figsizex, Size_t figsizey){
     _canvas = new TCanvas(name, title, figsizex, figsizey);

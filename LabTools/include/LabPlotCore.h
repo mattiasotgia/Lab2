@@ -8,6 +8,13 @@
 #include<TROOT.h>
 #include<TCanvas.h>
 
+template<typename Base, typename T>
+inline bool isinstance(const T*){
+    return std::is_base_of<Base, T>::value;
+}
+
+////////////////////////////////////////////////////////////////////
+
 class Axes{
 private:
     

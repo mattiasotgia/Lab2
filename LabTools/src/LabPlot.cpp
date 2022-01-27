@@ -7,6 +7,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<tuple>
 
 #include<TCanvas.h>
 #include<TPad.h>
@@ -112,3 +113,84 @@ TPad *get_residualPad(_TObj *graph, TF1 *fit, TPad *graphPad){
 
 template TPad *get_residualPad<TGraphErrors>(TGraphErrors*, TF1*, TPad*);
 template TPad *get_residualPad<TH1>(TH1*, TF1*, TPad*);
+
+////////////////////////////////////////////////////////////////////
+
+TLatex *set_label( const char* text, const char* loc, 
+                   Float_t x, Float_t y, 
+                   Size_t size, Font_t font, Size_t align, 
+                   Color_t color, Float_t alpha, Float_t angle
+){
+    if(!gROOT->GetStyle("ATLAS")) 
+        fprintf(stderr, "\u001b[31;1mwarning:\u001b[0m The 'ATLAS' style has not been set\n");
+    
+    TLatex *label = new TLatex();
+    label->SetNDC();
+
+    Float_t xpos, ypos;
+
+    if (size!=_FNULL)
+        label->SetTextSize(size);
+
+    if (font!=_FNULL)
+        label->SetTextFont(font);
+
+    if (align!=_FNULL)
+        label->SetTextAlign(align);
+
+    if (color!=_FNULL && alpha!=_FNULL)
+        label->SetTextColorAlpha(color, alpha);
+    else if (color != _FNULL)
+        label->SetTextColor(color);
+
+    if (angle != _FNULL)
+        label->SetTextAngle(angle);
+
+    if (font != _FNULL)
+        label->SetTextFont(font);
+
+    // Decide on label position
+    if (x != _FNULL && y != _FNULL) {
+        // Set location manually
+        xpos = x;
+        ypos = y;
+    } else if (!strncmp(loc, "", 10)) {
+        // Set location automatically from 'loc' argument
+        if (strncmp(loc, "upper left", 10)){
+            label->SetTextAlign(13);
+            xpos = gPad->GetLeftMargin() + 0.04;
+            ypos = 1 - gPad->GetTopMargin() - 0.04;
+        } else if (strncmp(loc, "upper right", 10)) {
+            label->SetTextAlign(33);
+            xpos = 1 - gPad->GetRightMargin() - 0.04;
+            ypos = 1 - gPad->GetTopMargin() - 0.04;
+        }else if (strncmp(loc, "lower left", 10)) {
+            label->SetTextAlign(11);
+            xpos = gPad->GetLeftMargin() + 0.04;
+            ypos = gPad->GetBottomMargin() + 0.04;
+        } else if (strncmp(loc, "lower right", 10)) {
+            label->SetTextAlign(31);
+            xpos = 1 - gPad->GetRightMargin() - 0.04;
+            ypos = gPad->GetBottomMargin() + 0.04;
+        } else {
+            fprintf(stderr, "\u001b[31;1mwarning:\u001b[0m unrecognized location '%s'.\nFalling back on 'upper left'\n", loc);
+            label->SetTextAlign(13);
+            xpos = gPad->GetLeftMargin() + 0.04;
+            ypos = 1 - gPad->GetTopMargin() - 0.04;
+        }
+    } else {
+        // User 'upper left' if no position arguments are given
+        label->SetTextAlign(13);
+        xpos = gPad->GetLeftMargin() + 0.04;
+        ypos = 1 - gPad->GetTopMargin() - 0.04;
+    }
+
+    if (strncmp(text, "", 1)){
+        label->DrawLatex(xpos, ypos, "#bf{#it{LAB. 2}}");
+    } else {
+        label->DrawLatex(xpos, ypos, Form("#bf{#it{LAB. 2}} %s", text));
+    }
+
+    return label;
+
+}

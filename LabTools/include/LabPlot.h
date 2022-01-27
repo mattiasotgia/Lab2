@@ -5,22 +5,18 @@
 #ifndef LABTOOLS_LabPlot
 #define LABTOOLS_LabPlot
 
-#include<vector>
-#include<cmath>
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<tuple>
 
-#include<TStyle.h>
-#include<TCanvas.h>
+
 #include<TPad.h>
 #include<TH1.h>
 #include<TGraphErrors.h>
 #include<TF1.h>
 #include<TAxis.h>
-#include<TMath.h>
 #include<TLatex.h>
-#include<TLegend.h>
 
 #define _FNULL (float)0
 
@@ -38,5 +34,22 @@ TGraphErrors *get_residual(TH1 *graph, TF1 *fit);
 
 template<typename _TObj>
 TPad *get_residualPad(_TObj *graph, TF1 *fit, TPad *graphPad);
+
+////////////////////////////////////////////////////////////////////
+
+TLatex *set_label(
+    const char* text="",
+    const char* loc="",
+    Float_t x=_FNULL,
+    Float_t y=_FNULL,
+    Size_t size=_FNULL,
+    Font_t font=_FNULL,
+    Size_t align=_FNULL,
+    Color_t color=_FNULL,
+    Float_t alpha=_FNULL,
+    Float_t angle=_FNULL
+);
+
+////////////////////////////////////////////////////////////////////
 
 #endif
