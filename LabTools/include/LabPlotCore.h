@@ -9,12 +9,8 @@
 #include<TCanvas.h>
 
 template<typename Base, typename T>
-inline bool isinstance(const T*){
-    return std::is_base_of<Base, T>::value;
-}
-
+inline bool isinstance(const T*){ return std::is_base_of<Base, T>::value; }
 ////////////////////////////////////////////////////////////////////
-
 class Axes{
 private:
     
@@ -38,6 +34,4 @@ public:
     ~Figure();
 }; // Figure class
 
-
-
-#endif
+#endif //LABTOOLS_LabPlotCore

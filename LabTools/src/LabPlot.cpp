@@ -23,8 +23,9 @@
 #include<TROOT.h>
 
 #include"ATLASStyle.h"
-#include"Logger.h"
 #include"LabPlot.h"
+// #include"LabPlotCore.h"
+#include"Logger.h"
 
 void set_atlas_style(Size_t tsize){
 
@@ -41,11 +42,8 @@ void set_axis(_TObj *graph, ax_Title xtitle, ax_Title ytitle){
 
     Double_t fontsize = 8;
     
-    graph->SetTitle("");
-    graph->GetYaxis()->SetTitle(ytitle.c_str());
+    graph->SetTitle(Form(";%s;%s", xtitle, ytitle));
     graph->GetYaxis()->CenterTitle();
-
-    graph->GetXaxis()->SetTitle(xtitle.c_str());
     graph->GetXaxis()->CenterTitle();
 }
 
@@ -95,6 +93,8 @@ TGraphErrors *get_residual(TH1 *graph, TF1 *fit){
 
     return res;
 }
+
+////////////////////////////////////////////////////////////////////
 
 template<typename _TObj>
 TPad *get_residualPad(_TObj *graph, TF1 *fit, TPad *graphPad){

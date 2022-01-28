@@ -20,7 +20,7 @@
 
 #include"LabStat.h"
 
-std::string unilab::compatible_nocorr(double G1, double errG1,
+std::string LabStat::compatible_nocorr(double G1, double errG1,
                               double G2, double errG2){
     double abs_values = abs(G2 - G1);
     double err_abs_val = 3 * sqrt(pow(errG1, 2) + pow(errG2, 2));
@@ -31,15 +31,15 @@ std::string unilab::compatible_nocorr(double G1, double errG1,
     return ("NON-COMPATIBILE: " + get_statsign(G1, errG1, G2, errG2));
 }
 
-std::string unilab::get_statsign(double G1, double errG1,
+std::string LabStat::get_statsign(double G1, double errG1,
                          double G2, double errG2){
     return ("significativita' statistica  " + std::to_string(abs(G2 - G1)/sqrt(pow(errG1, 2) + pow(errG2, 2))) + " σ");
 }
 
-double unilab::getbestvalue(double G1, double errG1, double G2, double errG2){
+double LabStat::getbestvalue(double G1, double errG1, double G2, double errG2){
     return (G1 / pow(errG1, 2) + G2 / pow(errG2, 2)) / (1 / pow(errG1, 2) + 1 / pow(errG2, 2));
 }
 
-double unilab::getbestvalueerr(double errG1, double errG2){
+double LabStat::getbestvalueerr(double errG1, double errG2){
     return sqrt(1 / (1 / pow(errG1, 2) + 1 / pow(errG2, 2)));
 }

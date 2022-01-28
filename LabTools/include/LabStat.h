@@ -21,7 +21,7 @@
 #include<TLatex.h>
 #include<TLegend.h>
 
-namespace unilab{
+namespace LabStat{
 
     std::string compatible_nocorr(double G1, double errG1, double G2, double errG2);
 
@@ -30,6 +30,6 @@ namespace unilab{
     double getbestvalue(double G1, double errG1, double G2, double errG2);
     double getbestvalueerr(double errG1, double errG2);
 
-} // unilab
+} // LabStat
 
-#endif
+#endif //LABTOOLS_StaTools
