@@ -23,6 +23,7 @@
 #include<TROOT.h>
 
 #include"ATLASStyle.h"
+#include"Logger.h"
 #include"LabPlot.h"
 
 void set_atlas_style(Size_t tsize){
@@ -122,7 +123,7 @@ TLatex *set_label( const char* text, const char* loc,
                    Color_t color, Float_t alpha, Float_t angle
 ){
     if(!gROOT->GetStyle("ATLAS")) 
-        fprintf(stderr, "\u001b[31;1mwarning:\u001b[0m The 'ATLAS' style has not been set\n");
+        fprintf(stderr, "%s", Logger::warning("The 'ATLAS' style has not been set"));
     
     TLatex *label = new TLatex();
     label->SetNDC();

@@ -3,6 +3,11 @@
 
 namespace Logger {
 
+  #define warnstr "\u001b[31;1mwarning:\u001b[0m"
+
+  const char* warning(const char* _warning);
+  const char* error(const char* _error);
+
   void setLogLevel(int level); 
 
   //! Reset time counter
