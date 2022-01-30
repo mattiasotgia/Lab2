@@ -17,7 +17,7 @@
 #include<TAxis.h>
 #include<TLatex.h>
 
-// #include"LabPlotCore.h"
+#include"LabPlotCore.h"
 
 #define _FNULL (float)0
 
@@ -32,6 +32,8 @@ TGraphErrors   *get_residual(TH1 *graph, TF1 *fit);
 ////////////////////////////////////////////////////////////////////
 template<typename _TObj>
 TPad           *get_residualPad(_TObj *graph, TF1 *fit, TPad *graphPad);
+////////////////////////////////////////////////////////////////////
+Figure          figure(const char *title="", Size_t figsizex=800, Size_t figsizey=600);
 ////////////////////////////////////////////////////////////////////
 TLatex         *set_label(const char* text="", const char* loc="", 
                           Float_t x=_FNULL, Float_t y=_FNULL, 

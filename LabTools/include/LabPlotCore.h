@@ -9,7 +9,7 @@
 #include<TCanvas.h>
 
 template<typename Base, typename T>
-inline bool isinstance(const T*){ return std::is_base_of<Base, T>::value; }
+inline bool     isinstance(const T*){ return std::is_base_of<Base, T>::value; }
 ////////////////////////////////////////////////////////////////////
 class Axes{
 private:
@@ -21,15 +21,15 @@ public:
 
 class Figure{
 private:
-    TCanvas *_canvas;
-    Axes _ax; // ! TODO: define Axes object class !
+    TCanvas    *_canvas;
+    Axes        _ax; // ! TODO: define Axes object class !
 public:
     Figure(const char *name="", const char *title="", Size_t figsizex=800, Size_t figsizey=600);
     
-    TCanvas *canvas() { return _canvas; };
-    Axes axes() { return _ax; };
+    inline TCanvas     *canvas() { return _canvas; };
+    inline Axes         axes() { return _ax; };
 
-    void add_axes(Axes ax);
+    void        add_axes(Axes ax);
 
     ~Figure();
 }; // Figure class
