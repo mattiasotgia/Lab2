@@ -9,6 +9,13 @@ project(LabTools VERSION 0.0.2)
 find_package(ROOT)
 
 set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
+
+set(BODEINC
+    include/Bode/Analysis.h)  
+    
+set(BODESRC
+    src/Bode/Analysis.cpp)
+
 set(LIBSRC 
     src/LabTools.cpp
     src/LabPlot.cpp
@@ -29,10 +36,11 @@ set(LIBINC
 add_compile_options(-I${ROOT_INCLUDE_DIRS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-add_library(LabTools SHARED ${LIBSRC})
+add_library(LabTools SHARED ${LIBSRC} ${BODESRC})
 
 target_link_libraries(LabTools ${ROOT_LIBRARIES})
 
 install(TARGETS LabTools DESTINATION /usr/local/lib/)
 install(FILES ${LIBINC} DESTINATION include)
+install(FILES ${BODEINC} DESTINATION include/Bode)
 
