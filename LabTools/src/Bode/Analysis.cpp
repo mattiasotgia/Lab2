@@ -31,15 +31,23 @@ Bode::Bode(){
 Bode::Bode(System_t sys){
     fSystem = sys;
     set_atlas_style(tsize);
+
+    SetSystem(sys);
+
     fGain = new TGraphErrors();
     fPhase = new TGraphErrors();
     fGainFit = new TF1("gainfit", _gainfit, fmin, fmax);
+
     fPhaseFit = new TF1("phasefit", _phasefit, fmin, fmax);
 }
+
 
 Bode::Bode(System_t sys, const char *filename, Option_t *option){
     fSystem = sys;
     set_atlas_style(tsize);
+
+    SetSystem(sys);
+
     fGain = new TGraphErrors();
     fPhase = new TGraphErrors();
     fGainFit = new TF1("gainfit", _gainfit, fmin, fmax);
@@ -84,6 +92,39 @@ bool Bode::SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPha
         return false;
     }
     return true;
+}
+
+void Bode::SetSystem(System_t sys){
+    fSystem = sys;
+    switch(sys.Hash()){
+        case op_amp_lp:
+        case OP_AMP_LP:
+            _gainfit = "[0]/sqrt(1+pow(x/[1], 2))";
+            _phasefit = "";
+            break;
+        case op_amp_hp:
+        case OP_AMP_HP:
+            _gainfit = "";
+            _phasefit = "";
+            break;
+        case rlc_lp:
+        case RLC_LP:
+            _gainfit = "";
+            _phasefit = "";
+            break;
+        case rlc_hp:
+        case RLC_HP:
+            _gainfit = "";
+            _phasefit = "";
+            break;
+        case rlc_bp:
+        case RLC_BP:
+            _gainfit = "";
+            _phasefit = "";
+            break;
+        default:
+            fprintf(stderr, "%s", Logger::warning(Form("System_t option '%s' not recognised", sys.Data())));
+    }
 }
 
 Bode::~Bode(){

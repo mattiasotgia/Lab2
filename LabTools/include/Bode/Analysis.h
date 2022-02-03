@@ -19,23 +19,29 @@
 #include<TF1.h>
 #include<TGraphErrors.h>
 #include<TPad.h>
+#include<TString.h>
 
 // typedefs
 typedef int NPar_t;
-typedef int System_t;
+typedef TString System_t;
 
 // miscellaneous
 enum enumSystem{
-    OP_AMP_HP   = 0x1,
-    OP_AMP_LP   = 0x2,
-    RLC_HP      = 0x101,
-    RLC_LP      = 0x102,
-    RLC_BP      = 0x103,
+    OP_AMP_HP = 1991226620,
+    OP_AMP_LP = 4138710268,
+    RLC_HP    = 3899251227,
+    RLC_LP    = 3899252251,
+    RLC_BP    = 3899248667,
+    op_amp_hp = 1982541912,
+    op_amp_lp = 4130025560,
+    rlc_hp    = 3966631483,
+    rlc_lp    = 3966630459,
+    rlc_bp    = 3966628923
 };
 
 class Bode{
 private:
-    System_t          fSystem = 0x0;
+    System_t          fSystem = "";
 
     bool                _isfunctioncalled = false; ///> check if user called for function different from base;
     bool                _residualOn = false;
@@ -99,6 +105,7 @@ public:
     bool                SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase);
     void                SetLogx();
     void                SetLogy();
+    inline void         SetSystem(System_t sys);
     inline void         SetResidual(bool residual = true) { _residualOn = residual; }
 };
 
