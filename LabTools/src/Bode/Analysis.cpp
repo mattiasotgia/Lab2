@@ -14,6 +14,7 @@
 #include<TBox.h>
 #include<TCanvas.h>
 #include<TF1.h>
+#include<TGaxis.h>
 #include<TGraphErrors.h>
 #include<TLatex.h>
 #include<TLegend.h>
@@ -56,6 +57,71 @@ Bode::Bode(System_t sys, const char *filename, Option_t *option){
     fPhase = new TGraphErrors();
     fGainFit = new TF1("gainfit", _gainfit, fmin, fmax);
     fPhaseFit = new TF1("phasefit", _phasefit, fmin, fmax);
+}
+
+void Bode::Plot(bool plotphase, bool plotgain){
+    fFigure = new TCanvas("fFigure", "", 800, 600);
+    TLatex *text = new TLatex();
+    TLegend *legend = new TLegend();
+    
+    fGainPad = new TPad("fGainPad", "", 0, 0, 1, 1);
+    fPhasePad = new TPad("fPhasePad", "", 0, 0, 1, 1);
+    fPhasePad->SetFillStyle(4000);
+
+    if(plotgain){
+        if(plotphase){
+            set_atlas_style(tsize, false);
+        } else {
+            set_atlas_style(tsize);
+        }
+        _apply_LineColor();
+
+        fGainPad->cd();
+        fGain->Draw("ap");
+        fGainFit->Draw("same");
+        if(plotphase){
+            fGainPad->SetTicky(0);
+            
+            Double_t xmin = fGainPad->GetUxmin();
+            Double_t xmax = fGainPad->GetUxmax();
+            Double_t dx = (xmax - xmin) / 0.68; // 10 percent margins left and right
+            Double_t ymin = fPhase->GetHistogram()->GetMinimum();
+            Double_t ymax = fPhase->GetHistogram()->GetMaximum();
+            Double_t dy = (ymax - ymin) / 0.79; // 10 percent margins top and bottom
+            fPhasePad->Range(xmin-0.16*dx, ymin-0.16*dy, xmax+0.16*dx, ymax+0.05*dy);
+
+            fPhasePad->cd();
+
+            fPhase->Draw("p");
+            fPhaseFit->Draw("same");
+
+            Style_t tfont = fGain->GetHistogram()->GetYaxis()->GetTitleFont();
+            Float_t tsize = fGain->GetHistogram()->GetYaxis()->GetTitleSize();
+            Style_t lfont = fGain->GetHistogram()->GetYaxis()->GetLabelFont();
+            Float_t lsize = fGain->GetHistogram()->GetYaxis()->GetLabelSize();
+
+            TGaxis *axis = new TGaxis(xmax, ymin, xmax, ymax, ymin, ymax, 510, "+L");
+            axis->SetTitle("Phase");
+            axis->SetTitleOffset(1.5);
+            axis->SetTitleFont(tfont);
+            axis->SetTitleSize(tsize);
+            axis->SetLabelFont(lfont);
+            axis->SetLabelSize(lsize);
+            axis->SetMaxDigits(1);
+            axis->Draw();
+            gPad->Update();
+        }
+    } else {
+        // plotgain is false
+
+        set_atlas_style(tsize);
+        _apply_LineColor();
+
+        fPhasePad->cd();
+        fPhase->Draw("ap");
+        fPhaseFit->Draw("same");
+        gPad->Update();
+    }
 }
 
 bool Bode::SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain){

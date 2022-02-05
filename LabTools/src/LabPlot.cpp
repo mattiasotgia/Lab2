@@ -31,7 +31,7 @@ void set_atlas_style(Size_t tsize, Bool_t setticky){
 
     printf("\u001b[34;1mApplying ATLAS style settings\u001b[0m\n");
 
-    TStyle *style = (tsize==_FNULL ? atlas_style():atlas_style(tsize));
+    TStyle *style = (tsize==_FNULL ? atlas_style():atlas_style(tsize, setticky));
 
     gROOT->SetStyle("ATLAS");
     gROOT->ForceStyle();

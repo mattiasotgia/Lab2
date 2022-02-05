@@ -89,7 +89,7 @@ TStyle *atlas_style(Size_t tsize, Bool_t ticky){
 
     // Put tick marks on top and RHS of plots
     atlasStyle->SetPadTickX(1);
-    if(ticky) atlasStyle->SetPadTickY(1);
+    atlasStyle->SetPadTickY(1);
 
     // Remove legend borders and set font
     atlasStyle->SetLegendBorderSize(0);

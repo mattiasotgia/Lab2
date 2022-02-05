@@ -82,12 +82,15 @@ private:
     Double_t           *fPErrPhase;     ///>[fNpoints] array for error phase points
     Double_t           *fPointFreq;
     Double_t           *fPErrFreq;
+
+    // miscellaneous
+    void                _apply_LineColor();
 public:
     Bode();
     Bode(System_t sys);                                             ///> sys: OP_AMP: 0x1 high pass, 0x2 low pass; RLC 0x101 high pass, 0x102 low pass, 0x103 band pass;
     Bode(System_t sys, const char *filename, Option_t *option="");  ///> sys: OP_AMP: 0x1 high pass, 0x2 low pass; RLC 0x101 high pass, 0x102 low pass, 0x103 band pass;
     ~Bode();
-    void                FitCorrelated(Option_t *option="", Option_t *goption="", Axis_t xmin=0, Axis_t xmax=0);
+    Bool_t              FitCorrelated(Option_t *option="", Option_t *goption="", Axis_t xmin=0, Axis_t xmax=0);
     inline Double_t     GetCutoff()     const { return gCutoff; }
     inline Double_t     GetErrCutoff()  const { return gErrCutoff; }
     inline Double_t     GetErrGain()    const { return gErrGain; }
@@ -97,22 +100,32 @@ public:
     void                Plot(bool plotphase = true, bool plotgain = true);
     void                PlotGain();
     void                PlotPhase();
-    bool                ReadInput(const char *filename, Option_t *option="");       ///> read input for both phase and gain data 
+    Bool_t              ReadInput(const char *filename, Option_t *option="");       ///> read input for both phase and gain data 
     // bool                ReadInputGain(const char *filename, Option_t *option="");   ///> read input for gain data
     // bool                ReadInputPhase(const char *filename, Option_t *option="");  ///> read input for phase data
     // bool                ReadInputRDF()  // TO BE IMPLEMENTED
     inline void         SetCutoffNpar(NPar_t npar = 0)  { _CutoffPar = npar; }
     inline void         SetGainNpar(NPar_t npar = 1)    { _GainPar = npar; }
     void                SetGainFunction(const char *formula, Option_t *option="");
-    bool                SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain);
+    Bool_t              SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain);
     void                SetParGain(Double_t *params);
     void                SetParPhase(Double_t *params);
     void                SetPhaseFunction(const char *formula, Option_t *option="");
-    bool                SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase);
+    Bool_t              SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase);
     void                SetLogx();
     void                SetLogy();
     inline void         SetSystem(System_t sys);
     inline void         SetResidual(bool residual = true) { _residualOn = residual; }
 };
+
+void Bode::_apply_LineColor(){
+    fGain->SetTitle(";Frequency;Gain");
+    fPhase->SetTitle(";Frequency;Phase");
+    fGainFit->SetLineColor(kBlack);
+    fPhase->SetLineColor(kRed);
+    fPhase->SetMarkerColor(kRed);
+    fPhaseFit->SetMarkerColor(kRed);
+    fPhaseFit->SetLineStyle(kDashed);
+}
 
 #endif
