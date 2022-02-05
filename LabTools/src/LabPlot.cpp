@@ -27,7 +27,7 @@
 // #include"LabPlotCore.h"
 #include"Logger.h"
 
-void set_atlas_style(Size_t tsize){
+void set_atlas_style(Size_t tsize, Bool_t setticky){
 
     printf("\u001b[34;1mApplying ATLAS style settings\u001b[0m\n");
 

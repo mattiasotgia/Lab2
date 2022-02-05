@@ -25,7 +25,7 @@ For general instructions on formatting text in ROOT, refer to,
 
 #include"ATLASStyle.h"
 
-TStyle *atlas_style(Size_t tsize){
+TStyle *atlas_style(Size_t tsize, Bool_t ticky){
 
     TStyle *atlasStyle = new TStyle("ATLAS", "Atlas Style");
 
@@ -45,7 +45,7 @@ TStyle *atlas_style(Size_t tsize){
 
     // Set margin sizes
     atlasStyle->SetPadTopMargin(0.05);
-    atlasStyle->SetPadRightMargin(0.05);
+    atlasStyle->SetPadRightMargin(ticky? 0.05:0.16);
     atlasStyle->SetPadBottomMargin(0.16);
     atlasStyle->SetPadLeftMargin(0.16);
 
@@ -76,7 +76,7 @@ TStyle *atlas_style(Size_t tsize){
     // Use bold lines and markers
     atlasStyle->SetMarkerStyle(20);
     atlasStyle->SetMarkerSize(0.8);
-    atlasStyle->SetHistLineWidth(2);
+    atlasStyle->SetHistLineWidth(1);
     atlasStyle->SetLineStyleString(2, "[12 12]"); // postscript dashes
 
     // Get rid of error bar caps
@@ -89,13 +89,16 @@ TStyle *atlas_style(Size_t tsize){
 
     // Put tick marks on top and RHS of plots
     atlasStyle->SetPadTickX(1);
-    atlasStyle->SetPadTickY(1);
+    if(ticky) atlasStyle->SetPadTickY(1);
 
     // Remove legend borders and set font
     atlasStyle->SetLegendBorderSize(0);
     atlasStyle->SetLegendFillColor(0);
     atlasStyle->SetLegendFont(43);
     atlasStyle->SetLegendTextSize(tsize);
+
+    // Miscellaneous
+    atlasStyle->SetLineScalePS(1);
 
     return atlasStyle;
 }

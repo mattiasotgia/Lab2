@@ -21,7 +21,7 @@
 
 #define _FNULL (float)0
 
-void            set_atlas_style(Size_t tsize=_FNULL);
+void            set_atlas_style(Size_t tsize=_FNULL, Bool_t setticky = true);
 ////////////////////////////////////////////////////////////////////
 typedef const char* ax_Title; //> axis title object
 template<typename _TObj> 
