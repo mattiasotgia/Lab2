@@ -41,7 +41,7 @@ enum enumSystem{
 
 class Bode{
 private:
-    System_t          fSystem = "";
+    System_t            fSystem = "";
 
     bool                _isfunctioncalled = false; ///> check if user called for function different from base;
     bool                _residualOn = false;
@@ -75,10 +75,13 @@ private:
     /// function variables declaration
     Double_t            fmin = (0.0);   ///> minimum for frequency range
     Double_t            fmax = (1.0);   ///> maximum for frequency range
+    Double_t            fNpoints;        ///> points in graph
     Double_t           *fPointGain;     ///>[fNpoints] array for gain points
     Double_t           *fPErrGain;      ///>[fNpoints] array for error gain points
     Double_t           *fPointPhase;    ///>[fNpoints] array for phase points
     Double_t           *fPErrPhase;     ///>[fNpoints] array for error phase points
+    Double_t           *fPointFreq;
+    Double_t           *fPErrFreq;
 public:
     Bode();
     Bode(System_t sys);                                             ///> sys: OP_AMP: 0x1 high pass, 0x2 low pass; RLC 0x101 high pass, 0x102 low pass, 0x103 band pass;
@@ -91,6 +94,9 @@ public:
     inline Double_t     GetErrGWB()     const { return gErrGWB; }
     inline Double_t     GetGain()       const { return gGain; }
     inline Double_t     GetGWB()        const { return gGWB; }
+    void                Plot(bool plotphase = true, bool plotgain = true);
+    void                PlotGain();
+    void                PlotPhase();
     bool                ReadInput(const char *filename, Option_t *option="");       ///> read input for both phase and gain data 
     // bool                ReadInputGain(const char *filename, Option_t *option="");   ///> read input for gain data
     // bool                ReadInputPhase(const char *filename, Option_t *option="");  ///> read input for phase data

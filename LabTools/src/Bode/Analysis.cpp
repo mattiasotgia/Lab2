@@ -11,9 +11,13 @@
 
 #include<iostream>
 
+#include<TBox.h>
 #include<TCanvas.h>
 #include<TF1.h>
 #include<TGraphErrors.h>
+#include<TLatex.h>
+#include<TLegend.h>
+#include<TLine.h>
 
 #include"Bode/Analysis.h"
 #include"ErrorAnalysis.h"
@@ -21,7 +25,7 @@
 #include"Logger.h"
 
 Bode::Bode(){
-    set_atlas_style(tsize);
+    // set_atlas_style(tsize);
     fGain = new TGraphErrors();
     fPhase = new TGraphErrors();
     fGainFit = new TF1("gainfit", _gainfit, fmin, fmax);
@@ -30,7 +34,7 @@ Bode::Bode(){
 
 Bode::Bode(System_t sys){
     fSystem = sys;
-    set_atlas_style(tsize);
+    // set_atlas_style(tsize);
 
     SetSystem(sys);
 
@@ -44,7 +48,7 @@ Bode::Bode(System_t sys){
 
 Bode::Bode(System_t sys, const char *filename, Option_t *option){
     fSystem = sys;
-    set_atlas_style(tsize);
+    // set_atlas_style(tsize);
 
     SetSystem(sys);
 
