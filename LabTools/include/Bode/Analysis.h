@@ -25,22 +25,23 @@
 typedef int NPar_t;
 typedef TString System_t;
 
-// miscellaneous
-enum enumSystem{
-    OP_AMP_HP = 1991226620,
-    OP_AMP_LP = 4138710268,
-    RLC_HP    = 3899251227,
-    RLC_LP    = 3899252251,
-    RLC_BP    = 3899248667,
-    op_amp_hp = 1982541912,
-    op_amp_lp = 4130025560,
-    rlc_hp    = 3966631483,
-    rlc_lp    = 3966630459,
-    rlc_bp    = 3966628923
-};
 
 class Bode{
 private:
+    // miscellaneous
+    enum {
+        OP_AMP_HP = 1991226620,
+        OP_AMP_LP = 4138710268,
+        RLC_HP    = 3899251227,
+        RLC_LP    = 3899252251,
+        RLC_BP    = 3899248667,
+        op_amp_hp = 1982541912,
+        op_amp_lp = 4130025560,
+        rlc_hp    = 3966631483,
+        rlc_lp    = 3966630459,
+        rlc_bp    = 3966628923
+    };
+
     System_t            fSystem = "";
 
     bool                _isfunctioncalled = false; ///> check if user called for function different from base;
@@ -106,11 +107,12 @@ public:
     // bool                ReadInputRDF()  // TO BE IMPLEMENTED
     inline void         SetCutoffNpar(NPar_t npar = 0)  { _CutoffPar = npar; }
     inline void         SetGainNpar(NPar_t npar = 1)    { _GainPar = npar; }
-    void                SetGainFunction(const char *formula, Option_t *option="");
+    Bool_t              SetFreqVec(std::vector<Double_t> Freq, std::vector<Double_t> ErrFreq);
+    // void                SetGainFunction(const char *formula, Option_t *option="");
     Bool_t              SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain);
     void                SetParGain(Double_t *params);
     void                SetParPhase(Double_t *params);
-    void                SetPhaseFunction(const char *formula, Option_t *option="");
+    // void                SetPhaseFunction(const char *formula, Option_t *option="");
     Bool_t              SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase);
     void                SetLogx();
     void                SetLogy();

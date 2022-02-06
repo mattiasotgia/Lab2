@@ -124,7 +124,35 @@ void Bode::Plot(bool plotphase, bool plotgain){
     }
 }
 
-bool Bode::SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain){
+void Bode::PlotGain(){
+    Plot(false);
+}
+
+void Bode::PlotPhase(){
+    Plot(true, false);
+}
+
+Bool_t Bode::SetFreqVec(std::vector<Double_t> Freq, std::vector<Double_t> ErrFreq){
+    fPointFreq = Freq.data(); 
+    fPErrFreq = ErrFreq.data();
+
+    if (Freq.size()!=ErrFreq.size()){
+        printf("%s", Logger::error("array size of Freq and its Error do not match!"));
+        return false;
+    }
+
+    Int_t kSizePG = sizeof(fPointFreq)/sizeof(Double_t);
+    Int_t kSizeEPG = sizeof(fPErrFreq)/sizeof(Double_t);
+
+    if(Freq.size()!=kSizePG || ErrFreq.size()!=kSizeEPG){
+        printf("%s", Logger::error(Form("size of Freq input vec: %lu, size of Freq copy vec: %d", Freq.size(), kSizePG)));
+        printf("%s", Logger::error(Form("size of ErrFreq input vec: %lu, size of ErrFreq copy vec: %d", Freq.size(), kSizePG)));
+        return false;
+    }
+    return true;
+}
+
+Bool_t Bode::SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain){
     fPointGain = Gain.data(); 
     fPErrGain = ErrGain.data();
 
@@ -144,7 +172,7 @@ bool Bode::SetGainVec(std::vector<Double_t> Gain, std::vector<Double_t> ErrGain)
     return true;
 }
 
-bool Bode::SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase){
+Bool_t Bode::SetPhaseVec(std::vector<Double_t> Phase, std::vector<Double_t> ErrPhase){
     fPointPhase = Phase.data(); 
     fPErrPhase = ErrPhase.data();
 
