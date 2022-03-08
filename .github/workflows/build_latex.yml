@@ -9,15 +9,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
-    - name: Compile e4 Latex document
+    - name: Compile e5 Latex document
       uses: dante-ev/latex-action@master
       with:
-        root_file: esperienza_4_2021_11_27.tex
-        working_directory: esperienza_4__irraggiamento_lampadina/relazione/
+        root_file: esperienza_5_2022_03_07.tex
+        working_directory: esperienza_5__DAC_ADC/relazione/
     - env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: startsWith(github.ref, 'refs/tags/')
       name: Relase latests papers
       uses: softprops/action-gh-release@v1
       with:
-        files: esperienza_4__irraggiamento_lampadina/relazione/esperienza_4_2021_11_27.pdf
+        files: esperienza_5__DAC_ADC/relazione/esperienza_5_2022_03_07.pdf
