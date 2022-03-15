@@ -34,9 +34,19 @@
     } (\the\year)
 }
 
+\def\thesection{\arabic{section}}
+\def\thesubsection{\thesection.\arabic{subsection}}
+\def\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\labelitemi{\textendash}
+\renewcommand\labelitemii{\textendash}
+\renewcommand\labelitemiii{\textendash}
+\renewcommand\labelitemiv{\textendash}
+
 \begin{document}
 
-\title{ 
+\title{
+    Realizzazione di un ADC, note
 }
 \thanks{Esperienza n. 5
 }
@@ -45,7 +55,6 @@
 \email{s5025011@studenti.unige.it}
 \author{Mattia Sotgia}
 \email{s4942225@studenti.unige.it}
-\altaffiliation{In presenza in laboratorio per la presa dati}
 
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
@@ -67,6 +76,36 @@
 
 %%%% CORPO DEL TESTO
 %%%% CORPO DEL TESTO
+
+Mettiamo delle resistenze di valore ideale (in realtà sono leggermente più piccole, ma rimangono sempre tutte uguali $R$ e $2R$) \begin{align*}
+    R &= \SI{270}{\kilo\ohm}\\
+    2R &= \SI{560}{\kilo\ohm}
+\end{align*}
+    
+\section{Circuito non amplificato}
+L'impedenza di uscita totale del nostro circuito è $R = \SI{270}{\kilo\ohm}$, che però diventa confrontabile con il valore di impedenza di ingresso dell'oscilloscopio (circa \SI[]{1}[]{\mega\ohm}), che quindi si \emph{mangia} 1/4 della tensione di ingresso, perchè abbiamo che di fatto l'impedenza in ingresso è confrontabile con l'impedenza in uscita del nostro circuito.
+
+\subsection{Appunti 15 marzo}
+Abbiamo notato che le impedenze in uscita del circuito costringevano ad avere tensioni che venivano \emph{mangiate} come se si trovassero in una sorta di partitore di tensione.
+
+\section{Circuito amplificato}
+
+Aggiungendo l'amplificatore, che ha una impedenza di uscita praticamente infinita (maggiore di quella dell'oscilloscopio), otteniamo che questo problema non si pone più, e quindi con un guadagno pari a $G=2$, il valore massimo raggiungibile corrisponde effettivamente a $15/16$ di \SI{10}{\volt}, ovvero \SI{9.3}{\volt}, che è il valore che otteniamo.  
+
+\subsection{Appunti 15 marzo}
+Per il circuito amplificato scegliamo quindi di avere delle tensioni in ingresso inferiori, in particolare scegliamo come resistenze valori nominali di \begin{align*}
+    R &= \SI{2.70}{\kilo\ohm}\\
+    2R &= \SI{5.60}{\kilo\ohm},
+\end{align*} con valori reali molto vicini a questi valori nominali entro un errore inferiore al 5\%.
+
+\section{Note sulla progettazione dell'ADC}
+\begin{itemize}
+    \item Ogni volta controllare sul data sheet dello strumento tutte le caratteristiche, gli strumenti vanno generalmente collegati al GND, e necessitano di una tensione di funzionamento, spesso diverse. 
+    \item Durante la realizzazione può essere utile procedere pezzo per pezzo, ogni volta testare le uscite
+    \item tenere un BNC libero per effettuare misure si tensione ai vari capi degli strumenti, procedere con senso fisico. 
+    \item Utilizzare il trigger in modo sensato, utilizzare anche la funzione \verb-single- dell'oscilloscopio per fermare l'immagine al primo trigger.
+\end{itemize}
+    
 
 %\onecolumngrid
 \appendix
