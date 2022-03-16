@@ -12,12 +12,6 @@ find_path(ERR_A_PATH ErrorAnalysis.h PATHS /usr/local)
 
 set(CMAKE_CXX_FLAGS ${ROOT_CXX_FLAGS})
 
-set(BODEINC
-    include/Bode/Analysis.h)  
-    
-set(BODESRC
-    src/Bode/Analysis.cpp)
-
 set(LIBSRC 
     src/LabTools.cpp
     src/LabPlot.cpp
@@ -45,5 +39,4 @@ target_include_directories(LabTools PUBLIC ${ERR_A_PATH})
 
 install(TARGETS LabTools DESTINATION /usr/local/lib/)
 install(FILES ${LIBINC} DESTINATION include)
-install(FILES ${BODEINC} DESTINATION include/Bode)
 
