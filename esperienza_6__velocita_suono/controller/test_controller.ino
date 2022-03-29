@@ -18,5 +18,8 @@ void setup(){
 }
 
 void loop(){
-    digitalWrite()
+    digitalWrite(led, ledStatus);
+    Serial.println("Hello!\n");
+    delay(1000);
+    ledStatus=!ledStatus;
 }
