@@ -3,9 +3,9 @@
 		{
 			"path": "."
 		},
-		{
-			"path": "/Users/massimosotgia/CustomLibs/ErrorAnalysis"
-		}
+		// {
+		// 	"path": "/Users/massimosotgia/CustomLibs/ErrorAnalysis"
+		// }
 	],
 	"settings": {
 		"files.associations": {
