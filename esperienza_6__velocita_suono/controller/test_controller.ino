@@ -1,25 +1,23 @@
-/**
- * @file test_controller.ino
- * @author Mattia Sotgia 
- * @brief testing 
- * @version 0.1
- * @date 2022-03-29
- * 
- * @copyright Copyright (c) 2022
- * 
- */
 
 int led = LED_BUILTIN;
 volatile byte ledStatus = LOW;
 
+int ai = 2;
+
 void setup(){
     Serial.begin(9600);
     pinMode(led, OUTPUT);
+    attachInterrupt(digitalPinToInterrupt(ai), handler, LOW);
 }
 
 void loop(){
+    Serial.println("Running!");
+    delay(1000);
+}
+
+void handler(){
     digitalWrite(led, ledStatus);
-    Serial.println("Hello!\n");
+    Serial.println("LED!");
     delay(1000);
     ledStatus=!ledStatus;
 }
