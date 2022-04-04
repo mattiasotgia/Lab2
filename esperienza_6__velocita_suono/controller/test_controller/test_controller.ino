@@ -9,17 +9,14 @@ void setup(){
 double strtime = 0;
 
 void loop(){
-    Serial.println("Running!");
-    delay(1000);
 }
 
 void start(){
-    Serial.print("pin.2 (start) at time (ms): ");
-    Serial.println(millis());
+    Serial.println("** RUN data result **");
     strtime = millis();
 }
 
 void stop(){
-    Serial.print("pin.3 (stop)  at time (ms): ");
+    Serial.print("time from reset: ");
     Serial.println(millis()-strtime);
 }
