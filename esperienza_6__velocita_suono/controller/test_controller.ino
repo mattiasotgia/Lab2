@@ -1,23 +1,25 @@
 
-int led = LED_BUILTIN;
-volatile byte ledStatus = LOW;
-
-int ai = 2;
 
 void setup(){
     Serial.begin(9600);
-    pinMode(led, OUTPUT);
-    attachInterrupt(digitalPinToInterrupt(ai), handler, LOW);
+    attachInterrupt(digitalPinToInterrupt(2), start, RISING);
+    attachInterrupt(digitalPinToInterrupt(3), stop, RISING);
 }
+
+double strtime = 0;
 
 void loop(){
     Serial.println("Running!");
     delay(1000);
 }
 
-void handler(){
-    digitalWrite(led, ledStatus);
-    Serial.println("LED!");
-    delay(1000);
-    ledStatus=!ledStatus;
+void start(){
+    Serial.print("pin.2 (start) at time (ms): ");
+    Serial.println(millis());
+    strtime = millis();
+}
+
+void stop(){
+    Serial.print("pin.3 (stop)  at time (ms): ");
+    Serial.println(millis()-strtime);
 }
