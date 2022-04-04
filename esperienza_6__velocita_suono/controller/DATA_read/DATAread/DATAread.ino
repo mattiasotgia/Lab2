@@ -137,7 +137,7 @@ void loop(){
 
     if(countOnFall == fNdataread){
         noInterrupts();
-        Serial.println("** RUN data result **\n");
+        Serial.println("** RUN data result **");
         writeTimeSData(timeOnFall);
         writeTimeSData(timeOnRise);
         countOnFall++;
