@@ -55,5 +55,7 @@ for j in range(2):
 
 plt.show()
 
+datafile.flush()
+datafile.close()
 
 
