@@ -12,19 +12,21 @@
 
 const int        fNdataread = 50;       ///> number of points in single run
 
-const int           swPin = 0x00;
+const int           swPin = 22;
 
 volatile bool       _fallingedge = false;
 volatile bool       _risingedge = false;
 volatile bool       isRISING = false;
+volatile bool       isENABLE = false;
 
-volatile unsigned long    strttime = 0;
+volatile unsigned long  strttime = 0;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 
-volatile int    countOnRise = 0;
-volatile unsigned long   timeOnRise[2][fNdataread]; ///>[fNdatareads] time readings for rising edge: 0 = falling edge, 1 = rising edge
+volatile int            countOnRise = 0;
+volatile int    countOnFall = 0;
+volatile unsigned long  timeOnRise[2][fNdataread]; ///>[fNdatareads] time readings for rising edge: 0 = falling edge, 1 = rising edge
 
 void resetCLK_TM_OnRise(){
     /* Time reset
@@ -44,7 +46,6 @@ void resetCLK_TM_OnRise(){
 
 ///////////////////////////////////////////////////////////////////////////////
 
-volatile int    countOnFall = 0;
 volatile unsigned long   timeOnFall[2][fNdataread]; ///>[fNdatareads] time readings for falling edge: 0 = falling edge, 1 = rising edge
 
 void resetCLK_TM_OnFall(){
@@ -73,8 +74,6 @@ void stopCLK_TM_falling(){
             _fallingedge = false;
         }
     }
-
-    return;
 }
 
 void stopCLK_TM_rising(){
@@ -88,7 +87,7 @@ void stopCLK_TM_rising(){
         }
     }
 
-    return;
+    isRISING = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,8 +101,15 @@ void writeTimeSData(volatile unsigned long tRead[2][fNdataread], int size = fNda
     return;
 }
 
+void enable(){
+    isENABLE = !isENABLE;
+}
 
 void setup(){
+
+    attachInterrupt(digitalPinToInterrupt(swPin), enable, CHANGE);
+
+    Serial.begin(9600);
 
     // initialize array
     for(int i=0; i<2; i++){
@@ -112,31 +118,35 @@ void setup(){
             timeOnFall[i][j] = 0;
         }
     }
-
     // verify initial setup for array
     writeTimeSData(timeOnRise);
     writeTimeSData(timeOnFall);
 
-    attachInterrupt(INT2, resetCLK_TM_OnRise, RISING);
-    attachInterrupt(INT3, resetCLK_TM_OnFall, FALLING);
-
-    attachInterrupt(INT0, stopCLK_TM_falling, FALLING);
-    attachInterrupt(INT1, stopCLK_TM_rising, RISING);
-
-    pinMode(swPin, INPUT);
 
 }
 
 void loop(){
 
-    noInterrupts();
+    if(isENABLE && countOnFall<50){
+        Serial.println(countOnFall);
 
-    if(digitalRead(swPin) == HIGH){
-        interrupts();
+        attachInterrupt(digitalPinToInterrupt(2), resetCLK_TM_OnRise, RISING);
+        attachInterrupt(digitalPinToInterrupt(3), resetCLK_TM_OnFall, FALLING);
+        attachInterrupt(digitalPinToInterrupt(4), stopCLK_TM_falling, FALLING);
+        attachInterrupt(digitalPinToInterrupt(5), stopCLK_TM_rising, RISING);
+    } else if (!isENABLE) {
+        detachInterrupt(digitalPinToInterrupt(2));
+        detachInterrupt(digitalPinToInterrupt(3));
+        detachInterrupt(digitalPinToInterrupt(4));
+        detachInterrupt(digitalPinToInterrupt(5));
+        countOnFall = 0;
     }
 
     if(countOnFall == fNdataread){
-        noInterrupts();
+        detachInterrupt(digitalPinToInterrupt(2));
+        detachInterrupt(digitalPinToInterrupt(3));
+        detachInterrupt(digitalPinToInterrupt(4));
+        detachInterrupt(digitalPinToInterrupt(5));
         Serial.println("** RUN data result **");
         writeTimeSData(timeOnFall);
         writeTimeSData(timeOnRise);
