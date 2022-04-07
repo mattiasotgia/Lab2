@@ -1,6 +1,6 @@
 // Lab Analysis Toolset "LabTools.h" -*- C++ -*-
 // Author M. Sotgia 05/11/21
-// v0.0.2 alpha
+// v0.1.0 alpha
 
 #include<vector>
 #include<cmath>
@@ -119,7 +119,7 @@ void graphset::setgraphsize(graphset::padtypes g, bool logx, bool logy, bool dra
 
 void graphset::init()
 {
-    gStyle->SetFrameLineWidth(0); // No line all aroung pad
+    //gStyle->SetFrameLineWidth(0); // No line all aroung pad
     gStyle->SetTextFont(43);      // Helvetice font
     gStyle->SetLineScalePS(1);    // Hi-res. pdf
     return;
