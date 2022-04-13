@@ -78,7 +78,7 @@ Per misurare gli intervalli di tempo utilizziamo quindi due diversi metodi. Il p
 
 \section{Caratterizzazione apparato sperimentale analogico}
 
-Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una distanza $d=[0.1, 0.5]~\si{\metre}$. Questi due strumenti messi in comunicazione con un oscillatore ci permettono di misurare il ritardo tra il fronte dell'onda trasmessa e quello dell'onda ricevuta, permettendoci di individuare il ritardo tra le due onde, e quindi inferire il valore della velocità del suono in aria. 
+Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una distanza $d=[0.1, 0.5]~\si{\metre}$. Questi due strumenti messi in comunicazione con un oscilloscopio ci permettono di misurare il ritardo tra il fronte dell'onda trasmessa e quello dell'onda ricevuta, permettendoci di individuare il ritardo tra le due onde, e quindi di inferire il valore della velocità del suono in aria. 
 
 \paragraph*{L'emettitore} L'emettitore consiste in un semplice altoparlante elettronico (attuatore), caratterizzato da un diametro esterno di \SI{5.985+-0.005}{\centi\metre} capace di convertire in onde sonore un segnale elettrico che gli viene dato in ingresso. Nel nostro caso viene alimentato in ingresso da un'onda quadra, di frequenza e ampiezza variabili (in base alle necessità della misura le frequenze sono tra \SI{10}{\hertz} e \SI{10}{\kilo\hertz}). Il generatore fornisce inoltre un segnale TTL standardizzato con la stessa frequenza dell'onda in ingresso che può quindi essere utilizzato come riferimento per la misura di quest'onda.
 
@@ -86,12 +86,16 @@ Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una 
 
 Le due onde vengono entrambe passate all'oscilloscopio che le legge e permette di identificare la differenza tra il fronte (di salita o di discesa) del segnale TTL quadro, e il segnale che viene invece passato dal trasduttore, anch'esso standardizzato. 
 
+I due strumenti sono entrambi allineati ad una guida fissa al tavolo su cui sono anche riportati i centimetri, necessari per individuare la distanza tra la sorgente e il ricevitore. 
+
 \section{Presa dati \emph{analogica}}
 
 Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del ritardo $t$ tra la trasmissione e la ricezione del segnale sonoro. Possiamo infatti impostare lo strumento in modo che possa fornirci una lettura di differenza temporale (delay) tra due istanti nei due segnali che forniamo in ingresso. 
 
-Impostiamo inizialmente la misura in modo da porre il primo cursore di misura dei tempi sul fronte di salita dell'onda quadra che genera li suono, e il secondo cursore sul primo fronte di discesa dell'onda del microfono. In questo modo in automatico lo strumento può effettuare una misura tra i due fronti. 
-Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una distanza $d=[0.1, 0.5]~\si{\metre}$. Questi due strumenti sono messi in comunicazione con un oscillatore ci permette di misurare il ritardo tra il fronte dell'onda trasmessa e quello dell'onda ricevuta, permettendoci di individuare il ritardo tra le due onde, e quindi di inferire il valore della velocità del suono in aria. 
+Impostiamo inizialmente la misura in modo da porre il primo cursore sul fronte di salita dell'onda quadra che genera il suono, e il secondo cursore sul primo fronte di discesa dell'onda del microfono. In questo modo in automatico lo strumento può effettuare una misura tra i due fronti. 
+
+Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e raccogliamo misure di ($d$, $t$)
+
 
 \begin{figure}[b]
     \centering
