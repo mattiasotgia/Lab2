@@ -86,7 +86,7 @@ Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una 
 
 Le due onde vengono entrambe passate all'oscilloscopio che le legge e permette di identificare la differenza tra il fronte (di salita o di discesa) del segnale TTL quadro, e il segnale che viene invece passato dal trasduttore, anch'esso standardizzato. 
 
-I due strumenti sono entrambi allineati ad una guida fissa al tavolo su cui sono anche riportati i centimetri, necessari per individuare la distanza tra la sorgente e il ricevitore. 
+I due strumenti sono entrambi allineati ad una guida millimetrata fissata al tavolo, necessaria per individuare la distanza tra la sorgente e il ricevitore. 
 
 \section{Presa dati \emph{analogica}}
 
@@ -94,7 +94,13 @@ Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del
 
 Impostiamo inizialmente la misura in modo da porre il primo cursore sul fronte di salita dell'onda quadra che genera il suono, e il secondo cursore sul primo fronte di discesa dell'onda del microfono. In questo modo in automatico lo strumento può effettuare una misura tra i due fronti. 
 
-Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e raccogliamo misure di ($d$, $t$)
+Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e raccogliamo misure di ($d$, $t$) facendo variare $d$. 
+
+\paragraph*{Scelta dei limiti sulla distanza di misura $d$} Le distanze a cui viene effettuata la misura sono scelte in parte per un limite fisico degli strumenti, che si traduce in una lunghezza massima della guida oltre la quale non potevamo più effettivamente misurare la distanza, e un limite invece sperimentale legato al fatto che una distanza troppo piccola non avrebbe permesso di poter distinguere l'istante di emissione e l'istante di ricezione dell'onda. Infatti abbiamo che due sono i fattori principali legati a questo problema. 
+
+Il primo è dovuto al funzionamento di altoparlante e microfono che funzionano attraverso campi elettromagnetici variabili legati alla presenza di bobine e magneti al loro interno. Perciò quando i due strumenti sono troppo vicini si possono verificare fenomeni di autoinduzione e mutua induzione. Il campo elettromagnetico derivante da questi fenomeni si propaga però alla velocità della luce, sei ordini di grandezza maggiore della quantità che stiamo cercando di misurare, perciò l'effetto di accoppiamento emettitore-trasduttore è praticamente istantaneo, e il delay risulta essere quindi nullo. 
+
+Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico tra i due strumenti, che essendo assicurati alla stessa guida, permettono quindi la trasmissione di vibrazioni, che risultano essere trascurabili per distanze sufficientemente grandi, ma che invece possono risultare influenti a distanze molto piccole, tali per cui il suono propagato nel tavolo non si dissipa prima di raggiungere il microfono. 
 
 
 \begin{figure}[b]
