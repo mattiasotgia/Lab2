@@ -96,6 +96,7 @@ Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e dopo aver m
 
 Ripetiamo lo stesso procedimento ponendo però uno dei due cursori non più sul primo \hl{fronte di discesa dell'onda del microfono, ma sul primo fronte di salita.} In questo modo otteniamo un nuovo set di dati da poter confrontare con il primo. 
 
+\section{Analisi dati \emph{analogica}}
 Realizziamo quindi un grafico (\reffig{fig:analog_plot_d1}) su cui riportiamo entrambi i set di punti e facciamo un fit secondo la funzione 
 \begin{equation}
      d=v_s\cdot t+q 
@@ -103,14 +104,22 @@ Realizziamo quindi un grafico (\reffig{fig:analog_plot_d1}) su cui riportiamo en
 dove $v_s$ e $q$ sono i parametri che rappresentano rispettivamente la pendenza della retta e la sua quota, cioè, nel nostro caso, la velocità a cui ha viaggiato il suono emesso dall'altoparlante e l'offset sulla misura della distanza. Questo offset è dovuto al fatto che noi non misuriamo la distanza vera e propria tra emettitore e ricevitore perchè è difficile trovare in questo modo dei punti precisi su cui prendere le misure, quindi troviamo un punto di riferimento sulla base che sostiene l'altoparlante e e un punto sulla base del microfono e misuriamo la distanza tra questi. La presenza di questo offset non influisce sulla misura che vogliamo fare, in quanto la pendenza della retta, da cui ricaviamo il valore della velocità del suono, non è legata al valore dell'intercetta, "purchè l'offset sia lo stesso per ogni distanza a cui abbiamo preso le misure".
 
 Dal fit otteniamo che per il primo set di dati
+
 \begin{align*}
-    v_s &=%%\SI{3.48060e02+-6.53763e-01}{\metre\per\second}\\
-    q &=%%\SI{1.46711e-01+-4.27685e-04}{\metre}\\
+    v_s &=%%\SI{3.48060e02 +- 6.53763e-01}{\metre\per\second}\\
+    q &=%%\SI{1.46711e-01 +- 4.27685e-04}{\metre}\\
 \end{align*}
+
 mentre per il secondo set otteniamo
+
 \begin{align*}
-    v_s &=\SI{}{} \\
-    q &=\SI{}{} \\
+    v_s &=%%\SI{3.49868e02 +- 1.03245e-01}{\metre\per\second} \\
+    q &=%%\SI{1.27950e-01 +- 9.14933e-04}{\metre} \\
+\end{align*}
+
+Osserviamo quindi che i due valori del parametro $v_s$ sono compatibili e perciò possiamo ricavare la miglior stima che è pari a
+\begin{align*}
+    v_s(bestvalue)=\SI{348.577 +- 0.55234}{\metre\per\second}\\
 \end{align*}
 
 
