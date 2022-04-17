@@ -110,10 +110,13 @@ Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico
 
 \section{Analisi dati \emph{analogica}}
 
-Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo ipotizzare che la velocità media $\expval{v_s}$ calcolata come distanza su tempo sia uguale al valore istantaneo della velocità del suono $v_s$.
+Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo considerare che la velocità media $\expval{v_s}$ calcolata come distanza su tempo sia uguale al valore istantaneo della velocità del suono $v_s$. In questa ipotesi allora la misura della velocità del suono può essere trattata al primo ordine di approssimazione come una misura della distanza $d$ e una misura del tempo $t$ impiegato per coprire tale distanza. In questo modo allora otteniamo che la distanza percorsa può essere considerata come $d=v_st$, dove però stiamo ipotizzando di considerare la misura della distana in termini esatti. Ma poichè la distanza può essere considerata a meno di una costante additiva, di offset rispetto al posizionamento dell'emettitore e del ricevitore, allora è più corretto considerare una relazione \begin{equation}
+    d=v_st + \delta_\text{offset}\label{eq:first_order_approx}.
+\end{equation} Stiamo però ancora considerando condizioni ottimali di misura, per cui ipotizziamo che il ricevitore e l'emettitore siano perfettamente in asse, ovvero che siano allineati perfettamente anche nelle direzioni ortogonali alla trasmissione del segnale. se così non fosse potremmo introdurre un fattore quadratico che giustificherebbe 
+
 
 Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiamo entrambi i set di punti e facciamo un fit secondo la funzione \begin{equation}
-     d(t)=v_s\cdot t+\delta_\text{offset}
+     d(t)=v_s t+\delta_\text{offset}
 \end{equation} dove $v_s$ e $\delta_\text{offset}$ sono i parametri che rappresentano rispettivamente la pendenza della retta e la sua quota, cioè, nel nostro caso, la velocità a cui ha viaggiato il suono emesso dall'altoparlante e l'offset sulla misura della distanza. Questo offset è dovuto al fatto che noi non misuriamo la distanza vera e propria tra emettitore e ricevitore perché è difficile trovare in questo modo dei punti precisi su cui prendere le misure, quindi troviamo un punto di riferimento sulla base che sostiene l'altoparlante e e un punto sulla base del microfono e misuriamo la distanza tra questi. La presenza di questo offset non influisce sulla misura che vogliamo fare, in quanto la pendenza della retta, da cui ricaviamo il valore della velocità del suono, non è legata al valore dell'intercetta, \hl{purch\'e l'offset sia lo stesso per ogni distanza a cui abbiamo preso le misure}.
 
 \begin{figure}[!t]
