@@ -22,10 +22,16 @@
     altaffilletter, 
     amsmath, 
     amssymb, 
-    a4paper, 
+    a4paper,
+    varvw, 
     fleqn]{revtex4-2}
 
 \input{../../style/preamble.tex}
+\sisetup{
+    % separate-uncertainty=true,
+    round-mode=uncertainty,
+    % exponent-mode = scientific
+}
 
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/6-\thepage
@@ -73,8 +79,8 @@
 
 \section{Introduzione}
 
-L'obiettivo di questa esperienza di laboratorio è effettuare una misura della velocità del suono in aria. Per ottenere tale misura sfruttiamo l'intervallo di tempo che l'onda sonora impiega a percorrere la distanza che separa l'emettitore e il ricevitore. Infatti, una volta misurato tale intervallo di tempo, è necessario solamente conoscere appunto la distanza tra i due dispositivi per ricavare la velocità del suono. Il problema principale è però ottenere una misura precisa del tempo in quanto sappiamo che l'intervalli che andiamo a misurare sono molto brevi perchè il suono viaggia ad una velocità di circa \SI{340}{\metre\per\second} per cui se posizioniamo emettitore e ricevitore ad una distanza nell'ordine delle decine di centimetri il tempo che l'onda impiega a percorrere tale distanza sarà allora nell'ordine dei millisecondi. 
-Per misurare gli intervalli di tempo utilizziamo quindi due diversi metodi. Il primo metodo consiste nell'effettuare la misurazione in maniera analogica, osservando sull'oscilloscopio il ritardo temporale che intercorre tra il segnale prodotto dall'emettitore e il segnale prodotto dal ricevitore. Il secondo metodo, invece, consiste in una misura di tipo digitale. Infatti al posto di usare manualmente i cursori dell'oscilloscopio per vedere il ritardo temporale tra i due fronti d'onda, sfruttiamo una scheda Arduino 2, che attraverso un programma da noi scritto, è in grado, una volta presi in input i segnali che ci interressano, di darci direttamente in output su un seriale i valori del ritardo temporale che appunto volevamo misurare.  
+L'obiettivo di questa esperienza di laboratorio è effettuare una misura della velocità del suono in aria. Per ottenere tale misura sfruttiamo l'intervallo di tempo che l'onda sonora impiega a percorrere la distanza che separa l'emettitore e il ricevitore. Infatti, una volta misurato tale intervallo di tempo, è necessario solamente conoscere appunto la distanza tra i due dispositivi per ricavare la velocità del suono. Il problema principale è però ottenere una misura precisa del tempo in quanto sappiamo che l'intervalli che andiamo a misurare sono molto brevi perché il suono viaggia ad una velocità di circa \SI{340}{\metre\per\second} per cui se posizioniamo emettitore e ricevitore ad una distanza nell'ordine delle decine di centimetri il tempo che l'onda impiega a percorrere tale distanza sarà allora nell'ordine dei millisecondi. 
+Per misurare gli intervalli di tempo utilizziamo quindi due diversi metodi. Il primo metodo consiste nell'effettuare la misurazione in maniera analogica, osservando sull'oscilloscopio il ritardo temporale che intercorre tra il segnale prodotto dall'emettitore e il segnale prodotto dal ricevitore. Il secondo metodo, invece, consiste in una misura di tipo digitale. Infatti al posto di usare manualmente i cursori dell'oscilloscopio per vedere il ritardo temporale tra i due fronti d'onda, sfruttiamo una scheda Arduino DUE, che è in grado, una volta presi in input i segnali che ci interessano, di fornirci in output su un seriale i valori del ritardo temporale che appunto volevamo misurare.  
 
 \section{Caratterizzazione apparato sperimentale analogico}
 
@@ -92,36 +98,9 @@ Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del
 
 Impostiamo inizialmente la misura in modo da porre il primo cursore sul fronte di salita dell'onda quadra che genera il suono, e il secondo cursore sul primo fronte di discesa dell'onda del microfono. In questo modo lo strumento può effettuare in automatico una misura tra i due fronti. 
 
-Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e dopo aver misurato la distanza $d$ raccogliamo i valori del rispettivo ritardo per quella distanza ottendendo così una serie di coppie di valori ($t$,$d$).
+Lasciando fisso il ricevitore spostiamo la sorgente lungo la guida e dopo aver misurato la distanza $d$ raccogliamo i valori del rispettivo ritardo per quella distanza ottenendo così una serie di coppie di valori $(t,d)$.
 
 Ripetiamo lo stesso procedimento ponendo però uno dei due cursori non più sul primo \hl{fronte di discesa dell'onda del microfono, ma sul primo fronte di salita.} In questo modo otteniamo un nuovo set di dati da poter confrontare con il primo. 
-
-\section{Analisi dati \emph{analogica}}
-Realizziamo quindi un grafico (\reffig{fig:analog_plot_d1}) su cui riportiamo entrambi i set di punti e facciamo un fit secondo la funzione 
-\begin{equation}
-     d=v_s\cdot t+q 
-\end{equation}
-dove $v_s$ e $q$ sono i parametri che rappresentano rispettivamente la pendenza della retta e la sua quota, cioè, nel nostro caso, la velocità a cui ha viaggiato il suono emesso dall'altoparlante e l'offset sulla misura della distanza. Questo offset è dovuto al fatto che noi non misuriamo la distanza vera e propria tra emettitore e ricevitore perchè è difficile trovare in questo modo dei punti precisi su cui prendere le misure, quindi troviamo un punto di riferimento sulla base che sostiene l'altoparlante e e un punto sulla base del microfono e misuriamo la distanza tra questi. La presenza di questo offset non influisce sulla misura che vogliamo fare, in quanto la pendenza della retta, da cui ricaviamo il valore della velocità del suono, non è legata al valore dell'intercetta, "purchè l'offset sia lo stesso per ogni distanza a cui abbiamo preso le misure".
-
-Dal fit otteniamo che per il primo set di dati
-
-\begin{align*}
-    v_s &=%%\SI{3.48060e02 +- 6.53763e-01}{\metre\per\second}\\
-    q &=%%\SI{1.46711e-01 +- 4.27685e-04}{\metre}\\
-\end{align*}
-
-mentre per il secondo set otteniamo
-
-\begin{align*}
-    v_s &=%%\SI{3.49868e02 +- 1.03245e-01}{\metre\per\second} \\
-    q &=%%\SI{1.27950e-01 +- 9.14933e-04}{\metre} \\
-\end{align*}
-
-Osserviamo quindi che i due valori del parametro $v_s$ sono compatibili e perciò possiamo ricavare la miglior stima che è pari a
-\begin{align*}
-    v_s(bestvalue)=\SI{348.577 +- 0.55234}{\metre\per\second}\\
-\end{align*}
-
 
 \paragraph*{Scelta dei limiti sulla distanza di misura $d$} Le distanze a cui viene effettuata la misura sono scelte in parte per un limite fisico degli strumenti, che si traduce in una lunghezza massima della guida oltre la quale non potevamo più effettivamente misurare la distanza, e un limite invece sperimentale legato al fatto che una distanza troppo piccola non avrebbe permesso di poter distinguere l'istante di emissione e l'istante di ricezione dell'onda. Infatti abbiamo che due sono i fattori principali legati a questo problema. 
 
@@ -129,17 +108,36 @@ Il primo è dovuto al funzionamento di altoparlante e microfono che funzionano a
 
 Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico tra i due strumenti, che essendo assicurati alla stessa guida, permettono quindi la trasmissione di vibrazioni, che risultano essere trascurabili per distanze sufficientemente grandi, ma che invece possono risultare influenti a distanze molto piccole, tali per cui il suono propagato nel tavolo non si dissipa prima di raggiungere il microfono. 
 
+\section{Analisi dati \emph{analogica}}
 
-\begin{figure}[b]
+Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo ipotizzare che la velocità media $\expval{v_s}$ calcolata come distanza su tempo sia uguale al valore istantaneo della velocità del suono $v_s$.
+
+Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiamo entrambi i set di punti e facciamo un fit secondo la funzione \begin{equation}
+     d(t)=v_s\cdot t+\delta_\text{offset}
+\end{equation} dove $v_s$ e $\delta_\text{offset}$ sono i parametri che rappresentano rispettivamente la pendenza della retta e la sua quota, cioè, nel nostro caso, la velocità a cui ha viaggiato il suono emesso dall'altoparlante e l'offset sulla misura della distanza. Questo offset è dovuto al fatto che noi non misuriamo la distanza vera e propria tra emettitore e ricevitore perché è difficile trovare in questo modo dei punti precisi su cui prendere le misure, quindi troviamo un punto di riferimento sulla base che sostiene l'altoparlante e e un punto sulla base del microfono e misuriamo la distanza tra questi. La presenza di questo offset non influisce sulla misura che vogliamo fare, in quanto la pendenza della retta, da cui ricaviamo il valore della velocità del suono, non è legata al valore dell'intercetta, \hl{purch\'e l'offset sia lo stesso per ogni distanza a cui abbiamo preso le misure}.
+
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=0.75\linewidth]{analog_plot_a220402.pdf}
+    \includegraphics[width=0.75\linewidth]{plot_a220417.pdf}
     \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria.}\label{fig:analog_plot_d1}
 \end{figure}
 
+Dal fit otteniamo che, considerando i dati raccolti sfruttando l'onda prodotta sul fronte di salita del segnale emesso, \begin{align*}
+    v_s &=\SI{348.060(654)}{\metre\per\second}\\
+    \delta_\text{offset} &=\SI{0.146711(428)}{\metre},
+\end{align*} mentre considerando i dati raccolti sfruttando l'onda prodotta sul fronte di discesa del segnale otteniamo \begin{align*}
+    v_s &=\SI{349.87(1.03)}{\metre\per\second}\\
+    \delta_\text{offset} &=\SI{0.127950(915)}{\metre}.
+\end{align*} Osserviamo quindi che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di 1.48$\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.577(552)}{\metre\per\second}.\]
+
+Osserviamo anche che i valori di 
+
+
+\iffalse
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{digital_plot_prelim220406.pdf}
-    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari}\label{fig:digital_plot_d2}
+    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari.}\label{fig:digital_plot_d2}
 \end{figure}
 
 \begin{figure}
@@ -147,6 +145,7 @@ Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico
     \includegraphics[width=\linewidth]{fullscale.pdf}
     \caption{Risultati complessivi analisi dati. Differenza sperimentale tra il valore teorico della velocità del suono \SI{344}{\metre\per\second} e il valore misurato in laboratorio. Miglior stima del valore ottenuto. }
 \end{figure}
+\fi
 
 
 \section{Conclusioni}
