@@ -91,6 +91,8 @@ Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una 
 
 I due strumenti sono entrambi allineati ad una guida millimetrata fissata al tavolo, necessaria per individuare la distanza tra la sorgente e il ricevitore. 
 
+\section{Valutazione degli errori sulla misura}
+
 \section{Presa dati \emph{analogica}}
 
 Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del ritardo $t$ tra la trasmissione e la ricezione del segnale sonoro. Possiamo infatti impostare lo strumento in modo che possa fornirci una lettura di differenza temporale (delay) tra due istanti nei due segnali che forniamo in ingresso. 
@@ -160,8 +162,14 @@ Questi punti influiscono sul valore medio e sulla deviazione standard della dist
     \includegraphics[width=0.85\linewidth]{histo50.pdf}
     \caption{Istogrammi dei set di dati raccolti (sono riportati quelli per le misure a \SI{0.25}{\metre} e quelle per le misure a \SI{0.5}{\metre}). Per ogni distanza sono raccolti $N=50$ punti, sia per l'evento RISE che per l'evento FALL, in due istanti differenti, un per il primo fronte di variazione del segnale fornito dal microfono, uno per il secondo fronte. La media tra queste due misure permette di ottenere poi una misura più precisa dell'effettivo fronte d'onda che viene rilevato dal microfono. }\label{fig:hists_test}
 \end{figure*}
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{plot_digital_220417.pdf}
+    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari.}\label{fig:digital_plot_d2}
+\end{figure}
 
 \section{Analisi dati, acquisizione digitale}
+
 L'apparato sperimentale ci restituisce $N=50$ misure per ognuno dei quattro possibili delay che abbiamo deciso di misurare, questo per tutte le distanze a cui abbiamo posizionato l'altoparlante. Da questi set di dati possiamo ottenere per ogni delay un valor medio e una deviazione standard. Per ogni distanza abbiamo quindi quattro valori(ognuno con il proprio errore), due relativi al delay rispetto al fronte di salita del segnale dell'emettitore e gli altri due rispetto al fronte di discesa. Da ognuna di queste coppie possiamo ulteriormente ricavare il valor medio e una nuova deviazione standard che calcoliamo come la radice della somma in quadratura delle due deviazioni standard precedenti. Come detto in precedenza questo valor medio è quello che meglio approssima il delay corrispondente al punto in cui abbiamo il massimo o il minimo dell'oscillazione della membrana del microfono. 
 
 Possiamo quindi riportare le coppie $(\expval{t_\text{RISE}}, d)$ e $(\expval{t_\text{FALL}}, d)$ come in figura \ref{fig:digital_plot_d2} e per ogni set di coppie realizziamo un fit secondo l'equazione (\ref{eq:first_order_approx}). Otteniamo come nel caso della misura in analogica due coppie di parametri $v_s$, $\delta_\text{offset}$.
@@ -175,13 +183,8 @@ mentre per gli eventi FALL
     v_s &= \SI{345.40(1.25)}{\metre\per\second} \\
     \delta_\text{offset} &= \SI{0.14094(115)}{\metre}
 \end{align*}
-Otteniamo che i valori otttenuti nei due casi della velocità del suono in aria risultano essere compatibili tra di loro con una significatività statistica di $1.62\sigma$, e la miglior stima ottenuta è quindi \[v_s(\text{Digital}) = \SI{346.733(943)}{\metre\per\second}\].
+Otteniamo che i valori otttenuti nei due casi della velocità del suono in aria risultano essere compatibili tra di loro con una significatività statistica di $1.62\sigma$, e la miglior stima ottenuta è quindi \[v_s(\text{Digital}) = \SI{346.733(943)}{\metre\per\second}.\]
 
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{plot_digital_220417.pdf}
-    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari.}\label{fig:digital_plot_d2}
-\end{figure}
 
 \begin{figure}
     \centering
