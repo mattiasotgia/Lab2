@@ -92,7 +92,9 @@ Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una 
 I due strumenti sono entrambi allineati ad una guida millimetrata fissata al tavolo, necessaria per individuare la distanza tra la sorgente e il ricevitore. 
 
 \section{Valutazione degli errori sulla misura}
+\textit{Errore su misura distanza} Lo strumento che utilizziamo per misurare la distanza è un metro caratterizzato da un errore massimo di $\SI{1}{\milli\metre}$. Poichè stiamo misurando la distanza che sapara il microfono dall'altoparlante e dobbiamo quindi allineare il metro sia al punto che prendiamo come riferimento per l'emettitore, sia al punto di riferimento del ricevitore, consideriamo come errore massimo per questa misura $\SI{2}{\milli\metre}$, che porta quindi ad avere un errore statistico pari a $\SI{2}{\milli\metre}/\sqrt{3}$.
 
+\textit{Errore su misura tempo} Per quanto riguarda l'errore sul delay nella misura analogica calcoliamo tale quantità in base a quanto è riportato sul data-sheet dell'oscilloscopio, mentre per la misura con il metodo digitale faremo una trattazione di tipo statistico, come vedremo successivamente.
 \section{Presa dati \emph{analogica}}
 
 Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del ritardo $t$ tra la trasmissione e la ricezione del segnale sonoro. Possiamo infatti impostare lo strumento in modo che possa fornirci una lettura di differenza temporale (delay) tra due istanti nei due segnali che forniamo in ingresso. 
