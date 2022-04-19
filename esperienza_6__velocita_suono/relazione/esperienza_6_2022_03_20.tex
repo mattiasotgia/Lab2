@@ -112,10 +112,8 @@ Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico
 
 Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo considerare che la velocità media $\expval{v_s}$, calcolata come distanza su tempo, sia uguale al valore istantaneo della velocità del suono $v_s$. In questa ipotesi allora la misura della velocità del suono può essere trattata al primo ordine di approssimazione come una misura della distanza $d$ e una misura del tempo $t$ impiegato per coprire tale distanza. In questo modo allora otteniamo che la distanza percorsa può essere considerata come $d=v_st$, dove però stiamo ipotizzando di considerare la misura della distana in termini esatti. Ma poichè la distanza può essere considerata a meno di una costante additiva, di offset rispetto al posizionamento dell'emettitore e del ricevitore, allora è più corretto considerare una relazione \begin{equation}
     d=v_st + \delta_\text{offset}\label{eq:first_order_approx}.
-\end{equation} Stiamo però ancora considerando condizioni ottimali di misura, per cui ipotizziamo che il ricevitore e l'emettitore siano perfettamente in asse, ovvero che siano allineati perfettamente anche nelle direzioni ortogonali alla trasmissione del segnale. Si potrebbe introdurre un fattore quadratico all'interno della funzione di fit che includa questo disassamento per cui la funzione risulterebbe
-\begin{equation}
-    d=\sqrt{v_s^2t^2+2\delta_\text{offset}v_st+(\delta_\text{offset}^2-\delta_\perp^2)}
-    \label{eq:second_order_approx}
+\end{equation} Stiamo però ancora considerando condizioni ottimali di misura, per cui ipotizziamo che il ricevitore e l'emettitore siano perfettamente in asse, ovvero che siano allineati perfettamente anche nelle direzioni ortogonali alla trasmissione del segnale. Si potrebbe introdurre un fattore quadratico all'interno della funzione di fit che includa questo disassamento per cui la funzione risulterebbe \begin{equation}
+    d=\sqrt{v_s^2t^2+2\delta_\text{offset}v_st+\qty(\delta_\text{offset}^2-\delta_\perp^2)} \label{eq:second_order_approx}
 \end{equation}
 Osserviamo però che questa correzzione non porta a nessun rispetto al modello lineare in quanto otteniamo che $\delta_\text{offset}^2-\delta_\perp^2 \simeq \delta_\text{offset}^2$, che porta quindi l'espressione \refeqn{eq:second_order_approx} ad essere equivalente all'espressione \refeqn{eq:first_order_approx}.
 
@@ -127,7 +125,7 @@ Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiam
 
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=0.75\linewidth]{plot_a220417.pdf}
+    \includegraphics[width=0.75\linewidth]{plot_analog_220417.pdf}
     \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria.}\label{fig:analog_plot_d1}
 \end{figure}
 
@@ -148,25 +146,35 @@ Sino ad ora abbiamo misurato il ritardo temporale tra il primo fronte dell'onda 
 
 Per creare questo sistema utilizziamo una scheda \emph{Arduino DUE} per la realizzazione di un timer.  Analizziamo ora la logica che permette al timer di acquisire una misura della variazione temporale tra i diversi eventi misurabili. 
 
-Quando il sistema è acceso (stato iniziale) un contatore è posto ad un conteggio zero, e il sistema è in attesa di un segnale di abilitazione, che viene fornito attraverso uno switch fisico. Fino a che lo switch non cambia il suo stato, allora il contatore è mantenuto a zero e la variabile booleana di abilitazione è impostata sul falso. Il sistema non ascolta nessun input sui canali digitali e quindi non incrementa il conteggio e non misura intervalli. Non appena l'interruttore viene cambiato, allora la scheda abilita la lettura dei segnali digitali in ingresso ed attende il passaggio del segnale dell'onda quadra sul fronte di salita per iniziare la presa dati (il sistema entra nel secondo stato accessibile, quello per cui è in attesa dei segnali digitali).
+\textit{Routine di \emph{start} e \emph{data aquisition}.---}Quando il sistema è acceso (stato iniziale) un contatore è posto ad un conteggio zero, e il sistema è in attesa di un segnale di abilitazione, che viene fornito attraverso uno switch fisico. Fino a che lo switch non cambia il suo stato, allora il contatore è mantenuto a zero e la variabile booleana di abilitazione è impostata sul falso. Il sistema non ascolta nessun input sui canali digitali e quindi non incrementa il conteggio e non misura intervalli. Non appena l'interruttore viene cambiato, allora la scheda abilita la lettura dei segnali digitali in ingresso ed attende il passaggio del segnale dell'onda quadra sul fronte di salita per iniziare la presa dati (il sistema entra nel secondo stato accessibile, quello per cui è in attesa dei segnali digitali).
 
 \textit{Acquisizione del singolo dato.---}Appena il segnale fornito in TTL alla scheda passa da basso ad alto (ovvero si ha un segnale di RISE per la scheda Arduino), il valore temporale in microsecondi viene salvato in memoria, e appena la scheda legge sul segnale che invece arriva dal ricevitore il primo fronte di discesa e il primo fronte di salita, ne acquisisce i tempi e salva in memoria la differenza temporale tra questi due eventi e l'evento RISE sull'onda quadra. Quindi successivamente il segnale dell'onda quadra riporterà un fronte di discesa, che quindi sarà letto dalla scheda come segnale di FALL, e quindi similmente a quanto avviene per il segnale di RISE, salva il valore di tempo corrispondente a tale evento e poi misura la differenza temporale tra questo evento e i corrispondenti nuovi fronti di discesa e salita del segnale prodotto dal microfono. Questi dati vengono poi salvati in memoria. Ogni volta che un evento RISE e un evento FALL sono identificati e le relative misure effettuate, il counter interno alla scheda viene incrementato di 1. La scheda resta in attesa di una seconda coppia di eventi uguali, fino a che il counter non supera il valore $N$ prestabilito. 
 
-Quando il conteggio raggiunge il valore $N$ allora il sistema entra nel terzo stato accessibile, lo stato di fine della misura, dove i dati salvati in memoria sulla scheda sono quindi poi comunicati attraverso il seriale al computer, che immediatamente legge i relativi valori e li salva in un file. Da questo terzo stato il sistema è poi libero si ritornare allo stato iniziale di start, per cui la misura potrà dunque ricominciare da capo. 
+\textit{Routine di \emph{stop}.---}Quando il conteggio raggiunge il valore $N$ allora il sistema entra nel terzo stato accessibile, lo stato di fine della misura, dove i dati salvati in memoria sulla scheda sono quindi poi comunicati attraverso il seriale al computer, che immediatamente legge i relativi valori e li salva in un file. Da questo terzo stato il sistema è poi libero si ritornare allo stato iniziale di start, per cui la misura potrà dunque ricominciare da capo. 
+
+\section{Correzione degli errori di lettura del sistema}
+Il sistema di acquisizione così creato però potrebbe fornire in uscita dei valori di misura sbagliati, in quanto potrebbe sbagliare la lettura dei segnali sui pin digitali. Questo può essere causato da contatti elettrici non stabili o da segnali non privi di rumore, presentando quindi delle oscillazioni che possono essere interpretate dalla scheda con un evento RISE o FALL. Questo porta ad avere dei valori di delay che possono essere sbagliati, nettamente distinti e distinguibili dai valori reali medi. Possiamo infatti realizzare per ogni set di $N$ valori un istogramma e facilmente identificare i valori che possiamo definire \emph{outliers}, ovvero valori che sono nelle code delle distribuzioni dei dati raccolti. Osservando infatti un esempio di distribuzione, possiamo vedere che sono presenti dei valori di delay di \SI{0}{\milli\second} (fig. \ref{fig:hists_test} sotto, gli ultimi due istogrammi), o valori a circa \SI{1000}{\milli\second} quando il valore della media dei tempi è circa \SI{400}{\milli\second} (fig. \ref{fig:hists_test} sopra, i primi due istogrammi).
+Questi punti influiscono sul valore medio e sulla deviazione standard della distribuzione in modo influente, quindi decidiamo di toglierli dal calcolo. 
+
+\begin{figure*}
+    \includegraphics[width=0.85\linewidth]{histo25.pdf}
+    \includegraphics[width=0.85\linewidth]{histo50.pdf}
+    \caption{Istogrammi dei set di dati raccolti (sono riportati quelli per le misure a \SI{0.25}{\metre} e quelle per le misure a \SI{0.5}{\metre}). Per ogni distanza sono raccolti $N=50$ punti, sia per l'evento RISE che per l'evento FALL, in due istanti differenti, un per il primo fronte di variazione del segnale fornito dal microfono, uno per il secondo fronte. La media tra queste due misure permette di ottenere poi una misura più precisa dell'effettivo fronte d'onda che viene rilevato dal microfono. }\label{fig:hists_test}
+\end{figure*}
 
 
-\iffalse
-\begin{figure}
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=0.75\linewidth]{digital_plot_prelim220406.pdf}
+    \includegraphics[width=0.75\linewidth]{plot_digital_220417.pdf}
     \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari.}\label{fig:digital_plot_d2}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{results_data.pdf}
-    \caption{Risultati complessivi analisi dati. Differenza sperimentale tra il valore teorico della velocità del suono \SI{344}{\metre\per\second} e il valore misurato in laboratorio. Miglior stima del valore ottenuto. }
+    \caption{Risultati complessivi analisi dati. Differenza sperimentale tra il valore teorico della velocità del suono \SI{343.210(338)}{\metre\per\second} e il valore misurato in laboratorio. \'E riportata anche la miglior stima del valore ottenuto in laboratorio (\SI{347.572(390)}{\metre\per\second})}
 \end{figure}
+\iffalse
 \fi
 
 
