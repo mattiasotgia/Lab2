@@ -129,15 +129,15 @@ Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiam
 \end{figure}
 
 Dal fit otteniamo che, considerando i dati raccolti sfruttando l'onda prodotta sul fronte di salita del segnale emesso, \begin{align*}
-    v_s &=\SI{348.060(654)}{\metre\per\second}\\
-    \delta_\text{offset} &=\SI{0.146711(428)}{\metre},
+    v_s &=\SI{347.77(1.16)}{\metre\per\second}\\
+    \delta_\text{offset} &=\SI{0.146874(803)}{\metre},
 \end{align*} mentre considerando i dati raccolti sfruttando l'onda prodotta sul fronte di discesa del segnale otteniamo \begin{align*}
-    v_s &=\SI{349.87(1.03)}{\metre\per\second}\\
-    \delta_\text{offset} &=\SI{0.127950(915)}{\metre}.
+    v_s &=\SI{349.85(1.65)}{\metre\per\second}\\
+    \delta_\text{offset} &=\SI{0.12797(146)}{\metre}.
 \end{align*}
 Vediamo che i valori dei 2 offset sono nell'ordine dei centimetri, che corrisponde a ciò che ci aspettavamo, in quanto, come detto in precedenza, la distanza tra altoparlante e microfono è stata misurata usando dei punti di riferimento distanti appunto qualche centimentro dai punti in cui effettivamente veniva emesso e rivelato il suono. 
 
-Osserviamo che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di $1.48\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.577(552)}{\metre\per\second}.\]
+Osserviamo che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di $1.03\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.458(950)}{\metre\per\second}.\]
 
 \section{Descrizione del sistema automatico di acquisizione dati}
 Siccome nella misura con il metodo analogico abbiamo dovuto usare l'oscilloscopio come strumento di misura, dovendo di volta in volta riposizionare i cursori per ottenere una misura precisa del ritardo tra le due onde, vogliamo adesso trovare un modo per riuscire a raccogliere un maggior numero di dati in maniera più automatica e veloce.
@@ -152,7 +152,7 @@ Per creare questo sistema utilizziamo una scheda Arduino DUE per la realizzazion
 \textit{Routine di \emph{STOP}.---}Quando il conteggio raggiunge il valore $N$ allora il sistema entra nel terzo stato accessibile, lo stato di fine della misura, dove i dati salvati in memoria sulla scheda sono quindi poi comunicati attraverso il seriale al computer, che immediatamente legge i relativi valori e li salva in un file. Da questo terzo stato il sistema è poi libero si ritornare allo stato iniziale di start, per cui la misura potrà dunque ricominciare da capo. 
 
 \section{Correzione degli errori di lettura del sistema}
-Il sistema di acquisizione così creato però potrebbe fornire in uscita dei valori di misura sbagliati, in quanto potrebbe sbagliare la lettura dei segnali sui pin digitali. Questo può essere causato da contatti elettrici non stabili o da segnali non privi di rumore, presentando quindi delle oscillazioni che possono essere interpretate dalla scheda con un evento RISE o FALL. Questo porta ad avere dei valori di delay che possono essere sbagliati, nettamente distinti e distinguibili dai valori reali medi. Possiamo infatti realizzare per ogni set di $N$ valori un istogramma e facilmente identificare i valori che possiamo definire \emph{outliers}, ovvero valori che sono nelle code delle distribuzioni dei dati raccolti. Osservando infatti un esempio di distribuzione, possiamo vedere che sono presenti dei valori di delay di \SI{0}{\milli\second} (fig. \ref{fig:hists_test} sotto, gli ultimi due istogrammi), o valori a circa \SI{1000}{\milli\second} quando il valore della media dei tempi è circa \SI{400}{\milli\second} (fig. \ref{fig:hists_test} sopra, i primi due istogrammi).
+Il sistema di acquisizione così creato però potrebbe fornire in uscita dei valori di misura sbagliati, in quanto potrebbe sbagliare la lettura dei segnali sui pin digitali. Questo può essere causato da contatti elettrici non stabili o da segnali non privi di rumore, presentando quindi delle oscillazioni che possono essere interpretate dalla scheda con un evento RISE o FALL. Questo porta ad avere dei valori di delay che possono essere sbagliati, nettamente distinti e distinguibili dai valori reali medi. Possiamo infatti realizzare per ogni set di $N$ valori un istogramma e facilmente identificare i valori che possiamo definire \emph{outliers}, ovvero valori che sono nelle code delle distribuzioni dei dati raccolti. Osservando infatti un esempio di distribuzione, possiamo vedere che sono presenti dei valori di delay di \SI{0}{\micro\second} (fig. \ref{fig:hists_test} sotto, gli ultimi due istogrammi), o valori a circa \SI{1000}{\micro\second} quando il valore della media dei tempi è circa \SI{400}{\micro\second} (fig. \ref{fig:hists_test} sopra, i primi due istogrammi).
 Questi punti influiscono sul valore medio e sulla deviazione standard della distribuzione in modo influente, quindi decidiamo di toglierli dal calcolo. Rimuovendo tali valori dall'insieme dei punti raccolti osserviamo che infatti gli errori associati alle misure di delay (calcolate come la deviazione standard della distribuzione dei punti, oppure posti a \SI{1}{\micro\second} se la dev. standard diventa minore della risoluzione dello strumento) diventano ragionevoli rispetto alle misure effettuate. 
 
 \begin{figure*}
@@ -162,9 +162,20 @@ Questi punti influiscono sul valore medio e sulla deviazione standard della dist
 \end{figure*}
 
 \section{Analisi dati, acquisizione digitale}
+L'apparato sperimentale ci restituisce $N=50$ misure per ognuno dei quattro possibili delay che abbiamo deciso di misurare, questo per tutte le distanze a cui abbiamo posizionato l'altoparlante. Da questi set di dati possiamo ottenere per ogni delay un valor medio e una deviazione standard. Per ogni distanza abbiamo quindi quattro valori(ognuno con il proprio errore), due relativi al delay rispetto al fronte di salita del segnale dell'emettitore e gli altri due rispetto al fronte di discesa. Da ognuna di queste coppie possiamo ulteriormente ricavare il valor medio e una nuova deviazione standard che calcoliamo come la radice della somma in quadratura delle due deviazioni standard precedenti. Come detto in precedenza questo valor medio è quello che meglio approssima il delay corrispondente al punto in cui abbiamo il massimo o il minimo dell'oscillazione della membrana del microfono. 
 
-
-
+Possiamo quindi riportare le coppie $(\expval{t_\text{RISE}}, d)$ e $(\expval{t_\text{FALL}}, d)$ come in figura \ref{fig:digital_plot_d2} e per ogni set di coppie realizziamo un fit secondo l'equazione (\ref{eq:first_order_approx}). Otteniamo come nel caso della misura in analogica due coppie di parametri $v_s$, $\delta_\text{offset}$.
+Per gli eventi RISE troviamo quindi
+\begin{align*}
+    v_s &= \SI{348.48(1.43)}{\metre\per\second} \\
+    \delta_\text{offset} &= \SI{0.11978(120)}{\metre}
+\end{align*}
+mentre per gli eventi FALL
+\begin{align*}
+    v_s &= \SI{345.40(1.25)}{\metre\per\second} \\
+    \delta_\text{offset} &= \SI{0.14094(115)}{\metre}
+\end{align*}
+Otteniamo che i valori otttenuti nei due casi della velocità del suono in aria risultano essere compatibili tra di loro con una significatività statistica di $1.62\sigma$, e la miglior stima ottenuta è quindi \[v_s(\text{Digital}) = \SI{346.733(943)}{\metre\per\second}\]
 
 \begin{figure}[!t]
     \centering
