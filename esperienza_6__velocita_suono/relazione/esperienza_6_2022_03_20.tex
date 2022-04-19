@@ -110,9 +110,15 @@ Un secondo effetto è legato invece alla mancanza di un vero isolamento acustico
 
 \section{Analisi dati \emph{analogica}}
 
-Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo considerare che la velocità media $\expval{v_s}$ calcolata come distanza su tempo sia uguale al valore istantaneo della velocità del suono $v_s$. In questa ipotesi allora la misura della velocità del suono può essere trattata al primo ordine di approssimazione come una misura della distanza $d$ e una misura del tempo $t$ impiegato per coprire tale distanza. In questo modo allora otteniamo che la distanza percorsa può essere considerata come $d=v_st$, dove però stiamo ipotizzando di considerare la misura della distana in termini esatti. Ma poichè la distanza può essere considerata a meno di una costante additiva, di offset rispetto al posizionamento dell'emettitore e del ricevitore, allora è più corretto considerare una relazione \begin{equation}
+Nell'ipotesi che la densità dell'aria sia uniforme e la temperatura costante (quindi che il valore della velocità del suono sia costante) per il tratto di spazio che l'onda sonora percorre, possiamo considerare che la velocità media $\expval{v_s}$, calcolata come distanza su tempo, sia uguale al valore istantaneo della velocità del suono $v_s$. In questa ipotesi allora la misura della velocità del suono può essere trattata al primo ordine di approssimazione come una misura della distanza $d$ e una misura del tempo $t$ impiegato per coprire tale distanza. In questo modo allora otteniamo che la distanza percorsa può essere considerata come $d=v_st$, dove però stiamo ipotizzando di considerare la misura della distana in termini esatti. Ma poichè la distanza può essere considerata a meno di una costante additiva, di offset rispetto al posizionamento dell'emettitore e del ricevitore, allora è più corretto considerare una relazione \begin{equation}
     d=v_st + \delta_\text{offset}\label{eq:first_order_approx}.
-\end{equation} Stiamo però ancora considerando condizioni ottimali di misura, per cui ipotizziamo che il ricevitore e l'emettitore siano perfettamente in asse, ovvero che siano allineati perfettamente anche nelle direzioni ortogonali alla trasmissione del segnale. Se così non fosse potremmo introdurre un fattore quadratico che giustificherebbe 
+\end{equation} Stiamo però ancora considerando condizioni ottimali di misura, per cui ipotizziamo che il ricevitore e l'emettitore siano perfettamente in asse, ovvero che siano allineati perfettamente anche nelle direzioni ortogonali alla trasmissione del segnale. Si potrebbe introdurre un fattore quadratico all'interno della funzione di fit che includa questo disassamento per cui la funzione risulterebbe
+\begin{equation}
+    d=\sqrt{v_s^2t^2+2\delta_\text{offset}v_st+(\delta_\text{offset}^2-\delta_\perp^2)}
+    \label{eq:second_order_approx}
+\end{equation}
+Osserviamo però che questa correzzione non porta a nessun rispetto al modello lineare in quanto otteniamo che $\delta_\text{offset}^2-\delta_\perp^2 \simeq \delta_\text{offset}^2$, che porta quindi l'espressione \refeqn{eq:second_order_approx} ad essere equivalente all'espressione \refeqn{eq:first_order_approx}.
+
 
 
 Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiamo entrambi i set di punti e facciamo un fit secondo la funzione \begin{equation}
@@ -131,10 +137,12 @@ Dal fit otteniamo che, considerando i dati raccolti sfruttando l'onda prodotta s
 \end{align*} mentre considerando i dati raccolti sfruttando l'onda prodotta sul fronte di discesa del segnale otteniamo \begin{align*}
     v_s &=\SI{349.87(1.03)}{\metre\per\second}\\
     \delta_\text{offset} &=\SI{0.127950(915)}{\metre}.
-\end{align*} Osserviamo quindi che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di 1.48$\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.577(552)}{\metre\per\second}.\]
+\end{align*}
+Vediamo che i valori dei 2 offset sono nell'ordine dei centimetri, che corrisponde a ciò che ci aspettavamo, in quanto, come detto in precedenza, la distanza tra altoparlante e microfono è stata misurata usando dei punti di riferimento distanti appunto qualche centimentro dai punti in cui effettivamente veniva emesso e rivelato il suono. 
 
-Osserviamo anche che i valori di 
+Osserviamo che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di 1.48$\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.577(552)}{\metre\per\second}.\]
 
+\section{Descrizione del sistema automatico di acquisizione dati}
 
 \iffalse
 \begin{figure}
