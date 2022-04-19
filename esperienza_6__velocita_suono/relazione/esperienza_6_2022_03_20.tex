@@ -92,9 +92,11 @@ Il sistema di misura è composto da un emettitore ed un ricevitore posti ad una 
 I due strumenti sono entrambi allineati ad una guida millimetrata fissata al tavolo, necessaria per individuare la distanza tra la sorgente e il ricevitore. 
 
 \section{Valutazione degli errori sulla misura}
-\textit{Errore su misura distanza} Lo strumento che utilizziamo per misurare la distanza è un metro caratterizzato da un errore massimo di $\SI{1}{\milli\metre}$. Poichè stiamo misurando la distanza che sapara il microfono dall'altoparlante e dobbiamo quindi allineare il metro sia al punto che prendiamo come riferimento per l'emettitore, sia al punto di riferimento del ricevitore, consideriamo come errore massimo per questa misura $\SI{2}{\milli\metre}$, che porta quindi ad avere un errore statistico pari a $\SI{2}{\milli\metre}/\sqrt{3}$.
+\textit{Errore sulla misura della distanza.---} Lo strumento che utilizziamo per misurare la distanza è un metro caratterizzato da un errore massimo di $\SI{1}{\milli\metre}$. Poichè stiamo misurando la distanza che sapara il microfono dall'altoparlante e dobbiamo quindi allineare il metro sia al punto che prendiamo come riferimento per l'emettitore, sia al punto di riferimento del ricevitore, consideriamo come errore massimo per questa misura $\SI{2}{\milli\metre}$, che porta quindi ad avere un errore statistico pari a $\SI{2}{\milli\metre}/\sqrt{3}$.
 
-\textit{Errore su misura tempo} Per quanto riguarda l'errore sul delay nella misura analogica calcoliamo tale quantità in base a quanto è riportato sul data-sheet dell'oscilloscopio, mentre per la misura con il metodo digitale faremo una trattazione di tipo statistico, come vedremo successivamente.
+\textit{Errore sulla misura del tempo.---} Per quanto riguarda l'errore sul delay nella misura analogica calcoliamo tale quantità in base a quanto è riportato sul data-sheet dell'oscilloscopio, mentre per la misura con il metodo digitale faremo una trattazione di tipo statistico, come vedremo successivamente, che ci permetterà di fornire una definizione più rigorosa degli errori statistici associati alle misure di tempo.
+
+
 \section{Presa dati \emph{analogica}}
 
 Inizialmente utilizziamo semplicemente l'oscilloscopio per effettuare misure del ritardo $t$ tra la trasmissione e la ricezione del segnale sonoro. Possiamo infatti impostare lo strumento in modo che possa fornirci una lettura di differenza temporale (delay) tra due istanti nei due segnali che forniamo in ingresso. 
@@ -129,7 +131,7 @@ Realizziamo quindi un grafico (figura \ref{fig:analog_plot_d1}) su cui riportiam
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\linewidth]{plot_analog_220417.pdf}
-    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria.}\label{fig:analog_plot_d1}
+    \caption{Dipendenza lineare della distanza tra sorgente e ricevitore dal tempo $t$ per un'onda meccanica acustica che si propaga in aria; il coefficiente di proporzionalità esprime la velocità di propagazione $v_s$ dell'onda in aria, a pressione e temperatura di laboratorio. Possiamo osservare che esiste una differenza tra le coppie di punti acquisite considerando il fronte di salita o di discesa dell'onda quadra fornita all'emettitore, che però si risolve in una differenza di offset su tutte le misure, senza causare una differenza invece per il coefficiente di proporzionalita $v_s$.}\label{fig:analog_plot_d1}
 \end{figure}
 
 Dal fit otteniamo che, considerando i dati raccolti sfruttando l'onda prodotta sul fronte di salita del segnale emesso, \begin{align*}
@@ -167,7 +169,7 @@ Questi punti influiscono sul valore medio e sulla deviazione standard della dist
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\linewidth]{plot_digital_220417.pdf}
-    \caption{Dipendenza lineare del ritardo dal tempo $t$, il coefficiente di proporzionalità esprime la velocità di propagazione di un onda sonora in aria. Raccolta dati effettuata autonomamente con sistema integrato. Dati preliminari.}\label{fig:digital_plot_d2}
+    \caption{Coppie di dati $(\expval{t_\text{RISE}}, d)$ e $(\expval{t_\text{FALL}}, d)$ raccolte sfruttando il sistema digitale, con i relativi fit lineari. Per entrambi i casi otteniamo che il rapporto $\chi^2/\text{ndf}$ è vicino a 1, e in entrambi i casi la Prob.($\chi^2$) è superiore al $95\%$.}\label{fig:digital_plot_d2}
 \end{figure}
 
 \section{Analisi dati, acquisizione digitale}
@@ -197,7 +199,7 @@ Otteniamo che i valori otttenuti nei due casi della velocità del suono in aria 
 \iffalse
 \fi
 
-\section{Conclusioni}
+\section{Calcolo di $\expval{\vb*{v_s}}$ e conclusioni}
 
 
 
