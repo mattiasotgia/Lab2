@@ -153,13 +153,15 @@ Per creare questo sistema utilizziamo una scheda Arduino DUE per la realizzazion
 
 \section{Correzione degli errori di lettura del sistema}
 Il sistema di acquisizione così creato però potrebbe fornire in uscita dei valori di misura sbagliati, in quanto potrebbe sbagliare la lettura dei segnali sui pin digitali. Questo può essere causato da contatti elettrici non stabili o da segnali non privi di rumore, presentando quindi delle oscillazioni che possono essere interpretate dalla scheda con un evento RISE o FALL. Questo porta ad avere dei valori di delay che possono essere sbagliati, nettamente distinti e distinguibili dai valori reali medi. Possiamo infatti realizzare per ogni set di $N$ valori un istogramma e facilmente identificare i valori che possiamo definire \emph{outliers}, ovvero valori che sono nelle code delle distribuzioni dei dati raccolti. Osservando infatti un esempio di distribuzione, possiamo vedere che sono presenti dei valori di delay di \SI{0}{\milli\second} (fig. \ref{fig:hists_test} sotto, gli ultimi due istogrammi), o valori a circa \SI{1000}{\milli\second} quando il valore della media dei tempi è circa \SI{400}{\milli\second} (fig. \ref{fig:hists_test} sopra, i primi due istogrammi).
-Questi punti influiscono sul valore medio e sulla deviazione standard della distribuzione in modo influente, quindi decidiamo di toglierli dal calcolo. Rimuovendo tali valori dall'insieme dei punti raccolti osserviamo che inoltre gli errori che associamo alle misure di delay (calcolate come la deviazione standard della distribuzione dei punti, oppure posta a \SI{1}{\micro\second} se la dev. standard diventa minore della risoluzione dello strumento) diventano ragionevoli rispetto alle misure effettuate. 
+Questi punti influiscono sul valore medio e sulla deviazione standard della distribuzione in modo influente, quindi decidiamo di toglierli dal calcolo. Rimuovendo tali valori dall'insieme dei punti raccolti osserviamo che infatti gli errori associati alle misure di delay (calcolate come la deviazione standard della distribuzione dei punti, oppure posti a \SI{1}{\micro\second} se la dev. standard diventa minore della risoluzione dello strumento) diventano ragionevoli rispetto alle misure effettuate. 
 
 \begin{figure*}
     \includegraphics[width=0.85\linewidth]{histo25.pdf}
     \includegraphics[width=0.85\linewidth]{histo50.pdf}
     \caption{Istogrammi dei set di dati raccolti (sono riportati quelli per le misure a \SI{0.25}{\metre} e quelle per le misure a \SI{0.5}{\metre}). Per ogni distanza sono raccolti $N=50$ punti, sia per l'evento RISE che per l'evento FALL, in due istanti differenti, un per il primo fronte di variazione del segnale fornito dal microfono, uno per il secondo fronte. La media tra queste due misure permette di ottenere poi una misura più precisa dell'effettivo fronte d'onda che viene rilevato dal microfono. }\label{fig:hists_test}
 \end{figure*}
+
+\section{Analisi dati, acquisizione digitale}
 
 
 
