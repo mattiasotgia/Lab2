@@ -143,7 +143,8 @@ Vediamo che i valori dei 2 offset sono nell'ordine dei centimetri, che corrispon
 Osserviamo che i due valori del parametro $v_s$ sono compatibili (con una significatività statistica di 1.48$\sigma$) e perciò possiamo ricavare la miglior stima \[v_s(\text{Analogic})=\SI{348.577(552)}{\metre\per\second}.\]
 
 \section{Descrizione del sistema automatico di acquisizione dati}
-
+Siccome nella misura con il metodo analogico abbiamo dovuto usare l'oscilloscopio come strumento di misura, dovendo di volta in volta riposizionare i cursori per ottenere una misura precisa del ritardo tra le due onde, vogliamo adesso trovare un modo per riuscire a raccogliere un maggior numero di dati in maniera più automatica e veloce.
+Sino ad ora abbiamo misurato il ritardo temporale tra il primo fronte dell'onda quadra che permette all'altoparlante di emettere il suono e il primo fronte di discesa dell'onda del microfono, che corrisponde all'inizio dell'oscillazione della membrana del ricevitore. Sfruttando però il sistema automatico, che appunto vogliamo creare e utilizzare, possiamo rendere la misura più precisa. Possiamo infatti fare in modo che il nostro sistema acquisisca il ritardo del primo fronte di discesa e il ritardo del fronte di salita immediatamente successivo, in modo da poter fare una media e capire quale ritardo corrisponde effettivamente al massimo o minimo dell'oscillazione della membrana del microfono. Per migliorare ancora di più la precisione possiamo richiedere che il sistema acquisisca N volte tali misure. 
 \iffalse
 \begin{figure}
     \centering
