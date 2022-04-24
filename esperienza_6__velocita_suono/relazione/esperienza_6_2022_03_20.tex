@@ -44,7 +44,7 @@
 
 \begin{document}
 
-\title{Misura della velocità del suono in aria
+\title{Misura della velocità del suono in aria: sistema digitale di acquisizione automatica
 }
 \thanks{Esperienza n. 6
 }
@@ -200,7 +200,7 @@ Otteniamo che i valori otttenuti nei due casi della velocità del suono in aria 
 
 \section{Calcolo di $\vb*{v_s}$ e conclusioni}\label{sec:conclusion_compute}
 
-Dai risultati ottenuti attraverso il metodo analogico e attraverso il metodo digitale osserviamo che i valori di $v_s(\text{Analogic})$ e $v_s(\text{Digital})$ sono compatibili con significatività statistica pari a $1.29\sigma$ per cui possiamo calcolare una miglior stima sperimentale ($v_s(\text{Exp})$), ottenendo quindi il valore \[v_s(\text{Exp}) = \SI{347.589(669)}{\metre\per\second},\] che risulta essere non compatibile con il valore teorico, con una significatività statistica di $5.8\sigma$. 
+Dai risultati ottenuti attraverso il metodo analogico e attraverso il metodo digitale osserviamo che i valori di $v_s(\text{Analogic})$ e $v_s(\text{Digital})$ sono compatibili con significatività statistica pari a $1.29\sigma$ per cui possiamo calcolare una miglior stima sperimentale ($v_s(\text{Exp})$), ottenendo quindi il valore \[v_s(\text{Exp}) = \SI{347.589(669)}{\metre\per\second},\] che risulta essere non compatibile con il valore teorico \footnote{si ottiene che la differenza tra la media sperimentale $v_s(\text{Exp})$ e il valore teorico $v_s(\text{Theory})$ è \SI[separate-uncertainty=true]{4.379(750)}{\metre\per\second}.}, con una significatività statistica di $5.8\sigma$. 
 
 Uno dei nostri obiettivi era quello di utilizzare il metodo digitale per riuscire a fare una misura più precisa della velocità del suono. Notiamo infatti (figura \ref{fig:results}) che il valore di $v_s(\text{Digital})$ risulta essere più vicino al valore teorico della velocità del suono rispetto a quanto non lo sia il valore di $v_s(\text{Analogic})$, infatti in termini di significatività statistica il primo risulta essere di $5.2\sigma$, mentre il secondo di $3.5\sigma$. \\
 Questo mette in luce quanto abbiamo detto in precedenza, ovvero che con la presa dati digitale, per cui abbiamo potuto raccogliere più dati, e anche considerare il valore medio tra i fronti di discesa e di salita dell'onda in arrivo al microfono, quindi prendendo in modo più preciso il valore del massimo (o minimo) del segnale acustico che è trasmesso sul microfono, possiamo ottenere una misura più affidabile della velocità del suono. Infatti per la presa dati analogica non abbiamo raccolto dati su entrambi i fronti, portandoci dietro quindi un possibile errore sui tempi, che ci è però difficile quantificare. \\
@@ -218,7 +218,7 @@ Otteniamo, sostituendo il valore della media sperimentale ottenuti in laboratori
 
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
-    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita su un programma sviluppato in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}), matplotlib, numpy e altri framework pubblici per l'analisi dei dati e la loro visualizzazione (\url{https://matplotlib.org/}, \url{https://numpy.org/}).
+    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita attraverso diversi notebook (\url{https://jupyter.org/}) scritti in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}), matplotlib, numpy e altri framework pubblici per l'analisi dei dati e la loro visualizzazione (\url{https://matplotlib.org/}, \url{https://numpy.org/}).
 \end{methods}
 
 %\onecolumngrid
