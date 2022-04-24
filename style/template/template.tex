@@ -1,5 +1,5 @@
 \documentclass[
-    rmp,
+    prl,
     % preprint,
     % linenumbers,
     % tightlines,
@@ -11,11 +11,18 @@
     a4paper]{revtex4-2}
 
 \input{../../style/preamble.tex}
+\sisetup{
+    % separate-uncertainty=true,
+    round-mode=uncertainty,
+    % exponent-mode = scientific
+}
+
+\setcounter{secnumdepth}{2}
 
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/[[NN]]-\thepage
 }
-\fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+\fancyhead[C]{RELAZIONE DI LABORATORIO \textbf{
     N. 00[[NN]] % ! <== CAMBIARE (Nessuna rel. -> 00)
     } (\the\year)
 }
