@@ -20,10 +20,20 @@
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage[colorlinks, urlcolor=., bookmarks]{hyperref}% add hypertext capabilities
-\renewcommand\UrlFont{\color{blue}}
+\renewcommand\UrlFont{\color{black!50!blue}}
+
+\hypersetup{
+  citecolor = black!50!blue,
+  linkcolor = black!50!blue,
+  urlcolor = black!50!blue,
+  anchorcolor = black!50!blue
+}
 
 \usepackage{physics}
 \usepackage{siunitx}
+\sisetup{
+  per-mode=symbol
+}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}

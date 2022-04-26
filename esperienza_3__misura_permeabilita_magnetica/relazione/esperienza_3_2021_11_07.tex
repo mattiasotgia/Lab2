@@ -4,7 +4,7 @@
 %% Copyright (C) Mattia Sotgia et al. 2022
                                  
 \documentclass[
-    rmp,
+    prl,
     % preprint,
     % linenumbers,
     % tightlines,
@@ -22,11 +22,12 @@
     round-mode=uncertainty,
     % exponent-mode = scientific
 }
+\setcounter{secnumdepth}{2}
 
 \fancyfoot[C]{
     \the\year\twodigits\month\twodigits\day/3-\thepage
 }
-\fancyhead[C]{\fontfamily{phv}\fontsize{12}{12}\selectfont RELAZIONE DI LABORATORIO \textbf{
+\fancyhead[C]{RELAZIONE DI LABORATORIO \textbf{
     N. 1 % ! <== CAMBIARE (Nessuna rel. -> 00)
     } (\the\year)
 }
@@ -58,7 +59,7 @@
 \thispagestyle{fancy}
 % Rimuovere per consegna
 \SetBgContents{
-    laboratorio2: e3 (non per la consegna) \today % ! Note di versione
+    % laboratorio2: e3 (non per la consegna) \today % ! Note di versione
 }
 
 %%%% CORPO DEL TESTO
