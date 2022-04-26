@@ -9,15 +9,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
-    - name: Compile e6 Latex document
+    - name: Compile e7 Latex document
       uses: dante-ev/latex-action@master
       with:
-        root_file: esperienza_6_2022_03_20.tex
-        working_directory: esperienza_6__velocita_suono/relazione/
+        root_file: esperienza_7_2022_04_26.tex
+        working_directory: esperienza_7__effetto_hall/relazione/
     - env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: startsWith(github.ref, 'refs/tags/')
       name: Relase latests papers
       uses: softprops/action-gh-release@v1
       with:
-        files: esperienza_6__velocita_suono/relazione/esperienza_6_2022_03_20.pdf
+        files: esperienza_7__effetto_hall/relazione/esperienza_7_2022_04_26.pdf
