@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{labmemo}[2022/03/05 Lab memo and technical reports]
+\ProvidesClass{memo}[2022/03/05 Lab memo and technical reports]
 
 %---- Options
 
@@ -8,13 +8,13 @@
 
 \LoadClass[
     varv, 
-    fleqn,
     amsmath, 
     amssymb, 
     a4paper,
     superscriptaddress,
     altaffilletter,
     rmp,
+    fleqn,
     raggedfooter
 ]{revtex4-2}
 
@@ -41,6 +41,8 @@
 \RequirePackage{esint}
 \RequirePackage{graphicx}% Include figure files
 
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
 \RequirePackage{physics}
 \RequirePackage{siunitx}
 
