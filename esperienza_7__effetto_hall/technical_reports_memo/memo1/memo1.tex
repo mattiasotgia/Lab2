@@ -3,11 +3,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-\graphicspath{{../fig/}}
+\graphicspath{{../../fig/}}
+\usepackage[caption=false]{subfig}
 
 \begin{document}
 
-\title{Memo 1: definizione necessità laboratorio, definizione degli strumenti necessari per la misura}
+\title{Memo 1: definizione degli strumenti necessari per la misura}
 
 \author{Francesco Polleri}
 \email{s5025011@studenti.unige.it}
@@ -15,6 +16,11 @@
 \email{s4942225@studenti.unige.it}
 
 \collaboration{Gruppo A1}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\author{Lorenzo Lucentini}
+\author{Michele Giorgi}
+\collaboration{Gruppo C6}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
 \revised{\today}
@@ -30,10 +36,26 @@ Verifica dell'effetto Hall, confronto con la previsione teorica del valore previ
 
 Definita la densità di corrente e la forza di Lorentz, abbiamo allora che la tensione di Hall si può esprimere come \begin{equation}
     V_H = \frac{iB}{wnq},
-\end{equation} con $i$ corrente, $B$ campo magnetico a cui è sottoposta la sonda (fig. !) e $w$ spessore della sonda. Così otteniamo che il valore di $n$ è facilmente ottenibile. 
+\end{equation} con $i$ corrente, $B$ campo magnetico a cui è sottoposta la sonda (fig. \ref{fig:sonda_test}) e $w$ spessore della sonda. Così otteniamo che il valore di $n$ è facilmente ottenibile. 
+
+\twocolumngrid
+\begin{table}
+    \subfloat[][]{\input{tables/sonda}\label{tab:sonda}}\hspace{5mm}
+    \subfloat[][]{\input{tables/min_max_values}\label{tab:min_max_values}}
+
+    \caption{(a) Dimensioni e caratteristiche della sonda utilizzata in laboratorio. (b) Alcune delle caratterisrtiche importanti delle strumentazioni utilizzate in laboratorio per l'espoerienza. Il valore Fixed Value corrisponde ai casi in cui il valore della variabile non può essere cambiato, ed è limitato dalle condizioni di laboratorio (in generale indica i limiti entro cui possiamo scegliere il valore della variabile), Il valore Avg. Value corrisponde al valore che ricaviamo considerando sempre le limitazioni di laboratorio e che corrisponde alla miglior scelta che possiamo effettuare. Max STD indica il valore che possiamo stimare massimo per la deviazione standard sulla misura della variabile per avere una certa risoluzione sulla nostra misura (condizioni ottimali).}
+\end{table}
+\onecolumngrid
+
+\begin{figure*}
+    \subfloat[]{\includegraphics[]{sonda_test.pdf}\label{fig:sonda_test}}
+    \caption{(a) Sonda utilizzata in laboratorio per la verifica dell'effetto Hall}\label{fig:1}
+\end{figure*}
 
 \section{Definizione PLOT}
 
-Possiamo ugualmente considerare il PLOT di $V_H$ come $V_H(B)$ oppure alternativamente $V_H(i)$, in entrambi i casi abbiamo dei vantaggi e degli svantaggi. Soprattutto considerando la corrente abbiamo lo svantaggio di diver trovare un modo valido di poter misurare la corrente che non influisca in modo significativo con l'apparato sperimentale utilizzato .
+Possiamo ugualmente considerare il plot di $V_H$ come $V_H(B)$ oppure alternativamente $V_H(i)$, in entrambi i casi abbiamo dei vantaggi e degli svantaggi. Soprattutto considerando la corrente abbiamo lo svantaggio di diver trovare un modo valido di poter misurare la corrente che non influisca in modo significativo con l'apparato sperimentale utilizzato.
+
+\section{Definizione della strumentazione necessaria}
 
 \end{document}

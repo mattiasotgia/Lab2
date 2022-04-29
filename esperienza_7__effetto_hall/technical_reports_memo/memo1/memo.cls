@@ -26,6 +26,7 @@
 \RequirePackage[italian]{babel}
 
 \RequirePackage{newtxtext, newtxmath}
+% \renewcommand{\normalfont}{\sffamily}
 
 \RequirePackage{hyperref}% add hypertext capabilities
 
