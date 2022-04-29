@@ -7,7 +7,7 @@
 \ProcessOptions\relax
 
 \LoadClass[
-    varv, 
+    varvw, 
     fleqn,
     amsmath, 
     amssymb, 
