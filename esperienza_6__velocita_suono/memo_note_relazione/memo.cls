@@ -7,7 +7,7 @@
 \ProcessOptions\relax
 
 \LoadClass[
-    varv, 
+    varvw, 
     amsmath, 
     amssymb, 
     a4paper,
