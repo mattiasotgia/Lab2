@@ -38,25 +38,30 @@ Definita la densità di corrente e la forza di Lorentz, abbiamo allora che la te
     V_H = \frac{iB}{wnq},
 \end{equation} con $i$ corrente, $B$ campo magnetico a cui è sottoposta la sonda (fig. \ref{fig:sonda_test}) e $w$ spessore della sonda. Così otteniamo che il valore di $n$ è facilmente ottenibile. 
 
-\twocolumngrid
-\begin{table}
-    \subfloat[][]{\input{tables/sonda}\label{tab:sonda}}\hspace{5mm}
-    \subfloat[][]{\input{tables/min_max_values}\label{tab:min_max_values}}
 
-    \caption{(a) Dimensioni e caratteristiche della sonda utilizzata in laboratorio. (b) Alcune delle caratteristiche importanti delle strumentazioni utilizzate in laboratorio per l'esperienza. Il valore fixed value corrisponde ai casi in cui il valore della variabile non può essere cambiato, ed è limitato dalle condizioni di laboratorio (in generale indica i limiti entro cui possiamo scegliere il valore della variabile), Il valore avg. value corrisponde al valore che ricaviamo considerando sempre le limitazioni di laboratorio e che corrisponde alla miglior scelta che possiamo effettuare. Max STD indica il valore che possiamo stimare massimo per la deviazione standard sulla misura della variabile per avere una certa risoluzione sulla nostra misura (condizioni ottimali).}
-\end{table}
-\onecolumngrid
+
+\section{Definizione PLOT}
+
+Possiamo ugualmente considerare il plot di $V_H$ come $V_H(B)$ oppure alternativamente $V_H(i)$, in entrambi i casi abbiamo dei vantaggi e degli svantaggi. Soprattutto considerando la corrente abbiamo lo svantaggio di diver trovare un modo valido di poter misurare la corrente che non influisca in modo significativo con l'apparato sperimentale utilizzato. 
+Quindi possiamo definire una funzione del tipo \begin{equation}
+    V_H(B) = BC^{-1},
+\end{equation} con $C$ unico parametro della funzione definito come \begin{equation}
+    C=\frac{i}{wnq},
+\end{equation} dove unica incognita del problema che ci poniamo di risolvere è il valore di $n$, ipotizzando come noti i valori di $q=e$, $i$ (impostata come da generatore (si veda poi tab. \ref{tab:min_max_values})) e $w$ (tabella \ref{tab:sonda}).
+
+\section{Definizione della strumentazione necessaria}
 
 \begin{figure*}
     \subfloat[]{\includegraphics[]{sonda_test.pdf}\label{fig:sonda_test}}
     \subfloat[][]{\includegraphics[width=0.25\linewidth]{zoomed_sonda.png}\label{fig:zoomed_sonda}}
-    \caption{(a) Sonda utilizzata in laboratorio per la verifica dell'effetto Hall. (b) Ingrandimento ruotato di \SI{45}{\deg} della sonda sulla croce, ad indicare le direzioni di passaggio della corrente e di formazione della tensione di Hall $V_H$.}\label{fig:1}
+    \caption{(a) Sonda utilizzata in laboratorio per la verifica dell'effetto Hall. (b) Ingrandimento ruotato di \SI{45}{\deg} della sonda sulla croce, ad indicare le direzioni di passaggio della corrente e di formazione della tensione di Hall $V_H$ (il campo magnetico è lungo la direzione ortogonale alla corrente $i$ e alla tensione $V_H$).}\label{fig:1}
 \end{figure*}
 
-\section{Definizione PLOT}
-
-Possiamo ugualmente considerare il plot di $V_H$ come $V_H(B)$ oppure alternativamente $V_H(i)$, in entrambi i casi abbiamo dei vantaggi e degli svantaggi. Soprattutto considerando la corrente abbiamo lo svantaggio di diver trovare un modo valido di poter misurare la corrente che non influisca in modo significativo con l'apparato sperimentale utilizzato.
-
-\section{Definizione della strumentazione necessaria}
+\begin{table}
+    \caption{(a) Dimensioni e caratteristiche della sonda utilizzata in laboratorio. (b) Alcune delle caratteristiche importanti delle strumentazioni utilizzate in laboratorio per l'esperienza. Il valore fixed value corrisponde ai casi in cui il valore della variabile non può essere cambiato, ed è limitato dalle condizioni di laboratorio (in generale indica i limiti entro cui possiamo scegliere il valore della variabile), Il valore avg. value corrisponde al valore che ricaviamo considerando sempre le limitazioni di laboratorio e che corrisponde alla miglior scelta che possiamo effettuare. Max STD indica il valore che possiamo stimare massimo per la deviazione standard sulla misura della variabile per avere una certa risoluzione sulla nostra misura (condizioni ottimali) in parti per mille.}
+    \setcounter{table}{\numexpr\value{table}-1}
+    \subfloat[][]{\input{tables/sonda}\label{tab:sonda}}\hspace{5mm}
+    \subfloat[][]{\input{tables/min_max_values}\label{tab:min_max_values}}
+\end{table}
 
 \end{document}
