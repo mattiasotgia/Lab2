@@ -36,7 +36,7 @@
 Verifica dell'effetto Hall, confronto con la previsione teorica del valore previsto di portatori di carica e misura della carica dei singoli portatori.
 
 Definita la densità di corrente e la forza di Lorentz, abbiamo allora che la tensione di Hall si può esprimere come \begin{equation}
-    V_H = \frac{iB}{wnq},
+    V_H = \frac{iB}{wnq},\label{eq:V_H_full}
 \end{equation} con $i$ corrente, $B$ campo magnetico a cui è sottoposta la sonda (fig. \ref{fig:sonda_test}) e $w$ spessore della sonda. Così otteniamo che il valore di $n$ è facilmente ottenibile. 
 
 
@@ -89,6 +89,6 @@ L'alternativa che possiamo pensare è quella di utilizzare un circuito magnetico
 
 \paragraph{Sistema di controllo} Vogliamo poi avere un sistema centrale che ci permetta di controllare la logica del setup sperimentale e che permetta di mettere in comunicazione i vari strumenti e attivarli con impostazioni ben definite e poter effettuare misure in modo automatico. Viene comodo quindi utilizzare un sistema integrato come Arduino, per cui possiamo realizzare una logica semplice per controllare il setup sperimentale e per raccogliere misure. 
 
-\paragraph{Sonda} Con i dati fino ad ora raccolti ci possiamo accorgere che la tensione di Hall dipende fortemente dal numero di portatori, e vogliamo che infatti sia un valore più basso possibile, per ottenere tensioni misurabili più alte possibili. Vogliamo quindi trovare un materiale che abbia un buon compromesso tra la resistenza interna e il numero di portatori, in modo da ottenere un valore della tensione di Hall più alto possibile, senza dover però fornire correnti eccessivamente basse, difficili da generare, e che causerebbero un valore della tensione di Hall ancora più bassa. Il materiale che abbiamo a disposizione è il rame, depositato a formare uno strat laminare molto sottile per cui possiamo identificare delle direzioni privilegiate per la corrente e per la valutazione dell'effetto Hall. 
+\paragraph{Sonda} Con i dati fino ad ora raccolti ci possiamo accorgere che la tensione di Hall dipende fortemente dal numero di portatori, e vogliamo che infatti sia un valore più basso possibile, per ottenere tensioni misurabili più alte possibili (\emph{cfr.} eq. (\ref{eq:V_H_full})). Vogliamo quindi trovare un materiale che abbia un buon compromesso tra la resistenza interna e il numero di portatori, in modo da ottenere un valore della tensione di Hall più alto possibile, senza dover però fornire correnti eccessivamente basse, difficili da generare, e che causerebbero un valore della tensione di Hall ancora più bassa. Il materiale che abbiamo a disposizione è il rame, depositato a formare uno strat laminare molto sottile per cui possiamo identificare delle direzioni privilegiate per la corrente e per la valutazione dell'effetto Hall. 
 
 \end{document}
