@@ -25,6 +25,7 @@
     a4paper]{revtex4-2}
 
 \input{../../style/preamble.tex}
+\usepackage{chemformula}
 \sisetup{
     % separate-uncertainty=true,
     round-mode=uncertainty,
@@ -43,7 +44,7 @@
 
 \begin{document}
 
-\title{Misura del numero di portatori su film tramite effetto Hall
+\title{Misura del numero di portatori su sonda tramite effetto Hall
 }
 \thanks{Esperienza n. 7
 }
@@ -52,9 +53,14 @@
 \email{s5025011@studenti.unige.it}
 \author{Mattia Sotgia}
 \email{s4942225@studenti.unige.it}
-
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\author{Michele Giorgi}
+\author{Lorenzo Lucentini}
+\collaboration{Gruppo C6}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
 
 \date{presa dati
     11--12 maggio 2022, consegnata in data 
@@ -62,7 +68,8 @@
 }
 
 \begin{abstract}
-
+    L'effetto Hall si verifica quando delle cariche transitano attraverso una corrente $i$ ed un campo magnetico $B$, posti perpendicolari l'uno rispetto all'altro, tali per cui si viene a creare una tensione lungo il terzo asse ortogonale. Questa tensione è direttamente proporzionale a $i$ e $B$, ed inversamente proporzionale alla carica dei portatori e al loro numero $n$.
+    Si vuole misurare la densità di portatori di carica di una sonda di Rame [\ch{Cu29}] realizzata per deposizione su vetro. Questa permette di avere una corrente $i_s$ ed è inseribile in un traferro dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è ortogonale a questi due contributi e può essere misurata direttamente.
 \end{abstract}
 
 
@@ -75,6 +82,8 @@
 
 %%%% CORPO DEL TESTO
 %%%% CORPO DEL TESTO
+
+\section{Introduzione}
 
 %\onecolumngrid
 \appendix
