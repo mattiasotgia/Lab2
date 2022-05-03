@@ -46,7 +46,7 @@
 \RequirePackage{siunitx}
 
 \sisetup{
-    per-mode=symbol,
+    % per-mode=symbol,
     % separate-uncertainty=true,
     round-mode=uncertainty,
     % exponent-mode = scientific
