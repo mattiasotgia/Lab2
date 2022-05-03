@@ -1,11 +1,16 @@
 % \begin{ruledtabular}
-    \begin{tabular}{lcccc}
+    \begin{tabular}{lccc}
         \toprule
-        & fixed value & avg. value & max STD (ppt)\\
+        & fixed value & avg. value \\
         \colrule
-        Generatore elettrico ($i$) & - & \SI{10}{\milli\ampere} & - \\
-        Campo magnetico $B$ & [0.1,0.5]\footnote{Massimo raggiungibile dagli strumenti di laboratorio, minimo importo per avere un effetto sostanzialmente utile (praticamente può andare fino a zero).} \si{\tesla} & - & - \\
-        op-amp (per strum.) & - & $G\simeq 200$\footnote{Max. gain raggiungibile in condizioni di laboratorio?} & - \\
+        Generatore elettrico ($i$) & - & \SI{10}{\milli\ampere} \\
+        & & $Z_\text{out}\simeq\SI{}{\ohm}$ \\
+        Campo magnetico $B$ & [0.1,0.5]\footnote{Massimo raggiungibile dagli strumenti di laboratorio, minimo importo per avere un effetto sostanzialmente utile (praticamente può andare fino a zero).} \si{\tesla} & - \\
+        && $i_\text{B}\simeq[\SI{0.1}{\ampere}, \SI{1}{\ampere}]$\footnote{Corrente di alimentazione dell'elettromagnete/circuito magnetico.} \\
+        op-amp (per strum.) & - & $G\simeq 200$\footnote{Guadagno massimo realizzabile in laboratorio con un amplificatore differenziale per strumentazione in due fasi, ciascuna con gain $\simeq20$} \\
+        && $Z_\text{in, 1/2}\simeq\SI{1}{\mega\ohm}$ \\
+        Lettura in tensione & & risoluzione necessaria \SI{1}{\micro\volt} \\
+        && fondo scala \SI{100}{\milli\volt}\footnote{Abbiamo ottenuto una misura ipotetica, deti gli strumenti che possiamo utilizzare, della tensione di Hall, che anche se amplificata rimane di quest'ordine di grandezza} \\
         \toprule
     \end{tabular}
 % \end{ruledtabular}
