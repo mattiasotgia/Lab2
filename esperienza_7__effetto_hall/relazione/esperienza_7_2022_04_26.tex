@@ -71,7 +71,7 @@
 
 \begin{abstract}
     L'effetto Hall si verifica quando delle cariche transitano attraverso una corrente $i$ ed un campo magnetico $B$, posti perpendicolari l'uno rispetto all'altro, tali per cui si viene a creare una tensione lungo il terzo asse ortogonale. Questa tensione è direttamente proporzionale a $i$ e $B$, ed inversamente proporzionale alla carica dei portatori e al loro numero $n$.
-    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa permette di avere una corrente $i_s$ ed è inseribile in un traferro dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è ortogonale a questi due contributi e può essere misurata direttamente.
+    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa sonda è inserita nel traferro di un circuito magnetico, dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è ortogonale a questi due contributi e può essere misurata direttamente sulla sonda.
 \end{abstract}
 
 
@@ -87,19 +87,22 @@
 
 \section{Introduzione}
 
-Il passaggio di corrente attraverso un sottile strato conduttore comporta la presenza di una densità di corrente, attraverso il materiale stesso, $\vec{J}=nq\vec{v}_d$, dove $v_d$ indica la velocità di drift dei portatori di carica, e $n$ indica la densità di portatori di carica che contribuiscono alla corrente, per unità di volume, misurata in \si{\per\cubic\metre}. Se sottoponiamo la lamina conduttrice ad un campo magnetico sufficientemente uniforme \footnote{Il campo magnetico deve essere posto ortogonalmente alla densità di corrente $\vec{J}$, evitando di dover effettuare anche misurazioni dell'angolo $\alpha$ di orientamento di $\vec{B}$ rispetto a $\vec{J}$.} otteniamo che le cariche saranno quindi sottoposte ad una forza di Lorentz \begin{equation}
+Il passaggio di corrente attraverso un sottile strato conduttore comporta la presenza di una densità di corrente, attraverso il materiale stesso, $\vec{J}=nq\vec{v}_d$, dove $\vec{v}_d$ è la velocità di drift (o di spostamento) dei portatori di carica, e $n$ indica la densità di portatori di carica che contribuiscono alla corrente, per unità di volume, misurata in \si{\per\cubic\metre}. Se sottoponiamo la lamina conduttrice ad un campo magnetico sufficientemente uniforme \footnote{Il campo magnetico deve essere posto ortogonalmente alla densità di corrente $\vec{J}$, evitando di dover effettuare anche misurazioni dell'angolo $\alpha$ di orientamento di $\vec{B}$ rispetto a $\vec{J}$.} otteniamo che le cariche saranno quindi sottoposte ad una forza di Lorentz \begin{equation}
     \vec{F}_m = q\vec{v}_d \times \vec{B} = qv_dB\hat{u}_H,\label{eq:lorentz_F_m}
 \end{equation} che avrà come risultato diretto lo spostamento dei portatori di carica $q$ nella direzione $\hat{u}_H$. Considerando un materiale conduttore come composto da cariche $q$ (portatori di corrente) immersi in una distribuzione che possiamo considerare uniforme (secondo la fisica classica) di cariche $-q$ \footnote{Stiamo considerando il valore di $q$ in termini assoluti, non ponendoci quindi problemi sul segno dei portatori di un conduttore. Un conduttore è però elettricamente neutro, quindi a dei portatori di carica $q$ devono corrispondere delle cariche $-q$ che bilancino complessivamente elettricamente la carica. }, possiamo allora osservare che dopo un certo tempo \footnote{Definiamo questo tempo \emph{tempo caratteristico}, e osserviamo che è sufficientemente piccolo da poter considerare questo processo praticamente istantaneo} si formerà un campo elettrico $\vec{E}_H = \vec{F}_H/q$ in direzione ortogonale a $\vec{J}$ e $\vec{B}$, che comporterà quindi l'esistenza di una differenza di potenziale agli estremi della lamina definita come \begin{equation}
     V_H = \frac{iB}{nqw},
 \end{equation} dove $w$ indica lo spessore della lamina che utilizziamo, che comunque nel nostro apparato sperimentale riusciamo ad avere molto inferiore alle altre dimensioni della sonda utilizzata, e $i=JA$ indica il flusso della densità di corrente, ovvero la corrente attraverso una sezione $A$. Misurando la tensione che si viene a creare sulla lamina, possiamo ottenere quindi una misura efficace della densità di portatori in funzione delle altre variabili del nostro setup. 
 
-I portatori di carica di un qualsiasi materiale classico sono elettroni, di carica $q=e=\SI{1.602176634e-19}{\coulomb}$ \footnote{valore esatto, fonte BIPM, costanti fondamentali, \url{https://www.bipm.org/en/measurement-units/si-defining-constants}}.
+I portatori di carica di un qualsiasi materiale classico sono elettroni, di carica $e=\SI{1.602176634e-19}{\coulomb}$ \footnote{valore esatto, fonte BIPM, \emph{defining constants}: \url{https://www.bipm.org/en/measurement-units/si-defining-constants}, anche in \cite{Newell_2018}}.
 
 %\onecolumngrid
 \appendix
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
+
+%\bibliographystyle{plain}
+\bibliography{IOP.shortcomm.CODATA2017}
 
 \end{document}
     
