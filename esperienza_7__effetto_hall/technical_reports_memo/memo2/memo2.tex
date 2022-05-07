@@ -1,4 +1,4 @@
-\documentclass[fleqn,varvw]{memo}
+\documentclass[fleqn,varvw,preprintnumbers,citeautoscript]{memo}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -28,6 +28,7 @@
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
 \revised{\today}
+\preprint{MEMO/2 (\today)}
 
 \begin{abstract}
 
@@ -51,7 +52,7 @@ Il generatore di corrente vogliamo che fornisca in uscita una corrente $i=\SI{10
     i_\text{out} = \frac{R_2}{R_1}\frac{V^--V^+}{R_5}\label{eq:gen}
 \end{equation} dove abbiamo che \[\frac{R_1}{R_2} = \frac{R_3}{R_4}=k.\]
 
-Vogliamo ottenere una corrente in uscita di circa \SI{10}{\milli\ampere}, quindi possiamo scegliere \[R_1=R_2=R_3=R_4=\SI{1}{\kilo\ohm},\] per fare si che il coefficiente $R_2/R_1$ di (\ref{eq:gen}) si possa semplificare a 1. La scelta di $R_5$ è quindi l'unica che dobbiamo effettuare per dover scegliere poi il valore di $\Delta V$ e ottenere il valore di $i$.
+Vogliamo ottenere una corrente in uscita di circa \SI{10}{\milli\ampere}, quindi possiamo scegliere $R_1=R_2=R_3=R_4=\SI{1}{\kilo\ohm}$, per fare si che il coefficiente $R_2/R_1$ di (\ref{eq:gen}) si possa semplificare a 1. La scelta di $R_5$ è quindi l'unica che dobbiamo effettuare per dover scegliere poi il valore di $\Delta V$ e ottenere il valore di $i$.
 
 \subsection{Progettazione dell'amplificatore di tensione per strumentazione}
 
@@ -88,15 +89,13 @@ La tensione di Hall viene misurata come differenza tra i capi $+V_H$ e $-V_H$, c
     \caption{(a) Ingrandimento ruotato di \SI{45}{\deg} della sonda. (b) Rappresentazione del problema relativo all'effetto della misura di $\vlong$.}
 \end{figure}
 
-Abbiamo che la tensione tra i due capi $+$ e $-$ può essere misurata come \begin{equation}
+Nel caso ideale (ovvero sistema simmetrico) abbiamo che la tensione tra i due capi $+$ e $-$ può essere misurata come \begin{equation}
     V_H = \frac{i}{wnq}B. 
 \end{equation} 
 
-Quando però invertiamo per esempio la polarizzazione del campo magnetico, ovvero invece che considerarlo uscente come $\va{B} = B\vu{e}_2$ lo consideriamo come \begin{equation}
-    \va{B} = -B\vu{e}_2,    
-\end{equation} allora possiamo ottenere che, dalla forza di Lorentz, lasciando la corrente scorrere nella stessa direzione (per cui ho $\va{J} = J\vu{e}_1$), l'effetto dovrebbe risultare in un campo eletrico diretto come \begin{equation}
-    \va{E} = -E_H \vu{e}_3,
-\end{equation} opposto all'effetto che otterremo nel caso precedente. Il termine quadratico in $B$ è introdotto da un difetto che come abbiamo detto non è simmetrico rispetto al vero della corrente (o per analogie al verso del campo magnetico). Invertendo quindi il campo magnetico dovremmo osservare che il termine in $B^2$ non dovrebbe cambiare. Consideriamo quindi i due casi \begin{enumerate}[1.]
+Quando però invertiamo la polarizzazione del campo magnetico, ovvero invece che considerarlo uscente come $\va{B} = B\vu{e}_2$ lo consideriamo entrante come $\va{B} = -B\vu{e}_2$, allora possiamo ottenere che, dalla forza di Lorentz, lasciando la corrente scorrere nella stessa direzione (per cui ho $\va{J} = J\vu{e}_1$), l'effetto dovrebbe risultare in un campo elettrico diretto come $\va{E} = -E_H \vu{e}_3$, opposto all'effetto che otterremo nel caso precedente. 
+
+Il termine quadratico in $B$ è introdotto da un difetto che come abbiamo detto non è simmetrico rispetto al vero della corrente (o per analogie al verso del campo magnetico). Invertendo quindi il campo magnetico dovremmo osservare che il termine in $B^2$ non dovrebbe cambiare. Consideriamo quindi i due casi \begin{enumerate}[1.]
     \item se $B=B^+>0$ (ovvero se siamo nel caso per cui $\va{B} = B\vu{e}_2$), allora abbiamo che la differenza di tensione che leggiamo ai capi $+V_H$ e $-V_H$ risulterà essere (tenendo conto di tutti i termini di correzione introdotti in (\ref{eq:B2_dep}) e dell'amplificazione del circuito) \begin{equation}
         V_H^+ = kB^2 + G\frac{i}{wnq}B^+ + V_\text{offset};\label{eq:VH+}
     \end{equation}
@@ -106,7 +105,7 @@ Quando però invertiamo per esempio la polarizzazione del campo magnetico, ovver
 \end{enumerate}
 Confrontando la (\ref{eq:VH+}) e la (\ref{eq:VH-}) otteniamo che (nell'ipotesi che le due tensioni di offset siano uguali\footnote{Non troviamo un valido motivo per cui le due tensioni di offset non dovrebbero esserlo, non dipendendo teoricamente in alcun modo dal campo magnetico a cui è sottoposta la sonda.}) la differenza \begin{equation}
     V_H^+ - V_H^- = 2\frac{GiB^+}{wen}
-\end{equation} ci permette di ottenere una misura di $V_H$ effettivamente libera dal termine in $B^2$, con anche l'aggiunto beneficio di cancellare anche l'effetto di un offset sulla tensione (se si verificano le ipotesi di cui abbiamo detto sopra), al costo di dover effettuare per ogni campo magnetico $B$ anche una misura con il rispettivo campo magnetico $-B$\footnote{Questo non risulta essere poi tanto un problema se possiamo trovare il modo di inserire la misura doppia con $B$ e con $-B$.} Inoltre in questo modo possiamo anche ottenere che \begin{equation}
+\end{equation} ci permette di ottenere una misura di $V_H$ effettivamente libera dal termine in $B^2$, con anche l'aggiunto beneficio di cancellare anche l'effetto di un offset sulla tensione (se si verificano le ipotesi di cui abbiamo detto sopra), al costo di dover effettuare per ogni campo magnetico $B$ anche una misura con il rispettivo campo magnetico $-B$\footnote{Questo non risulta essere poi tanto un problema se possiamo trovare il modo di inserire la misura doppia con $B$ e con $-B$ automatizzando il processo di presa dati.} Inoltre in questo modo possiamo anche ottenere che \begin{equation}
     V_H^++V_H^- = 2\qty(V_\text{offset} + k\qty(B^+)^2),
 \end{equation} ovvero possiamo anche quantificare il valore di $k$ tramite misura diretta (noto $V_\text{offset}$).
 
