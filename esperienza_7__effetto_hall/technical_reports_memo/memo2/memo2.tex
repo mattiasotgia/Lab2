@@ -50,7 +50,7 @@ Troviamo uno schema complessivo con anche riportati i valori di progettazione in
 
 Il generatore di corrente vogliamo che fornisca in uscita una corrente $i=\SI{10}{\milli\ampere}$, dato in ingresso una differenza di potenziale ai capi $V^+$ e $V^-$ pari a $\Delta V = [\SI{1}{\volt}, \SI{10}{\volt}]$. Abbiamo che \begin{equation}
     i_\text{out} = \frac{R_2}{R_1}\frac{V^--V^+}{R_5}\label{eq:gen}
-\end{equation} dove abbiamo che \[\frac{R_1}{R_2} = \frac{R_3}{R_4}=k.\]
+\end{equation} dove \[\frac{R_1}{R_2} = \frac{R_3}{R_4}=k.\]
 
 Vogliamo ottenere una corrente in uscita di circa \SI{10}{\milli\ampere}, quindi possiamo scegliere $R_1=R_2=R_3=R_4=\SI{1}{\kilo\ohm}$, per fare si che il coefficiente $R_2/R_1$ di (\ref{eq:gen}) si possa semplificare a 1. La scelta di $R_5$ è quindi l'unica che dobbiamo effettuare per dover scegliere poi il valore di $\Delta V$ e ottenere il valore di $i$.
 
@@ -68,7 +68,7 @@ L'amplificatore per strumentazione serve per amplificare la tensione di Hall che
     V_\text{read} = GV_H + V_\text{offset} = G\frac{i}{wen}B + V_\text{offset}\label{eq:offset},
 \end{equation} che possiamo correggere nel fit dei dati sperimentali e ottenere quindi un valore di offset. 
 
-\paragraph{Effetto longitudinale $V_\text{long}$} Se la sonda è leggermente imprecisa nella costruzione, ovvero se i punti dove misuriamo $V_H$ non sono precisamente ortogonali alla direzione di $\va{J}$ e della corrente, osserviamo che il campo elettrico che misuriamo attraverso $V_H$ è in realtà diverso da zero in assenza di un campo magnetico $B$, infatti avremo una lettura della corrente che attraversa il circuito. Però osserveremmo che questo contributo si comporta com $B^2$, quindi che non interessa effettivamente la nostra misura in maniera influente. Infatti, eseguendo un fit come \begin{equation}
+\paragraph{Effetto longitudinale $V_\text{long}$} Se la sonda è leggermente imprecisa nella costruzione, ovvero se i punti dove misuriamo $V_H$ non sono precisamente ortogonali alla direzione di $\va{J}$ e della corrente, osserviamo che il campo elettrico che misuriamo attraverso $V_H$ è in realtà diverso da zero in assenza di un campo magnetico $B$, infatti avremo una lettura della corrente che attraversa il circuito. Però osserveremmo che questo contributo si comporta come $B^2$, quindi che non interessa effettivamente la nostra misura in maniera influente. Infatti, eseguendo un fit come \begin{equation}
     V_\text{read} = kB^2 +  GV_H + V_\text{offset} = kB^2 + G\frac{i}{wen}B + V_\text{offset},\label{eq:B2_dep}
 \end{equation} osserviamo che il valore di $k\neq0$, quindi possiamo togliere anche il contributo legato al termine quadratico. 
 
@@ -95,7 +95,7 @@ Nel caso ideale (ovvero sistema simmetrico) abbiamo che la tensione tra i due ca
 
 Quando però invertiamo la polarizzazione del campo magnetico, ovvero invece che considerarlo uscente come $\va{B} = B\vu{e}_2$ lo consideriamo entrante come $\va{B} = -B\vu{e}_2$, allora possiamo ottenere che, dalla forza di Lorentz, lasciando la corrente scorrere nella stessa direzione (per cui ho $\va{J} = J\vu{e}_1$), l'effetto dovrebbe risultare in un campo elettrico diretto come $\va{E} = -E_H \vu{e}_3$, opposto all'effetto che otterremo nel caso precedente. 
 
-Il termine quadratico in $B$ è introdotto da un difetto che come abbiamo detto non è simmetrico rispetto al vero della corrente (o per analogie al verso del campo magnetico). Invertendo quindi il campo magnetico dovremmo osservare che il termine in $B^2$ non dovrebbe cambiare. Consideriamo quindi i due casi \begin{enumerate}[1.]
+Il termine quadratico in $B$ è introdotto da un difetto che come abbiamo detto non è simmetrico rispetto al verso della corrente (o, per analogie, al verso del campo magnetico). Invertendo quindi il campo magnetico dovremmo osservare che il termine in $B^2$ non dovrebbe cambiare. Consideriamo quindi i due casi \begin{enumerate}[1.]
     \item se $B=B^+>0$ (ovvero se siamo nel caso per cui $\va{B} = B\vu{e}_2$), allora abbiamo che la differenza di tensione che leggiamo ai capi $+V_H$ e $-V_H$ risulterà essere (tenendo conto di tutti i termini di correzione introdotti in (\ref{eq:B2_dep}) e dell'amplificazione del circuito) \begin{equation}
         V_H^+ = kB^2 + G\frac{i}{wen}B^+ + V_\text{offset};\label{eq:VH+}
     \end{equation}
