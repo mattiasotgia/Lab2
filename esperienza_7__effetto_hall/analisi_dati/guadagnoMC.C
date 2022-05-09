@@ -15,7 +15,7 @@
 
 #include "LabTools.h"
 
-const double offset = -3e-3;
+const double offset = -3e-3;                      //CAMBIARE VALORE!!!
 const double err_off = -2.6 / (2 * sqrt(3));
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }

@@ -15,6 +15,8 @@
 
 #include "LabTools.h"
 
+std::string data ="../dati/generatore.txt";
+std::string fig_name="../fig/generatore.pdf";
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
@@ -22,7 +24,7 @@ double get_IRangeErr(double meas) {return meas*0.00001*500+0.00001*400*0.1;} //v
 
 void generatore(){
 
-ifstream file(("../dati/generatore.txt").c_str());
+ifstream file (data.c_str());
 
 const double errPercent = 0.035;
 
@@ -30,7 +32,7 @@ double V, meas, range1;
 
 TCanvas* c1 = new TCanvas("", "", 600, 500);
 TGraphErrors* g=new TGraphErrors();
-TF1* f=newTF1("f","[0]+[1]*x");
+TF1* f=new TF1("f","[0]+[1]*x");
 
 int i=0;
 
@@ -65,7 +67,7 @@ std::cout << "il valore del coefficiente k è: " << k << " +- " << e_k << std::e
 std::cout << "il valore della quota è: " << quota << " +- " << e_quota << std::endl;
 logs::print_stat(f);
 
-c1->SaveAs(("../fig/generatore.pdf").c_str());
+c1->SaveAs(fig_name.c_str());
 
 
 
