@@ -15,58 +15,60 @@
 
 #include "LabTools.h"
 
-std::string data ="../dati/generatore.txt";
-std::string fig_name="../fig/generatore.pdf";
+std::string data = "../dati/generatore.txt";
+std::string fig_name = "../fig/generatore.pdf";
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
-double get_IRangeErr(double meas) {return meas*0.00001*500+0.00001*400*0.1;}  //verificare se la misura della corrente è in A o mA !!!
+double get_IRangeErr(double meas) { return meas * 0.00001 * 500 + 0.00001 * 400 * 0.1; } // verificare se la misura della corrente è in A o mA !!!
 
-void generatore(){
+void generatore()
+{
 
-ifstream file (data.c_str());
+    ifstream file(data.c_str());
 
-const double errPercent = 0.035;
+    const double errPercent = 0.035;
 
-double V, meas, range1;
+    double V, meas, range1;
 
-TCanvas* c1 = new TCanvas("", "", 600, 500);
-TGraphErrors* g=new TGraphErrors();
-TF1* f=new TF1("f","[0]+[1]*x");
+    TCanvas *c1 = new TCanvas("", "", 600, 500);
+    TGraphErrors *g = new TGraphErrors();
+    TF1 *f = new TF1("f", "[0]+[1]*x");
 
-int i=0;
+    int i = 0;
 
-while(file>>V>>range1>>meas){    
+    while (file >> V >> range1 >> meas)
+    {
 
-g->SetPoint(i,V,meas);
-g->SetPointError(i,get_VRangeErr(errPercent,8,range1),get_IRangeErr(meas));
+        g->SetPoint(i, V, meas);
+        g->SetPointError(i, get_VRangeErr(errPercent, 8, range1), get_IRangeErr(meas));
 
-i++;
+        i++;
+    }
 
- }
+    g->Draw("ap");
 
-g->Draw("ap");
+    f->SetParameters(0, 1 / 500);
 
-f->SetParameters(0,1/500);
+    g->Fit("f");
 
-g->Fit("f");
+    f->SetParName(0, "quota");
+    f->SetParName(1, "k");
 
-f->SetParName(0,"quota");
-f->SetParName(1,"k");
+    double k = f->GetParameter(1);
+    double quota = f->GetParameter(0);
+    double e_quota = f->GetParError(0);
+    double e_k = f->GetParError(1);
 
-double k = f->GetParameter(1);
-double quota = f->GetParameter(0);
-double e_quota = f->GetParError(0);
-double e_k = f->GetParError(1);
+    double chi2 = f->GetChisquare();
+    double prob = f->GetProb();
+    double ndf = f->GetNDF();
 
-double chi2 = f->GetChisquare();
-double prob = f->GetProb();
-double ndf = f->GetNDF();
+    std::cout << "k [1]: " << k << " +- " << e_k << std::endl;
+    std::cout << "  [0]: " << quota << " +- " << e_quota << std::endl;
 
-std::cout << "il valore del coefficiente k è: " << k << " +- " << e_k << std::endl;
-std::cout << "il valore della quota è: " << quota << " +- " << e_quota << std::endl;
-logs::print_stat(f);
+    
+    logs::print_stat(f);
 
-c1->SaveAs(fig_name.c_str());
-
+    c1->SaveAs(fig_name.c_str());
 }
