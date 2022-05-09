@@ -1,0 +1,77 @@
+\documentclass[fleqn,varvw,preprintnumbers,citeautoscript]{memo}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\graphicspath{{../../fig/}}
+\usepackage[caption=false]{subfig}
+\usepackage{enumerate}
+
+
+\newcommand\vlong{V_\text{long}}
+
+\begin{document}
+
+\title{Memo 4}
+
+\author{Francesco Polleri}
+\email{s5025011@studenti.unige.it}
+\author{Mattia Sotgia}
+\email{s4942225@studenti.unige.it}
+
+\collaboration{Gruppo A1}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\author{Lorenzo Lucentini}
+\author{Michele Giorgi}
+\collaboration{Gruppo C6}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\revised{\today}
+\preprint{MEMO/4 (\today)}
+
+\begin{abstract}
+
+\end{abstract}
+\maketitle
+
+\section{11 maggio 2022}
+
+\subsection{Generatore di corrente}
+
+Realizzare generatore di corrente, caratterizzazione generatore di corrente: \begin{enumerate}
+    \item Resistenze scelte, montare su base;
+    \item Applicare una differenza di potenziale [0, 5] V (o \SI{3.3}{\volt}) e verificare che la corrente in uscita con $R_5 = \SI{500}{\ohm}$ è proprio \SI{10}{\milli\ampere}. Scegliere $R_5$ più vicino possibile al valore teorico previsto, meglio maggiore di \SI{500}{\ohm} se non presente uguale.
+    \item Raccogliere alcuni coppie di punti $(i,\Delta V)$ e verificare che il fattore di dipendenza lineare sia effettivamente $\simeq1/500$.
+    \item Alimentarlo con Arduino (collegando il pin D2 digitale) e verificare il corretto funzionamento.
+\end{enumerate}
+
+\subsection{Amplificatore operazionale per strumentazione}
+
+\begin{enumerate}
+    \item Resistenze, giù scelta, montare secondo lo schema circuitale;
+    \item Trovare $V_\text{offset}$, $G_\text{MC}$ (guadagno di modo comune), e il $G_\text{diff}$ (guadagno differenziale). 
+\end{enumerate}
+
+\subsection{Convertitore da [0, 5] Volt a [-12, +12] Volt (RS-232)}
+
+\begin{enumerate}
+    \item Collegare il pin \verb-D14- all'input non-invertente del comparatore ad anello aperto;
+    \item Verificare quindi che con $\pm Vcc = \pm\SI{12}{\volt}$ l'uscita sarà 12 V con ingresso 0 V e $-12$ V con ingresso $+5$ V.
+\end{enumerate}
+
+\section{12 maggio 2022}
+
+\subsection{Verifica del funzionamento del seriale RS-232} 
+\begin{enumerate}
+    \item Verificare che l'invio di un segnale di dati sul seriale 3 di arduino produca una variazione tra $-12$ e $+12$ volt sull'uscita del convertitore;
+    \item Verificare che l'invio di un segnale di corrente ad un certo valore corrisponde all'effettiva produzione di corrente a quel dato valore da parte del generatore di corrente.
+\end{enumerate}
+
+\subsection{Presa dati}
+\begin{enumerate}
+    \item Verificato che tutto funziona in modo corretto, si può procedere alla presa dati.
+    \item Raccogliere M misure con il campo magnetico polarizzato in un verso, poi cambiarne la direzione e raccogliere altrettante M misure lasciando inalterate tutte le altre variabili del sistema.
+\end{enumerate}
+
+\end{document}
