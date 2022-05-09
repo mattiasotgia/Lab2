@@ -20,7 +20,7 @@ std::string fig_name="../fig/generatore.pdf";
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
-double get_IRangeErr(double meas) {return meas*0.00001*500+0.00001*400*0.1;} //verificare se la misura della corrente è in A o mA
+double get_IRangeErr(double meas) {return meas*0.00001*500+0.00001*400*0.1;}  //verificare se la misura della corrente è in A o mA !!!
 
 void generatore(){
 
@@ -36,14 +36,14 @@ TF1* f=new TF1("f","[0]+[1]*x");
 
 int i=0;
 
-while(file>>V>>range1>>meas){
+while(file>>V>>range1>>meas){    
 
 g->SetPoint(i,V,meas);
 g->SetPointError(i,get_VRangeErr(errPercent,8,range1),get_IRangeErr(meas));
 
 i++;
 
-}
+ }
 
 g->Draw("ap");
 
@@ -68,11 +68,5 @@ std::cout << "il valore della quota è: " << quota << " +- " << e_quota << std::
 logs::print_stat(f);
 
 c1->SaveAs(fig_name.c_str());
-
-
-
-
-
-
 
 }
