@@ -6,6 +6,7 @@
 \graphicspath{{../../fig/}}
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
+\usepackage{soul}
 
 
 \newcommand\vlong{V_\text{long}}
@@ -70,7 +71,11 @@ Realizzare generatore di corrente, caratterizzazione generatore di corrente: \be
 
 \subsection{Presa dati}
 \begin{enumerate}
-    \item Verificato che tutto funziona in modo corretto, si può procedere alla presa dati.
+    \item Conoscendo la direzione di scorrimento di corrente $i$, il verso e la direzione di $\vec{B}$, sapendo che la corrente è diretta in verso opposto allo spostamento delle cariche negative $e$, allora abbiamo che \begin{enumerate}
+        \item Se il campo è uscente rispetto allo schema circuitale della sonda, allora la tensione che misuriamo sarà una tensione sarà coerente con lo schema, quindi maggiore sull'input non-invertente e minore sull'input invertente. 
+        \item Se il campo magnetico è invece entrante allora osserveremo che $V_H$ risulterà essere opposta (In questo caso sarà anche necessario \hl{invertire i collegamenti dell'amplificatore per strumentazione} in quanto arduino non può misurare una differenza di tensione negativa). 
+    \end{enumerate}
+    Quindi per controllare il segno dei portatori di carica dobbiamo effettivamente verificare che sia rispettata questa terna destrorsa. 
     \item Raccogliere M misure con il campo magnetico polarizzato in un verso, poi cambiarne la direzione e raccogliere altrettante M misure lasciando inalterate tutte le altre variabili del sistema.
 \end{enumerate}
 
