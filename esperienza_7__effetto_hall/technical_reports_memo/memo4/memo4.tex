@@ -7,6 +7,7 @@
 \usepackage[caption=false]{subfig}
 \usepackage{enumerate}
 \usepackage{soul}
+\usepackage{framed}
 
 
 \newcommand\vlong{V_\text{long}}
@@ -58,7 +59,7 @@ Realizzare generatore di corrente, caratterizzazione generatore di corrente: \be
 
 \begin{enumerate}
     \item Collegare il pin \verb-D14- all'input non-invertente del comparatore ad anello aperto;
-    \item Verificare quindi che con $\pm Vcc = \pm\SI{12}{\volt}$ l'uscita sarà 12 V con ingresso 0 V e $-12$ V con ingresso $+5$ V.
+    \item Verificare quindi che con $\pm V_\text{cc} = \pm\SI{12}{\volt}$ l'uscita sarà 12 V con ingresso 0 V e $-12$ V con ingresso $+5$ V.
 \end{enumerate}
 
 \section{12 maggio 2022}
@@ -76,7 +77,20 @@ Realizzare generatore di corrente, caratterizzazione generatore di corrente: \be
         \item Se il campo magnetico è invece entrante allora osserveremo che $V_H$ risulterà essere opposta (In questo caso sarà anche necessario \hl{invertire i collegamenti dell'amplificatore per strumentazione} in quanto arduino non può misurare una differenza di tensione negativa). 
     \end{enumerate}
     Quindi per controllare il segno dei portatori di carica dobbiamo effettivamente verificare che sia rispettata questa terna destrorsa. 
-    \item Raccogliere M misure con il campo magnetico polarizzato in un verso, poi cambiarne la direzione e raccogliere altrettante M misure lasciando inalterate tutte le altre variabili del sistema.
+    \item Raccogliere M misure con il campo magnetico polarizzato in un verso, poi cambiarne la direzione e raccogliere altrettante M misure lasciando inalterate tutte le altre variabili del sistema. 
+    \item Scegliamo il valore di $M=12$ coppie di punti $(V_H,B)$, per ogni punti avremo quindi che dovremo raccogliere $N$ misure per ottenere una media e una deviazione standard. Un valore sensato per $N$ può essere quindi anche $N=50$ o $N=100$. 
 \end{enumerate}
+
+\appendix
+
+\section{Caratterizzazione resistenze}
+
+Le resistenze che utilizziamo vogliamo anche caratterizzarle tutte, quindi misurarne il valore reale e associarvi anche un errore di lettura. Dal data-sheet del tester portatile abbiamo che l'errore associato sarà quindi \[\varepsilon_R = \begin{cases}
+    \qty(\pm 1.0\% ~\text{rdg} + 4~\text{dgts})/\sqrt{3} & (\text{\SI{200}{\ohm} to \SI{200}{\kilo\ohm}})\\
+\end{cases}\] 
+
+\begin{leftbar}
+    \noindent Ricordare di caratterizzare anche impedenza della sonda, utile per avere poi la possibilità di leggere in ogni istante la corrente che la attraversa!
+\end{leftbar}
 
 \end{document}
