@@ -65,7 +65,7 @@ void generatore()
     double ndf = f->GetNDF();
 
     std::cout << "k [1]: " << k << " +- " << e_k << std::endl;
-    std::cout << "  [0]: " << quota << " +- " << e_quota << std::endl;
+    std::cout << "quota [0]: " << quota << " +- " << e_quota << std::endl;
 
     
     logs::print_stat(f);
