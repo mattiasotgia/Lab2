@@ -50,6 +50,7 @@ skip_test:
         g->SetPointError(i, err_vin, err_vout);
     }
 
+    g->SetTitle(" ;V_in[V];V_out[V]");
     g->Draw("ap");
     g->Fit("fit");
 

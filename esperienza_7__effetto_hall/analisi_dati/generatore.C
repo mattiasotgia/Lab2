@@ -46,12 +46,15 @@ void generatore()
         i++;
     }
 
-    g->SetTitle("V- - V+ [V]";"I_out [A]";"");
+    g->SetTitle("Fit generatore;V- - V+ [V];I_out[A]");
     g->Draw("ap");
 
-    f->SetParameters(0, 1 / 500);
+    f->SetParameter(0,0);
+    f->SetParameter(1,1/500);
 
     g->Fit("f");
+
+    gStyle->SetOptFit();
 
     f->SetParName(0, "quota");
     f->SetParName(1, "k");
