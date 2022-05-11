@@ -20,7 +20,7 @@ std::string fig_name = "../fig/generatore.pdf";
 
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
-double get_IRangeErr(double meas) { return meas * 0.00001 * 500 + 0.00001 * 400 * 0.1; } // verificare se la misura della corrente è in A o mA !!!
+double get_IRangeErr(double meas) { return meas * 0.000001 * 500 + 0.000001 * 400 * 0.1; } // verificare se la misura della corrente è in A o mA !!!
 
 void generatore()
 {
