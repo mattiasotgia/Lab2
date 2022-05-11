@@ -46,6 +46,7 @@ void generatore()
         i++;
     }
 
+    g->SetTitle("V- - V+ [V]";"I_out [A]";"");
     g->Draw("ap");
 
     f->SetParameters(0, 1 / 500);
