@@ -21,8 +21,8 @@ const double err_off = -2.6 / (2 * sqrt(3));
 double get_VRangeErr(double errPercent, int partitions, double range1) { return errPercent * partitions * range1; }
 
 void guadagnoDIFF(){    
-    graphset::init();
-    gStyle->SetFrameLineWidth(0);
+   // graphset::init();
+    //gStyle->SetFrameLineWidth(0);
 
     string nomefile = "guadagnoDIFF.txt";
 
@@ -30,12 +30,12 @@ skip_test:
     double vin, vout, fsvin, fsvout;
 
     TCanvas* c1 = new TCanvas("", "", 600, 500);
-    graphset::setcanvas(c1);
+  //graphset::setcanvas(c1);
 
     TGraphErrors *g = new TGraphErrors();
     TF1 *f = new TF1("fit", "[0]+[1]*x");
     f->SetParameter(0, 0);
-    f->SetParameter(1, 80);
+    f->SetParameter(1, 200);
     f->SetParName(0, "q");
     f->SetParName(1, "G");
 
@@ -63,9 +63,9 @@ skip_test:
     double e_quota = f->GetParError(0);
     double e_G = f->GetParError(1);
 
-    graphset::set_TGraphAxis(g, "Tensione uscita V_{out} [V]", 1.5, "Tensione ingresso V_{in} [V]");
+    //graphset::set_TGraphAxis(g, "Tensione uscita V_{out} [V]", 1.5, "Tensione ingresso V_{in} [V]");
 
-    logs::print_stat(f);
+    //logs::print_stat(f);
     std::cout << "G:" << G << "+-" << e_G << std::endl;
     std::cout << "q:" << quota << "+-" << e_quota << std::endl;
 
