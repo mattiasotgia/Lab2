@@ -173,7 +173,7 @@ class linear_regression:
             self.__figure__.Print(join(BASE_PATH_FIG, '{}.pdf'.format(fmt)))
             
     def readfile_asarray(self, system=None):
-        print(self.__file__)
+        
         if system not in SYSTEMS:
             raise Warning(f'{system=} is not defined! Use {SYSTEMS}')
         elif system == 'keithley':
