@@ -27,6 +27,7 @@
 
 \input{../../style/preamble.tex}
 \usepackage{chemformula}
+\usepackage{subfig}
 \sisetup{
     % separate-uncertainty=true,
     % per-mode=symbol,
@@ -58,10 +59,10 @@
 \collaboration{Gruppo A1}
 \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
-\author{Michele Giorgi}
-\author{Lorenzo Lucentini}
-\collaboration{Gruppo C6}
-\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+% \author{Michele Giorgi}
+% \author{Lorenzo Lucentini}
+% \collaboration{Gruppo C6}
+% \affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
 
 
 \date{presa dati
@@ -70,8 +71,8 @@
 }
 
 \begin{abstract}
-    L'effetto Hall si verifica quando delle cariche transitano attraverso una corrente $i$ ed un campo magnetico $B$, posti perpendicolari l'uno rispetto all'altro, tali per cui si viene a creare una tensione lungo il terzo asse ortogonale. Questa tensione è direttamente proporzionale a $i$ e $B$, ed inversamente proporzionale alla carica dei portatori e al loro numero $n$.
-    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa sonda è inserita nel traferro di un circuito magnetico, dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è ortogonale a questi due contributi e può essere misurata direttamente sulla sonda.
+    L'effetto Hall si verifica quando delle cariche transitano attraverso una corrente $i$ ed un campo magnetico $B$, posti perpendicolari l'uno rispetto all'altro, tali per cui si viene a creare una tensione lungo il terzo asse ortogonale. Questa tensione è direttamente proporzionale a $i$ e $B$, ed inversamente proporzionale alla carica dei portatori e alla loro densità volumica $n$.
+    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa sonda è inserita nel traferro di un circuito magnetico, dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è misurata direttamente sulla sonda, ottenendo quindi una stima della densità volumica di portatori $n$.
 \end{abstract}
 
 
@@ -96,11 +97,36 @@ Il passaggio di corrente attraverso un sottile strato conduttore comporta la pre
 I portatori di carica di un qualsiasi materiale classico sono elettroni, di carica $e=\SI{1.602176634e-19}{\coulomb}$ \footnote{valore esatto, fonte BIPM, \emph{defining constants}: \url{https://www.bipm.org/en/measurement-units/si-defining-constants}, anche in \cite{Newell_2018}}. 
 
 \section{Metodo sperimentale}
-La misura dei portatori di carica viene effettuata utilizzando una sonda di \ch[]{Bi} metallico depositata su una lamina di film isolante, posta in un campo magnetico generato all'interno di un traferro da un elettromagnete che lavora a correnti variabili tra \SI{0.1}{\ampere} e \SI{1.3}{\ampere}. Il campo magnetico così generato risulta essere molto potente e abbastanza stabile. La sonda è poi attraversata ortogonalmente rispetto alla direzione di $\vec{B}_t$ da una corrente $i_s$. 
+La misura dei portatori di carica viene effettuata utilizzando una sonda di \ch{Bi} metallico depositata su una lamina di film isolante. Il metodo di deposizione ci permette infatti di avere uno spessore $w$ della lamina piuttosto basso, permettendoci quindi di stabilire in modo univoco quale è la direzione perpendicolare rispetto al piano della sonda, e individuare quindi un sistema destrorso $xyz$ come in figura \ref{fig:sonda.rotated}. Il sistema così individuato può essere utilizzato come riferimento per tutti i calcoli che verranno svolti. La corrente infatti scorre nel verso negativo di $\hat{e}_1$, che invece è rivolto nella direzione di $\vec{J}$ coerentemente alla direzione della velocità di drift $v_e$ degli elettroni. 
+
+\begin{figure}
+    \subfloat[][]{\includegraphics[width=0.3\linewidth]{sonda.IMG_0233.png}\label{fig:sonda.IMG}}\hspace{5mm}
+    \subfloat[][]{
+        \begin{tikzpicture}
+            \draw node[inner sep=0] (0) at (-.1,0) {\includegraphics[width=3.5cm]{sonda.IMG_0233_cropped_rotated.png}};
+            \draw[-latex, white] (0,.1) to (0,.5) node[above] {$\vu{e}_1$};
+            \draw[-latex, white] (.1,0) to (.5,0) node[right] {$\vu{e}_3$};
+            \draw[white] (0,0) node[left] {$\vu{e}_2$};
+            % \filldraw[white] (0, 0) circle (0.1) 
+            \draw node[white] {$\mathbf{\otimes}$};
+        \end{tikzpicture}
+    \label{fig:sonda.rotated}}
+    \caption{Dettaglio della sonda utilizzata per misurare l'effetto Hall. }\label{fig:misc}
+\end{figure}
+
+% posta in un campo magnetico generato all'interno di un traferro da un elettromagnete che lavora a correnti variabili tra \SI{0.1}{\ampere} e \SI{1.3}{\ampere}. Il campo magnetico così generato risulta essere molto potente e abbastanza stabile. La sonda è poi attraversata ortogonalmente rispetto alla direzione di $\vec{B}_t$ da una corrente $i_s$. Questa corrente 
 
 
 %\onecolumngrid
 \appendix
+% \section{Caratterizzazione completa dell'amplificatore operazionale per strumentazione}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{G_CM.pdf}
+%     \includegraphics[width=\linewidth]{G_diff.pdf}
+%     \caption{Analisi del guadagno di modo comune (a) e del guadagno differenziale (b) dell'amplificatore operazionale per strumentazione.}
+% \end{figure}
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
