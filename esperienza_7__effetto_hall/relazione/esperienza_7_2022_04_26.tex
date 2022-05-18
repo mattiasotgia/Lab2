@@ -91,9 +91,13 @@ Il passaggio di corrente attraverso un sottile strato conduttore comporta la pre
     \vec{F}_m = q\vec{v}_d \times \vec{B} = qv_dB\hat{u}_H,\label{eq:lorentz_F_m}
 \end{equation} che avrà come risultato diretto lo spostamento dei portatori di carica $q$ nella direzione $\hat{u}_H$. Considerando un materiale conduttore come composto da cariche $q$ (portatori di corrente) immersi in una distribuzione che possiamo considerare uniforme (secondo la fisica classica) di cariche $-q$ \footnote{Stiamo considerando il valore di $q$ in termini assoluti, non ponendoci quindi problemi sul segno dei portatori di un conduttore. Un conduttore è però elettricamente neutro, quindi a dei portatori di carica $q$ devono corrispondere delle cariche $-q$ che bilancino complessivamente elettricamente la carica. }, possiamo allora osservare che dopo un certo tempo \footnote{Definiamo questo tempo \emph{tempo caratteristico}, e osserviamo che è sufficientemente piccolo da poter considerare questo processo praticamente istantaneo} si formerà un campo elettrico $\vec{E}_H = \vec{F}_H/q$ in direzione ortogonale a $\vec{J}$ e $\vec{B}$, che comporterà quindi l'esistenza di una differenza di potenziale agli estremi della lamina definita come \begin{equation}
     V_H = \frac{iB}{nqw},
-\end{equation} dove $w$ indica lo spessore della lamina che utilizziamo, che comunque nel nostro apparato sperimentale riusciamo ad avere molto inferiore alle altre dimensioni della sonda utilizzata, e dove $i=JA$ indica il flusso della densità di corrente, ovvero la corrente attraverso una sezione $A$. Misurando la tensione che si viene a creare sulla lamina, possiamo ottenere quindi una misura efficace della densità di portatori in funzione delle altre variabili del nostro setup. 
+\end{equation} dove $w$ indica lo spessore della lamina che utilizziamo, che comunque nel nostro apparato sperimentale riusciamo ad avere molto inferiore alle altre dimensioni della sonda utilizzata, e dove $i=JA$ indica il flusso della densità di corrente, ovvero la corrente attraverso una sezione $A$. L'effetto misurato è noto come effetto Hall \cite{Hall_1897}. Misurando la tensione che si viene a creare sulla lamina, possiamo ottenere quindi una misura efficace della densità di portatori in funzione delle altre variabili del nostro setup. 
 
-I portatori di carica di un qualsiasi materiale classico sono elettroni, di carica $e=\SI{1.602176634e-19}{\coulomb}$ \footnote{valore esatto, fonte BIPM, \emph{defining constants}: \url{https://www.bipm.org/en/measurement-units/si-defining-constants}, anche in \cite{Newell_2018}}.
+I portatori di carica di un qualsiasi materiale classico sono elettroni, di carica $e=\SI{1.602176634e-19}{\coulomb}$ \footnote{valore esatto, fonte BIPM, \emph{defining constants}: \url{https://www.bipm.org/en/measurement-units/si-defining-constants}, anche in \cite{Newell_2018}}. 
+
+\section{Metodo sperimentale}
+La misura dei portatori di carica viene effettuata utilizzando una sonda di \ch[]{Bi} metallico depositata su una lamina di film isolante, posta in un campo magnetico generato all'interno di un traferro da un elettromagnete che lavora a correnti variabili tra \SI{0.1}{\ampere} e \SI{1.3}{\ampere}. Il campo magnetico così generato risulta essere molto potente e abbastanza stabile. La sonda è poi attraversata ortogonalmente rispetto alla direzione di $\vec{B}_t$ da una corrente $i_s$. 
+
 
 %\onecolumngrid
 \appendix
@@ -102,7 +106,7 @@ I portatori di carica di un qualsiasi materiale classico sono elettroni, di cari
 \renewcommand{\thetable}{A-\Roman{table}}
 
 %\bibliographystyle{plain}
-\bibliography{references/IOP.shortcomm.CODATA2017}
+\bibliography{references/IOP.shortcomm.CODATA2017, references/10.2307_2369245}
 
 \end{document}
     
