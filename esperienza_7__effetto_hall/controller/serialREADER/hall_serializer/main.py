@@ -33,25 +33,29 @@ def serial_write(serial: Serial, command):
     serial.write(bytes(f'{command}\n', encoding='utf-8'))
     time.sleep(0.1)
 
-def readbatch(_data0ttreeB, _file00read, M = 12, N = 100):
+
+def readbatch(_data0ttreeB, _file00read, evt, M = 12, N = 100):
     _file00read.readline() # *BPOS/*BNEG
     for i in range(M):
         _file00read.readline() # *CYCLESTART
         _file00read.readline() # I:0
 
-        root.Event.ID = 1
-        root.Event.RUN = i
-        root.Event.BUFSIZE = N
+        evt.ID = 1
+        evt.RUN = i+1
+        evt.BUFSIZE = N
 
         for j in range(N):
-            V_out_hi = float(_file00read.readline())
-            V_gen_hi = float(_file00read.readline())
-            V_out_lo = float(_file00read.readline())
-            V_gen_lo = float(_file00read.readline())
+            evt.V_out_hi[j] = float(_file00read.readline())
+            evt.V_gen_hi[j] = float(_file00read.readline())
+            evt.V_out_lo[j] = float(_file00read.readline())
+            evt.V_gen_lo[j] = float(_file00read.readline())
             # TODO: write data to array
+        _data0ttreeB.Fill()
         # TODO: compute mean and avg
         _file00read.readline() # CYCLEEND*
-        _data0ttreeB.Fill()
+    _data0ttreeB.Print()
+    _data0ttreeB.Write()
+    
 
 def main():
     
@@ -83,75 +87,37 @@ def main():
     N = 100
     
     _file00read = open(join(BASE_DATA_PATH, 'data_dump_CHEPALLE.txt'))
+    
+    Event = root.Event()
 
-    datatypes = 'ID:RUN:BUFSIZE/i:V_gen_lo[100]:V_gen_hi[100]:V_out_lo[100]:V_out_hi[100]/D'
+    # datatypes = 'ID:RUN:BUFSIZE/i:V_gen_lo[100]:V_gen_hi[100]:V_out_lo[100]:V_out_hi[100]/D'
     
     _data0ttreeBpos = root.TTree('data_BPOS', 'RUN data E7/hall: positive B')
-    _data0ttreeBpos.Branch('event', root.Event(), datatypes)
+    _data0ttreeBpos.Branch('ID', root.addressof(Event, 'ID'), 'ID/i')
+    _data0ttreeBpos.Branch('RUN', root.addressof(Event, 'RUN'), 'RUN/i')
+    _data0ttreeBpos.Branch('BUFSIZE', root.addressof(Event, 'BUFSIZE'), 'BUFSIZE/i')
+    _data0ttreeBpos.Branch('V_gen_lo', root.addressof(Event, 'V_gen_lo'), 'V_gen_lo[100]/D')
+    _data0ttreeBpos.Branch('V_gen_hi', root.addressof(Event, 'V_gen_hi'), 'V_gen_hi[100]/D')
+    _data0ttreeBpos.Branch('V_out_lo', root.addressof(Event, 'V_out_lo'), 'V_out_lo[100]/D')
+    _data0ttreeBpos.Branch('V_out_hi', root.addressof(Event, 'V_out_hi'), 'V_out_hi[100]/D')
 
     _data0ttreeBneg = root.TTree('data_BNEG', 'RUN data E7/hall: negative B')
-    _data0ttreeBneg.Branch('event', root.Event(), datatypes)
+    _data0ttreeBneg.Branch('ID', root.addressof(Event, 'ID'), 'ID/i')
+    _data0ttreeBneg.Branch('RUN', root.addressof(Event, 'RUN'), 'RUN/i')
+    _data0ttreeBneg.Branch('BUFSIZE', root.addressof(Event, 'BUFSIZE'), 'BUFSIZE/i')
+    _data0ttreeBneg.Branch('V_gen_lo', root.addressof(Event, 'V_gen_lo'), 'V_gen_lo[100]/D')
+    _data0ttreeBneg.Branch('V_gen_hi', root.addressof(Event, 'V_gen_hi'), 'V_gen_hi[100]/D')
+    _data0ttreeBneg.Branch('V_out_lo', root.addressof(Event, 'V_out_lo'), 'V_out_lo[100]/D')
+    _data0ttreeBneg.Branch('V_out_hi', root.addressof(Event, 'V_out_hi'), 'V_out_hi[100]/D')
 
     while(True):
         print(_file00read.readline() == '*RUN')
         print('{} read\n',format(_file00read.name))
-        readbatch(_data0ttreeBpos, _file00read)
+        readbatch(_data0ttreeBpos, _file00read, Event)
         _file00read.readline()
-        readbatch(_data0ttreeBneg, _file00read)
+        readbatch(_data0ttreeBneg, _file00read, Event)
 
         break
-
-    
-    '''
-        while(True):
-            if(devSERIAL.readline().decode('utf-8') == '*RUN\n'):
-                print('serial comm. to START data aquisition\n')
-                line = devSERIAL.readline().decode('utf-8')
-                if(line == '*BPOS'):
-                    _data0ttreeBpos = root.TTree('data_BPOS', 'RUN data E7/hall: positive B')
-                    _data0ttreeBpos.Branch('event', root.Event(), 'ID:RUN/i:V_gen_lo[100]:V_gen_hi[100]:V_out_lo[100]:V_out_hi[100]/D')
-                    for i in range(M):
-                        if(devSERIAL.readline().decode('utf-8')=='*CYCLESTART'):
-                            pass
-                        print(devSERIAL.readline().decode('utf-8'))
-                        for j in range(N):
-                            root.Event.ID = 0 # Bpos
-                            root.Event.RUN = i
-
-                            V_out_hi[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(V_out_hi[i][j])
-                            V_gen_hi[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(V_gen_hi[i][j])
-                            V_out_lo[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(V_out_lo[i][j])
-                            V_gen_lo[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(V_gen_lo[i][j])
-                        print(devSERIAL.readline().decode('utf-8'))
-                        _data0ttreeBpos.Fill()
-                else:
-                    _data0ttreeBneg = root.TTree('data_BNEG', 'RUN data E7/hall: negative B')
-                    _data0ttreeBneg.Branch('event', root.Event(), 'ID:RUN/i:V_gen_lo[100]:V_gen_hi[100]:V_out_lo[100]:V_out_hi[100]/D')
-                    for i in range(M):
-                        if(devSERIAL.readline().decode('utf-8')=='*CYCLESTART'):
-                            pass
-                        print(devSERIAL.readline().decode('utf-8'))
-                        for j in range(N):
-                            root.Event.ID = 1 # Bneg
-                            root.Event.RUN = i
-
-                            root.Event.V_out_hi[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(root.Event.V_out_hi[i][j])
-                            root.Event.V_gen_hi[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(root.Event.V_gen_hi[i][j])
-                            root.Event.V_out_lo[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(root.Event.V_out_lo[i][j])
-                            root.Event.V_gen_lo[i][j] = float(devSERIAL.readline().decode('utf-8'))
-                            print(root.Event.V_gen_lo[i][j])
-                        print(devSERIAL.readline().decode('utf-8'))
-                        _data0ttreeBneg.Fill()
-                        break
-                    break
-    '''
 
     _file0.Write()
     _file0.Close()
