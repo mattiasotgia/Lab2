@@ -77,7 +77,6 @@ def main():
             Double_t V_gen_hi[100];
             Double_t V_out_lo[100];
             Double_t V_out_hi[100];
-            // TODO: add variables for mean, std, end miscelleneous
         };
     ''')
 
@@ -111,8 +110,8 @@ def main():
     _data0ttreeBneg.Branch('V_out_hi', root.addressof(Event, 'V_out_hi'), 'V_out_hi[100]/D')
 
     while(True):
-        print(_file00read.readline() == '*RUN')
-        print('{} read\n',format(_file00read.name))
+        print(_file00read.readline() == '*RUN\n')
+        print('{} read\n'.format(_file00read.name))
         readbatch(_data0ttreeBpos, _file00read, Event)
         _file00read.readline()
         readbatch(_data0ttreeBneg, _file00read, Event)

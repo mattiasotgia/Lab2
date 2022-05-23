@@ -171,7 +171,24 @@ class linear_regression:
             self.__figure__.Print('fFigure.pdf')
         else:
             self.__figure__.Print(join(BASE_PATH_FIG, '{}.pdf'.format(fmt)))
+    
+    def fit_model(self,fit_range=None):
+        if not self.setparameter:
+            raise Warning('model parameters not set!')
+        else:
+            self.__graph__.Fit('__model__')
+            print('model results chi2/ndf (prob): {}/{} ({})'
+                  .format(self.__model__.GetChisquare(),self.__model__.GetNDF(),self.__model__.GetProb()))
+            mod = self.__model__
+            p0 = (mod.GetParameter(0), mod.GetParError(0))
+            p1 = (mod.GetParameter(1), mod.GetParError(1))
             
+            print('correlation parameter: {:.3uS} [arb. u.]\noffset: {:.3uS} [coherent units with y-axis value]'
+                  .format(ufloat(p0[0], p0[1]), ufloat(p1[0], p1[1])))
+            
+            return (p0,p1)
+        return None    
+        
     def readfile_asarray(self, system=None):
         
         if system not in SYSTEMS:
