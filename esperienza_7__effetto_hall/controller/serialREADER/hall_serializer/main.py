@@ -45,10 +45,11 @@ def readbatch(_data0ttreeB, _file00read, evt, M = 12, N = 100):
         evt.BUFSIZE = N
 
         for j in range(N):
-            evt.V_out_hi[j] = float(_file00read.readline())
             evt.V_gen_hi[j] = float(_file00read.readline())
-            evt.V_out_lo[j] = float(_file00read.readline())
+            evt.V_out_hi[j] = float(_file00read.readline())
+
             evt.V_gen_lo[j] = float(_file00read.readline())
+            evt.V_out_lo[j] = float(_file00read.readline())
             # TODO: write data to array
         _data0ttreeB.Fill()
         # TODO: compute mean and avg
