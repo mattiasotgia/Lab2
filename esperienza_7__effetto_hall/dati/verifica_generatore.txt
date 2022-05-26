@@ -1,0 +1,12 @@
+R       I
+3.31e3  8,86e-3
+217     8.20e-3
+562     8.54e-3 
+813     8.74e-3
+55.3e3  9.00e-3
+
+
+
+*Per vericare in modo più accurato se effettivamente la corrente in uscita è indipendente 
+dal carico sarebbe stato utile ad esempio usare un resistore in modo da poter usare diversi valori di 
+resitenze senza doverle cambiare di volta in volta*

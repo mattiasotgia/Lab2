@@ -1,0 +1,44 @@
+\documentclass[fleqn, varvw]{memo}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\graphicspath{{../fig/}}
+\begin{document}
+
+\title{
+    Misura della velocità del suono in aria: sistema digitale di acquisizione automatica
+}
+\thanks{Esperienza n. 6
+}
+
+\author{Francesco Polleri}
+\email{s5025011@studenti.unige.it}
+\author{Mattia Sotgia}
+\email{s4942225@studenti.unige.it}
+
+\collaboration{Gruppo A1}
+\affiliation{Dipartimento di Fisica, Università degli Studi di Genova, I-16146 Genova, Italia}
+
+\date{presa dati
+    29 marzo--5 aprile 2022, consegnata in data
+    27 aprile 2022
+}
+\revised{\today}
+
+\begin{abstract}
+    L'esperienza è incentrata sulla caratterizzazione e sulla realizzazione della logica di un sistema digitale di acquisizione del dato, che permette di poter rendere la misura più rapida e più efficace, oltre che permettere di raccogliere misure in grande numero per lo stesso tipo di evento fisico, rendendo quindi possibile una trattazione statistica più efficace e corretta. Sfruttando il sistema così creato per effettuare una misura della velocità del suono in aria e confrontando il valore ottenuto di \SI{347.589(669)}{\metre\per\second} con il valore teorico della velocità del suono in aria a $T=\SI{20}{\celsius}$ e $P=\SI{1}{atm}$ di \SI{343.210(338)}{\metre\per\second}, otteniamo un risultato non compatibile con la teoria, con una significatività statistica di $5.8\sigma$.
+\end{abstract}
+
+\maketitle
+
+
+\section{Note sulla correzione del ritardo}
+
+Faceva notare correttamente Andrea che in teoria il fatto di non aver considerato il valore medio temporale per la misura del ritardo nella misura analogica non costituisce effettivamente una grande difetto per quanto riguarda un possibile aumento della misura della velocità del suono piuttosto quanto invece una diminuzione della stessa. Infatti se consideriamo che il picco si restringe, allora abbiamo come immediato effetto che il valore di ritardo temporale misurato incrementa, quindi teoricamente se osserviamo un effetto allora osserviamo sostanzialmente che la velocità, definita come \[v_s = \frac{d}{\text{delay}}, \] allora deve diminuire per un delay maggiore. Abbiamo quindi che la velocità diminuisce anche per distanza maggiori con una variazione incrementalmente più grande, e quindi il coefficiente di proporzionalità tra distanza e delay risulta essere più piccolo di quanto debba essere. Questo effetto non è da noi osservato, ma anzi noi abbiamo osservato una velocità maggiore.
+ 
+Il fenomeno non si presenta neanche nel caso digitale, per cui invece abbiamo considerato una media tra i valori di delay sul primo e sul secondo fronte dell'onda che riceve il microfono.  
+
+
+
+\end{document}

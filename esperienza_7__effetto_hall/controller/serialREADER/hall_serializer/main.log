@@ -1,0 +1,66 @@
+******************************************************************************
+*Tree    :data_BPOS : RUN data E7/hall: positive B                           *
+*Entries :       12 : Total =           43568 bytes  File  Size =          0 *
+*        :          : Tree compression factor =   1.00                       *
+******************************************************************************
+*Br    0 :ID        : ID/i                                                   *
+*Entries :       12 : Total  Size=        685 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    1 :RUN       : RUN/i                                                  *
+*Entries :       12 : Total  Size=        691 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    2 :BUFSIZE   : BUFSIZE/i                                              *
+*Entries :       12 : Total  Size=        715 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    3 :V_gen_lo  : V_gen_lo[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    4 :V_gen_hi  : V_gen_hi[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    5 :V_out_lo  : V_out_lo[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    6 :V_out_hi  : V_out_hi[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+******************************************************************************
+*Tree    :data_BNEG : RUN data E7/hall: negative B                           *
+*Entries :       12 : Total =           43568 bytes  File  Size =          0 *
+*        :          : Tree compression factor =   1.00                       *
+******************************************************************************
+*Br    0 :ID        : ID/i                                                   *
+*Entries :       12 : Total  Size=        685 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    1 :RUN       : RUN/i                                                  *
+*Entries :       12 : Total  Size=        691 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    2 :BUFSIZE   : BUFSIZE/i                                              *
+*Entries :       12 : Total  Size=        715 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    3 :V_gen_lo  : V_gen_lo[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    4 :V_gen_hi  : V_gen_hi[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    5 :V_out_lo  : V_out_lo[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
+*Br    6 :V_out_hi  : V_out_hi[100]/D                                        *
+*Entries :       12 : Total  Size=      10291 bytes  One basket in memory    *
+*Baskets :        0 : Basket Size=      32000 bytes  Compression=   1.00     *
+*............................................................................*
