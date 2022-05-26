@@ -126,7 +126,7 @@ Dalla legge di Hopkinson \begin{equation}
             \draw node[white] {$\mathbf{\odot}$};
         \end{tikzpicture}
     \label{fig:sonda.rotated}}
-    \caption{Dettaglio della sonda utilizzata per misurare l'effetto Hall. In (b) indichiamo anche una terna destrorsa utilizzata per considerazioni fisiche. }\label{fig:misc}
+    \caption{\ref{sub@fig:sonda.IMG} Dettaglio della sonda utilizzata per misurare l'effetto Hall. In \ref{sub@fig:sonda.rotated} indichiamo anche una terna destrorsa utilizzata per considerazioni fisiche. }\label{fig:misc}
 \end{figure}
 
 % posta in un campo magnetico generato all'interno di un traferro da un elettromagnete che lavora a correnti variabili tra \SI{0.1}{\ampere} e \SI{1.3}{\ampere}. Il campo magnetico così generato risulta essere molto potente e abbastanza stabile. La sonda è poi attraversata ortogonalmente rispetto alla direzione di $\vec{B}_t$ da una corrente $i_s$. Questa corrente 
@@ -135,16 +135,26 @@ Dalla legge di Hopkinson \begin{equation}
 %\onecolumngrid
 \appendix
 \section{Caratterizzazione del generatore di corrente}\label{sec:appendix_current_gen}
-In figura \reffig{??} è riportato lo schema circuitale del circuito del generatore di corrente. Tale circuito è tale per cui data una differenza di potenziale fornita al circuito come $V^{-}-V^{+}$ si ha in uscita una corrente $I_{out}=\frac{R_{2}}{R_{1}}\cdot \frac{V^{-}-V^{+}}{R_{5}}$. Siccome abbiamo previsto che la tensione che forniamo al circuito è pari a \SI{5}{\volt} e vogliamo che la corrente cha va alla sonda non superi \SI{10}{\milli\ampere} allora il fattore $\frac{R_{2}}{R_{1}}\cdot \frac{1}{R_{5}}=G_{g}$ dovrà essere almeno pari a $\frac{1}{500}$. Scegliamo quindi $R_{1}=R_{2}=\SI{1}{\kilo\ohm}$ e $R_{5}=\SI{500}{\ohm}$. Per verificare se effettivamente il fattore $G_{g}$ sia pari a $1/500$ possiamo raccogliere una serie di coppie valori di $I_{out}$ e $V^{-}-V^{+}$ e realizzare un fit \reffig{??} secondo la funzione $I_{out}=G_{g}\cdot V^{-}-V^{+}+I_{0}$ dove scegliamo come parametri di fit $G_{g}$ e $I_{0}$. Otteniamo che 
-\begin{align}
-    G_{g} &=\SI{1.7242(300)}{\milli\ampere \per\volt}  \\
-    I_{0} &= \SI{0.0673(889)}{\ampere}.
-\end{align}
-Il valore teorico di $G_{g}$ è ?? \SI{}{} per cui troviamo che è compatibile con il valore ricavato dal fit e troviamo anche che il valore di $I_{0}$ è compatibile con zero, per cui possiamo dire che non c'è un offset sulla corrente che mandiamo alla sonda.
-Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^{-}-V^{+}$ e verificare che, cambiando il carico in uscita dal generatore, la corrente rimane sempre la stessa.
+
+In figura \ref{} è riportato lo schema circuitale del circuito del generatore di corrente. Tale circuito è tale per cui data una differenza di potenziale fornita al circuito come $V^{-}-V^{+}$ si ha in uscita una corrente $i_\text{out}=\frac{R_2}{R_1}\cdot \frac{V^--V^+}{R_5}$. Siccome abbiamo previsto che la tensione che forniamo al circuito è pari a \SI{5}{\volt} e vogliamo che la corrente cha va alla sonda non superi \SI{10}{\milli\ampere} allora il fattore $\frac{R_2}{R_1}\cdot \frac{1}{R_5}=G_g$ dovrà essere minore di \SI{2}{\milli\ampere\per\volt}. Scegliamo quindi $R_{1}=R_{2}=\SI{1}{\kilo\ohm}$ e $R_{5}=\SI{500}{\ohm}$. Per verificare se effettivamente il fattore $G_g$ sia pari a $1/500$ possiamo raccogliere una serie di coppie valori di $i_\text{out}$ e $V^{-}-V^{+}$ e realizzare un fit (figura \ref{fig:gen_i_model}) secondo la funzione $i_\text{out}=G_g\cdot \qty(V^--V^+) + i_0$ dove scegliamo come parametri di fit $G_{g}$ e $i_0$. Otteniamo che 
+\begin{align*}
+    G_g &=\SI{1.7242(300)}{\milli\ampere \per\volt}  \\
+    i_0 &= \SI{0.0673(889)}{\ampere}.
+\end{align*}
+Il valore teorico di $G_g$ è \SI{}{} per cui troviamo che è compatibile con il valore ricavato dal fit e troviamo anche che il valore di $i_0$ è compatibile con zero, per cui possiamo dire che non c'è un offset sulla corrente che mandiamo alla sonda.
+Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--V^+$ e verificare che, cambiando il carico in uscita dal generatore, la corrente rimane sempre la stessa.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{GEN.0.10mA.pdf}
+    \caption{Caratterizzazione del generatore di corrente.}\label{fig:gen_i_model}
+\end{figure}
+
 \section{Caratterizzazione dell'amplificatore operazionale per strumentazione}\label{sec:appendix_strum_opamp}
-In figura \reffig{??} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}} \end{equation}
-La parte predominante di questo guadagno è data $G_{diff}$ che è pari a $\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right)$ e vogliamo che sia pari a 200. Scegliamo quindi 
+In figura \ref{} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da un guadagno complessivo dato da \begin{equation}
+    V_\text{out} = G_\text{diff}\cdot \qty(V_\text{non-inv}-V_\text{inv}) +  G_\text{CM}\cdot V_\text{CM} + V_\text{offset} 
+\end{equation}
+La parte predominante di questo guadagno è data $G_\text{diff}$ che è pari a $\frac{R_d}{R_c}\cdot \qty(1+2\cdot \frac{R_b}{R_a})$ e vogliamo che sia pari a 200. Scegliamo quindi 
 
 % \begin{figure}
 %     \centering
