@@ -154,7 +154,19 @@ Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--
 In figura \ref{} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da un guadagno complessivo dato da \begin{equation}
     V_\text{out} = G_\text{diff}\cdot \qty(V_\text{non-inv}-V_\text{inv}) +  G_\text{CM}\cdot V_\text{CM} + V_\text{offset} 
 \end{equation}
-La parte predominante di questo guadagno è data $G_\text{diff}$ che è pari a $\frac{R_d}{R_c}\cdot \qty(1+2\cdot \frac{R_b}{R_a})$ e vogliamo che sia pari a 200. Scegliamo quindi 
+La parte predominante di $V_\text{out}$ è data da $(V_\text{non-inv}-V_\text{inv})G_\text{diff}$ dove $G_\text{diff}$, se $R_{b}=R_{b}'$, $R_{c}=R_{c}'$ e $R_{d}=R_{d}'$, è pari a $\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right)$. Siccome vogliamo amplificare il segnale in uscita dalla sonda di circa 200 volte scegliamo (\hl{mettere valori resistenze}). Per caratterizzare l'amplificatore è necessario trovare quali sono gli effettivi valori di $V_\text{offset}$, $G_{CM}$ e $G_\text{diff}$. 
+Per trovare $V_\text{offset}$ impostiamo $V_\text{non-inv}=V_\text{inv}=0$ e osserviamo che il valore misurato è nell'ordine dei milliVolt. Per far diminuire ancora di più questo offset possiamo utilizzare un trimmer presente sulla scehda in modo che $V_\text{offset}$ sia più prossimo possibile a zero.
+Per trovare invece $G_{CM}$ impostiamo $V_\text{non-inv}=V_\text{inv}\neq 0$ e raccogliamo una serie di coppie di valori $(V_\text{non-inv/inv},V_\text{out})$ e realizziamo un fit secondo la funzione $V_\text{out}=G_{CM}\cdot V+V_0$, dove $G_{CM}$ e $V_0$ sono i parametri. Dal fit otteniamo che 
+\begin{align}
+    G_{CM} &= \SI{-1.12226(0.204461)e-2}{} \\
+    V_0 &= \SI{4.52655(4.53222)e-3}{\volt}
+\end{align}
+Notiamo che come ci aspettavamo $V_0$ è compatibile con zero.
+Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-inv}-V_\text{inv},V_\text{out})$ e facciamo un fit secondo la funzione $V_\text{out}=G_\text{diff}\cdot (V_\text{non-inv}-V_\text{inv})+V_0$ ottenendo che 
+\begin{align}
+    G_\text{diff} &= \SI{2.06551(0.244501)e2}{}\\
+    V_0 &= \SI{-1.49456(0.866213)}{\volt}
+\end{align}
 
 % \begin{figure}
 %     \centering
