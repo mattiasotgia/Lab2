@@ -103,7 +103,7 @@ La corrente infatti scorre nel verso negativo di $\hat{e}_1$, che invece è rivo
 
 Ciò che adesso ci manca è il campo magnetico a cui sottoponiamo la cariche presenti nella sonda. Per creare tale campo $B$ sono possibili diverse opzioni e noi abbiamo scelto quella di utilizzare un elettromagnete (vedi \reffig{??}). Tale strumento ci permette infatti di creare un campo magnetico con un modulo sufficientemente elevato per il tipo di misure che vogliamo effettuare, cosa che una semplice bobina non sarebbe stata in grado di fare e inoltre, se nell'elettromagnete è presente un traferro, in quel punto il campo $B$ è uniforme e sono trascurabii gli effetti di bordo. Altra cosa importante è che il campo è anche facilmente controllabile dalle correnti che scorrono nelle bobine avvolte intorno ai suoi bracci. Se il materiale con cui l'elettromagnete è stato realizzato è ferro dolce allora il suo ciclo di isteresi sarà stretto per cui possiamo approssimare che per valori non troppo elevati di corrente la risposta del campo magnetico sia lineare. Per evitare possibili problemi legati alla magnetizzazione residua decidiamo di fare la presa dati fornendo alle bobine dell'elettromagnete valori di corrente sempre decrescenti, che partendo da un determinato valore, scendano sino ad avere corrente nulla e poi crescano di nuovo ma nel verso opposto. 
 Dalla misura delle dimensioni dell'elettromagnete possiamo risalire, attraverso la legge di Hopkinson, all'equazione che ci permette di calcolare $B$ nel traferro. Siccome l'elettromagnete è costituito da due bobine e la corrente che circola in esse è tale che il flusso dei campi magnetici prodotti si sommi nel braccio dell'elettromagnete dove è presente il traferro e siccome la sezione del braccio del traferro è doppia rispetto alla sezione del braccio delle bobine, possiamo calcolare $B$ come se l'elettromagnete fosse costituito da una sola bobina e poi moltiplicare tale valore per due. Per la legge di Hopkinson sappaimo che  $\Phi\cdot R=N\cdot I$ dove $R$ rappresenta la riluttanza complessiva dell'elettromagnete, costituita dalla somma della riluttanza del traferro ($R_{t}$) e del ferro ($R_{f}$).
-$R_{t}=\frac{l_{t}}{\mu_{0}S_{t}}$ mentre $R_{f}=\frac{l_{m}}{\mu_{0}\mu_{r}S_{f}}$ dove $l_{t}$ rappresenta lo spessore del traferro, $l_{f}$ la lunghezza dell'anello dell'elettromagnete tolto lo spessore del traferro, $S_{f}$ la sezione del braccio del
+$R_{t}=\frac{l_{t}}{\mu_{0}S_{t}}$ mentre $R_{f}=\frac{l_{f}}{\mu_{0}\mu_{r}S_{f}}$ dove $l_{t}$ rappresenta lo spessore del traferro, $l_{f}$ la lunghezza dell'anello dell'elettromagnete tolto lo spessore del traferro, $S_{f}$ la sezione del braccio del
 
 
 \begin{figure}
@@ -127,8 +127,16 @@ $R_{t}=\frac{l_{t}}{\mu_{0}S_{t}}$ mentre $R_{f}=\frac{l_{m}}{\mu_{0}\mu_{r}S_{f
 %\onecolumngrid
 \appendix
 \section{Caratterizzazione del generatore di corrente}\label{sec:appendix_current_gen}
-
+In figura \reffig{??} è riportato lo schema circuitale del circuito del generatore di corrente. Tale circuito è tale per cui data una differenza di potenziale fornita al circuito come $V^{-}-V^{+}$ si ha in uscita una corrente $I_{out}=\frac{R_{2}}{R_{1}}\cdot \frac{V^{-}-V^{+}}{R_{5}}$. Siccome abbiamo previsto che la tensione che forniamo al circuito è pari a \SI{5}{\volt} e vogliamo che la corrente cha va alla sonda non superi \SI{10}{\milli\ampere} allora il fattore $\frac{R_{2}}{R_{1}}\cdot \frac{1}{R_{5}}=G_{g}$ dovrà essere almeno pari a $\frac{1}{500}$. Scegliamo quindi $R_{1}=R_{2}=\SI{1}{\kilo\ohm}$ e $R_{5}=\SI{500}{\ohm}$. Per verificare se effettivamente il fattore $G_{g}$ sia pari a $1/500$ possiamo raccogliere una serie di coppie valori di $I_{out}$ e $V^{-}-V^{+}$ e realizzare un fit \reffig{??} secondo la funzione $I_{out}=G_{g}\cdot V^{-}-V^{+}+I_{0}$ dove scegliamo come parametri di fit $G_{g}$ e $I_{0}$. Otteniamo che 
+\begin{align}
+    G_{g} &=\SI{1.7242(300)}{\milli\ampere \per\volt}  \\
+    I_{0} &= \SI{0.0673(889)}{\ampere}.
+\end{align}
+Il valore teorico di $G_{g}$ è ?? \SI{}{} per cui troviamo che è compatibile con il valore ricavato dal fit e troviamo anche che il valore di $I_{0}$ è compatibile con zero, per cui possiamo dire che non c'è un offset sulla corrente che mandiamo alla sonda.
+Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^{-}-V^{+}$ e verificare che, cambiando il carico in uscita dal generatore, la corrente rimane sempre la stessa.
 \section{Caratterizzazione dell'amplificatore operazionale per strumentazione}\label{sec:appendix_strum_opamp}
+In figura \reffig{??} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da un guadagno complessivo dato da \begin{equation}V_{out} = G_{\text{diff}}\cdot \left(V_{\text{non-inv}}-V_{\text{inv}}\right) +  G_{\text{CM}}\cdot V_{\text{CM}} + V_{\text{offset}} \end{equation}
+La parte predominante di questo guadagno è data $G_{diff}$ che è pari a $\frac{R_{d}}{R_{c}}\cdot \left(1+2\cdot \frac{R_{b}}{R_{a}}\right)$ e vogliamo che sia pari a 200. Scegliamo quindi 
 
 % \begin{figure}
 %     \centering
