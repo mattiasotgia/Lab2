@@ -134,6 +134,17 @@ Per ottenere campi magnetici dell'ordine di \SI{0.5}{\tesla}, dall (\ref{eq:B_i}
 
 Eseguendo una prima stima del valore di $V_H$ ci accorgiamo che però, dai valori di progetto ($B=\SI{0.1}{\tesla}$, che bene può rappresentare un valore minimo per il campo magnetico misurabile in laboratorio, una corrente inforiore a \SI{10}{\milli\ampere} e lo spessore della sonda $w=\SI{4.500(115)e-06}{\metre}$), data la (\ref{eq:2}), corrisponde ad un valore di $V_H \simeq\SI[exponent-mode = scientific]{1.4e21}{\volt\cubic\metre}/\eta$. Supposto quindi un valore di $\eta\simeq10^{25}$ \footnote{Se utilizzassimo il valore di $\eta_\text{Cu}\simeq10^{28}$\si{\per\cubic\metre} otterremmo un valore di $V_H$ troppo piccolo per poter effettivamente riuscire a misurarne il valore ($\simeq\SI{1}{\micro\volt}$) anche considerandone una amplificazione, dove invece il \ch{Bi} ha un valore $\eta_\text{Bi}\leq10^{25}$ \si{\per\cubic\metre}, che porta 3 ordini di grandezza in meno nel conto.} otterremmo un valore di $V_H\simeq\SI{0.1}{\milli\volt}$. Questo è ancora un valore estremamente piccolo rispetto ai valori che è possibile misurare in modo accurato con i nostri strumenti. Risulta quindi necessario amplificare il valore della tensione in uscita di un fattore di almeno 200, per poter ottenere quindi valori della tensione $\simeq\SI{20}{\milli\volt}$. Realizzando un amplificatore per strumentazioni su due stadi possiamo ottenere una amplificazione pari a 200 con due amplificazioni successive di circa 10 e 20. Per una caratterizzazione dettagliata dell'amplificatore per strumentazione si veda l'appendice \ref*{sec:appendix_strum_opamp}.
 
+\section{Analisi effetti reali sulla misura di $V_H$}
+Nell'analisi fatta sino ad ora abbiamo descritto quali sono, a livello teorico e ideale, i fattori che influenzano la nostra misura. Tuttavia vi sono alcuni effetti, che possiamo definire reali, che possono derivare dalla non idealità degli strumenti che stiamo utilizzando. In particolare facendo un primo test ci possiamo accorgere che pur impostando la corrente fornita alla sonda a zero, misuriamo comunque la presenza di una tensione di Hall. Questo però può essere spiegato dal fatto che nonostante siamo arrivati a porre l'offset dell'amplificatore per strumentazione il più possibile vicino ad essere nullo, tutto il resto dell'apparato che stiamo utilizzando presenta degli offset anch'esso. Quindi è come se stessimo commettendo un errore sistematico che però possiamo comunque controllare inserendo nella nostra analisi dati la presenza di una certa $V_\text{H-offset}$. 
+
+Un problema più complicato da trattare deriva dal fatto che però anche se impostiamo $B$ a zero, misuriamo ancora una $V_H$ diversa da zero. Questo risulta appunto più difficile da spiegare perchè se il campo magnetico è nullo dovrebbe essere allora nullo anche l'effetto Hall. 
+
+
+
+
+
+\section{Verifica del segno dei portatori di carica}
+
 
 %|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
