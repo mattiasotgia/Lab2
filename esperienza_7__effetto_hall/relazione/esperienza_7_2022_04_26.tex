@@ -132,7 +132,7 @@ Dalla legge di Hopkinson \begin{equation}
 
 Per ottenere campi magnetici dell'ordine di \SI{0.5}{\tesla}, dall (\ref{eq:B_i}), osserviamo che il valore della corrente che deve essere fornita all'elettromagnete deve essere almeno nell'ordine di \SI{1}{\ampere}. Caratteristica fondamentale di questa corrente è la possibilità di modificarne il valore digitalmente senza dover manualmente cambiarne il valore. Utilizzando quindi una interfaccia seriale di comunicazione possiamo mettere in comunicazione il sistema di controllo del setup sperimentale con il generatore di corrente e quindi controllare in modalità remota il valore della corrente che viene erogata dal generatore \footnote{Per la connessione seriale è necessaria la conversione di una tensione \SI{0}{\volt}/\SI{5}{\volt} (uscita seriale del sistema di controllo) a \SI{+12}{\volt}/\SI{-12}{\volt} (ingresso seriale del generatore PL303QMD-P)}, compresa tra il valore di \SI{0.2}{\ampere} e il valore \SI{1.3}{\ampere}, spaziata a intervalli regolari di \SI{0.1}{\ampere}.
 
-Eseguendo una prima stima del valore di $V_H$ ci accorgiamo che però, dai valori di progetto ($B=\SI{0.1}{\tesla}$, che bene può rappresentare un valore minimo per il campo magnetico misurabile in laboratorio, una corrente inforiore a \SI{10}{\milli\ampere} e lo spessore della sonda $w=\SI{4.500(115)e-06}{\metre}$), data la (\ref{eq:2}), corrisponde ad un valore di $V_H \simeq\SI[exponent-mode = scientific]{1.4e21}{\volt\cubic\metre}/\eta$. Supposto quindi un valore di $\eta\simeq10^{25}$ \footnote{Se utilizzassimo il valore di $\eta_\text{Cu}\simeq10^{28}$\si{\per\cubic\metre} otterremmo un valore di $V_H$ troppo piccolo per poter effettivamente riuscire a misurarne il valore ($\simeq\SI{1}{\micro\volt}$) anche considerandone una amplificazione, dove invece il \ch{Bi} ha un valore $\eta_\text{Bi}\leq10^{25}$ \si{\per\cubic\metre}, che porta 3 ordini di grandezza in meno nel conto.} otterremmo un valore di $V_H\simeq\SI{0.1}{\milli\volt}$. Questo è ancora un valore estremamente piccolo rispetto ai valori che è possibile misurare in modo accurato con i nostri strumenti. Risulta quindi necessario amplificare il valore della tensione in uscita di un fattore di almeno 200, per poter ottenere quindi valori della tensione $\simeq\SI{20}{\milli\volt}$. Realizzando un amplificatore per strumentazioni su due stadi possiamo ottenere una amplificazione pari a 200 con due amplificazioni successive di circa 10 e 20. Per una caratterizzazione dettagliata dell'amplificatore per strumentazione si veda l'appendice \ref*{sec:appendix_strum_opamp}.
+Eseguendo una prima stima del valore di $V_H$ ci accorgiamo che però, dai valori di progetto ($B=\SI{0.1}{\tesla}$, che bene può rappresentare un valore minimo per il campo magnetico misurabile in laboratorio, una corrente inforiore a \SI{10}{\milli\ampere} e lo spessore della sonda $w=\SI{4.500(115)e-06}{\metre}$), data la (\ref{eq:2}), corrisponde ad un valore di $V_H \simeq\SI[exponent-mode = scientific]{1.4e21}{\volt\cubic\metre}/\eta$. Supposto quindi un valore di $\eta\simeq10^{25}$ \footnote{Se utilizzassimo il valore di $\eta_\text{Cu}\simeq10^{28}$\si{\per\cubic\metre} otterremmo un valore di $V_H$ troppo piccolo per poter effettivamente riuscire a misurarne il valore ($\simeq\SI{1}{\micro\volt}$) anche considerandone una amplificazione, dove invece il \ch{Bi} ha un valore $\eta_\text{Bi}\leq10^{25}$ \si{\per\cubic\metre}, che porta 3 ordini di grandezza in meno nel conto.} otterremmo un valore di $V_H\simeq\SI{0.1}{\milli\volt}$. Questo è ancora un valore estremamente piccolo rispetto ai valori che è possibile misurare in modo accurato con i nostri strumenti. Risulta quindi necessario amplificare il valore della tensione in uscita di un fattore di almeno 200, per poter ottenere quindi valori della tensione $\simeq\SI{20}{\milli\volt}$. Realizzando un amplificatore per strumentazioni su due stadi possiamo ottenere una amplificazione pari a 200 con due amplificazioni successive di circa 10 e 20. Per una caratterizzazione dettagliata dell'amplificatore per strumentazione si veda l'appendice \ref{sec:appendix_strum_opamp}.
 
 \section{Analisi effetti reali sulla misura di $V_H$}
 Nell'analisi fatta sino ad ora abbiamo descritto quali sono, a livello teorico e ideale, i fattori che influenzano la nostra misura. Tuttavia vi sono alcuni effetti, che possiamo definire reali, che possono derivare dalla non idealità degli strumenti che stiamo utilizzando. In particolare facendo un primo test ci possiamo accorgere che pur impostando la corrente fornita alla sonda a zero, misuriamo comunque la presenza di una tensione di Hall. Questo però può essere spiegato dal fatto che nonostante siamo arrivati a porre l'offset dell'amplificatore per strumentazione il più possibile vicino ad essere nullo, tutto il resto dell'apparato che stiamo utilizzando presenta degli offset anch'esso. Quindi è come se stessimo commettendo un errore sistematico che però possiamo comunque controllare inserendo nella nostra analisi dati la presenza di una certa $V_\text{H-offset}$. 
@@ -145,6 +145,10 @@ Un problema più complicato da trattare deriva dal fatto che però anche se impo
 
 \section{Verifica del segno dei portatori di carica}
 
+
+\begin{methods}{D\lowercase{ati completi e codice sorgente}}
+    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita attraverso diversi notebook (\url{https://jupyter.org/}) scritti in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}), matplotlib, numpy e altri framework pubblici per l'analisi dei dati e la loro visualizzazione (\url{https://matplotlib.org/}, \url{https://numpy.org/}). I dati sono raccolti su file ROOT organizzati in dataset tabulari. Sono utilizzate anche le librerie uproot e Awkward Array (\url{https://uproot.readthedocs.io/}, \url{https://awkward-array.org/}).
+\end{methods}
 
 %|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -162,11 +166,7 @@ Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--
 
 \begin{figure}
     \centering
-    \subfloat[][]{
-        \includegraphics[width=0.85\linewidth,trim={1.8cm 13cm 20.35cm 2.5cm},clip]{SCHEMA_full1.pdf}
-        \label{fig:circuito_gen_i}
-    }
-
+    \subfloat[][]{\includegraphics[width=0.85\linewidth,trim={1.8cm 13cm 20.35cm 2.5cm},clip]{SCHEMA_full1.pdf}\label{fig:circuito_gen_i}}\\
     \subfloat[][]{\includegraphics[width=\linewidth]{GEN.0.10mA.pdf}\label{fig:gen_i_model}}
     \caption{
         \ref{sub@fig:circuito_gen_i} Schema del circuito del generatore di corrente. L'uscita dalla resistenza $R_5$ porta la corrente di circa \SI{10}{\milli\ampere} alla sonda.
@@ -174,23 +174,21 @@ Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--
     }
 \end{figure}
 
-
 %|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 \section{Caratterizzazione dell'amplificatore operazionale per strumentazione}\label{sec:appendix_strum_opamp}
-In figura \ref{} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da una funzione di trasferimento \begin{equation}
+In figura \ref{fig:circuit_amp} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da una funzione di trasferimento \begin{equation}
     V_\text{out} = G_\text{diff}\cdot \qty(V_\text{non-inv}-V_\text{inv}) +  G_\text{CM}\cdot V_\text{CM} + V_\text{offset} 
 \end{equation}
 La parte predominante di $V_\text{out}$ è data da $G_\text{diff}\qty(V_\text{non-inv}-V_\text{inv})$ dove $G_\text{diff}$, se $R_b=R_b'$, $R_c=R_c'$ e $R_d=R_d'$, è pari a $\frac{R_{d}}{R_{c}}\cdot \qty(1+2\cdot \frac{R_{b}}{R_{a}})$. Siccome vogliamo amplificare il segnale in uscita dalla sonda di circa 200 volte scegliamo resitenze da \SI{1}{\kilo\ohm} per $R_a$, $R_c$ e da \SI{10}{\kilo\ohm} per $R_b$ e $R_d$. Per caratterizzare l'amplificatore è necessario trovare quali sono gli effettivi valori di $V_\text{offset}$, $G_\text{CM}$ e $G_\text{diff}$. 
 Per trovare $V_\text{offset}$ fissiamo $V_\text{non-inv}=V_\text{inv}=0$ e osserviamo che il valore misurato è nell'ordine dei \si{\milli\volt}. Per far diminuire ancora di più questo valore possiamo utilizzare un trimmer (una resistenza variabile che corregge le differenze di impedenza presenti tra i due amplificatori operazionali del primo stadio) presente sul circuito stampato in modo che $V_\text{offset}$ sia più prossimo possibile a zero.
-Per trovare invece $G_\text{CM}$ impostiamo $V_\text{non-inv}=V_\text{inv}\neq 0$ e raccogliamo una serie di coppie di valori $(V_\text{non-inv/inv},V_\text{out})$ realizzando un fit secondo la funzione $V_\text{out}=G_\text{CM}\cdot V+V_0$, dove $G_\text{CM}$ e $V_0$ sono i parametri. Dal fit otteniamo 
-\begin{align*}
+Per trovare invece $G_\text{CM}$ impostiamo $V_\text{non-inv}=V_\text{inv}\neq 0$ e raccogliamo una serie di coppie di valori $(V_\text{non-inv/inv},V_\text{out})$ realizzando un fit secondo la funzione $V_\text{out}=G_\text{CM}\cdot V+V_0$, dove $G_\text{CM}$ e $V_0$ sono i parametri. Dal fit (figura \ref{fig:GCM_plot}) otteniamo \begin{align*}
     G_\text{CM} &= \num{-1.12226(0.204461)e-2}\\
     V_0 &= \SI{4.52655(4.53222)e-3}{\volt}
 \end{align*}
+
 Notiamo che come ci aspettavamo $V_0$ è compatibile con zero.
-Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-inv}-V_\text{inv},V_\text{out})$ e, facendo un fit secondo la funzione $V_\text{out}=G_\text{diff}\cdot (V_\text{non-inv}-V_\text{inv})+V_0$, otteniamo 
-\begin{align*}
+Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-inv}-V_\text{inv},V_\text{out})$ e, facendo un fit (figura \ref{fig:Gdiff_plot}) secondo la funzione $V_\text{out}=G_\text{diff}\cdot (V_\text{non-inv}-V_\text{inv})+V_0$, otteniamo \begin{align*}
     G_\text{diff} &= \num{2.06551(0.244501)e2}\\
     V_0 &= \SI{-1.49456(0.866213)}{\volt}
 \end{align*}
@@ -199,9 +197,14 @@ Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle mis
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{G_CM.pdf}
-    \includegraphics[width=\linewidth]{G_diff.pdf}
-    \caption{Analisi del guadagno di modo comune (a) e del guadagno differenziale (b) dell'amplificatore operazionale per strumentazione.}
+    \subfloat[][]{\includegraphics[width=0.85\linewidth,trim={18.65cm 12.75cm 3.5cm 2.25cm},clip]{SCHEMA_full1.pdf}\label{fig:circuit_amp}}\\
+    \subfloat{\includegraphics[width=\linewidth]{G_CM.pdf}\label{fig:GCM_plot}}\\
+    \subfloat{\includegraphics[width=\linewidth]{G_diff.pdf}\label{fig:Gdiff_plot}}
+
+    \caption{
+        \ref{sub@fig:circuit_amp} Schema circuitale dell'amplificatore operazionale per strumentazione.
+        Analisi del guadagno di modo comune \ref{sub@fig:GCM_plot} e del guadagno differenziale \ref{sub@fig:Gdiff_plot} dell'amplificatore operazionale per strumentazione. 
+    }
 \end{figure}
 
 \setcounter{table}{0}
