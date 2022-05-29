@@ -28,6 +28,7 @@
 \input{../../style/preamble.tex}
 \usepackage{chemformula}
 \usepackage[caption=false]{subfig}
+\usepackage[vlined]{algorithm2e}
 \sisetup{
     % separate-uncertainty=true,
     % per-mode=symbol,
@@ -246,6 +247,64 @@ Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-i
 \end{align*}
 
 Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle misure delle resistenze risulta essere \num{2.09(.10)e2}, che osserviamo essere perfettamente compatibile con il valore che abbiamo ottenuto. 
+
+%|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+% \iffalse
+\section{Logica di controllo del setup sperimentale}\label{sec:control_logic}
+
+\begin{algorithm}
+    \DontPrintSemicolon
+    \SetKwArray{AVoh}{$V_\text{out}$}
+    \SetKwArray{AVol}{$V_\text{out}^{i=0}$}
+    \SetKwArray{AVgh}{$V_\text{gen}$}
+    \SetKwArray{AVgl}{$V_\text{gen}^{i=0}$}
+    \SetKw{SetMode}{set}
+    \SetKw{CreateMode}{create}
+    \SetKw{Waitfor}{wait for}
+    \SetKw{Inc}{increment}
+    \SetKw{Dec}{decrement}
+    \SetKwBlock{BRead}{read}{}
+    \KwData{analog pins Arduino MEGA 2650}
+    \KwResult{serial write $\to$ ROOT TFile with TTree structure}
+    \CreateMode TTree $\gets$ "dataBpos"\;
+    \SetMode $i_B=\SI{1.3}{\ampere}$\;
+    \For(){$M=12$ cycles \emph{over} $m$}{
+        \For(){$N=100$ cycles \emph{over} $n$}{
+            \SetMode $i<\SI{10}{\milli\ampere}$ using digital \SI{5}{\volt} output\;
+            \BRead{
+                \AVoh{n} $\gets$ op-amp out\;
+                \AVgh{n} $\gets$ digital \SI{5}{\volt} out\;
+            }
+            \SetMode $i=\SI{0}{\volt}$ (turn off digital out)\;
+            \BRead{
+                \AVol{n} $\gets$ op-amp out\;
+                \AVgl{n} $\gets$ digital \SI{5}{\volt} out\;
+            }
+            \KwOut{write data $\to$ TBranches}
+            \Inc $i=i+\SI{0.1}{\volt}$
+        }
+    }
+    \Waitfor{$\Delta t = \SI{45}{\second}$: invert $B$ field polarity}\;
+    \CreateMode TTree $\gets$ "dataBneg"\;
+    \For(){$M=12$ cycles \emph{over} $m$}{
+        \For(){$N=100$ cycles \emph{over} $n$}{
+            \SetMode $i<\SI{10}{\milli\ampere}$ using digital \SI{5}{\volt} output\;
+            \BRead{
+                \AVoh{n} $\gets$ op-amp out\;
+                \AVgh{n} $\gets$ digital \SI{5}{\volt} out\;
+            }
+            \SetMode $i=\SI{0}{\volt}$ (turn off digital out)\;
+            \BRead{
+                \AVol{n} $\gets$ op-amp out\;
+                \AVgl{n} $\gets$ digital \SI{5}{\volt} out\;
+            }
+            \KwOut{write data $\to$ TBranches}
+            \Dec $i=i+\SI{0.1}{\volt}$
+        }
+    }
+    \KwResult{ROOT TFile $\gets$ ("dataBpos", "dataBneg")}
+\end{algorithm}
+% \fi
 
 
 \setcounter{table}{0}
