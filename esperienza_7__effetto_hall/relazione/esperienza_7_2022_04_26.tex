@@ -138,6 +138,29 @@ Eseguendo una prima stima del valore di $V_H$ ci accorgiamo che però, dai valor
 Nell'analisi fatta sino a ora abbiamo descritto quali sono, a livello teorico e ideale, i fattori che influenzano la nostra misura. Tuttavia vi sono alcuni effetti, che possiamo definire reali, che possono derivare dalla non idealità degli strumenti che stiamo utilizzando. In particolare facendo un primo test ci possiamo accorgere che pur impostando la corrente fornita alla sonda a zero, misuriamo comunque la presenza di una tensione di Hall. Questo però può essere spiegato dal fatto che nonostante siamo arrivati a porre l'offset dell'amplificatore per strumentazione il più possibile vicino ad essere nullo, tutto il resto dell'apparato che stiamo utilizzando presenta degli offset anch'esso. Quindi è come se stessimo commettendo un errore sistematico che però possiamo comunque controllare inserendo nella nostra analisi dati la presenza di una certa $V_H^\text{offset}$. 
 
 Un problema più complicato da trattare deriva dal fatto che però anche se impostiamo $B$ a zero ($i_B=\SI{0}{\ampere}$, generatore spento), misuriamo ancora una $V_H$ diversa da zero. Ciò risulta appunto più difficile da spiegare perché se il campo magnetico è nullo dovrebbe essere allora nullo anche l'effetto Hall. Questo problema è lagato in particolare ad un difetto di costruzione della sonda. Infatti se la sonda è leggermente imprecisa nella costruzione, ovvero se i punti dove misuriamo $V_H$ non sono precisamente ortogonali alla direzione di $\vec{J}$ e della corrente, osserviamo che il campo elettrico che misuriamo attraverso $V_H$ è in realtà diverso da zero in assenza di un campo magnetico $B$, perché quindi avremo una lettura della corrente che attraversa il circuito. Però si può anche osservare che questo contributo si comporta come $B^2$ e vogliamo quindi sfruttare questo fatto per trovare in modo quantitativo quanto questa tensione che chiamiamo $V_\text{long}$ influisce effettivamente sulla nostra misura. 
+Possiamo quindi immaginare di scrivere la tensione che misuriamo come \begin{equation}
+    V_\text{read} = kB^2 +  GV_H + V_\text{offset} = kB^2 + G\frac{i}{wen}B + V_\text{offset}
+\end{equation}
+dove $kB^2$ rappresenta il contributo di $V_\text{long}$ e $GV_H$ la tensione di Hall amplificata.
+Questo comportamento come $B^2$ fa sì che, anche invertendo il verso del campo magnetico, il contributo di $V_\text{long}$ non cambi.
+Possiamo allora considerare due casi. 
+
+Nel primo caso sia $B=B^+>0$ (ovvero il caso per cui $\va{B} = B\vu{e}_2$), allora \begin{equation}
+    V_H^+ = kB^2 + G\frac{i}{wen}B^+ + V_\text{offset};\label{eq:VH+}
+\end{equation}
+
+Nel secondo caso sia $B=B^-<0$ (ovvero il caso per cui $\va{B} = -B\vu{e}_2$), allora \begin{equation}
+    V_H^- = kB^2 - G\frac{i}{wen}B^+ + V_\text{offset}.\label{eq:VH-}
+\end{equation}
+
+Notiamo allora che confrontando la (\ref{eq:VH+}) e la (\ref{eq:VH-}) otteniamo che (nell'ipotesi che le due tensioni di offset siano uguali\footnote{Non troviamo un valido motivo per cui le due tensioni di offset non dovrebbero esserlo in quanto non dipendendo teoricamente in alcun modo dal campo magnetico a cui è sottoposta la sonda.}) la differenza \begin{equation}
+    V_H^+ - V_H^- = 2\frac{GiB^+}{wen}
+\end{equation} ci permette di ottenere una misura di $V_H$ effettivamente libera dal termine in $B^2$, con anche il vantaggio di cancellare l'effetto di un offset sulla tensione.
+
+Allo stesso modo, confrontando di nuovo la (\ref{eq:VH+}) e la (\ref{eq:VH-}) troviamo che \begin{equation}
+    V_H^+ + V_H^-= 2\qty(V_\text{offset} + k\qty(B^+)^2).
+\end{equation}
+Tale relazione ci permette quindi di poter fare una misura quantitativa del valore di $k$ e perciò anche dell'effetto di $V_\text{long}$ sulla nostra misura. 
 
 
 \section{Verifica del segno dei portatori di carica}
