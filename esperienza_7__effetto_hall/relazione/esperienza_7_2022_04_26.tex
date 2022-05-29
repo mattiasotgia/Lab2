@@ -171,8 +171,36 @@ Tutto ciò rende quindi la presa dati più complicata in quanto dobbiamo dunque 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{plt_BB_VH.pdf}
-    \caption{Plot dei valori di tensione misurati amplificati ai capi della sonda rispetto al valore del campo magnetico generato dall'elettromagnete. Si può osservare il comportamento atteso per cui applicando un campo magnetico positivo o negativo, la tensione risulta essere positiva o negativa, coerentemente con la teoria.}\label{fig:plot_BB_VH}
+    \subfloat[][]{
+        \begin{tikzpicture}
+            \draw[black] (0,-.75) to (0,0) to (6,0) to (6,-.75);
+            \draw[black] (0,-2.25) to (0,-3) to (6,-3) to (6,-2.25);
+            \draw[black] (.5,-.75) to (.5,-.5) to (2.5,-.5) to (2.5,-2.5) to (0.5,-2.5) to (0.5,-2.25);
+            \draw[black] (5.5,-.75) to (5.5,-.5) to (3.5,-.5) to (3.5,-2.5) to (5.5,-2.5) to (5.5,-2.25);
+            \draw[dashed] (3,0) to (3,-3);
+            \draw[white!85!black, fill] (-.25,-.75) to (.75,-.75) to (.75,-2.25) to (-.25,-2.25) to (-.25,-.75);
+            \draw[dotted] (0,-.75) to (0,-2.25); \draw[dotted] (.5,-.75) to (.5,-2.25);
+            \draw[white!85!black, fill] (5.5-.25,-.75) to (5.5+.75,-.75) to (5.5+.75,-2.25) to (5.5-.25,-2.25) to (5.5-.25,-.75);
+            \draw[dotted] (5.5,-.75) to (5.5,-2.25); \draw[dotted] (6,-.75) to (6,-2.25);
+            \draw[-latex] (2,-1.5) to (2,-1) node[above] {$\vu{e}_2$};
+            \draw[-latex] (2,-1.5) to (2.3,-1.5) node[below] {$\vu{e}_3$};
+            \draw[-latex] (2,-1.5) to (2-.3,-1.5) node[left] {$\vu{e}_1$};
+            \draw[white,fill] (2.25,-1) to (3.75,-1) to (3.75,-1.25) to (2.25,-1.25);
+            \draw[black, dotted] (2.5,-1) to (3.5,-1) to (3.5,-1.25) to (2.5,-1.25) to (2.5,-1);
+            % \filldraw[white] (0, 0) circle (0.1) 
+            \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw ( .6,-\i) node[green!25!red] {\footnotesize$\otimes$};
+            \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (-.1,-\i) node[green!25!red] {\footnotesize$\odot$};
+            \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (6.1,-\i) node[green!25!red] {\footnotesize$\otimes$};
+            \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (5.4,-\i) node[green!25!red] {\footnotesize$\odot$};
+            \draw[-latex, blue!50!green] (.25,-2.2) to (.25,-1.3) node[above] {$\vec{H}$};
+            \draw[-latex, blue!50!green] (5.75,-2.2) to (5.75,-1.3) node[above] {$\vec{H}$};
+            \draw[-latex, blue!75!cyan] (2.75,-.5) to (2.75,-2) node[below] {$\vec{B}$};
+            \draw[-latex, blue!75!cyan] (3.25,-.5) to (3.25,-2) node[below] {$\vec{B}$};
+        \end{tikzpicture}
+        \label{fig:magnet_picture}
+    }\\
+    \subfloat[][]{\includegraphics[width=\linewidth]{plt_BB_VH.pdf}\label{fig:plot_BB_VH}}
+    \caption{\ref{sub@fig:magnet_picture} Schema dell'elettromagnete utilizzato per generare il campo magnetico $B$ (nell'esempio si vede la configurazione per ottenre $B^-$). \ref{sub@fig:plot_BB_VH} Plot dei valori di tensione misurati amplificati ai capi della sonda rispetto al valore del campo magnetico generato dall'elettromagnete. Si può osservare il comportamento atteso per cui applicando un campo magnetico positivo o negativo, la tensione risulta essere positiva o negativa, coerentemente con la teoria.}
 \end{figure}
 
 Abbiamo considerato fino ad ora i portatori di carica aventi la stessa carica dell'elettrone $e$, senza però compiere nessuna ipotesi sul segno dei portatori stessi. Questo dato può unicamente essere ricavato eseguendo correttamente delle considerazioni sull'orientamento nello spazio dei campi $\vec{B}$ e $\vec{J}$ e sull'orientamento di $E_H$ essendo misurato il potenziale $V_H$. Consideriamo sempre il sistema ortonormale della figura \ref{fig:sonda.rotated}, allora abbiamo che la corrente spinge i portatori di carica lungo la direzione positiva di $\hat{e}_1$. Il secondo fattore che entra in gioco è quindi il campo magnetico, ovvero il suo orientamento, nel determinare come sarà fatta la forza di Lorentz (\ref{eq:lorentz_F_m}). Questo orientamento possiamo ottenerlo conoscendo in quale verso scorre la corrente all'interno della bobina dell'elettromagnete. Osserviamo però che, nel caso in cui la corrente scorra in senso antiorario nelle bobine (viste dell'altro) allora il campo magnetico sarà diretto verso l'alto all'interno delle bobine e, per continuità, diretto verso il basso alll'interno del traferro. Siamo quindi nel caso per cui $B=B^-$, ovvero $\vec{B} = -B\hat{e}_2$. In questo caso allora la forza di Lorentz sarà quindi proporzionale a $-\hat{e}_3$. Ipotizzando che le nostre cariche siano negative, dovremmo osservare allora che aumentando il valore del campo magnetico il valore della tensione di Hall diventa mano a mano minore (dovremmo effettivamente osservare un valore della tensione negativo, che però per quanto detto in \ref{sec:vlong}). Viceversa se invece consideriamo la corrente che scorre nelle bobine diretta come $\vec{B}=B\hat{e}_2$ allora otterremmo che $\vec{F}_m \propto \hat{e}_3$, quindi osservando, sempre nell'ipotesi di cariche negative, una tensione lungo $\hat{e}_3$ positiva. Dai dati raccolti sperimentalmente osserviamo (figura \ref{fig:plot_BB_VH}) un comportamento coerente con quanto previsto teoricamente, quindi possiamo confermare che i portatori di carica presentano segno negativo, trattandosi quindi di elettroni. 
@@ -281,7 +309,7 @@ Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle mis
                 \AVgl{n} $\gets$ digital \SI{5}{\volt} out\;
             }
             \KwOut{write data $\to$ TBranches}
-            \Inc $i=i+\SI{0.1}{\volt}$
+            \Inc $i:=i+\SI{0.1}{\volt}$
         }
     }
     \Waitfor{$\Delta t = \SI{45}{\second}$: invert $B$ field polarity}\;
@@ -299,7 +327,7 @@ Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle mis
                 \AVgl{n} $\gets$ digital \SI{5}{\volt} out\;
             }
             \KwOut{write data $\to$ TBranches}
-            \Dec $i=i+\SI{0.1}{\volt}$
+            \Dec $i:=i-\SI{0.1}{\volt}$
         }
     }
     \KwResult{ROOT TFile $\gets$ ("dataBpos", "dataBneg")}
