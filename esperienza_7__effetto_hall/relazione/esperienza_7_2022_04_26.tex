@@ -140,7 +140,7 @@ Nell'analisi fatta sino a ora abbiamo descritto quali sono, a livello teorico e 
 
 Un problema più complicato da trattare deriva dal fatto che però anche se impostiamo $B$ a zero ($i_B=\SI{0}{\ampere}$, generatore spento), misuriamo ancora una $V_H$ diversa da zero. Ciò risulta appunto più difficile da spiegare perché se il campo magnetico è nullo dovrebbe essere allora nullo anche l'effetto Hall. Questo problema è lagato in particolare ad un difetto di costruzione della sonda. Infatti se la sonda è leggermente imprecisa nella costruzione, ovvero se i punti dove misuriamo $V_H$ non sono precisamente ortogonali alla direzione di $\vec{J}$ e della corrente, osserviamo che il campo elettrico che misuriamo attraverso $V_H$ è in realtà diverso da zero in assenza di un campo magnetico $B$, perché quindi avremo una lettura della corrente che attraversa il circuito. Però si può anche osservare che questo contributo si comporta come $B^2$ e vogliamo quindi sfruttare questo fatto per trovare in modo quantitativo quanto questa tensione che chiamiamo $V_\text{long}$ influisce effettivamente sulla nostra misura. 
 Possiamo quindi immaginare di scrivere la tensione che misuriamo come \begin{equation}
-    V_\text{read} = kB^2 +  GV_H + V_\text{offset} = kB^2 + G\frac{i}{wen}B + V_\text{offset}
+    V_\text{read} = kB^2 +  GV_H + V_\text{offset} = kB^2 + G\frac{i}{wen}B + V_\text{offset}\label{eq:full_fit}
 \end{equation}
 dove $kB^2$ rappresenta il contributo di $V_\text{long}$ e $GV_H$ la tensione di Hall amplificata.
 Questo comportamento come $B^2$ fa sì che, anche invertendo il verso del campo magnetico, il contributo di $V_\text{long}$ non cambi.
@@ -176,6 +176,15 @@ Tutto ciò rende quindi la presa dati più complicata in quanto dobbiamo dunque 
 
 Abbiamo considerato fino ad ora i portatori di carica aventi la stessa carica dell'elettrone $e$, senza però compiere nessuna ipotesi sul segno dei portatori stessi. Questo dato può unicamente essere ricavato eseguendo correttamente delle considerazioni sull'orientamento nello spazio dei campi $\vec{B}$ e $\vec{J}$ e sull'orientamento di $E_H$ essendo misurato il potenziale $V_H$. Consideriamo sempre il sistema ortonormale della figura \ref{fig:sonda.rotated}, allora abbiamo che la corrente spinge i portatori di carica lungo la direzione positiva di $\hat{e}_1$. Il secondo fattore che entra in gioco è quindi il campo magnetico, ovvero il suo orientamento, nel determinare come sarà fatta la forza di Lorentz (\ref{eq:lorentz_F_m}). Questo orientamento possiamo ottenerlo conoscendo in quale verso scorre la corrente all'interno della bobina dell'elettromagnete. Osserviamo però che, nel caso in cui la corrente scorra in senso antiorario nelle bobine (viste dell'altro) allora il campo magnetico sarà diretto verso l'alto all'interno delle bobine e, per continuità, diretto verso il basso alll'interno del traferro. Siamo quindi nel caso per cui $B=B^-$, ovvero $\vec{B} = -B\hat{e}_2$. In questo caso allora la forza di Lorentz sarà quindi proporzionale a $-\hat{e}_3$. Ipotizzando che le nostre cariche siano negative, dovremmo osservare allora che aumentando il valore del campo magnetico il valore della tensione di Hall diventa mano a mano minore (dovremmo effettivamente osservare un valore della tensione negativo, che però per quanto detto in \ref{sec:vlong}). Viceversa se invece consideriamo la corrente che scorre nelle bobine diretta come $\vec{B}=B\hat{e}_2$ allora otterremmo che $\vec{F}_m \propto \hat{e}_3$, quindi osservando, sempre nell'ipotesi di cariche negative, una tensione lungo $\hat{e}_3$ positiva. Dai dati raccolti sperimentalmente osserviamo (figura \ref{fig:plot_BB_VH}) un comportamento coerente con quanto previsto teoricamente, quindi possiamo confermare che i portatori di carica presentano segno negativo, trattandosi quindi di elettroni. 
 
+\section{Calcolo di $\mathbf\eta$ e conclusioni}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{plot_vb.pdf}
+    \caption{Dipendenza lineare della tensione di Hall (rappresentata con un guadagno di $g_\text{diff} = \num{2.07(24)e2}$) dal campo magnetico prodotto dall'elettromagnete. I valori di tensione sono ottenuti eliminando la componente quadratica, che viene isolata sotto (i dati per $V_\ell$ sono riscalati portando il valore più basso a zero). Possiamo infatti osservare un andamento quadratico della componente di background $V_\ell$ che permette quindi anche di stimare il parametro $k$.}\label{fig:plot_vb}
+\end{figure}
+
+Considerando una sonda di spessore $w=\SI{4.500(115)}{\micro\metre}$ sottoposta al campo magnetico generato dall'elettromagnete descritto sopra alimentato con correnti da \SI{0.2}{\tesla} a \SI{1.2}{\tesla}, possiamo allora ottenere una misura della tensione $V_{G,H}$ lungo $\hat{e}_3$ sul rivelatore. Se eliminiamo la componente quadratica $kB^2$ dalla relazione (\ref{eq:full_fit}), allora dall'eq. (\ref{eq:2}), considerando $V_{G,H} = V_{G,H}(B)$, possiamo ricavare, da un modello lineare, il coefficiente di proporzionalità $C$ che contiene al suo interno tutte le informazioni legate alle caratteristiche della sonda, della corrente $i$ e della densità di portatori $\eta$, oltre che dal guadagno dell'amplificatore. In figura \ref{fig:plot_vb} i dati sono rappresentati già in seguito all'eliminazione della componente quadratica $V_\ell$, che viene invece isolata nel grafico sottostante per mettere in evidenza l'andamento quadratico. 
 
 \begin{methods}{D\lowercase{ati completi e codice sorgente}}
     Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita attraverso diversi notebook (\url{https://jupyter.org/}) scritti in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}), matplotlib, numpy e altri framework pubblici per l'analisi dei dati e la loro visualizzazione (\url{https://matplotlib.org/}, \url{https://numpy.org/}). I dati sono raccolti su file ROOT organizzati in dataset tabulari. Sono utilizzate anche le librerie uproot e Awkward Array (\url{https://uproot.readthedocs.io/}, \url{https://awkward-array.org/}).
@@ -187,12 +196,6 @@ Abbiamo considerato fino ad ora i portatori di carica aventi la stessa carica de
 \appendix
 \section{Caratterizzazione del generatore di corrente}\label{sec:appendix_current_gen}
 
-In figura \ref{fig:circuito_gen_i} è riportato lo schema circuitale del generatore di corrente. Tale circuito è tale per cui data una differenza di potenziale fornita al circuito come $V^{-}-V^{+}$ si ha in uscita una corrente $i_\text{out}=\frac{R_2}{R_1}\cdot \frac{V^--V^+}{R_5}$. Siccome abbiamo previsto che la tensione che forniamo al circuito è pari a \SI{5}{\volt} e vogliamo che la corrente cha va alla sonda non superi \SI{10}{\milli\ampere} allora il fattore $G_g=\frac{R_2}{R_1}\cdot\frac{1}{R_5}$ dovrà essere minore di \SI{2}{\milli\ampere\per\volt}. Scegliamo quindi $R_{1}=R_{2}=\SI{1}{\kilo\ohm}$ e $R_{5}=\SI{500}{\ohm}$. Per verificare se effettivamente il fattore $G_g$ sia pari a $1/500$ possiamo raccogliere una serie di coppie valori di $i_\text{out}$ e $V^{-}-V^{+}$ e realizzare un fit (figura \ref{fig:gen_i_model}) secondo la funzione $i_\text{out}=G_g\cdot \qty(V^--V^+) + i_0$ dove scegliamo come parametri di fit $G_{g}$ e $i_0$. Otteniamo che \begin{align*}
-    G_g &=\SI{1.7242(300)}{\milli\ampere \per\volt}\\
-    i_0 &= \SI{0.0673(889)}{\ampere}.
-\end{align*} Il valore teorico di $G_g$ è \SI{1.783(124)}{\milli\ampere\per\volt} per cui troviamo che è compatibile con il valore ricavato dal fit e troviamo anche che il valore di $i_0$ è compatibile con zero, per cui possiamo dire che non c'è un offset sulla corrente che mandiamo alla sonda.
-Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--V^+$ e verificare che, cambiando il carico in uscita dal generatore, la corrente rimane sempre la stessa.
-
 \begin{figure}
     \centering
     \subfloat[][]{\includegraphics[width=0.85\linewidth,trim={1.8cm 13cm 20.35cm 2.5cm},clip]{SCHEMA_full1.pdf}\label{fig:circuito_gen_i}}\\
@@ -203,9 +206,29 @@ Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--
     }
 \end{figure}
 
+In figura \ref{fig:circuito_gen_i} è riportato lo schema circuitale del generatore di corrente. Tale circuito è tale per cui data una differenza di potenziale fornita al circuito come $V^{-}-V^{+}$ si ha in uscita una corrente $i_\text{out}=\frac{R_2}{R_1}\cdot \frac{V^--V^+}{R_5}$. Siccome abbiamo previsto che la tensione che forniamo al circuito è pari a \SI{5}{\volt} e vogliamo che la corrente cha va alla sonda non superi \SI{10}{\milli\ampere} allora il fattore $G_g=\frac{R_2}{R_1}\cdot\frac{1}{R_5}$ dovrà essere minore di \SI{2}{\milli\ampere\per\volt}. Scegliamo quindi $R_{1}=R_{2}=\SI{1}{\kilo\ohm}$ e $R_{5}=\SI{500}{\ohm}$. Per verificare se effettivamente il fattore $G_g$ sia pari a $1/500$ possiamo raccogliere una serie di coppie valori di $i_\text{out}$ e $V^{-}-V^{+}$ e realizzare un fit (figura \ref{fig:gen_i_model}) secondo la funzione $i_\text{out}=G_g\cdot \qty(V^--V^+) + i_0$ dove scegliamo come parametri di fit $G_{g}$ e $i_0$. Otteniamo che \begin{align*}
+    G_g &=\SI{1.7242(300)}{\milli\ampere \per\volt}\\
+    i_0 &= \SI{0.0673(889)}{\ampere}.
+\end{align*} Il valore teorico di $G_g$ è \SI{1.783(124)}{\milli\ampere\per\volt} per cui troviamo che è compatibile con il valore ricavato dal fit e troviamo anche che il valore di $i_0$ è compatibile con zero, per cui possiamo dire che non c'è un offset sulla corrente che mandiamo alla sonda.
+Un ulteriore test fatto è stato quello di mantenere costante il valore di $V^--V^+$ e verificare che, cambiando il carico in uscita dal generatore, la corrente rimane sempre la stessa.
+
+
 %|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 \section{Caratterizzazione dell'amplificatore operazionale per strumentazione}\label{sec:appendix_strum_opamp}
+
+\begin{figure}
+    \centering
+    \subfloat[][]{\includegraphics[width=0.85\linewidth,trim={18.65cm 12.75cm 3.5cm 2.25cm},clip]{SCHEMA_full1.pdf}\label{fig:circuit_amp}}\\
+    \subfloat{\includegraphics[width=\linewidth]{G_CM.pdf}\label{fig:GCM_plot}}\\
+    \subfloat{\includegraphics[width=\linewidth]{G_diff.pdf}\label{fig:Gdiff_plot}}
+
+    \caption{
+        \ref{sub@fig:circuit_amp} Schema circuitale dell'amplificatore operazionale per strumentazione.
+        Analisi del guadagno di modo comune \ref{sub@fig:GCM_plot} e del guadagno differenziale \ref{sub@fig:Gdiff_plot} dell'amplificatore operazionale per strumentazione. 
+    }
+\end{figure}
+
 In figura \ref{fig:circuit_amp} è riportato lo schema circuitale dell'amplificatore per strumentazione che  è caratterizzato da una funzione di trasferimento \begin{equation}
     V_\text{out} = G_\text{diff}\cdot \qty(V_\text{non-inv}-V_\text{inv}) +  G_\text{CM}\cdot V_\text{CM} + V_\text{offset} 
 \end{equation}
@@ -224,17 +247,6 @@ Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-i
 
 Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle misure delle resistenze risulta essere \num{2.09(.10)e2}, che osserviamo essere perfettamente compatibile con il valore che abbiamo ottenuto. 
 
-\begin{figure}
-    \centering
-    \subfloat[][]{\includegraphics[width=0.85\linewidth,trim={18.65cm 12.75cm 3.5cm 2.25cm},clip]{SCHEMA_full1.pdf}\label{fig:circuit_amp}}\\
-    \subfloat{\includegraphics[width=\linewidth]{G_CM.pdf}\label{fig:GCM_plot}}\\
-    \subfloat{\includegraphics[width=\linewidth]{G_diff.pdf}\label{fig:Gdiff_plot}}
-
-    \caption{
-        \ref{sub@fig:circuit_amp} Schema circuitale dell'amplificatore operazionale per strumentazione.
-        Analisi del guadagno di modo comune \ref{sub@fig:GCM_plot} e del guadagno differenziale \ref{sub@fig:Gdiff_plot} dell'amplificatore operazionale per strumentazione. 
-    }
-\end{figure}
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A-\Roman{table}}
