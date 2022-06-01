@@ -73,7 +73,7 @@
 
 \begin{abstract}
     L'effetto Hall si verifica quando delle cariche transitano attraverso una corrente $i$ che è perpendicolare ad un campo magnetico $B$, tali per cui si viene a creare una tensione lungo il terzo asse ortogonale. Questa tensione è direttamente proporzionale a $i$ e $B$, ed inversamente proporzionale alla carica dei portatori e alla loro densità volumica $\eta$.
-    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa sonda è inserita nel traferro di un circuito magnetico, dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è misurata direttamente sulla sonda, ottenendo quindi una stima della densità volumica di portatori $\eta=\SI{1.310(175)e+25}{\per\cubic\metre}$. Confrontando con precedenti osservazioni sperimentali (\ref{sec:computing_eta_and_conlusion}) troviamo che il risultato è superiore di circa un fattore 10 rispetto ad altri risultati.
+    Si vuole misurare la densità di portatori di carica di una sonda di bismuto \ch{^{83}Bi} realizzata per deposizione su film. Questa sonda è inserita nel traferro di un circuito magnetico, dove è sottoposta ad un campo $B_t$. La tensione $V_H$ è misurata direttamente sulla sonda, ottenendo quindi una stima della densità volumica di portatori $\eta=\SI{1.310(175)e+25}{\per\cubic\metre}$. Confrontando con precedenti osservazioni sperimentali (\ref{sec:computing_eta_and_conlusion}) troviamo che il risultato è superiore di circa un fattore 10 rispetto ad altri risultati, e con una significatività statistica oltre $5\sigma$.
 \end{abstract}
 
 
@@ -203,7 +203,7 @@ Tutto ciò rende quindi la presa dati più complicata in quanto dobbiamo dunque 
     \caption{\ref{sub@fig:magnet_picture} Schema dell'elettromagnete utilizzato per generare il campo magnetico $B$ (nell'esempio si vede la configurazione per ottenre $B^-$). \ref{sub@fig:plot_BB_VH} Plot dei valori di tensione misurati amplificati ai capi della sonda rispetto al valore del campo magnetico generato dall'elettromagnete. Si può osservare il comportamento atteso per cui applicando un campo magnetico positivo o negativo, la tensione risulta essere positiva o negativa, coerentemente con la teoria.}
 \end{figure}
 
-Abbiamo considerato fino ad ora i portatori di carica aventi la stessa carica dell'elettrone $e$, senza però compiere nessuna ipotesi sul segno dei portatori stessi. Questo dato può unicamente essere ricavato eseguendo correttamente delle considerazioni sull'orientamento nello spazio dei campi $\vec{B}$ e $\vec{J}$ e sull'orientamento di $E_H$ essendo misurato il potenziale $V_H$. Consideriamo sempre il sistema ortonormale della figura \ref{fig:sonda.rotated}, allora abbiamo che la corrente spinge i portatori di carica lungo la direzione positiva di $\hat{e}_1$. Il secondo fattore che entra in gioco è quindi il campo magnetico, ovvero il suo orientamento, nel determinare come sarà fatta la forza di Lorentz (\ref{eq:lorentz_F_m}). Questo orientamento possiamo ottenerlo conoscendo in quale verso scorre la corrente all'interno della bobina dell'elettromagnete. Osserviamo però che, nel caso in cui la corrente scorra in senso antiorario nelle bobine (viste dell'alto) allora il campo magnetico sarà diretto verso l'alto all'interno delle bobine e, per continuità, diretto verso il basso alll'interno del traferro. Siamo quindi nel caso per cui $B=B^-$, ovvero $\vec{B} = -B\hat{e}_2$. In questo caso allora la forza di Lorentz sarà quindi proporzionale a $-\hat{e}_3$. Ipotizzando che le nostre cariche siano negative, dovremmo osservare allora che aumentando il valore del campo magnetico il valore della tensione di Hall diventa mano a mano minore (dovremmo effettivamente osservare un valore della tensione negativo, che però \hl{per quanto detto in} \ref{sec:vlong}). Viceversa se invece consideriamo la corrente che scorre nelle bobine diretta come $\vec{B}=B\hat{e}_2$ allora otterremmo che $\vec{F}_m \propto \hat{e}_3$, quindi osservando, sempre nell'ipotesi di cariche negative, una tensione lungo $\hat{e}_3$ positiva. Dai dati raccolti sperimentalmente osserviamo (figura \ref{fig:plot_BB_VH}) un comportamento coerente con quanto previsto teoricamente, quindi possiamo confermare che i portatori di carica presentano segno negativo, trattandosi quindi di elettroni. 
+Abbiamo considerato fino ad ora i portatori di carica aventi la stessa carica dell'elettrone $e$, senza però compiere nessuna ipotesi sul segno dei portatori stessi. Questo dato può unicamente essere ricavato eseguendo correttamente delle considerazioni sull'orientamento nello spazio dei campi $\vec{B}$ e $\vec{J}$ e sull'orientamento di $E_H$ essendo misurato il potenziale $V_H$. Consideriamo sempre il sistema ortonormale della figura \ref{fig:sonda.rotated}, allora abbiamo che la corrente spinge i portatori di carica lungo la direzione positiva di $\hat{e}_1$. Il secondo fattore che entra in gioco è quindi il campo magnetico, ovvero il suo orientamento, nel determinare come sarà fatta la forza di Lorentz (\ref{eq:lorentz_F_m}). Questo orientamento possiamo ottenerlo conoscendo in quale verso scorre la corrente all'interno della bobina dell'elettromagnete. Osserviamo però che, nel caso in cui la corrente scorra in senso antiorario nelle bobine (viste dell'alto) allora il campo magnetico sarà diretto verso l'alto all'interno delle bobine e, per continuità, diretto verso il basso alll'interno del traferro. Siamo quindi nel caso per cui $B=B^-$, ovvero $\vec{B} = -B\hat{e}_2$. In questo caso allora la forza di Lorentz sarà quindi proporzionale a $-\hat{e}_3$. Ipotizzando che le nostre cariche siano negative, dovremmo osservare allora che aumentando il valore del campo magnetico il valore della tensione di Hall diventa mano a mano minore (dovremmo effettivamente osservare un valore della tensione negativo, che però, per quanto detto in \ref{sec:vlong}, non osserviamo, avendo una tensione longitudinale molto maggiore dell'effetto di Hall). Viceversa se invece consideriamo la corrente che scorre nelle bobine diretta come $\vec{B}=B\hat{e}_2$ allora otterremmo che $\vec{F}_m \propto \hat{e}_3$, quindi osservando, sempre nell'ipotesi di cariche negative, una tensione lungo $\hat{e}_3$ positiva. Dai dati raccolti sperimentalmente osserviamo (figura \ref{fig:plot_BB_VH}) un comportamento coerente con quanto previsto teoricamente, quindi possiamo confermare che i portatori di carica presentano segno negativo, trattandosi quindi di elettroni. 
 
 \section{Calcolo di $\mathbf\eta$ e conclusioni}\label{sec:computing_eta_and_conlusion}
 
@@ -271,16 +271,9 @@ In figura \ref{fig:circuit_amp} è riportato lo schema circuitale dell'amplifica
 \end{equation}
 La parte predominante di $V_\text{out}$ è data da $G_\text{diff}\qty(V_\text{non-inv}-V_\text{inv})$ dove $G_\text{diff}$, se $R_b=R_b'$, $R_c=R_c'$ e $R_d=R_d'$, è pari a $\frac{R_{d}}{R_{c}}\cdot \qty(1+2\cdot \frac{R_{b}}{R_{a}})$. Siccome vogliamo amplificare il segnale in uscita dalla sonda di circa 200 volte scegliamo resitenze da \SI{1}{\kilo\ohm} per $R_a$, $R_c$ e da \SI{10}{\kilo\ohm} per $R_b$ e $R_d$. Per caratterizzare l'amplificatore è necessario trovare quali sono gli effettivi valori di $V_\text{offset}$, $G_\text{CM}$ e $G_\text{diff}$. 
 Per trovare $V_\text{offset}$ fissiamo $V_\text{non-inv}=V_\text{inv}=0$ e osserviamo che il valore misurato è nell'ordine dei \si{\milli\volt}. Per far diminuire ancora di più questo valore possiamo utilizzare un trimmer (una resistenza variabile che corregge le differenze di impedenza presenti tra i due amplificatori operazionali del primo stadio) presente sul circuito stampato in modo che $V_\text{offset}$ sia più prossimo possibile a zero.
-Per trovare invece $G_\text{CM}$ impostiamo $V_\text{non-inv}=V_\text{inv}\neq 0$ e raccogliamo una serie di coppie di valori $(V_\text{non-inv/inv},V_\text{out})$ realizzando un fit secondo la funzione $V_\text{out}=G_\text{CM}\cdot V+V_0$, dove $G_\text{CM}$ e $V_0$ sono i parametri. Dal fit (figura \ref{fig:GCM_plot}) otteniamo \begin{align*}
-    G_\text{CM} &= \num{-1.12226(0.204461)e-2}\\
-    V_0 &= \SI{4.52655(4.53222)e-3}{\volt}
-\end{align*}
+Per trovare invece $G_\text{CM}$ impostiamo $V_\text{non-inv}=V_\text{inv}\neq 0$ e raccogliamo una serie di coppie di valori $(V_\text{non-inv/inv},V_\text{out})$ realizzando un fit secondo la funzione $V_\text{out}=G_\text{CM}\cdot V+V_0$, dove $G_\text{CM}$ e $V_0$ sono i parametri. Dal fit (figura \ref{fig:GCM_plot}) otteniamo $G_\text{CM} = \num{-1.12226(0.204461)e-2}$ e $V_0 = \SI{4.52655(4.53222)e-3}{\volt}$. Notiamo che come ci aspettavamo $V_0$ è compatibile con zero.
 
-Notiamo che come ci aspettavamo $V_0$ è compatibile con zero.
-Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-inv}-V_\text{inv},V_\text{out})$ e, facendo un fit (figura \ref{fig:Gdiff_plot}) secondo la funzione $V_\text{out}=G_\text{diff}\cdot (V_\text{non-inv}-V_\text{inv})+V_0$, otteniamo \begin{align*}
-    G_\text{diff} &= \num{2.06551(0.244501)e2}\\
-    V_0 &= \SI{-1.49456(0.866213)}{\volt}
-\end{align*}
+Per trovare $G_\text{diff}$  raccogliamo alcune coppie di valori $(V_\text{non-inv}-V_\text{inv},V_\text{out})$ e, facendo un fit (figura \ref{fig:Gdiff_plot}) secondo la funzione $V_\text{out}=G_\text{diff}\cdot (V_\text{non-inv}-V_\text{inv})+V_0$, otteniamo $G_\text{diff} = \num{2.06551(0.244501)e2}$ e $V_0 = \SI{-1.49456(0.866213)}{\volt}$.
 
 Il valore teorico di $G_\text{diff}$ ottenuto dai valori di progetto e dalle misure delle resistenze risulta essere \num{2.09(.10)e2}, che osserviamo essere perfettamente compatibile con il valore che abbiamo ottenuto. 
 
@@ -353,17 +346,17 @@ Riportiamo  in nell'algoritmo \ref{alg:logic} la logica di controllo del micro-c
         }
     }
     \KwResult{ROOT TFile $\gets$ ("dataBpos", "dataBneg")}
-    \vspace{0.5cm}
+    \vspace{0.25cm}
     \caption[]{Logica di controllo del setup sperimentale.}\label{alg:logic}
 \end{algorithm}
 % \fi
 
-%\bibliographystyle{plain}
-\bibliography{references/IOP.shortcomm.CODATA2017, references/10.2307_2369245, references/results.bib}
 
-\begin{methods}{D\lowercase{ati completi e codice sorgente}}
-    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono visualizzabili su \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita attraverso diversi notebook (\url{https://jupyter.org/}) scritti in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern/}), matplotlib, numpy e altri framework pubblici per l'analisi dei dati e la loro visualizzazione (\url{https://matplotlib.org/}, \url{https://numpy.org/}). I dati sono raccolti su file ROOT organizzati in dataset tabulari. Sono utilizzate anche le librerie uproot e Awkward Array (\url{https://uproot.readthedocs.io/}, \url{https://awkward-array.org/}).
-\end{methods}
+\bibliography{references/IOP.shortcomm.CODATA2017, references/10.2307_2369245, references/results.bib, references/software.bib}
+
+\begin{code}
+    Tutti i dati completi a supporto dei grafici, e il relativo codice, sono consultabili \url{https://github.com/mattiasotgia/Lab2}. L'analisi dati viene eseguita attraverso diversi notebook (\url{https://jupyter.org}) scritti in C++/python basandosi su framework pubblici: ROOT, per la realizzazione dei grafici e il fit dei modelli (\url{https://root.cern}), matplotlib, numpy, framework pubblici per l'analisi dei dati e la loro visualizzazione \cite{Harris:2020ti,Hunter:2007,rene_brun_2019_3895860}. I dati sono raccolti su file ROOT organizzati in dataset tabulari. Sono utilizzate anche le librerie uproot e Awkward Array \cite{pivarski_jim_2018_6522027,jim_pivarski_2022_6540484}.
+\end{code}
 
 \end{document}
     
