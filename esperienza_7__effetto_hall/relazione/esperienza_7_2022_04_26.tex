@@ -24,11 +24,13 @@
     amssymb, 
     a4paper,
     varvw]{revtex4-2}
-
+    
 \input{../../style/preamble.tex}
 \usepackage{chemformula}
 \usepackage[caption=false]{subfig}
 \usepackage[vlined]{algorithm2e}
+
+
 \sisetup{
     % separate-uncertainty=true,
     % per-mode=symbol,
@@ -192,13 +194,13 @@ Tutto ciò rende quindi la presa dati più complicata in quanto dobbiamo dunque 
             \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (-.1,-\i) node[green!25!red] {\footnotesize$\odot$};
             \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (6.1,-\i) node[green!25!red] {\footnotesize$\otimes$};
             \foreach \i in {1.05, 1.35, 1.65, 1.95} \draw (5.4,-\i) node[green!25!red] {\footnotesize$\odot$};
-            \draw[-latex, blue!50!green] (.25,-2.2) to (.25,-1.3) node[above] {$\vec{H}$};
-            \draw[-latex, blue!50!green] (5.75,-2.2) to (5.75,-1.3) node[above] {$\vec{H}$};
-            \draw[-latex, blue!75!cyan] (2.75,-.5) to (2.75,-2) node[below] {$\vec{B}$};
-            \draw[-latex, blue!75!cyan] (3.25,-.5) to (3.25,-2) node[below] {$\vec{B}$};
+            \draw[-latex, blue!50!green] (.25,-2.2) to (.25,-1.3) node[above] {$\mathsf{H}$};
+            \draw[-latex, blue!50!green] (5.75,-2.2) to (5.75,-1.3) node[above] {$\mathsf{H}$};
+            \draw[-latex, blue!75!cyan] (2.75,-.5) to (2.75,-2) node[below] {$\mathsf{B}$};
+            \draw[-latex, blue!75!cyan] (3.25,-.5) to (3.25,-2) node[below] {$\mathsf{B}$};
         \end{tikzpicture}
         \label{fig:magnet_picture}
-    }\\
+    }\\\vspace{-0.5cm}
     \subfloat[][]{\includegraphics[width=\linewidth]{plt_BB_VH.pdf}\label{fig:plot_BB_VH}}
     \caption{\ref{sub@fig:magnet_picture} Schema dell'elettromagnete utilizzato per generare il campo magnetico $B$ (nell'esempio si vede la configurazione per ottenre $B^-$). \ref{sub@fig:plot_BB_VH} Plot dei valori di tensione misurati amplificati ai capi della sonda rispetto al valore del campo magnetico generato dall'elettromagnete. Si può osservare il comportamento atteso per cui applicando un campo magnetico positivo o negativo, la tensione risulta essere positiva o negativa, coerentemente con la teoria.}
 \end{figure}
