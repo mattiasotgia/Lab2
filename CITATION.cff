@@ -1,0 +1,22 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Laboratorio 2/Data
+message: 'Data/analysis repository for Y2 lab. '
+type: dataset
+authors:
+  - given-names: Mattia
+    family-names: Sotgia
+    email: s4942225@studenti.unige.it
+    affiliation: >-
+      Dipartimento di Fisica, Università degli studi
+      di Genova
+  - given-names: Francesco
+    family-names: Polleri
+    email: s5025011@studenti.unige.it
+    affiliation: >-
+      Dipartimento di Fisica, Università degli studi
+      di Genova
+repository-code: 'https://github.com/mattiasotgia/Lab2'
+license: MIT
